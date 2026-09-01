@@ -367,9 +367,7 @@ fn file_goldens() {
 
     let mut failures = Vec::new();
     for sim in &sims {
-        let text = fs::read_to_string(sim)
-            .unwrap()
-            .replace('\r', "");
+        let text = fs::read_to_string(sim).unwrap().replace('\r', "");
         let file = SourceFile {
             name: sim.file_name().unwrap().to_string_lossy().into_owned(),
             text,

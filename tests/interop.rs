@@ -579,6 +579,10 @@ fn host_cc() -> Option<&'static str> {
     })
 }
 
+fn native_stdout_text(stdout: &[u8]) -> String {
+    String::from_utf8_lossy(stdout).replace("\r\n", "\n")
+}
+
 fn temp_path(tag: &str, ext: &str) -> PathBuf {
     let id = COUNTER.fetch_add(1, Ordering::Relaxed);
     let mut path = std::env::temp_dir().join(format!("sim-interop-{tag}-{id}"));
@@ -679,7 +683,7 @@ void greet(const uint8_t *p, int64_t n) {
                 "c greet failed: {}",
                 String::from_utf8_lossy(&result.stderr)
             );
-            assert_eq!(String::from_utf8_lossy(&result.stdout), "hi\n");
+            assert_eq!(native_stdout_text(&result.stdout), "hi\n");
         }
         Ok(other) => {
             let _ = std::fs::remove_file(&object);
@@ -796,7 +800,7 @@ void greet(const uint8_t *p, int64_t n) {
                 "c utf8 greet failed: {}",
                 String::from_utf8_lossy(&result.stderr)
             );
-            assert_eq!(result.stdout, b"\xC3\xA9\n");
+            assert_eq!(native_stdout_text(&result.stdout).as_bytes(), b"\xC3\xA9\n");
         }
         Ok(other) => {
             let _ = std::fs::remove_file(&object);
@@ -853,6 +857,10 @@ const uint8_t *echo(const uint8_t *p, int64_t n, int64_t *out_len) {
 
 #[test]
 fn native_c_calls_exported_sim_add() {
+    if cfg!(windows) {
+        // MinGW `cc` cannot link MSVC-produced DLLs from `sim compile`.
+        return;
+    }
     let lib = temp_path(
         "libadd",
         if cfg!(target_os = "macos") {
@@ -915,6 +923,9 @@ int main(void) {
 
 #[test]
 fn native_export_identification_uses_exact_symbol() {
+    if cfg!(windows) {
+        return;
+    }
     let lib = temp_path(
         "libplus",
         if cfg!(target_os = "macos") {
@@ -1035,6 +1046,9 @@ end;
 
 #[test]
 fn native_instantiate_host_table_and_call() {
+    if cfg!(windows) {
+        return;
+    }
     let lib = temp_path(
         "libhost",
         if cfg!(target_os = "macos") {
