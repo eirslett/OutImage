@@ -23,12 +23,21 @@ jobs:
       - name: Clippy
         if: matrix.os == 'ubuntu-latest'
         run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+        env:
+          # rust-lld SIGBUS on GitHub Ubuntu when many debug test bins link at once.
+          RUSTFLAGS: "-C linker-features=-lld"
+          CARGO_BUILD_JOBS: "2"
       - name: Build
         run: cargo build --all-targets
+        env:
+          RUSTFLAGS: ${{ runner.os == 'Linux' && '-C linker-features=-lld' || '' }}
+          CARGO_BUILD_JOBS: ${{ runner.os == 'Linux' && '2' || '16' }}
       - name: Test
         run: cargo test
         env:
           CC: ${{ runner.os == 'Windows' && 'cl' || 'cc' }}
+          RUSTFLAGS: ${{ runner.os == 'Linux' && '-C linker-features=-lld' || '' }}
+          CARGO_BUILD_JOBS: ${{ runner.os == 'Linux' && '2' || '16' }}
         # Includes the GC stress suite: tests/gc_stress.rs,
         # tests/memory_gc.rs, tests/runtime_gc.rs. C fixtures compile with
         # ASan+UBSan on Unix. TestBatch stays the 100/100 correctness gate.

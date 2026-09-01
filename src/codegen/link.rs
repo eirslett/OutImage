@@ -97,6 +97,7 @@ pub fn link_native(
                 object_path,
                 &runtime,
                 output_path,
+                debug_info,
                 crate_type,
                 extra,
             )?;
@@ -378,6 +379,7 @@ fn apply_windows_link_args(
     object_path: &Path,
     runtime: &Path,
     output_path: &Path,
+    debug_info: bool,
     crate_type: CrateType,
     extra: &ExtraLink,
 ) -> Result<(), CompileError> {
@@ -393,9 +395,11 @@ fn apply_windows_link_args(
     // runtime archive pull kernel32 / UCRT once LIB is set.
     command.arg("/DEFAULTLIB:libcmt");
     command.arg("/DEFAULTLIB:oldnames");
-    // Cranelift emits DWARF, not CodeView. MSVC `link.exe` has no
-    // `/DEBUG:DWARF` (that's lld-link) and treats it as LNK1146. Leave the
-    // flag off; `.sim-map` / Source Map v3 are written beside the binary.
+    // Cranelift DWARF uses 32-bit section-relative relocs. MSVC `link.exe`
+    // rejects those in a LARGEADDRESSAWARE image (LNK2017 / LNK1165).
+    if debug_info {
+        command.arg("/LARGEADDRESSAWARE:NO");
+    }
 
     if let Ok(lib) = std::env::var("LIB") {
         for path in std::env::split_paths(&lib) {

@@ -9,3 +9,8 @@ browser-interp = "run -p outimage-browser-interp --example pack --release"
 # slightly, which was enough to overflow the default 2MiB test-thread stack
 # on the largest fixtures (e.g. `dbdump.sim`). Give test threads more room.
 RUST_MIN_STACK = "67108864"
+
+# rust-lld on GitHub's Ubuntu runners SIGBUS while mmap-writing many large
+# debug test binaries in parallel. GNU ld is slower but stays within RAM.
+[target.x86_64-unknown-linux-gnu]
+rustflags = ["-C", "linker-features=-lld"]
