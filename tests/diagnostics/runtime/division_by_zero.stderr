@@ -1,0 +1,9 @@
+[E0905] Error: DIVISION BY ZERO: integer division by zero
+   ╭─[ division_by_zero.sim:1:23 ]
+   │
+ 1 │ begin integer x; x := 1 // 0; OutInt(x, 1); OutImage; end;
+   │                       ───┬──  
+   │                          ╰──── here
+   │ 
+   │ Help: test that the divisor is not 0 before dividing
+───╯

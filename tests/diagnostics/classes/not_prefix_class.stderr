@@ -1,0 +1,9 @@
+[E0408] Error: NOT A PREFIX: `A` is not a prefix class of `B`
+   ╭─[ not_prefix_class.sim:6:6 ]
+   │
+ 6 │ p :- this A;
+   │      ───┬──  
+   │         ╰──── here
+   │ 
+   │ Help: `this`, `qua`, `is`, and `in` need a class on the object's prefix chain
+───╯

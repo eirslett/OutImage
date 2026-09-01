@@ -1,0 +1,6 @@
+! §5.8.8: text constant declarations with strict type correspondence.;
+begin
+    text msg = "hello";
+    OutText(msg);
+    OutImage;
+end

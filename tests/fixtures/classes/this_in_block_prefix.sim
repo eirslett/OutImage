@@ -1,0 +1,9 @@
+! §5.5.1.6: `this` in block prefix is illegal.;
+begin
+    this Point begin
+        outimage;
+    end;
+    class Point;
+    begin
+    end;
+end

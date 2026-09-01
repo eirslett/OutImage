@@ -1,0 +1,7 @@
+! §5.8.9: arithmetic type conversion in constant initializers (§4.1.1).;
+begin
+    integer n = 3.14;
+    real r = n;
+    if n = 3 then OutText("ok") else OutText("bad");
+    OutImage;
+end

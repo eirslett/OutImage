@@ -1,0 +1,7 @@
+! §1.8.1: text after `end` is comment — a trailing word after the identifier
+! keeps the whole run comment text, so no block name is bound.;
+begin
+    integer x;
+    x := 1;
+end myblock
+szdf

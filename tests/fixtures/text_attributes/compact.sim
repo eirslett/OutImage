@@ -1,0 +1,20 @@
+begin
+    procedure compact(T); text T;
+    begin
+        text U;
+        character c;
+        T.setpos(1);
+        U :- T;
+        while U.more do begin
+            c := U.getchar;
+            if c <> ' ' then T.putchar(c)
+        end;
+        while T.more do T.putchar(' ')
+    end;
+
+    text t;
+    t :- copy("a b c  ");
+    compact(t);
+    if t = "abc    " then OutText("ok") else OutText("fail");
+    OutImage;
+end

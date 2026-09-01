@@ -1,0 +1,130 @@
+// SYNTAX TEST "source.simula" "simtst59"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 59
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test virtual label in external class.
+// <----------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  EXTERNAL CLASS: C59 - has to be compiled first.
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   04/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   external class c59 ;
+// ^^^^^^^^ keyword.other.external
+//          ^^^^^ keyword.other.class
+//                ^^^ entity.name.class
+//                    ^ punctuation.terminator.statement
+
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 59") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test virtual label in external class.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   c59 begin
+// ^^^ entity.name.class
+//     ^^^^^ keyword.control.begin
+      i := 3 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+   L :
+// ^ entity.name.label
+//   ^ punctuation.separator
+      if i <> 1 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+//              ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Value of i : ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+         Outint (i, 4) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 59") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

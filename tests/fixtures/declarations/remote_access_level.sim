@@ -1,0 +1,17 @@
+! §5.5.6.5-6 remote access via qua with identifier substitution on name conflict;
+begin
+    class Point(x); integer x;
+    begin
+    end;
+    Point class Polar(r); integer x; real r;
+    begin
+        x := 5;
+    end;
+    ref(Polar) p;
+    integer outer, atPoint;
+    p :- new Polar(10, 0.0);
+    outer := p.x;
+    atPoint := (p qua Point).x;
+    if outer = 5 and atPoint = 10 then OutText("ok");
+    OutImage;
+end

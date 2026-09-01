@@ -1,0 +1,705 @@
+// SYNTAX TEST "source.simula" "simtst14"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   SIMULA A/S - SIMULA TEST NO 14
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     To test the text attributes pos, setpos, more, getchar and
+// <-------------------------------------------------------------------------- comment.directive
+%               putchar.
+// <------------------------ comment.directive
+%
+// <- comment.directive
+%  METHOD:      Try and fail.
+// <----------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   11/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   text t1, t2;
+// ^^^^ storage.type
+//      ^^ variable
+//        ^ punctuation.separator
+//          ^^ variable
+//            ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 14");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext ("--- Test the text attributes pos, setpos, more,");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext ("--- getchar and putchar.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+   Outimage; Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+   if t1.pos = 1 then
+// ^^ keyword.control.if
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^^^ variable
+//           ^ keyword.operator.comparison
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+        Outtext ("*** ERROR : Text attributes (1).");
+//      ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+        Outimage;
+//      ^^^^^^^^ variable
+//              ^ punctuation.terminator.statement
+        Outtext ("            Erroneus values :");
+//      ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+        Outtext ("            ");
+//      ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+        Outint (t1.start, 3);
+//      ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+        Outint (t1.length, 3);
+//      ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^ variable
+//                       ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+        Outint (t1.pos, 3);
+//      ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+        Outtext (if t1.more then " true" else " false");
+//      ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ keyword.control.if
+//                  ^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^ variable
+//                          ^^^^ keyword.control.then
+//                               ^^^^^^^ string.quoted.double
+//                                       ^^^^ keyword.control.else
+//                                            ^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+        Outimage; outimage;
+//      ^^^^^^^^ variable
+//              ^ punctuation.terminator.statement
+//                ^^^^^^^^ variable
+//                        ^ punctuation.terminator.statement
+        found_error := true
+//      ^^^^^^^^^^^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   t1 :- copy("abcd");
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^ string.quoted.double
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+   t1.setpos (3);
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+
+   if     t1.more
+// ^^ keyword.control.if
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^ variable
+      and t1.pos = 3
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^ variable
+//               ^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+      and t1.getchar = 'c' and t1.pos = 4 and t1.more
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^^ variable
+//                   ^ keyword.operator.comparison
+//                     ^^^ constant.character
+//                         ^^^ keyword.operator
+//                             ^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^ variable
+//                                    ^ keyword.operator.comparison
+//                                      ^ constant.numeric.decimal
+//                                        ^^^ keyword.operator
+//                                            ^^ variable
+//                                              ^ punctuation.accessor
+//                                               ^^^^ variable
+      and t1.getchar = 'd' and t1.pos = 5 and not t1.more then
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^^ variable
+//                   ^ keyword.operator.comparison
+//                     ^^^ constant.character
+//                         ^^^ keyword.operator
+//                             ^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^ variable
+//                                    ^ keyword.operator.comparison
+//                                      ^ constant.numeric.decimal
+//                                        ^^^ keyword.operator
+//                                            ^^^ keyword.operator
+//                                                ^^ variable
+//                                                  ^ punctuation.accessor
+//                                                   ^^^^ variable
+//                                                        ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text attributes (2).");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outtext ("            ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      Outint (t1.start, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      Outint (t1.length, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^^ variable
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+      Outint (t1.pos, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outtext (if t1.more then " true" else " false");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^ variable
+//                        ^^^^ keyword.control.then
+//                             ^^^^^^^ string.quoted.double
+//                                     ^^^^ keyword.control.else
+//                                          ^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outimage; outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   t1.setpos (2);
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   t1.putchar ('2');
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ constant.character
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+   t2 :- t1;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^ variable
+//         ^ punctuation.terminator.statement
+
+   if     t1 = "a2cd"
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^^^^^ string.quoted.double
+      and t1.pos = 3
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^ variable
+//               ^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+      and t2.pos = 3
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^ variable
+//               ^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+      and t2.more then
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^ variable
+//                ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text attributes (3).");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outtext ("            ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      Outint (t1.start, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      Outint (t1.length, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^^ variable
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+      Outint (t1.pos, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outtext (if t1.more then " true" else " false");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^ variable
+//                        ^^^^ keyword.control.then
+//                             ^^^^^^^ string.quoted.double
+//                                     ^^^^ keyword.control.else
+//                                          ^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outimage; outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outtext ("            ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      Outint (t2.start, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      Outint (t2.length, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^^ variable
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+      Outint (t2.pos, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outtext (if t2.more then " true" else " false");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^ variable
+//                        ^^^^ keyword.control.then
+//                             ^^^^^^^ string.quoted.double
+//                                     ^^^^ keyword.control.else
+//                                          ^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outimage; outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   t2.setpos (2);
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+
+   if     t2.more
+// ^^ keyword.control.if
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^ variable
+      and t2.getchar = '2' and t2.pos = 3 and t2.more
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^^ variable
+//                   ^ keyword.operator.comparison
+//                     ^^^ constant.character
+//                         ^^^ keyword.operator
+//                             ^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^ variable
+//                                    ^ keyword.operator.comparison
+//                                      ^ constant.numeric.decimal
+//                                        ^^^ keyword.operator
+//                                            ^^ variable
+//                                              ^ punctuation.accessor
+//                                               ^^^^ variable
+      and t1.pos = 3
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^ variable
+//               ^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+      and t1 == t2 then
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+//                 ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text attributes (4).");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outtext ("            ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      Outint (t1.start, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      Outint (t1.length, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^^ variable
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+      Outint (t1.pos, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outtext (if t1.more then " true" else " false");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^ variable
+//                        ^^^^ keyword.control.then
+//                             ^^^^^^^ string.quoted.double
+//                                     ^^^^ keyword.control.else
+//                                          ^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outimage; outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outtext ("            ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      Outint (t2.start, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      Outint (t2.length, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^^ variable
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+      Outint (t2.pos, 3);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outtext (if t2.more then " true" else " false");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^ variable
+//                        ^^^^ keyword.control.then
+//                             ^^^^^^^ string.quoted.double
+//                                     ^^^^ keyword.control.else
+//                                          ^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outimage; outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 14");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

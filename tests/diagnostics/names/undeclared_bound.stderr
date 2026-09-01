@@ -1,0 +1,11 @@
+[E0301] Error: UNKNOWN NAME: I cannot find a declaration for `n`
+   ╭─[ undeclared_bound.sim:1:25 ]
+   │
+ 1 │ begin integer array a(1:n); end;
+   │                         ┬  
+   │                         ╰── this name
+   │ 
+   │ Help: declare it in an enclosing block, or pass it as a parameter
+   │ 
+   │ Note: names are matched without regard to case
+───╯

@@ -1,0 +1,2394 @@
+// SYNTAX TEST "source.simula" "simtst65"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 65
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test parameter transmission by reference to classes.
+// <-------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  REWRITTEN BY:  BEH   07/08-86
+// <-------------------------------- comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Text array lines, facit (1:50) ;
+// ^^^^ storage.type
+//      ^^^^^ storage.type
+//            ^^^^^ variable
+//                 ^ punctuation.separator
+//                   ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+   Integer lnr ;
+// ^^^^^^^ storage.type
+//         ^^^ variable
+//             ^ punctuation.terminator.statement
+
+   Procedure SaveLine ;
+// ^^^^^^^^^ storage.type
+//           ^^^^^^^^ entity.name.function
+//                    ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      lnr := lnr + 1 ;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^^ variable
+//               ^ keyword.operator.arithmetic
+//                 ^ constant.numeric.decimal
+//                   ^ punctuation.terminator.statement
+      lines (lnr) :- copy (sysout.image.strip) ;
+//    ^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^^^ variable
+//                                     ^ punctuation.accessor
+//                                      ^^^^^ variable
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      sysout.image.setpos (1) ;
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      sysout.image := notext
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^^ constant.language.null
+   END pros. saveline ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^ comment.block
+//                    ^ punctuation.terminator.statement
+
+
+   procedure Checklines (n, enr) ;
+// ^^^^^^^^^ storage.type
+//           ^^^^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable.parameter
+//                        ^ punctuation.separator
+//                          ^^^ variable.parameter
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      integer n, enr ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.separator
+//               ^^^ variable
+//                   ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      Boolean OK ;
+//    ^^^^^^^ storage.type
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+      integer i ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+
+      OK := true ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.language.bool
+//               ^ punctuation.terminator.statement
+
+      for i := 1 step 1 until n do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^ variable
+//                              ^^ keyword.control.do
+      if facit (i) <> lines (i) then OK := false ;
+//    ^^ keyword.control.if
+//       ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.section.parens
+//                 ^^ keyword.operator.comparison
+//                    ^^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.section.parens
+//                              ^^^^ keyword.control.then
+//                                   ^^ variable
+//                                      ^^ keyword.operator.assignment
+//                                         ^^^^^ constant.language.bool
+//                                               ^ punctuation.terminator.statement
+
+      if not OK then
+//    ^^ keyword.control.if
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Value of attributes (") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+         Outint (enr, if enr < 10 then 1 else 2) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^^ keyword.control.if
+//                       ^^^ variable
+//                           ^ keyword.operator.comparison
+//                             ^^ constant.numeric.decimal
+//                                ^^^^ keyword.control.then
+//                                     ^ constant.numeric.decimal
+//                                       ^^^^ keyword.control.else
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outtext (").") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values : ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         for i := 1 step 1 until n do
+//       ^^^ keyword.control.for
+//           ^ variable
+//             ^^ keyword.operator.assignment
+//                ^ constant.numeric.decimal
+//                  ^^^^ keyword.control.step
+//                       ^ constant.numeric.decimal
+//                         ^^^^^ keyword.control.until
+//                               ^ variable
+//                                 ^^ keyword.control.do
+         begin
+//       ^^^^^ keyword.control.begin
+            Outtext ("            ") ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+            Outchar ('"') ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^ constant.character
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+            Outtext (lines (i)) ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ variable
+//                           ^^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+            Outchar ('"') ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^ constant.character
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+            Outimage ;
+//          ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+         end ;
+//       ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+   end pros. checklines ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^^^ comment.block
+//                      ^ punctuation.terminator.statement
+
+   procedure ClearLines ;
+// ^^^^^^^^^ storage.type
+//           ^^^^^^^^^^ entity.name.function
+//                      ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      integer i ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+
+      for i := 1 step 1 until 20 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^^ constant.numeric.decimal
+//                               ^^ keyword.control.do
+         facit (i) :- lines (i) :- notext ;
+//       ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.section.parens
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.section.parens
+//                              ^^ keyword.operator.assignment
+//                                 ^^^^^^ constant.language.null
+//                                        ^ punctuation.terminator.statement
+
+      lnr := 0 ;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+   end  pros. clearlines ;
+// ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^ comment.block
+//                       ^ punctuation.terminator.statement
+
+
+   Class Q (ra, rb, t, ra1, rb1, b1, c1, i1, r1, t1) ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.section.parens
+//          ^^ variable.parameter
+//            ^ punctuation.separator
+//              ^^ variable.parameter
+//                ^ punctuation.separator
+//                  ^ variable.parameter
+//                   ^ punctuation.separator
+//                     ^^^ variable.parameter
+//                        ^ punctuation.separator
+//                          ^^^ variable.parameter
+//                             ^ punctuation.separator
+//                               ^^ variable.parameter
+//                                 ^ punctuation.separator
+//                                   ^^ variable.parameter
+//                                     ^ punctuation.separator
+//                                       ^^ variable.parameter
+//                                         ^ punctuation.separator
+//                                           ^^ variable.parameter
+//                                             ^ punctuation.separator
+//                                               ^^ variable.parameter
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Ref (A)          ra ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//                     ^^ variable
+//                        ^ punctuation.terminator.statement
+      Ref (B)          rb ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//                     ^^ variable
+//                        ^ punctuation.terminator.statement
+      Text              t ;
+//    ^^^^ storage.type
+//                      ^ variable
+//                        ^ punctuation.terminator.statement
+      Ref (A)   array ra1 ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//              ^^^^^ storage.type
+//                    ^^^ variable
+//                        ^ punctuation.terminator.statement
+      Ref (B)   array rb1 ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//              ^^^^^ storage.type
+//                    ^^^ variable
+//                        ^ punctuation.terminator.statement
+      Boolean   array  b1 ;
+//    ^^^^^^^ storage.type
+//              ^^^^^ storage.type
+//                     ^^ variable
+//                        ^ punctuation.terminator.statement
+      Character array  c1 ;
+//    ^^^^^^^^^ storage.type
+//              ^^^^^ storage.type
+//                     ^^ variable
+//                        ^ punctuation.terminator.statement
+      Integer   array  i1 ;
+//    ^^^^^^^ storage.type
+//              ^^^^^ storage.type
+//                     ^^ variable
+//                        ^ punctuation.terminator.statement
+      Real      array  r1 ;
+//    ^^^^ storage.type
+//              ^^^^^ storage.type
+//                     ^^ variable
+//                        ^ punctuation.terminator.statement
+      Text      array  t1 ;
+//    ^^^^ storage.type
+//              ^^^^^ storage.type
+//                     ^^ variable
+//                        ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Integer         z ;
+//    ^^^^^^^ storage.type
+//                    ^ variable
+//                      ^ punctuation.terminator.statement
+
+      Outtext ("**ENTER Q") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+      SaveLine ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+
+      Outtext (ra.t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.accessor
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+      Outchar (' ') ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ constant.character
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outtext (rb.t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.accessor
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+      Outchar (' ') ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ constant.character
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outtext (t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      SaveLine ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+
+      While  z <= 1  do
+//    ^^^^^ keyword.control.while
+//           ^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+//                   ^^ keyword.control.do
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         Outtext (ra1 (z).t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.accessor
+//                        ^ variable
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+         Outchar (' ') ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^ constant.character
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outtext (rb1 (z).t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.accessor
+//                        ^ variable
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+         Outchar (' ') ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^ constant.character
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outtext (t1 (z)) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+
+         If  b1 (z)  then Outtext ("true  ") else Outtext ("false ") ;
+//       ^^ keyword.control.if
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.section.parens
+//                   ^^^^ keyword.control.then
+//                        ^^^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^^^^ keyword.control.else
+//                                                ^^^^^^^ entity.name.function
+//                                                        ^ punctuation.section.parens
+//                                                         ^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+         Outchar (c1 (z)) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outint (i1 (z), 4) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ variable
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+         Outreal (r1 (z), 5, 12) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+         SaveLine ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+
+         z := z + 1
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^ keyword.operator.arithmetic
+//                ^ constant.numeric.decimal
+      END ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+                                           Comment  Now alter parameter values;
+//                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      ra.t :- rb.t :- t :- Copy ("XXX") ;
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^ variable
+//                      ^^ keyword.operator.assignment
+//                         ^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+      z := 0 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+
+      While  z <= 1  do
+//    ^^^^^ keyword.control.while
+//           ^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+//                   ^^ keyword.control.do
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         ra1 (z).t := rb1 (z).t := t1 (z) := "XXX" ;
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.section.parens
+//              ^ punctuation.accessor
+//               ^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.accessor
+//                            ^ variable
+//                              ^^ keyword.operator.assignment
+//                                 ^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ variable
+//                                      ^ punctuation.section.parens
+//                                        ^^ keyword.operator.assignment
+//                                           ^^^^^ string.quoted.double
+//                                                 ^ punctuation.terminator.statement
+         b1 (z) :=  NOT b1 (z) ;
+//       ^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                  ^^^ keyword.operator
+//                      ^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ variable
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+         c1 (z) := 'X' ;
+//       ^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^^^ constant.character
+//                     ^ punctuation.terminator.statement
+         i1 (z) := -i1 (z) ;
+//       ^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^ keyword.operator.arithmetic
+//                  ^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         r1 (z) := -r1 (z) ;
+//       ^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^ keyword.operator.arithmetic
+//                  ^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         z := z + 1
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^ keyword.operator.arithmetic
+//                ^ constant.numeric.decimal
+      END ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      Outtext ("**EXIT FROM Q") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^ string.quoted.double
+//                            ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+      SaveLine ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+   END of class Q ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   Q Class W (ra2, rb2, b2, c2, i2, r2, t2) ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.section.parens
+//            ^^^ variable.parameter
+//               ^ punctuation.separator
+//                 ^^^ variable.parameter
+//                    ^ punctuation.separator
+//                      ^^ variable.parameter
+//                        ^ punctuation.separator
+//                          ^^ variable.parameter
+//                            ^ punctuation.separator
+//                              ^^ variable.parameter
+//                                ^ punctuation.separator
+//                                  ^^ variable.parameter
+//                                    ^ punctuation.separator
+//                                      ^^ variable.parameter
+//                                        ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+      Ref (A)   array ra2 ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//              ^^^^^ storage.type
+//                    ^^^ variable
+//                        ^ punctuation.terminator.statement
+      Ref (B)   array rb2 ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//              ^^^^^ storage.type
+//                    ^^^ variable
+//                        ^ punctuation.terminator.statement
+      Boolean   array b2 ;
+//    ^^^^^^^ storage.type
+//              ^^^^^ storage.type
+//                    ^^ variable
+//                       ^ punctuation.terminator.statement
+      Character array c2 ;
+//    ^^^^^^^^^ storage.type
+//              ^^^^^ storage.type
+//                    ^^ variable
+//                       ^ punctuation.terminator.statement
+      Integer   array i2 ;
+//    ^^^^^^^ storage.type
+//              ^^^^^ storage.type
+//                    ^^ variable
+//                       ^ punctuation.terminator.statement
+      Real      array r2 ;
+//    ^^^^ storage.type
+//              ^^^^^ storage.type
+//                    ^^ variable
+//                       ^ punctuation.terminator.statement
+      Text      array t2 ;
+//    ^^^^ storage.type
+//              ^^^^^ storage.type
+//                    ^^ variable
+//                       ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Integer         x, y ;
+//    ^^^^^^^ storage.type
+//                    ^ variable
+//                     ^ punctuation.separator
+//                       ^ variable
+//                         ^ punctuation.terminator.statement
+
+      Outtext ("**ENTER W") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+      SaveLine ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+
+      While  x <= 1  do
+//    ^^^^^ keyword.control.while
+//           ^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+//                   ^^ keyword.control.do
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         y := 0 ;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+
+         While  y <= 2  do
+//       ^^^^^ keyword.control.while
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                      ^^ keyword.control.do
+         BEGIN
+//       ^^^^^ keyword.control.begin
+            Outtext (ra2 (x, y).t) ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                           ^ variable
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.accessor
+//                              ^ variable
+//                               ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+            Outchar (' ') ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^ constant.character
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+            Outtext (rb2 (x, y).t) ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                           ^ variable
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.accessor
+//                              ^ variable
+//                               ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+            Outtext (t2 (x, y)) ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.separator
+//                          ^ variable
+//                           ^^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+
+            If  b2 (x, y)  then Outtext ("true  ") else Outtext ("false ") ;
+//          ^^ keyword.control.if
+//              ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                         ^^^^ keyword.control.then
+//                              ^^^^^^^ entity.name.function
+//                                      ^ punctuation.section.parens
+//                                       ^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^^^^ keyword.control.else
+//                                                      ^^^^^^^ entity.name.function
+//                                                              ^ punctuation.section.parens
+//                                                               ^^^^^^^^ string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                         ^ punctuation.terminator.statement
+            Outint (i2 (x, y), 4) ;
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                         ^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+            Outreal (r2 (x, y), 5, 12) ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.separator
+//                          ^ variable
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.separator
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.separator
+//                                 ^^ constant.numeric.decimal
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+
+            SaveLine ;
+//          ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+            y := y + 1
+//          ^ variable
+//            ^^ keyword.operator.assignment
+//               ^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+         END ;
+//       ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+         x := x + 1
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^ keyword.operator.arithmetic
+//                ^ constant.numeric.decimal
+      END ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+                                      Comment  Now alter parameter values ;
+//                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      ra.t :- rb.t :- t :- Copy ("YYY") ;
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^ variable
+//                      ^^ keyword.operator.assignment
+//                         ^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+      z := 0 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+
+      While  z <= 1  do
+//    ^^^^^ keyword.control.while
+//           ^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+//                   ^^ keyword.control.do
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         ra1 (z).t := rb1 (z).t := t1 (z) := "YYY" ;
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.section.parens
+//              ^ punctuation.accessor
+//               ^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.accessor
+//                            ^ variable
+//                              ^^ keyword.operator.assignment
+//                                 ^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ variable
+//                                      ^ punctuation.section.parens
+//                                        ^^ keyword.operator.assignment
+//                                           ^^^^^ string.quoted.double
+//                                                 ^ punctuation.terminator.statement
+         b1 (z) :=  NOT b1 (z) ;
+//       ^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                  ^^^ keyword.operator
+//                      ^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ variable
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+         c1 (z) := 'Y' ;
+//       ^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^^^ constant.character
+//                     ^ punctuation.terminator.statement
+         i1 (z) := -i1 (z) ;
+//       ^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^ keyword.operator.arithmetic
+//                  ^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         r1 (z) := -r1 (z) ;
+//       ^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^ keyword.operator.arithmetic
+//                  ^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         z := z + 1
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^ keyword.operator.arithmetic
+//                ^ constant.numeric.decimal
+      END ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      x := y := 0 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//           ^^ keyword.operator.assignment
+//              ^ constant.numeric.decimal
+//                ^ punctuation.terminator.statement
+
+      While  x <= 1  do
+//    ^^^^^ keyword.control.while
+//           ^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+//                   ^^ keyword.control.do
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         y := 0 ;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+
+         While  y <= 2  do
+//       ^^^^^ keyword.control.while
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                      ^^ keyword.control.do
+         BEGIN
+//       ^^^^^ keyword.control.begin
+            ra2 (x, y).t := rb2 (x, y).t := "ZZZZZ" ;
+//          ^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.accessor
+//                     ^ variable
+//                       ^^ keyword.operator.assignment
+//                          ^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ variable
+//                                ^ punctuation.separator
+//                                  ^ variable
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.accessor
+//                                     ^ variable
+//                                       ^^ keyword.operator.assignment
+//                                          ^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.terminator.statement
+            b2 (x, y) := NOT b2 (x, y) ;
+//          ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.assignment
+//                       ^^^ keyword.operator
+//                           ^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ variable
+//                                ^ punctuation.separator
+//                                  ^ variable
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+            c2 (x, y) := 'Z' ;
+//          ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.assignment
+//                       ^^^ constant.character
+//                           ^ punctuation.terminator.statement
+            i2 (x, y) := -i2 (x, y) ;
+//          ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.assignment
+//                       ^ keyword.operator.arithmetic
+//                        ^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^ variable
+//                             ^ punctuation.separator
+//                               ^ variable
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+            r2 (x, y) := -r2 (x, y) ;
+//          ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.assignment
+//                       ^ keyword.operator.arithmetic
+//                        ^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^ variable
+//                             ^ punctuation.separator
+//                               ^ variable
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+            y := y + 1
+//          ^ variable
+//            ^^ keyword.operator.assignment
+//               ^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+         END ;
+//       ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+         x := x + 1
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^ keyword.operator.arithmetic
+//                ^ constant.numeric.decimal
+      END ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      Outtext ("**EXIT FROM W") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^ string.quoted.double
+//                            ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+      SaveLine
+//    ^^^^^^^^ variable
+   END of class W ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+
+   Ref (A)            rav ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//                    ^^^ variable
+//                        ^ punctuation.terminator.statement
+   Ref (B)            rbv ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//                    ^^^ variable
+//                        ^ punctuation.terminator.statement
+   Ref (Q)            qr ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//                    ^^ variable
+//                       ^ punctuation.terminator.statement
+   Ref (W)            wr ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//                    ^^ variable
+//                       ^ punctuation.terminator.statement
+   Text               tv, txt ;
+// ^^^^ storage.type
+//                    ^^ variable
+//                      ^ punctuation.separator
+//                        ^^^ variable
+//                            ^ punctuation.terminator.statement
+   Integer            i1, i2, sum ;
+// ^^^^^^^ storage.type
+//                    ^^ variable
+//                      ^ punctuation.separator
+//                        ^^ variable
+//                          ^ punctuation.separator
+//                            ^^^ variable
+//                                ^ punctuation.terminator.statement
+   Ref (A)   array    rav1 (0:1), rav2 (0:1, 0:2) ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//           ^^^^^ storage.type
+//                    ^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.separator
+//                                ^^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.separator
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   Ref (B)   array    rbv1 (0:1), rbv2 (0:1, 0:2) ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//           ^^^^^ storage.type
+//                    ^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.separator
+//                                ^^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.separator
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   Boolean   array    bv1 (0:1),  bv2 (0:1, 0:2) ;
+// ^^^^^^^ storage.type
+//           ^^^^^ storage.type
+//                    ^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.separator
+//                                ^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   Character array    cv1 (0:1),  cv2 (0:1, 0:2) ;
+// ^^^^^^^^^ storage.type
+//           ^^^^^ storage.type
+//                    ^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.separator
+//                                ^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   Integer   array    iv1 (0:1),  iv2 (0:1, 0:2) ;
+// ^^^^^^^ storage.type
+//           ^^^^^ storage.type
+//                    ^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.separator
+//                                ^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   Real      array    rv1 (0:1),  rv2 (0:1, 0:2) ;
+// ^^^^ storage.type
+//           ^^^^^ storage.type
+//                    ^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.separator
+//                                ^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   Text      array    tv1 (0:1),  tv2 (0:1, 0:2) ;
+// ^^^^ storage.type
+//           ^^^^^ storage.type
+//                    ^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.separator
+//                                ^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+
+   Class A (t) ;  VALUE t ;  Text t ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.section.parens
+//          ^ variable.parameter
+//           ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+//                ^^^^^ keyword.other.value
+//                      ^ variable
+//                        ^ punctuation.terminator.statement
+//                           ^^^^ storage.type
+//                                ^ variable
+//                                  ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("  Generate Reference") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+      Outtext (t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outtext  ("to Class A") ;
+//    ^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      SaveLine ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+
+      Inner ;
+//    ^^^^^ keyword.other.inner
+//          ^ punctuation.terminator.statement
+
+   END of class A ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   A Class B ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("        -- and to Class B") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+      SaveLine ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+   Outtext ("--- START Simula a.s. TEST 65") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test parameter transmission by reference to classes.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+                                   Comment  First initialise vairables
+//                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                            from without ;
+// <---------------------------------------------------------- comment.block
+   rav :- New A (" rav ") ;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ keyword.control.new
+//            ^ entity.name.class
+//              ^ punctuation.section.parens
+//               ^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   rbv :- New B (" rbv ") ;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ keyword.control.new
+//            ^ entity.name.class
+//              ^ punctuation.section.parens
+//               ^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   tv :- Copy (" tv ") ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+
+   While  i1 <= 1  do
+// ^^^^^ keyword.control.while
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^ constant.numeric.decimal
+//                 ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      bv1 (i1) := If  (i1//2)*2 = i1 then true else false ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.section.parens
+//             ^^ keyword.operator.assignment
+//                ^^ keyword.control.if
+//                    ^ punctuation.section.parens
+//                     ^^ variable
+//                       ^^ keyword.operator.arithmetic
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ keyword.operator.arithmetic
+//                            ^ constant.numeric.decimal
+//                              ^ keyword.operator.comparison
+//                                ^^ variable
+//                                   ^^^^ keyword.control.then
+//                                        ^^^^ constant.language.bool
+//                                             ^^^^ keyword.control.else
+//                                                  ^^^^^ constant.language.bool
+//                                                        ^ punctuation.terminator.statement
+      cv1 (i1) := 'K' ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.section.parens
+//             ^^ keyword.operator.assignment
+//                ^^^ constant.character
+//                    ^ punctuation.terminator.statement
+      iv1 (i1) := i1 ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.section.parens
+//             ^^ keyword.operator.assignment
+//                ^^ variable
+//                   ^ punctuation.terminator.statement
+      rv1 (i1) := i1 ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.section.parens
+//             ^^ keyword.operator.assignment
+//                ^^ variable
+//                   ^ punctuation.terminator.statement
+      txt :- Copy ("( )") ;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      txt.Sub (2, 1).Putint (i1) ;
+//    ^^^ variable
+//       ^ punctuation.accessor
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.accessor
+//                   ^^^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^ variable
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      tv1 (i1) :- txt ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.section.parens
+//             ^^ keyword.operator.assignment
+//                ^^^ variable
+//                    ^ punctuation.terminator.statement
+      txt :- Copy ("RAV1   ") ;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      txt.Sub (5, 3) := tv1 (i1) ;
+//    ^^^ variable
+//       ^ punctuation.accessor
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^^ keyword.operator.assignment
+//                      ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^ variable
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      rav1 (i1) :- New A (txt) ;
+//    ^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^^^ keyword.control.new
+//                     ^ entity.name.class
+//                       ^ punctuation.section.parens
+//                        ^^^ variable
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+      txt.Sub (2, 1) := "B" ;
+//    ^^^ variable
+//       ^ punctuation.accessor
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^^ keyword.operator.assignment
+//                      ^^^ string.quoted.double
+//                          ^ punctuation.terminator.statement
+      rbv1 (i1) :- New B (txt) ;
+//    ^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^^^ keyword.control.new
+//                     ^ entity.name.class
+//                       ^ punctuation.section.parens
+//                        ^^^ variable
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+      i2 := 0 ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^ constant.numeric.decimal
+//            ^ punctuation.terminator.statement
+
+      While  i2 <= 2  do
+//    ^^^^^ keyword.control.while
+//           ^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+//                    ^^ keyword.control.do
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         sum := i1 + i2 ;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^^ variable
+//                      ^ punctuation.terminator.statement
+         bv2 (i1, i2) := If  (SUM//2)*2 = sum  then true else false ;
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.assignment
+//                       ^^ keyword.control.if
+//                           ^ punctuation.section.parens
+//                            ^^^ variable
+//                               ^^ keyword.operator.arithmetic
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.section.parens
+//                                   ^ keyword.operator.arithmetic
+//                                    ^ constant.numeric.decimal
+//                                      ^ keyword.operator.comparison
+//                                        ^^^ variable
+//                                             ^^^^ keyword.control.then
+//                                                  ^^^^ constant.language.bool
+//                                                       ^^^^ keyword.control.else
+//                                                            ^^^^^ constant.language.bool
+//                                                                  ^ punctuation.terminator.statement
+         cv2 (i1, i2) := 'J' ;
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.assignment
+//                       ^^^ constant.character
+//                           ^ punctuation.terminator.statement
+         iv2 (i1, i2) := sum ;
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.assignment
+//                       ^^^ variable
+//                           ^ punctuation.terminator.statement
+         rv2 (i1, i2) := sum ;
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.assignment
+//                       ^^^ variable
+//                           ^ punctuation.terminator.statement
+         txt :- Copy ("( , )") ;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+         txt.Sub (2, 1).Putint (i1) ;
+//       ^^^ variable
+//          ^ punctuation.accessor
+//           ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.accessor
+//                      ^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^ variable
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+         txt.Sub (4, 1).Putint (i2) ;
+//       ^^^ variable
+//          ^ punctuation.accessor
+//           ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.accessor
+//                      ^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^ variable
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+         tv2 (i1, i2) :- txt ;
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.assignment
+//                       ^^^ variable
+//                           ^ punctuation.terminator.statement
+         txt :- Copy ("RAV2     ") ;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+         txt.Sub (5, 5) := tv2 (i1, i2) ;
+//       ^^^ variable
+//          ^ punctuation.accessor
+//           ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^^ keyword.operator.assignment
+//                         ^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^ variable
+//                                ^ punctuation.separator
+//                                  ^^ variable
+//                                    ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+         rav2 (i1, i2) :- New A (txt) ;
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.separator
+//                 ^^ variable
+//                   ^ punctuation.section.parens
+//                     ^^ keyword.operator.assignment
+//                        ^^^ keyword.control.new
+//                            ^ entity.name.class
+//                              ^ punctuation.section.parens
+//                               ^^^ variable
+//                                  ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+         txt.Sub (2, 1) := "B" ;
+//       ^^^ variable
+//          ^ punctuation.accessor
+//           ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^^ keyword.operator.assignment
+//                         ^^^ string.quoted.double
+//                             ^ punctuation.terminator.statement
+         rbv2 (i1, i2) :- New B (txt) ;
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.separator
+//                 ^^ variable
+//                   ^ punctuation.section.parens
+//                     ^^ keyword.operator.assignment
+//                        ^^^ keyword.control.new
+//                            ^ entity.name.class
+//                              ^ punctuation.section.parens
+//                               ^^^ variable
+//                                  ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+         i2 := i2 + 1
+//       ^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^ variable
+//                ^ keyword.operator.arithmetic
+//                  ^ constant.numeric.decimal
+      END ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      i1 := i1 + 1
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^ variable
+//             ^ keyword.operator.arithmetic
+//               ^ constant.numeric.decimal
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   qr :- New Q (rav, rbv, tv, rav1, rbv1, bv1, cv1, iv1, rv1, tv1) ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^^^ variable
+//                      ^ punctuation.separator
+//                        ^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^ variable
+//                                ^ punctuation.separator
+//                                  ^^^^ variable
+//                                      ^ punctuation.separator
+//                                        ^^^ variable
+//                                           ^ punctuation.separator
+//                                             ^^^ variable
+//                                                ^ punctuation.separator
+//                                                  ^^^ variable
+//                                                     ^ punctuation.separator
+//                                                       ^^^ variable
+//                                                          ^ punctuation.separator
+//                                                            ^^^ variable
+//                                                               ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+
+   facit (1)  :- "  Generate Reference rav to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.terminator.statement
+   facit (2)  :- "  Generate Reference rbv to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.terminator.statement
+   facit (3)  :- "        -- and to Class B" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.terminator.statement
+   facit (4)  :- "  Generate ReferenceRAV1(0)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.terminator.statement
+   facit (5)  :- "  Generate ReferenceRBV1(0)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.terminator.statement
+   facit (6)  :- "        -- and to Class B" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.terminator.statement
+   facit (7)  :- "  Generate ReferenceRAV2(0,0)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (8)  :- "  Generate ReferenceRBV2(0,0)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (9)  :- "        -- and to Class B" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.terminator.statement
+   facit (10) :- "  Generate ReferenceRAV2(0,1)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (11) :- "  Generate ReferenceRBV2(0,1)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (12) :- "        -- and to Class B" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.terminator.statement
+   facit (13) :- "  Generate ReferenceRAV2(0,2)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (14) :- "  Generate ReferenceRBV2(0,2)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (15) :- "        -- and to Class B" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.terminator.statement
+   facit (16) :- "  Generate ReferenceRAV1(1)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.terminator.statement
+   facit (17) :- "  Generate ReferenceRBV1(1)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.terminator.statement
+   facit (18) :- "        -- and to Class B" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.terminator.statement
+   facit (19) :- "  Generate ReferenceRAV2(1,0)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (20) :- "  Generate ReferenceRBV2(1,0)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (21) :- "        -- and to Class B" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.terminator.statement
+   facit (22) :- "  Generate ReferenceRAV2(1,1)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (23) :- "  Generate ReferenceRBV2(1,1)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (24) :- "        -- and to Class B" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.terminator.statement
+   facit (25) :- "  Generate ReferenceRAV2(1,2)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (26) :- "  Generate ReferenceRBV2(1,2)to Class A" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+   facit (27) :- "        -- and to Class B" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.terminator.statement
+   facit (28) :- "**ENTER Q" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.terminator.statement
+   facit (29) :- " rav   rbv   tv" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.terminator.statement
+   facit (30) :- "RAV1(0) RBV1(0) (0)true  K   0  0.0000&+00" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.terminator.statement
+   facit (31) :- "RAV1(1) RBV1(1) (1)false K   1  1.0000&+00" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.terminator.statement
+   facit (32) :- "**EXIT FROM Q" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.terminator.statement
+
+   Checklines (32, 1) ;
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+
+   Clearlines ;
+// ^^^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+
+   wr :- New W (rav, rbv, tv, rav1, rbv1, bv1, cv1, iv1, rv1, tv1,
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^^^ variable
+//                      ^ punctuation.separator
+//                        ^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^ variable
+//                                ^ punctuation.separator
+//                                  ^^^^ variable
+//                                      ^ punctuation.separator
+//                                        ^^^ variable
+//                                           ^ punctuation.separator
+//                                             ^^^ variable
+//                                                ^ punctuation.separator
+//                                                  ^^^ variable
+//                                                     ^ punctuation.separator
+//                                                       ^^^ variable
+//                                                          ^ punctuation.separator
+//                                                            ^^^ variable
+//                                                               ^ punctuation.separator
+                     rav2, rbv2, bv2, cv2, iv2, rv2, tv2) ;
+//                   ^^^^ variable
+//                       ^ punctuation.separator
+//                         ^^^^ variable
+//                             ^ punctuation.separator
+//                               ^^^ variable
+//                                  ^ punctuation.separator
+//                                    ^^^ variable
+//                                       ^ punctuation.separator
+//                                         ^^^ variable
+//                                            ^ punctuation.separator
+//                                              ^^^ variable
+//                                                 ^ punctuation.separator
+//                                                   ^^^ variable
+//                                                      ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+
+   facit (1)  :- "**ENTER Q" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.terminator.statement
+   facit (2)  :- "XXX XXX  tv" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^ string.quoted.double
+//                             ^ punctuation.terminator.statement
+   facit (3)  :- "XXX     XXX     XXXfalse X   0  0.0000&+00" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.terminator.statement
+   facit (4)  :- "XXX     XXX     XXXtrue  X  -1 -1.0000&+00" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.terminator.statement
+   facit (5)  :- "**EXIT FROM Q" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.terminator.statement
+   facit (6)  :- "**ENTER W" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.terminator.statement
+   facit (7)  :- "RAV2(0,0) RBV2(0,0)(0,0)true     0  0.0000&+00" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.terminator.statement
+   facit (8)  :- "RAV2(0,1) RBV2(0,1)(0,1)false    1  1.0000&+00" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.terminator.statement
+   facit (9)  :- "RAV2(0,2) RBV2(0,2)(0,2)true     2  2.0000&+00" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.terminator.statement
+   facit (10) :- "RAV2(1,0) RBV2(1,0)(1,0)false    1  1.0000&+00" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.terminator.statement
+   facit (11) :- "RAV2(1,1) RBV2(1,1)(1,1)true     2  2.0000&+00" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.terminator.statement
+   facit (12) :- "RAV2(1,2) RBV2(1,2)(1,2)false    3  3.0000&+00" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.terminator.statement
+   facit (13) :- "**EXIT FROM W" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.terminator.statement
+
+   Checklines (13, 2) ;
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+
+   Clearlines ;
+// ^^^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+
+   rav :- New B (" (Now rav points to a B-object)") ;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ keyword.control.new
+//            ^ entity.name.class
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+
+   Outtext (wr.ra2 (0, 0).t) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.accessor
+//             ^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.accessor
+//                        ^ variable
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+   SaveLine ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext (qr.t) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.accessor
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   Outchar (' ') ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   Outtext (tv) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   SaveLine ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+
+
+   facit (1)  :- "  Generate Reference (Now rav points to "
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+                 "a B-object)to Class A" ;
+//               ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.terminator.statement
+   facit (2)  :- "        -- and to Class B" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.terminator.statement
+   facit (3)  :- "ZZZZZ" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^ string.quoted.double
+//                       ^ punctuation.terminator.statement
+   facit (4)  :- "XXX  tv" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^ string.quoted.double
+//                         ^ punctuation.terminator.statement
+
+   Checklines (4, 3) ;
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+   Clearlines ;
+// ^^^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+
+   If found_error then
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 65") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

@@ -1,0 +1,6 @@
+begin
+class Car; begin end;
+class Student; begin end;
+ref(Car) c; ref(Student) s;
+c :- s;
+end;

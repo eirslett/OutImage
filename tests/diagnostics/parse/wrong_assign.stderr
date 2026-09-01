@@ -1,0 +1,11 @@
+[E0203] Error: WRONG ASSIGNMENT: reference assignment (`:-`) needs a `ref` or `text` on both sides
+   ╭─[ wrong_assign.sim:1:23 ]
+   │
+ 1 │ begin integer x; x :- 1; end;
+   │                       ┬  
+   │                       ╰── this is not a reference
+   │ 
+   │ Help 1: write `:=` for integer, real, boolean, or character
+   │ 
+   │ Help 2: suggestion: replace `:-` with `:=`
+───╯

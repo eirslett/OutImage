@@ -1,0 +1,6 @@
+begin
+  integer n, x;
+  x := 5;
+  n := 0;
+  if x > 0 then n := n + 1;
+end;

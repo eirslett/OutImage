@@ -1,0 +1,19 @@
+begin
+    text t;
+    t :- blanks(8);
+    t.putfix(sqrt(2.0), 3);
+    OutText(t.strip);
+    OutText(" ");
+    t :- blanks(8);
+    t.putfix(sin(0.0), 3);
+    OutText(t.strip);
+    OutText(" ");
+    t :- blanks(8);
+    t.putfix(cos(0.0), 3);
+    OutText(t.strip);
+    OutText(" ");
+    t :- blanks(8);
+    t.putfix(arctan2(1.0, 1.0), 3);
+    OutText(t.strip);
+    OutImage;
+end

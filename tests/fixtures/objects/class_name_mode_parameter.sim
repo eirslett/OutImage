@@ -1,0 +1,6 @@
+! §4.7.1 / §5.5.5: class parameters may not use call-by-name mode.;
+begin
+    class C(x); name x; integer x;
+    begin
+    end;
+end

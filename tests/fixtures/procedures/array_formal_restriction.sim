@@ -1,0 +1,14 @@
+! §4.6.6: array formal parameter (call-by-reference) mutates the caller array.;
+begin
+    procedure p(a); integer array a;
+    begin
+        a(1) := 99;
+    end;
+    integer array x(1:1);
+    integer v;
+    x(1) := 1;
+    p(x);
+    v := x(1);
+    OutInt(v, 0);
+    OutImage;
+end

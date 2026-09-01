@@ -1,0 +1,15 @@
+! §5.6.13: switch/label visibility from subclass bodies via enclosing block scope.;
+begin
+    switch s := L1, L2;
+    class Base;
+    begin
+    end;
+    Base class Derived;
+    begin
+        goto s(1);
+    end;
+    ref(Derived) d;
+    d :- new Derived;
+    L1: ;
+    L2: ;
+end

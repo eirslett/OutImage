@@ -1,0 +1,27 @@
+! §5.5.2 / §5.5.3: virtual procedure override through prefix chain (point/polar plus).;
+begin
+    class point(x, y); real x, y;
+    virtual: ref(point) procedure plus;
+    begin
+        ref(point) procedure plus(P); ref(point) P;
+        begin
+            plus :- new point(x + P.x, y + P.y);
+        end;
+    end;
+    point class polar;
+    begin
+        ref(polar) procedure plus(P); ref(point) P;
+        begin
+            plus :- new polar(x + P.x, y + P.y);
+        end;
+    end;
+    ref(polar) p1, sum;
+    ref(point) p2;
+    real rx, ry, rr;
+    p1 :- new polar(1.0, 2.0);
+    p2 :- new point(10.0, 20.0);
+    sum :- p1.plus(p2);
+    rx := sum.x;
+    ry := sum.y;
+    rr := p1.x + p1.y;
+end

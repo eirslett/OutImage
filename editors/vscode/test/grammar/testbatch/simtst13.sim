@@ -1,0 +1,369 @@
+// SYNTAX TEST "source.simula" "simtst13"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   SIMULA A/S - SIMULA TEST NO 13
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     To test text value assignment and text reference assigment.
+// <--------------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:      Try and fail.
+// <----------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   11/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   text t1, t2;
+// ^^^^ storage.type
+//      ^^ variable
+//        ^ punctuation.separator
+//          ^^ variable
+//            ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 13");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext ("--- Test text value and text reference assigment.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+   Outimage; Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+                                                !******************************;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   t1 :- blanks (3) ;                           ! Test text value assignment.  ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   t1 := "abc" ;                                !******************************;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^ string.quoted.double
+//             ^ punctuation.terminator.statement
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+   if     t1 = "abc"
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^^^^ string.quoted.double
+      and t1 <> t2 then
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+//                 ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text value assignment (1). ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   t2 :- blanks (5);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+   t2 := t1;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^ variable
+//         ^ punctuation.terminator.statement
+
+   if     t1 <> t2
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+      and t2 = "abc  " then
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^^^^^^ string.quoted.double
+//                     ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text value assignment (2). ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+                                                !******************************;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                ! Test text reference assigment;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                !******************************;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   t1 :- notext;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^ constant.language.null
+//             ^ punctuation.terminator.statement
+
+   if     t1 = ""
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^ string.quoted.double
+      and t1.main == notext
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^^^^^^ constant.language.null
+      and t1.start = 1
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+      and t1.length = 0
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^ variable
+//                  ^ keyword.operator.comparison
+//                    ^ constant.numeric.decimal
+      and t1.pos = 1 then
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^ variable
+//               ^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+//                   ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text reference assignment (3). ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   t1 :- copy ("abc  ");
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+
+   if     t1 = t2
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^ variable
+      and t1 =/= t2
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator.comparison
+//               ^^ variable
+      and t1.pos = 1
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^ variable
+//               ^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+      and t1.start = 1
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+      and t1.length = 5 then
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^ variable
+//                  ^ keyword.operator.comparison
+//                    ^ constant.numeric.decimal
+//                      ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text reference assignment (4).");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   t2 :- t1;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^ variable
+//         ^ punctuation.terminator.statement
+
+   if     t1 = t2
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^ variable
+      and t1 == t2
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+      and t2.start = 1
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+      and t2.pos = 1
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^ variable
+//               ^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+      and t2.length = 5 then
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^ variable
+//                  ^ keyword.operator.comparison
+//                    ^ constant.numeric.decimal
+//                      ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text reference assignment (5).");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext ("--- END SIMULA a.s. TEST 13");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

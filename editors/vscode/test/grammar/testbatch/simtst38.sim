@@ -1,0 +1,1384 @@
+// SYNTAX TEST "source.simula" "simtst38"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 38
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test the value of type procedures.
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  NOTE:    1 - At line marked with NOTE 1, the acceptable relative deviation
+// <----------------------------------------------------------------------------- comment.directive
+%               should be filled in.
+// <------------------------------------ comment.directive
+%  WRITTEN BY:  BEH   23/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   real eps ;
+// ^^^^ storage.type
+//      ^^^ variable
+//          ^ punctuation.terminator.statement
+
+   Class A (t) ; value t ; text t ;;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.section.parens
+//          ^ variable.parameter
+//           ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+//               ^^^^^ keyword.other.value
+//                     ^ variable
+//                       ^ punctuation.terminator.statement
+//                         ^^^^ storage.type
+//                              ^ variable
+//                                ^^ punctuation.terminator.statement
+
+   A Class AB ;;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^^ entity.name.class
+//            ^^ punctuation.terminator.statement
+
+   Boolean       B ;
+// ^^^^^^^ storage.type
+//               ^ variable
+//                 ^ punctuation.terminator.statement
+   Short Integer si ;
+// ^^^^^ storage.type
+//       ^^^^^^^ storage.type
+//               ^^ variable
+//                  ^ punctuation.terminator.statement
+   Integer       i ;
+// ^^^^^^^ storage.type
+//               ^ variable
+//                 ^ punctuation.terminator.statement
+   Real          r ;
+// ^^^^ storage.type
+//               ^ variable
+//                 ^ punctuation.terminator.statement
+   Long Real     lr ;
+// ^^^^ storage.type
+//      ^^^^ storage.type
+//               ^^ variable
+//                  ^ punctuation.terminator.statement
+   Text          t ;
+// ^^^^ storage.type
+//               ^ variable
+//                 ^ punctuation.terminator.statement
+   Ref (A)       rA, rA2 ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^^^ variable
+//                       ^ punctuation.terminator.statement
+   Ref (AB)      rB, rB2 ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^^ entity.name.class
+//        ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^^^ variable
+//                       ^ punctuation.terminator.statement
+
+   Boolean Procedure PB (b) ; Boolean b ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^ storage.type
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable.parameter
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ storage.type
+//                                    ^ variable
+//                                      ^ punctuation.terminator.statement
+   if b then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      PB := true
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   Short Integer Procedure  Psi (b) ; Boolean b ;
+// ^^^^^ storage.type
+//       ^^^^^^^ storage.type
+//               ^^^^^^^^^ storage.type
+//                          ^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ variable.parameter
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+//                                    ^^^^^^^ storage.type
+//                                            ^ variable
+//                                              ^ punctuation.terminator.statement
+   if b then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Psi := 5
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Integer Procedure Pi (b) ; Boolean b ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^ storage.type
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable.parameter
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ storage.type
+//                                    ^ variable
+//                                      ^ punctuation.terminator.statement
+   if b then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Pi := Psi (PB (true)) + 10
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^ constant.language.bool
+//                       ^^ punctuation.section.parens
+//                          ^ keyword.operator.arithmetic
+//                            ^^ constant.numeric.decimal
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   Real Procedure Pr (b) ; Boolean b ;
+// ^^^^ storage.type
+//      ^^^^^^^^^ storage.type
+//                ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable.parameter
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^ storage.type
+//                                 ^ variable
+//                                   ^ punctuation.terminator.statement
+   if b then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Pr := Pi (true) * Psi (true)
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^ constant.language.bool
+//                  ^ punctuation.section.parens
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^^^ constant.language.bool
+//                               ^ punctuation.section.parens
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Long Real Procedure Plr (b) ; Boolean b ;
+// ^^^^ storage.type
+//      ^^^^ storage.type
+//           ^^^^^^^^^ storage.type
+//                     ^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ variable.parameter
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+//                               ^^^^^^^ storage.type
+//                                       ^ variable
+//                                         ^ punctuation.terminator.statement
+   if b then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Plr := Pr (true) * Psi (true) + Plr (false)
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^ constant.language.bool
+//                   ^ punctuation.section.parens
+//                     ^ keyword.operator.arithmetic
+//                       ^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^ constant.language.bool
+//                                ^ punctuation.section.parens
+//                                  ^ keyword.operator.arithmetic
+//                                    ^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^^^^^ constant.language.bool
+//                                              ^ punctuation.section.parens
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Text Procedure Pt (b) ; Boolean b ;
+// ^^^^ storage.type
+//      ^^^^^^^^^ storage.type
+//                ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable.parameter
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^ storage.type
+//                                 ^ variable
+//                                   ^ punctuation.terminator.statement
+   if b then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      text t ;
+//    ^^^^ storage.type
+//         ^ variable
+//           ^ punctuation.terminator.statement
+      t :- blanks (5) ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+      t.putint (Pi (true)) ;
+//    ^ variable
+//     ^ punctuation.accessor
+//      ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^ constant.language.bool
+//                      ^^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+      Pt :- t
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^ variable
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Ref (A) Procedure PrA (i) ; integer i ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^^^^^^^^ storage.type
+//                   ^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable.parameter
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^ storage.type
+//                                     ^ variable
+//                                       ^ punctuation.terminator.statement
+   if i = 1 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^ constant.numeric.decimal
+//          ^^^^ keyword.control.then
+       PrA :- rA
+//     ^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^ variable
+   else
+// ^^^^ keyword.control.else
+   if i = 2 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^ constant.numeric.decimal
+//          ^^^^ keyword.control.then
+      PrA :- new AB ("ab") ;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^^ keyword.control.new
+//               ^^ entity.name.class
+//                  ^ punctuation.section.parens
+//                   ^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+   Ref (AB) Procedure PrAB (b) ; Boolean b ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^^ entity.name.class
+//        ^ punctuation.section.parens
+//          ^^^^^^^^^ storage.type
+//                    ^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ variable.parameter
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+//                               ^^^^^^^ storage.type
+//                                       ^ variable
+//                                         ^ punctuation.terminator.statement
+   if b then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      PrAB :- new AB ("bb") ;
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^ keyword.control.new
+//                ^^ entity.name.class
+//                   ^ punctuation.section.parens
+//                    ^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+
+   Outtext ("--- START Simula a.s. TEST 38") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test value of type procedures.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   eps := 0.001 ;                                         !***** NOTE 1 *****;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^^^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+//                                                        ^^^^^^^^^^^^^^^^^^^^ comment.block
+
+   B := PB (B) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//           ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+
+   if B then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Standard value of Boolean Procedure (1).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outtext (if B then "true" else "false") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^ variable
+//                  ^^^^ keyword.control.then
+//                       ^^^^^^ string.quoted.double
+//                              ^^^^ keyword.control.else
+//                                   ^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   B := PB (B eqv B) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//            ^^^ keyword.operator
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+   if B then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Value of Boolean Procedure (2).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outtext (if B then "true" else "false") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^ variable
+//                  ^^^^ keyword.control.then
+//                       ^^^^^^ string.quoted.double
+//                              ^^^^ keyword.control.else
+//                                   ^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   si := Psi (false) ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^ constant.language.bool
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+   if si = 0 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Standard value of Short Integer procedure (1).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                         ^ punctuation.section.parens
+//                                                                           ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (si, 5) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   si := Psi (true) ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^ constant.language.bool
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   if si = 5 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : value of Short Integer procedure (2).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (si, 5) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   i := Pi (B and not B) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//            ^^^ keyword.operator
+//                ^^^ keyword.operator
+//                    ^ variable
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+
+   if i = 0 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^ constant.numeric.decimal
+//          ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Standard value of Integer procedure (3).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (i, 7) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   i := Pi (B or not B) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//            ^^ keyword.operator
+//               ^^^ keyword.operator
+//                   ^ variable
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+
+   if i = 15 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : value of Integer procedure (4).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (i, 7) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   r :=  Pr (PB (PB (false))) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//       ^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^ constant.language.bool
+//                        ^^^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+
+   if r = 0 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^ constant.numeric.decimal
+//          ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Standard value of Real procedure (5).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outreal (r, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   r := Pr (PB (B imp B)) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//                ^^^ keyword.operator
+//                    ^ variable
+//                     ^^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+
+   if r-r*eps > 75 or r+r*eps < 75 then
+// ^^ keyword.control.if
+//    ^ variable
+//     ^ keyword.operator.arithmetic
+//      ^ variable
+//       ^ keyword.operator.arithmetic
+//        ^^^ variable
+//            ^ keyword.operator.comparison
+//              ^^ constant.numeric.decimal
+//                 ^^ keyword.operator
+//                    ^ variable
+//                     ^ keyword.operator.arithmetic
+//                      ^ variable
+//                       ^ keyword.operator.arithmetic
+//                        ^^^ variable
+//                            ^ keyword.operator.comparison
+//                              ^^ constant.numeric.decimal
+//                                 ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : value of Real procedure (6).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outreal (r, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   lr := Plr (Pr (false) > 2) ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^ constant.language.bool
+//                     ^ punctuation.section.parens
+//                       ^ keyword.operator.comparison
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+
+   if lr = 0 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Standard value of Long Real procedure (7).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outreal (lr, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   lr := Plr (true) ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^ constant.language.bool
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   if lr-lr*eps > 375 or lr+lr*eps < 375 then
+// ^^ keyword.control.if
+//    ^^ variable
+//      ^ keyword.operator.arithmetic
+//       ^^ variable
+//         ^ keyword.operator.arithmetic
+//          ^^^ variable
+//              ^ keyword.operator.comparison
+//                ^^^ constant.numeric.decimal
+//                    ^^ keyword.operator
+//                       ^^ variable
+//                         ^ keyword.operator.arithmetic
+//                          ^^ variable
+//                            ^ keyword.operator.arithmetic
+//                             ^^^ variable
+//                                 ^ keyword.operator.comparison
+//                                   ^^^ constant.numeric.decimal
+//                                       ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : value of Long Real procedure (8).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outreal (lr, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   rA :- PrA (0) ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+
+   if rA == none then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^ keyword.operator.comparison
+//          ^^^^ constant.language.null
+//               ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Standard value of Ref (A) procedure (9).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outtext ("not none") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   rA :- new A ("a") ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^ string.quoted.double
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+   rA2 :- PrA (1) ;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+
+   if rA2 == rA then
+// ^^ keyword.control.if
+//    ^^^ variable
+//        ^^ keyword.operator.comparison
+//           ^^ variable
+//              ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : value of Ref (A) procedure (10).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outtext (if rA2 == none then "Object none" else
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ variable
+//                    ^^ keyword.operator.comparison
+//                       ^^^^ constant.language.null
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^^^^^^^^^ string.quoted.double
+//                                               ^^^^ keyword.control.else
+               if rA2.t == notext then "Attribute = notext" else
+//             ^^ keyword.control.if
+//                ^^^ variable
+//                   ^ punctuation.accessor
+//                    ^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^^^ constant.language.null
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^^^^ keyword.control.else
+                            rA2.t ) ;
+//                          ^^^ variable
+//                             ^ punctuation.accessor
+//                              ^ variable
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   rA2 :- PrA (2) ;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+
+   if rA2 =/= none and !then; rA2.t = "ab" then
+// ^^ keyword.control.if
+//    ^^^ variable
+//        ^^^ keyword.operator.comparison
+//            ^^^^ constant.language.null
+//                 ^^^ keyword.operator
+//                     ^^^^^^ comment.block
+//                            ^^^ variable
+//                               ^ punctuation.accessor
+//                                ^ variable
+//                                  ^ keyword.operator.comparison
+//                                    ^^^^ string.quoted.double
+//                                         ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Subordinate value of Ref (A) procedure (11).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outtext (if rA2 == none then "object none" else
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ variable
+//                    ^^ keyword.operator.comparison
+//                       ^^^^ constant.language.null
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^^^^^^^^^ string.quoted.double
+//                                               ^^^^ keyword.control.else
+               if rA2.t == notext then "attribute = notext" else
+//             ^^ keyword.control.if
+//                ^^^ variable
+//                   ^ punctuation.accessor
+//                    ^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^^^ constant.language.null
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^^^^ keyword.control.else
+                                      rA2.t ) ;
+//                                    ^^^ variable
+//                                       ^ punctuation.accessor
+//                                        ^ variable
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   rB :- PrAB (false) ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^ constant.language.bool
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+
+   if rB == none then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^ keyword.operator.comparison
+//          ^^^^ constant.language.null
+//               ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Standard value of Ref (AB) procedure (12).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outtext (if rB == none then "Object none" else
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.operator.comparison
+//                      ^^^^ constant.language.null
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^ string.quoted.double
+//                                              ^^^^ keyword.control.else
+               if rB.t == notext then "Attribute = notext" else
+//             ^^ keyword.control.if
+//                ^^ variable
+//                  ^ punctuation.accessor
+//                   ^ variable
+//                     ^^ keyword.operator.comparison
+//                        ^^^^^^ constant.language.null
+//                               ^^^^ keyword.control.then
+//                                    ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^^^^ keyword.control.else
+                                      rB.t ) ;
+//                                    ^^ variable
+//                                      ^ punctuation.accessor
+//                                       ^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   rB :- PrAB (rB2 == none) ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ variable
+//                 ^^ keyword.operator.comparison
+//                    ^^^^ constant.language.null
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+   if rB =/= none and !then; rB.t = "bb" then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator.comparison
+//           ^^^^ constant.language.null
+//                ^^^ keyword.operator
+//                    ^^^^^^ comment.block
+//                           ^^ variable
+//                             ^ punctuation.accessor
+//                              ^ variable
+//                                ^ keyword.operator.comparison
+//                                  ^^^^ string.quoted.double
+//                                       ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : value of Ref (AB) procedure (13).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outtext (if rB == none then "Object none" else
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.operator.comparison
+//                      ^^^^ constant.language.null
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^ string.quoted.double
+//                                              ^^^^ keyword.control.else
+               if rB.t == notext then "Attribute = notext" else
+//             ^^ keyword.control.if
+//                ^^ variable
+//                  ^ punctuation.accessor
+//                   ^ variable
+//                     ^^ keyword.operator.comparison
+//                        ^^^^^^ constant.language.null
+//                               ^^^^ keyword.control.then
+//                                    ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^^^^ keyword.control.else
+                                      rB.t ) ;
+//                                    ^^ variable
+//                                      ^ punctuation.accessor
+//                                       ^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 38") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

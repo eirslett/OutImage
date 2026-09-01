@@ -1,0 +1,541 @@
+// SYNTAX TEST "source.simula" "simtst66"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 66
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test corutines and two infiles which read from the same file.
+// <----------------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   07/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Class Innfil (neste, navn, a) ;
+// ^^^^^ keyword.other.class
+//       ^^^^^^ entity.name.class
+//              ^ punctuation.section.parens
+//               ^^^^^ variable.parameter
+//                    ^ punctuation.separator
+//                      ^^^^ variable.parameter
+//                          ^ punctuation.separator
+//                            ^ variable.parameter
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      value navn ;
+//    ^^^^^ keyword.other.value
+//          ^^^^ variable
+//               ^ punctuation.terminator.statement
+      ref (Innfil) neste ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^^^^^^ entity.name.class
+//               ^ punctuation.section.parens
+//                 ^^^^^ variable
+//                       ^ punctuation.terminator.statement
+      text navn ;
+//    ^^^^ storage.type
+//         ^^^^ variable
+//              ^ punctuation.terminator.statement
+      Integer a ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      ref (infile) fil ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^^^^^^ entity.name.class
+//               ^ punctuation.section.parens
+//                 ^^^ variable
+//                     ^ punctuation.terminator.statement
+      Integer lnr ;
+//    ^^^^^^^ storage.type
+//            ^^^ variable
+//                ^ punctuation.terminator.statement
+      text array linjer (1:200) ;
+//    ^^^^ storage.type
+//         ^^^^^ storage.type
+//               ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^^^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+
+
+      fil :- new infile (navn) ;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^^ keyword.control.new
+//               ^^^^^^ entity.name.class
+//                      ^ punctuation.section.parens
+//                       ^^^^ variable
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+      if not fil.open (blanks (100)) then
+//    ^^ keyword.control.if
+//       ^^^ keyword.operator
+//           ^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^ constant.numeric.decimal
+//                                ^^ punctuation.section.parens
+//                                   ^^^^ keyword.control.then
+      begin outtext("The file "); outtext(navn);
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+//                                ^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^^^^ variable
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+            outtext(" does not exist,"); outimage;
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^^^^ variable
+//                                               ^ punctuation.terminator.statement
+            outtext("or cannot be opened as infile.");
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+            goto slutt;
+//          ^^^^ keyword.control.goto
+//               ^^^^^ entity.name.label
+//                    ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      detach ;
+//    ^^^^^^ variable
+//           ^ punctuation.terminator.statement
+
+      fil.inimage ;
+//    ^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+
+      while not fil.ENDfile do
+//    ^^^^^ keyword.control.while
+//          ^^^ keyword.operator
+//              ^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^^ variable
+//                          ^^ keyword.control.do
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         for lnr := lnr+1 while not fil.ENDfile and lnr<201 do
+//       ^^^ keyword.control.for
+//           ^^^ variable
+//               ^^ keyword.operator.assignment
+//                  ^^^ variable
+//                     ^ keyword.operator.arithmetic
+//                      ^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.while
+//                              ^^^ keyword.operator
+//                                  ^^^ variable
+//                                     ^ punctuation.accessor
+//                                      ^^^^^^^ variable
+//                                              ^^^ keyword.operator
+//                                                  ^^^ variable
+//                                                     ^ keyword.operator.comparison
+//                                                      ^^^ constant.numeric.decimal
+//                                                          ^^ keyword.control.do
+         BEGIN
+//       ^^^^^ keyword.control.begin
+            linjer (lnr) :- copy (fil.image) ;
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^ variable
+//                     ^ punctuation.section.parens
+//                       ^^ keyword.operator.assignment
+//                          ^^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^^^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^^^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+            fil.inimage ;
+//          ^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+         END ;
+//       ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+         resume (neste)
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^ variable
+//                    ^ punctuation.section.parens
+      END ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      while not neste.fil.ENDfile do resume (neste) ;
+//    ^^^^^ keyword.control.while
+//          ^^^ keyword.operator
+//              ^^^^^ variable
+//                   ^ punctuation.accessor
+//                    ^^^ variable
+//                       ^ punctuation.accessor
+//                        ^^^^^^^ variable
+//                                ^^ keyword.control.do
+//                                   ^^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^^^^^ variable
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   ref (Innfil) fil1, fil2 ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^^^^^^ entity.name.class
+//            ^ punctuation.section.parens
+//              ^^^^ variable
+//                  ^ punctuation.separator
+//                    ^^^^ variable
+//                         ^ punctuation.terminator.statement
+
+   Boolean Procedure Ok (f1, f2, l) ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^ storage.type
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ variable.parameter
+//                         ^ punctuation.separator
+//                           ^^ variable.parameter
+//                             ^ punctuation.separator
+//                               ^ variable.parameter
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+      ref (Innfil) f1, f2 ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^^^^^^ entity.name.class
+//               ^ punctuation.section.parens
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                     ^^ variable
+//                        ^ punctuation.terminator.statement
+      Integer l ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+   if l > f1.lnr and l > f2.lnr then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^ variable
+//               ^^^ keyword.operator
+//                   ^ variable
+//                     ^ keyword.operator.comparison
+//                       ^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^ variable
+//                              ^^^^ keyword.control.then
+      OK := true
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.language.bool
+   else
+// ^^^^ keyword.control.else
+      OK := f1.linjer (l) = f2.linjer (l) and OK (f1, f2, l+1) ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^ variable
+//            ^ punctuation.accessor
+//             ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                        ^ keyword.operator.comparison
+//                          ^^ variable
+//                            ^ punctuation.accessor
+//                             ^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ variable
+//                                      ^ punctuation.section.parens
+//                                        ^^^ keyword.operator
+//                                            ^^ entity.name.function
+//                                               ^ punctuation.section.parens
+//                                                ^^ variable
+//                                                  ^ punctuation.separator
+//                                                    ^^ variable
+//                                                      ^ punctuation.separator
+//                                                        ^ variable
+//                                                         ^ keyword.operator.arithmetic
+//                                                          ^ constant.numeric.decimal
+//                                                           ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+
+
+   Outtext ("--- START Simula a.s. TEST 66") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test corutines and two instances of infile which read ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- from the same file (""any66"") simultanously.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   fil1 :- new Innfil (new Innfil (none, "any66", 5), "any66", 13) ;
+// ^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^ keyword.control.new
+//             ^^^^^^ entity.name.class
+//                    ^ punctuation.section.parens
+//                     ^^^ keyword.control.new
+//                         ^^^^^^ entity.name.class
+//                                ^ punctuation.section.parens
+//                                 ^^^^ constant.language.null
+//                                     ^ punctuation.separator
+//                                       ^^^^^^^ string.quoted.double
+//                                              ^ punctuation.separator
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.separator
+//                                                    ^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.separator
+//                                                             ^^ constant.numeric.decimal
+//                                                               ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+   fil2 :- fil1.neste ;
+// ^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                    ^ punctuation.terminator.statement
+   fil2.neste :- fil1 ;
+// ^^^^ variable
+//     ^ punctuation.accessor
+//      ^^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   resume (fil1) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+
+   if not OK (fil1, fil2, 1) then
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^ variable
+//                ^ punctuation.separator
+//                  ^^^^ variable
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Integer i ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+      Outtext ("*** ERROR : Reading from file.") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Lines read from file :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      for i := 1 step 1 until fil1.lnr, i+1 step 1 until fil2.lnr do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^^^^ variable
+//                                ^ punctuation.accessor
+//                                 ^^^ variable
+//                                    ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ keyword.operator.arithmetic
+//                                        ^ constant.numeric.decimal
+//                                          ^^^^ keyword.control.step
+//                                               ^ constant.numeric.decimal
+//                                                 ^^^^^ keyword.control.until
+//                                                       ^^^^ variable
+//                                                           ^ punctuation.accessor
+//                                                            ^^^ variable
+//                                                                ^^ keyword.control.do
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext (" 1 : ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outtext (fil1.linjer (i)) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable
+//                              ^^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext (" 2 : ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outtext (fil2.linjer (i)) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable
+//                              ^^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN outimage
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+//                     ^^^^^^^^ variable
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   fil1.fil.close; fil2.fil.close;
+// ^^^^ variable
+//     ^ punctuation.accessor
+//      ^^^ variable
+//         ^ punctuation.accessor
+//          ^^^^^ variable
+//               ^ punctuation.terminator.statement
+//                 ^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^^^ variable
+//                               ^ punctuation.terminator.statement
+
+slutt:
+// <----- entity.name.label
+//   ^ punctuation.separator
+   Outtext ("--- END Simula a.s. TEST 66") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

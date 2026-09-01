@@ -1,0 +1,18 @@
+! Switch declared in a class body (class-attribute switch, §5.6.13).;
+begin
+    class Worker;
+    begin
+        integer i;
+        switch s := L1, L2;
+        i := 0;
+        goto s(1);
+        L2: i := 2;
+        goto done;
+        L1: i := 1;
+        done:
+        if i = 1 then OutText("ok") else OutText("fail");
+        OutImage;
+    end;
+    ref(Worker) w;
+    w :- new Worker;
+end

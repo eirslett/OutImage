@@ -1,0 +1,935 @@
+// SYNTAX TEST "source.simula" "simtst79"
+% ======================================   Main   program =============
+// <----------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 79
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test the attribute 'IsOpen' of class file.
+// <---------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  NOTE:    1 - In lines marked with NOTE 1, a legal filename on your
+// <--------------------------------------------------------------------- comment.directive
+%               implementation should be filled in. In lines marked
+// <------------------------------------------------------------------- comment.directive
+%               only with NOTE 1, it does not mather whether the file
+// <--------------------------------------------------------------------- comment.directive
+%               with the given filename exists or not.
+// <------------------------------------------------------ comment.directive
+%           2 - There shall not exist any file with the filename given
+// <---------------------------------------------------------------------- comment.directive
+%               in the line marked with NOTE 2.
+// <----------------------------------------------- comment.directive
+%               (sxcvzf,sxcvfb)
+// <------------------------------- comment.directive
+%           3 - There shall exist a file with the filename given in
+// <------------------------------------------------------------------- comment.directive
+%               the line marked with NOTE 3.
+// <-------------------------------------------- comment.directive
+%               (sxcvzg,sxcvzgb)
+// <-------------------------------- comment.directive
+%               - if these are changed, change also prep-79 which will
+// <---------------------------------------------------------------------- comment.directive
+%                 generate the files.
+// <------------------------------------- comment.directive
+%           4 - If a file with this filename exists, the file will only
+// <----------------------------------------------------------------------- comment.directive
+%               be opened; if it does not exist, it will be created.
+// <-------------------------------------------------------------------- comment.directive
+%               (sxcvz1, sxcvz2, sxcvz3, sxcvz4, sxcvz5)
+// <-------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   27/08-86
+// <------------------------------ comment.directive
+% =====================================================================
+// <----------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   Ref(file) xf;
+// ^^^ storage.modifier
+//    ^ punctuation.section.parens
+//     ^^^^ entity.name.class
+//         ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.terminator.statement
+
+   Procedure Test(open, B, nr); Boolean open, B; Integer nr;
+// ^^^^^^^^^ storage.type
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^ variable.parameter
+//                    ^ punctuation.separator
+//                      ^ variable.parameter
+//                       ^ punctuation.separator
+//                         ^^ variable.parameter
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^^ storage.type
+//                                      ^^^^ variable
+//                                          ^ punctuation.separator
+//                                            ^ variable
+//                                             ^ punctuation.terminator.statement
+//                                               ^^^^^^^ storage.type
+//                                                       ^^ variable
+//                                                         ^ punctuation.terminator.statement
+   Begin If not open eqv B then
+// ^^^^^ keyword.control.begin
+//       ^^ keyword.control.if
+//          ^^^ keyword.operator
+//              ^^^^ variable
+//                   ^^^ keyword.operator
+//                       ^ variable
+//                         ^^^^ keyword.control.then
+         Begin Outtext("*** ERROR : Attribute 'IsOpen' of ");
+//       ^^^^^ keyword.control.begin
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+               If xf in infile         then Outtext("infile")        
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.operator
+//                      ^^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+          else If xf is outfile        then Outtext("outfile")       
+//        ^^^^ keyword.control.else
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.other.is
+//                      ^^^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+          else If xf in printfile      then Outtext("printfile")     
+//        ^^^^ keyword.control.else
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.operator
+//                      ^^^^^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+          else If xf is directfile     then Outtext("directfile")    
+//        ^^^^ keyword.control.else
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.other.is
+//                      ^^^^^^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^^^^^^^^^^^^ string.quoted.double
+//                                                              ^ punctuation.section.parens
+          else If xf in inbytefile     then Outtext("inbytefile")    
+//        ^^^^ keyword.control.else
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.operator
+//                      ^^^^^^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^^^^^^^^^^^^ string.quoted.double
+//                                                              ^ punctuation.section.parens
+          else If xf is outbytefile    then Outtext("outbytefile")   
+//        ^^^^ keyword.control.else
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.other.is
+//                      ^^^^^^^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+          else If xf is directbytefile then Outtext("directbytefile")
+//        ^^^^ keyword.control.else
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.other.is
+//                      ^^^^^^^^^^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+               else                         Outtext("??");
+//             ^^^^ keyword.control.else
+//                                          ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+
+               Outtext(" ("); Outint(nr, if nr < 10 then 1 else 2);
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^ variable
+//                                     ^ punctuation.separator
+//                                       ^^ keyword.control.if
+//                                          ^^ variable
+//                                             ^ keyword.operator.comparison
+//                                               ^^ constant.numeric.decimal
+//                                                  ^^^^ keyword.control.then
+//                                                       ^ constant.numeric.decimal
+//                                                         ^^^^ keyword.control.else
+//                                                              ^ constant.numeric.decimal
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+               Outtext(") should no be ");
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+               Outtext(if open then "true" else "false");
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ keyword.control.if
+//                        ^^^^ variable
+//                             ^^^^ keyword.control.then
+//                                  ^^^^^^ string.quoted.double
+//                                         ^^^^ keyword.control.else
+//                                              ^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+               Outimage;
+//             ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+               found_error:= true
+//             ^^^^^^^^^^^ variable
+//                        ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+         End;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+   End pros. test;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//               ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 79") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test the attribute 'IsOpen' of class file.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+
+   xf:- New Infile("sxcvzf");             !***** NOTE 1, NOTE 2 *****;
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   Test(xf.Isopen, false, 1);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+   xf qua Infile.open(blanks(10));
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^ constant.numeric.decimal
+//                             ^^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+   Test(xf.Isopen, false, 2);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+   xf:- New Infile("sxcvzg");             !***** NOTE 1, NOTE 3 *****;
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   Test(xf.Isopen, false, 3);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+   if not xf qua Infile.open(blanks(80))
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^ constant.numeric.decimal
+//                                    ^^ punctuation.section.parens
+   then Test(xf.Isopen, false, 4)
+// ^^^^ keyword.control.then
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^^ constant.language.bool
+//                           ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+   else Test(xf.Isopen, true, 5);
+// ^^^^ keyword.control.else
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^ constant.language.bool
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+
+   xf qua Infile.close;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.terminator.statement
+   Test(xf.Isopen, false, 6);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+   xf:- New Inbytefile("sxcvzfb");         !***** NOTE 1, NOTE 2 *****;
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^^ entity.name.class
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+//                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   Test(xf.Isopen, false, 7);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+   xf qua Inbytefile.Open;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^^^^^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^ variable
+//                       ^ punctuation.terminator.statement
+   Test(xf.Isopen, false, 8);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+   xf:- New Inbytefile("sxcvzgb");         !***** NOTE 1, NOTE 3 *****;
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^^ entity.name.class
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+//                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   Test(xf.Isopen, false, 9);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+   if not xf qua Inbytefile.Open
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^^ variable
+   then Test(xf.Isopen, false, 10)
+// ^^^^ keyword.control.then
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^^ constant.language.bool
+//                           ^ punctuation.separator
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+   else Test(xf.Isopen, true, 11);
+// ^^^^ keyword.control.else
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^ constant.language.bool
+//                          ^ punctuation.separator
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+
+   xf qua Inbytefile.Close;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^^^^^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^ variable
+//                        ^ punctuation.terminator.statement
+   Test(xf.Isopen, false, 12);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+
+   xf:- New Outfile("sxcvz1");            !***** NOTE 1, NOTE 4 *****;
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^ entity.name.class
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   Test(xf.Isopen, false, 13);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   if not xf qua Outfile.Open(blanks(80))
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^ constant.numeric.decimal
+//                                     ^^ punctuation.section.parens
+   then Test(xf.Isopen, false, 14)
+// ^^^^ keyword.control.then
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^^ constant.language.bool
+//                           ^ punctuation.separator
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+   else Test(xf.Isopen, true, 15);
+// ^^^^ keyword.control.else
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^ constant.language.bool
+//                          ^ punctuation.separator
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+
+   xf qua Outfile.Close;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^^^^^^^ variable
+//               ^ punctuation.accessor
+//                ^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   Test(xf.Isopen, false, 16);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+
+   xf:- New Outbytefile("sxcvz2");        !***** NOTE 1, NOTE 4 *****;
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^^^ entity.name.class
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+//                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   Test(xf.Isopen, false, 17);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   if not xf qua Outbytefile.Open
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^ variable
+   then Test(xf.Isopen, false, 18)
+// ^^^^ keyword.control.then
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^^ constant.language.bool
+//                           ^ punctuation.separator
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+   else Test(xf.Isopen, true, 19);
+// ^^^^ keyword.control.else
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^ constant.language.bool
+//                          ^ punctuation.separator
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+
+   xf qua Outbytefile.Close;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^^^^^^^^^^^ variable
+//                   ^ punctuation.accessor
+//                    ^^^^^ variable
+//                         ^ punctuation.terminator.statement
+   Test(xf.Isopen, false, 20);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+
+   xf:- New Directfile("sxcvz3");         !***** NOTE 1, NOTE 4 *****;
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^^ entity.name.class
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+//                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   Test(xf.Isopen, false, 21);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   if not xf qua Directfile.Open(blanks(10))
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^^^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^^ constant.numeric.decimal
+//                                        ^^ punctuation.section.parens
+   then Test(xf.Isopen, false, 22)
+// ^^^^ keyword.control.then
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^^ constant.language.bool
+//                           ^ punctuation.separator
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+   else Test(xf.Isopen, true, 23);
+// ^^^^ keyword.control.else
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^ constant.language.bool
+//                          ^ punctuation.separator
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+
+   xf qua Directfile.Close;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^^^^^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^ variable
+//                        ^ punctuation.terminator.statement
+   Test(xf.Isopen, false, 24);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+
+   xf:- New Directbytefile("sxcvz4");     !***** NOTE 1, NOTE 4 *****;
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^^^^^^ entity.name.class
+//                        ^ punctuation.section.parens
+//                         ^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+//                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   Test(xf.Isopen, false, 25);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   if not xf qua Directbytefile.Open
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^^^^^ variable
+//                             ^ punctuation.accessor
+//                              ^^^^ variable
+   then Test(xf.Isopen, false, 26)
+// ^^^^ keyword.control.then
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^^ constant.language.bool
+//                           ^ punctuation.separator
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+   else Test(xf.Isopen, true, 27);
+// ^^^^ keyword.control.else
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^ constant.language.bool
+//                          ^ punctuation.separator
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+
+   xf qua Directbytefile.Close;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^^^^^^^^^^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^^ variable
+//                            ^ punctuation.terminator.statement
+   Test(xf.Isopen, false, 28);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   xf:- New Printfile("sxcvz5");          !***** NOTE 1, NOTE 4 *****;
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^ entity.name.class
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^ string.quoted.double
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+//                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   Test(xf.Isopen, false, 29);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   if not xf qua Printfile.Open(blanks(136))
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^ variable
+//                        ^ punctuation.accessor
+//                         ^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^ constant.numeric.decimal
+//                                        ^^ punctuation.section.parens
+   then Test(xf.Isopen, false, 30)
+// ^^^^ keyword.control.then
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^^ constant.language.bool
+//                           ^ punctuation.separator
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+   else Test(xf.Isopen, true, 31);
+// ^^^^ keyword.control.else
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^^^ constant.language.bool
+//                          ^ punctuation.separator
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+
+   xf qua Printfile.Close;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^^^^^^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^ variable
+//                       ^ punctuation.terminator.statement
+   Test(xf.Isopen, false, 32);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^^^^^ constant.language.bool
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 79") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

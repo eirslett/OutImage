@@ -1,0 +1,493 @@
+// SYNTAX TEST "source.simula" "simtst86"
+% ===================================   Main   program  ===========
+// <------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 86
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE: Test reading of real numbers from SYSIN.
+// <---------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:
+// <---------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY: THE 21/7 - 83
+// <---------------------------- comment.directive
+% =============================================================
+// <--------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+LONG REAL          realnumber;
+// <---- storage.type
+//   ^^^^ storage.type
+//                 ^^^^^^^^^^ variable
+//                           ^ punctuation.terminator.statement
+INTEGER            intnumber, deci, field;
+// <------- storage.type
+//                 ^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^ variable
+//                                ^ punctuation.separator
+//                                  ^^^^^ variable
+//                                       ^ punctuation.terminator.statement
+CHARACTER          answer;
+// <--------- storage.type
+//                 ^^^^^^ variable
+//                       ^ punctuation.terminator.statement
+
+outtext("--- START Simula a.s. TEST 86"); outimage;
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^^ variable
+//                                                ^ punctuation.terminator.statement
+outtext("    The program must get input on SYSIN."
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+        " Compare output with input!!!"); outimage; outimage;
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^^ variable
+//                                                ^ punctuation.terminator.statement
+//                                                  ^^^^^^^^ variable
+//                                                          ^ punctuation.terminator.statement
+
+answer := 'H';
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ constant.character
+//           ^ punctuation.terminator.statement
+
+WHILE  answer <> 'E'  DO
+// <----- keyword.control.while
+//     ^^^^^^ variable
+//            ^^ keyword.operator.comparison
+//               ^^^ constant.character
+//                    ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+   IF answer = 'R' THEN
+// ^^ keyword.control.if
+//    ^^^^^^ variable
+//           ^ keyword.operator.comparison
+//             ^^^ constant.character
+//                 ^^^^ keyword.control.then
+      BEGIN
+//    ^^^^^ keyword.control.begin
+      OUTTEXT ("Give REAL number:");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+      OUTIMAGE; INIMAGE;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+      realnumber := sysin.image.strip.GETREAL;
+//    ^^^^^^^^^^ variable
+//               ^^ keyword.operator.assignment
+//                  ^^^^^ variable
+//                       ^ punctuation.accessor
+//                        ^^^^^ variable
+//                             ^ punctuation.accessor
+//                              ^^^^^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^^^^^ variable
+//                                           ^ punctuation.terminator.statement
+
+      OUTTEXT("                FIX :                          REAL :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      OUTIMAGE;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      OUTFIX(realnumber,  2, 35); OUTREAL(realnumber,  2, 35); OUTIMAGE;
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+//                                ^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^^^^^^^^^^ variable
+//                                                  ^ punctuation.separator
+//                                                     ^ constant.numeric.decimal
+//                                                      ^ punctuation.separator
+//                                                        ^^ constant.numeric.decimal
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+      OUTFIX(realnumber,  5, 35); OUTREAL(realnumber,  5, 35); OUTIMAGE;
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+//                                ^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^^^^^^^^^^ variable
+//                                                  ^ punctuation.separator
+//                                                     ^ constant.numeric.decimal
+//                                                      ^ punctuation.separator
+//                                                        ^^ constant.numeric.decimal
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+      OUTFIX(realnumber, 10, 35); OUTREAL(realnumber, 10, 35); OUTIMAGE;
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.separator
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+//                                ^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^^^^^^^^^^ variable
+//                                                  ^ punctuation.separator
+//                                                    ^^ constant.numeric.decimal
+//                                                      ^ punctuation.separator
+//                                                        ^^ constant.numeric.decimal
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+      OUTFIX(realnumber, 15, 35); OUTREAL(realnumber, 15, 35); OUTIMAGE;
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.separator
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+//                                ^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^^^^^^^^^^ variable
+//                                                  ^ punctuation.separator
+//                                                    ^^ constant.numeric.decimal
+//                                                      ^ punctuation.separator
+//                                                        ^^ constant.numeric.decimal
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+      OUTFIX(realnumber, 20, 35); OUTREAL(realnumber, 20, 35); OUTIMAGE;
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.separator
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+//                                ^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^^^^^^^^^^ variable
+//                                                  ^ punctuation.separator
+//                                                    ^^ constant.numeric.decimal
+//                                                      ^ punctuation.separator
+//                                                        ^^ constant.numeric.decimal
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+      OUTFIX(realnumber, 25, 35); OUTREAL(realnumber, 25, 35); OUTIMAGE;
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.separator
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+//                                ^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^^^^^^^^^^ variable
+//                                                  ^ punctuation.separator
+//                                                    ^^ constant.numeric.decimal
+//                                                      ^ punctuation.separator
+//                                                        ^^ constant.numeric.decimal
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+      END
+//    ^^^ keyword.control.end
+   ELSE
+// ^^^^ keyword.control.else
+
+   IF answer = 'D' THEN
+// ^^ keyword.control.if
+//    ^^^^^^ variable
+//           ^ keyword.operator.comparison
+//             ^^^ constant.character
+//                 ^^^^ keyword.control.then
+      BEGIN
+//    ^^^^^ keyword.control.begin
+      OUTTEXT("Give parameter nr 2 of OUTREAL/OUTFIX : "); OUTIMAGE;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+//                                                         ^^^^^^^^ variable
+//                                                                 ^ punctuation.terminator.statement
+      deci := ININT;
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^^ variable
+//                 ^ punctuation.terminator.statement
+      IF deci<0  THEN deci := 0;
+//    ^^ keyword.control.if
+//       ^^^^ variable
+//           ^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+//               ^^^^ keyword.control.then
+//                    ^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.terminator.statement
+      IF deci>29 THEN deci := 29;
+//    ^^ keyword.control.if
+//       ^^^^ variable
+//           ^ keyword.operator.comparison
+//            ^^ constant.numeric.decimal
+//               ^^^^ keyword.control.then
+//                    ^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.terminator.statement
+      OUTTEXT("Give length of field : "); OUTIMAGE;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^^ variable
+//                                                ^ punctuation.terminator.statement
+      field := ININT;
+//    ^^^^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^^^^ variable
+//                  ^ punctuation.terminator.statement
+      OUTTEXT("Give REAL number: "); OUTIMAGE; INIMAGE;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+//                                   ^^^^^^^^ variable
+//                                           ^ punctuation.terminator.statement
+//                                             ^^^^^^^ variable
+//                                                    ^ punctuation.terminator.statement
+      realnumber := sysin.image.strip.GETREAL;
+//    ^^^^^^^^^^ variable
+//               ^^ keyword.operator.assignment
+//                  ^^^^^ variable
+//                       ^ punctuation.accessor
+//                        ^^^^^ variable
+//                             ^ punctuation.accessor
+//                              ^^^^^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^^^^^ variable
+//                                           ^ punctuation.terminator.statement
+      OUTFIX(realnumber,deci,field); OUTREAL(realnumber,deci,field);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.separator
+//                      ^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^ variable
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+//                                   ^^^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^^^^^^^^^^ variable
+//                                                     ^ punctuation.separator
+//                                                      ^^^^ variable
+//                                                          ^ punctuation.separator
+//                                                           ^^^^^ variable
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      OUTIMAGE;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      END
+//    ^^^ keyword.control.end
+   ELSE
+// ^^^^ keyword.control.else
+
+   IF answer = 'I' THEN
+// ^^ keyword.control.if
+//    ^^^^^^ variable
+//           ^ keyword.operator.comparison
+//             ^^^ constant.character
+//                 ^^^^ keyword.control.then
+      BEGIN
+//    ^^^^^ keyword.control.begin
+      OUTTEXT("Give INTEGER number:");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+      OUTIMAGE; INIMAGE;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+      INTNUMBER := sysin.image.strip.GETINT;
+//    ^^^^^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^^ variable
+//                            ^ punctuation.accessor
+//                             ^^^^^ variable
+//                                  ^ punctuation.accessor
+//                                   ^^^^^^ variable
+//                                         ^ punctuation.terminator.statement
+
+      OUTINT (intnumber, 12); OUTIMAGE
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^ variable
+//                     ^ punctuation.separator
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+      END
+//    ^^^ keyword.control.end
+   ELSE
+// ^^^^ keyword.control.else
+
+   IF answer = 'H' THEN
+// ^^ keyword.control.if
+//    ^^^^^^ variable
+//           ^ keyword.operator.comparison
+//             ^^^ constant.character
+//                 ^^^^ keyword.control.then
+      BEGIN
+//    ^^^^^ keyword.control.begin
+      OUTTEXT("  I : INTEGER"); OUTIMAGE;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^^^ variable
+//                                      ^ punctuation.terminator.statement
+      OUTTEXT("  R : REAL with 2,5,10,15 20 and 25 decimals"); OUTIMAGE;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+      OUTTEXT("  D : REAL with choice of decimals and field"); OUTIMAGE;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+      OUTTEXT("  H : This menu"); OUTIMAGE;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+//                                ^^^^^^^^ variable
+//                                        ^ punctuation.terminator.statement
+      OUTTEXT("  E : Exit"); OUTIMAGE;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^^^ variable
+//                                   ^ punctuation.terminator.statement
+      END
+//    ^^^ keyword.control.end
+   ELSE
+// ^^^^ keyword.control.else
+
+   BEGIN OUTTEXT(" 'H' = Help"); OUTIMAGE; END;
+// ^^^^^ keyword.control.begin
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^ string.quoted.double
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+//                               ^^^^^^^^ variable
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^ keyword.control.end
+//                                            ^ punctuation.terminator.statement
+
+   OUTTEXT ("Command : ");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+   OUTIMAGE;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   answer := INCHAR;
+// ^^^^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+   END of WHILE-loop;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^ comment.block
+//                  ^ punctuation.terminator.statement
+
+OUTIMAGE ;
+// <-------- variable
+//       ^ punctuation.terminator.statement
+OUTTEXT ("--- END Simula a.s. TEST 86");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+OUTIMAGE
+// <-------- variable
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

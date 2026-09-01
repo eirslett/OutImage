@@ -1,0 +1,7 @@
+begin
+    if true then
+    begin
+        outtext("true");
+    end***test comment***else
+        outtext("false");
+end

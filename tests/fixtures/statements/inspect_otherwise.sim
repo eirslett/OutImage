@@ -1,0 +1,5 @@
+begin
+  integer picked;
+  picked := 99;
+  inspect none when Node do picked := 1 otherwise picked := 0;
+end;

@@ -1,0 +1,9 @@
+[E0405] Error: PREFIX SCOPE: prefix class `Outer` is not local to the block declaring class `Bad`
+   ╭─[ prefix_not_local.sim:5:1 ]
+   │
+ 5 │ Outer class Bad; begin end;
+   │ ─────────────┬─────────────  
+   │              ╰─────────────── here
+   │ 
+   │ Help: declare it in the same block, or list it in an `external` head
+───╯

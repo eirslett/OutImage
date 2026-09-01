@@ -1,0 +1,964 @@
+// SYNTAX TEST "source.simula" "simtst81"
+% =====================================   Main   program =============
+// <---------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 81
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:        Test the value of close.
+// <------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  NOTE:           Uses several files as noted 
+// <----------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   28/08-86
+// <------------------------------ comment.directive
+% ====================================================================
+// <---------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Ref(File) xf;
+// ^^^ storage.modifier
+//    ^ punctuation.section.parens
+//     ^^^^ entity.name.class
+//         ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.terminator.statement
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   procedure error(t,abort); text t; boolean abort;
+// ^^^^^^^^^ storage.type
+//           ^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable.parameter
+//                  ^ punctuation.separator
+//                   ^^^^^ variable.parameter
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^^^^ storage.type
+//                                ^ variable
+//                                 ^ punctuation.terminator.statement
+//                                   ^^^^^^^ storage.type
+//                                           ^^^^^ variable
+//                                                ^ punctuation.terminator.statement
+   begin outimage; outtext("*** ERROR: "); outtext(t); outimage;
+// ^^^^^ keyword.control.begin
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+//                 ^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^ variable
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+//                                                     ^^^^^^^^ variable
+//                                                             ^ punctuation.terminator.statement
+         found_error:=true;
+//       ^^^^^^^^^^^ variable
+//                  ^^ keyword.operator.assignment
+//                    ^^^^ constant.language.bool
+//                        ^ punctuation.terminator.statement
+         if abort then goto TERMINATE
+//       ^^ keyword.control.if
+//          ^^^^^ variable
+//                ^^^^ keyword.control.then
+//                     ^^^^ keyword.control.goto
+//                          ^^^^^^^^^ entity.name.label
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext("--- START Simula a.s. TEST 81 (Test 'open' and 'close')");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext("    file ""any8189"" is opened as infile and inbytefile");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext("    file ""sxcvz1"" is opened as outfile, "
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+                                         "printfile and outbytefile");
+//                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext("    file ""sxcvz2"" is opened as directfile");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext("    file ""sxcvz3"" is opened as directbytefile");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   xf:- New Infile("any8189");
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   if xf qua Infile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened infile ""any8189"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.separator
+//                                                ^^^^^ constant.language.bool
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+
+   if not xf qua Infile.Open(blanks(80))
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^ constant.numeric.decimal
+//                                    ^^ punctuation.section.parens
+   then error("'open' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened infile ""any8189"")",true);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.separator
+//                                                ^^^^ constant.language.bool
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+
+   if xf qua Infile.Open(blanks(80))
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^ constant.numeric.decimal
+//                                ^^ punctuation.section.parens
+   then error("'open' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(on open infile ""any8189"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.separator
+//                                           ^^^^^ constant.language.bool
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+
+   if not xf qua Infile.Close
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^^ variable
+   then error("'close' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(open infile ""any8189"")",false)
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^ constant.language.bool
+//                                             ^ punctuation.section.parens
+   else
+// ^^^^ keyword.control.else
+   if xf qua Infile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(closed infile ""any8189"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.separator
+//                                          ^^^^^ constant.language.bool
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+
+
+   xf:- New Outfile("sxcvz1");
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^ entity.name.class
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   if xf qua Outfile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened outfile ""sxcvz1"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.separator
+//                                                ^^^^^ constant.language.bool
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+
+   if not xf qua Outfile.Open(blanks(80))
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^ constant.numeric.decimal
+//                                     ^^ punctuation.section.parens
+   then error("'open' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened outfile ""sxcvz1"")",true);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.separator
+//                                                ^^^^ constant.language.bool
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+
+   if xf qua Outfile.Open(blanks(80))
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^ constant.numeric.decimal
+//                                 ^^ punctuation.section.parens
+   then error("'open' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(open outfile ""sxcvz11"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.separator
+//                                         ^^^^^ constant.language.bool
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+
+   if not xf qua Outfile.Close
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^^ variable
+   then error("'close' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(open outfile ""sxcvz1"")",false)
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^ constant.language.bool
+//                                             ^ punctuation.section.parens
+   else
+// ^^^^ keyword.control.else
+   if xf qua Outfile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(closed outfile ""sxcvz1"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.separator
+//                                          ^^^^^ constant.language.bool
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+
+
+   xf:- New Directfile("sxcvz2");
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^^ entity.name.class
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+   xf.SetAccess("CREATE");
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+
+   if xf qua Directfile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened directfile ""sxcvz2"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.separator
+//                                                   ^^^^^ constant.language.bool
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+
+   if not xf qua Directfile.Open(blanks(80))
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^^^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^^ constant.numeric.decimal
+//                                        ^^ punctuation.section.parens
+   then error("'open' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened directfile ""sxcvz2"")",true);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.separator
+//                                                   ^^^^ constant.language.bool
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+
+   if xf qua Directfile.Open(blanks(80))
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^ constant.numeric.decimal
+//                                    ^^ punctuation.section.parens
+   then error("'open' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(open directfile ""sxcvz2"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.separator
+//                                           ^^^^^ constant.language.bool
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+
+   if not xf qua Directfile.Close
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^^^ variable
+   then error("'close' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(open directfile ""sxcvz2"")",false)
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.separator
+//                                           ^^^^^ constant.language.bool
+//                                                ^ punctuation.section.parens
+   else
+// ^^^^ keyword.control.else
+   if xf qua Directfile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(closed directfile ""sxcvz2"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+//                                             ^^^^^ constant.language.bool
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+
+
+   xf:- New Inbytefile("any8189");
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^^ entity.name.class
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+
+   if xf qua Inbytefile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened inbytefile ""any8189"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.separator
+//                                                    ^^^^^ constant.language.bool
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+
+   if not xf qua Inbytefile.Open
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^^ variable
+   then error("'open' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened inbytefile ""any8189"")",true);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.separator
+//                                                    ^^^^ constant.language.bool
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+
+   if xf qua Inbytefile.Open
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^ variable
+   then error("'open' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(on open inbytefile ""any8189"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.separator
+//                                               ^^^^^ constant.language.bool
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+
+   if not xf qua Inbytefile.Close
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^^^ variable
+   then error("'close' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(open inbytefile ""any8189"")",false)
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.separator
+//                                            ^^^^^ constant.language.bool
+//                                                 ^ punctuation.section.parens
+   else
+// ^^^^ keyword.control.else
+   if xf qua Inbytefile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(closed inbytefile ""any8189"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.separator
+//                                              ^^^^^ constant.language.bool
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+
+
+   xf:- New Outbytefile("sxcvz1");
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^^^ entity.name.class
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+
+   if xf qua Outbytefile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened outbytefile ""sxcvz1"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.separator
+//                                                    ^^^^^ constant.language.bool
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+
+   if not xf qua Outbytefile.Open
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^ variable
+   then error("'open' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened outbytefile ""sxcvz1"")",true);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.separator
+//                                                    ^^^^ constant.language.bool
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+
+   if xf qua Outbytefile.Open
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^ variable
+   then error("'open' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(on open outbytefile ""sxcvz1"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.separator
+//                                               ^^^^^ constant.language.bool
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+
+   if not xf qua Outbytefile.Close
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^^ variable
+   then error("'close' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(open outbytefile ""sxcvz1"")",false)
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.separator
+//                                            ^^^^^ constant.language.bool
+//                                                 ^ punctuation.section.parens
+   else
+// ^^^^ keyword.control.else
+   if xf qua Outbytefile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(closed outbytefile ""sxcvz1"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.separator
+//                                              ^^^^^ constant.language.bool
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+
+
+   xf:- New Directbytefile("sxcvz3");
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^^^^^^ entity.name.class
+//                        ^ punctuation.section.parens
+//                         ^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+   xf.SetAccess("CREATE");
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+
+   if xf qua Directbytefile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^^^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened directbytefile ""sxcvz3"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.separator
+//                                                       ^^^^^ constant.language.bool
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+
+   if not xf qua Directbytefile.Open
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^^^^^ variable
+//                             ^ punctuation.accessor
+//                              ^^^^ variable
+   then error("'open' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened directbytefile ""sxcvz3"")",true);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.separator
+//                                                       ^^^^ constant.language.bool
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+
+   if xf qua Directbytefile.Open
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^^^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^^ variable
+   then error("'open' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(on open directbytefile ""sxcvz3"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.separator
+//                                                  ^^^^^ constant.language.bool
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+
+   if not xf qua Directbytefile.Close
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^^^^^^ variable
+//                             ^ punctuation.accessor
+//                              ^^^^^ variable
+   then error("'close' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(open directbytefile ""sxcvz3"")",false)
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.separator
+//                                               ^^^^^ constant.language.bool
+//                                                    ^ punctuation.section.parens
+   else
+// ^^^^ keyword.control.else
+   if xf qua Directbytefile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^^^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(closed directbytefile ""sxcvz2"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.separator
+//                                                 ^^^^^ constant.language.bool
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+
+
+   xf:- New Printfile("sxcvz1");
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^ entity.name.class
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^ string.quoted.double
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+
+   if xf qua Printfile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened printfile ""sxcvz1"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.separator
+//                                                  ^^^^^ constant.language.bool
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+
+   if not xf qua Printfile.Open(blanks(80))
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^ variable
+//                        ^ punctuation.accessor
+//                         ^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^ constant.numeric.decimal
+//                                       ^^ punctuation.section.parens
+   then error("'open' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(never-opened printfile ""sxcvz1"")",true);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.separator
+//                                                  ^^^^ constant.language.bool
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+
+   if xf qua Printfile.Open(blanks(80))
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^^ constant.numeric.decimal
+//                                   ^^ punctuation.section.parens
+   then error("'open' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(on open printfile ""sxcvz1"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+//                                             ^^^^^ constant.language.bool
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+
+   if not xf qua Printfile.Close
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^^^^ variable
+//                        ^ punctuation.accessor
+//                         ^^^^^ variable
+   then error("'close' returns FALSE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(open printfile ""sxcvz1"")",false)
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.separator
+//                                          ^^^^^ constant.language.bool
+//                                               ^ punctuation.section.parens
+   else
+// ^^^^ keyword.control.else
+   if xf qua Printfile.Close
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^^^^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+   then error("'close' returns TRUE "
+// ^^^^ keyword.control.then
+//      ^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+              "(closed printfile ""sxcvz1"")",false);
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.separator
+//                                            ^^^^^ constant.language.bool
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+
+TERMINATE:
+// <--------- entity.name.label
+//       ^ punctuation.separator
+
+   Outtext ("--- END Simula a.s. TEST 81") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE Outtext (" (no errors found)");
+// ^^^^ keyword.control.else
+//      ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+
+END
+// <--- keyword.control.end

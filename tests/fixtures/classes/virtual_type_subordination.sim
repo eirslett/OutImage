@@ -1,0 +1,11 @@
+! §5.5.3.7: virtual ref type matched by subordinate subclass ref.;
+begin
+    class Point; begin end;
+    Point class Polar; begin end;
+    class Base; virtual: ref(Point) p;
+    begin
+        ref(Polar) p;
+    end;
+    ref(Base) b;
+    b :- new Base;
+end

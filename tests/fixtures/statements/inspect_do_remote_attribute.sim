@@ -1,0 +1,14 @@
+! §4.8 / §5.5.6.9: connection-block remote attribute access (inspect … do …).;
+begin
+    class Node;
+    integer x;
+    begin
+        x := 1;
+    end;
+    ref(Node) n;
+    integer result;
+    n :- new Node;
+    inspect n do
+        x := 2;
+    result := n.x;
+end

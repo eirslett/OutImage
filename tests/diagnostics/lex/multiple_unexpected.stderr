@@ -1,0 +1,20 @@
+[E0001] Error: UNEXPECTED CHARACTER: `@` is not a legal character here
+   ╭─[ multiple_unexpected.sim:1:23 ]
+   │
+ 1 │ begin integer x; x := @1; x := #2; end;
+   │                       ┬  
+   │                       ╰── unexpected character
+   │ 
+   │ Help: remove it, or put it inside a string or a comment
+   │ 
+   │ Note: 1 more error(s) reported
+───╯
+[E0001] Error: UNEXPECTED CHARACTER: `#` is not a legal character here
+   ╭─[ multiple_unexpected.sim:1:32 ]
+   │
+ 1 │ begin integer x; x := @1; x := #2; end;
+   │                                ┬  
+   │                                ╰── unexpected character
+   │ 
+   │ Help: remove it, or put it inside a string or a comment
+───╯

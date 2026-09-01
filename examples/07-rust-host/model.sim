@@ -1,0 +1,12 @@
+external Host procedure plot = "plot"
+   is procedure plot(x, y); real x, y;
+
+real procedure hypot(a, b); real a, b;
+begin
+   hypot := sqrt(a ** 2 + b ** 2);
+end;
+
+procedure tick(x, y); real x, y;
+begin
+   plot(x, y);
+end;

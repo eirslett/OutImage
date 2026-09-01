@@ -1,0 +1,23 @@
+! Ch.12 wait passivates after entering a Head queue;
+! Enclosing ObjectRef q is snapshotted onto Worker at new;
+Simulation
+begin
+    ref(head) q;
+    q :- new head;
+
+    process class Worker;
+    begin
+        OutText("wait"); OutImage;
+        wait(q);
+        OutText("go"); OutImage;
+    end;
+
+    ref(Worker) w;
+    w :- new Worker;
+    activate w;
+    OutText("main"); OutImage;
+    hold(0);
+    activate w;
+    hold(0);
+    OutText("done"); OutImage;
+end

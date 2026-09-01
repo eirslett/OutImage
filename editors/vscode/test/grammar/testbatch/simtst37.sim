@@ -1,0 +1,435 @@
+// SYNTAX TEST "source.simula" "simtst37"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 37
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test transmission by name, when the actual parameter is of a
+// <---------------------------------------------------------------------------- comment.directive
+%               different type than the formal parameter.
+// <--------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   23/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   integer i, j ;
+// ^^^^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//            ^ variable
+//              ^ punctuation.terminator.statement
+   real x, y, z, eps ;
+// ^^^^ storage.type
+//      ^ variable
+//       ^ punctuation.separator
+//         ^ variable
+//          ^ punctuation.separator
+//            ^ variable
+//             ^ punctuation.separator
+//               ^^^ variable
+//                   ^ punctuation.terminator.statement
+
+   procedure P (r, s) ;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable.parameter
+//               ^ punctuation.separator
+//                 ^ variable.parameter
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+      name r, s ;
+//    ^^^^ keyword.other.name
+//         ^ variable
+//          ^ punctuation.separator
+//            ^ variable
+//              ^ punctuation.terminator.statement
+      real r, s ;
+//    ^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//            ^ variable
+//              ^ punctuation.terminator.statement
+      x := r := s := 3.14 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//           ^^ keyword.operator.assignment
+//              ^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.numeric.decimal
+//                        ^ punctuation.terminator.statement
+
+
+   Outtext ("--- START Simula a.s. TEST 37") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test transmission by name, when the actual parameters") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- and formal parameters are of different type.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   eps := 0.001 ;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^^^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+
+   P (i, j) ;
+// ^ entity.name.function
+//   ^ punctuation.section.parens
+//    ^ variable
+//     ^ punctuation.separator
+//       ^ variable
+//        ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+
+   if     i = 3
+// ^^ keyword.control.if
+//        ^ variable
+//          ^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+      and j = 3
+//    ^^^ keyword.operator
+//        ^ variable
+//          ^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+      and x+eps > 3.14 and x-eps < 3.14 then
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ keyword.operator.arithmetic
+//          ^^^ variable
+//              ^ keyword.operator.comparison
+//                ^^^^ constant.numeric.decimal
+//                     ^^^ keyword.operator
+//                         ^ variable
+//                          ^ keyword.operator.arithmetic
+//                           ^^^ variable
+//                               ^ keyword.operator.comparison
+//                                 ^^^^ constant.numeric.decimal
+//                                      ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Value of actual parameters (1).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outint (i,16) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//              ^^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outint (j, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outreal (x, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   P (i, y) ;
+// ^ entity.name.function
+//   ^ punctuation.section.parens
+//    ^ variable
+//     ^ punctuation.separator
+//       ^ variable
+//        ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+
+   if     i = 3
+// ^^ keyword.control.if
+//        ^ variable
+//          ^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+      and y-eps < 3.14 and y+eps > 3.14
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ keyword.operator.arithmetic
+//          ^^^ variable
+//              ^ keyword.operator.comparison
+//                ^^^^ constant.numeric.decimal
+//                     ^^^ keyword.operator
+//                         ^ variable
+//                          ^ keyword.operator.arithmetic
+//                           ^^^ variable
+//                               ^ keyword.operator.comparison
+//                                 ^^^^ constant.numeric.decimal
+      and x-eps < 3.14 and x+eps > 3.14 then
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ keyword.operator.arithmetic
+//          ^^^ variable
+//              ^ keyword.operator.comparison
+//                ^^^^ constant.numeric.decimal
+//                     ^^^ keyword.operator
+//                         ^ variable
+//                          ^ keyword.operator.arithmetic
+//                           ^^^ variable
+//                               ^ keyword.operator.comparison
+//                                 ^^^^ constant.numeric.decimal
+//                                      ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Value of actual parameters (2).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outint (i,16) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//              ^^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outreal (y, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outreal (x, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   P (z, j) ;
+// ^ entity.name.function
+//   ^ punctuation.section.parens
+//    ^ variable
+//     ^ punctuation.separator
+//       ^ variable
+//        ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+
+   if     j = 3
+// ^^ keyword.control.if
+//        ^ variable
+//          ^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+      and z-eps < 3.14 and z+eps > 3.14
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ keyword.operator.arithmetic
+//          ^^^ variable
+//              ^ keyword.operator.comparison
+//                ^^^^ constant.numeric.decimal
+//                     ^^^ keyword.operator
+//                         ^ variable
+//                          ^ keyword.operator.arithmetic
+//                           ^^^ variable
+//                               ^ keyword.operator.comparison
+//                                 ^^^^ constant.numeric.decimal
+      and x-eps < 3.14 and x+eps > 3.14 then
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ keyword.operator.arithmetic
+//          ^^^ variable
+//              ^ keyword.operator.comparison
+//                ^^^^ constant.numeric.decimal
+//                     ^^^ keyword.operator
+//                         ^ variable
+//                          ^ keyword.operator.arithmetic
+//                           ^^^ variable
+//                               ^ keyword.operator.comparison
+//                                 ^^^^ constant.numeric.decimal
+//                                      ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Value of actual parameters (3).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outint (j,16) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//              ^^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outreal (z, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outreal (x, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 37") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

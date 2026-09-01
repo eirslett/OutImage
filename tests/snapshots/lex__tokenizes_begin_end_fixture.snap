@@ -1,0 +1,14 @@
+---
+source: tests/lex.rs
+assertion_line: 31
+expression: "token_kinds(\"begin\\nend;\")"
+---
+[
+    Keyword(
+        Begin,
+    ),
+    Keyword(
+        End,
+    ),
+    Semicolon,
+]

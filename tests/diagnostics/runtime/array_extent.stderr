@@ -1,0 +1,9 @@
+[E0901] Error: ARRAY TOO LARGE: array extent overflow
+   ╭─[ array_extent.sim:1:23 ]
+   │
+ 1 │ begin integer array a(1:70000, 1:70000); OutText("x"); OutImage; end;
+   │                       ────────┬───────  
+   │                               ╰───────── here
+   │ 
+   │ Help: narrow the bounds, or split the array into smaller pieces
+───╯

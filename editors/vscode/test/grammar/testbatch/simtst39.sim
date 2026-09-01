@@ -1,0 +1,149 @@
+// SYNTAX TEST "source.simula" "simtst39"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 39
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Check that a formal parameter is global to the procedure body.
+// <------------------------------------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   23/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   integer i ;
+// ^^^^^^^ storage.type
+//         ^ variable
+//           ^ punctuation.terminator.statement
+
+   procedure P (i) ;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable.parameter
+//               ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+     name i ;
+//   ^^^^ keyword.other.name
+//        ^ variable
+//          ^ punctuation.terminator.statement
+     integer i ;
+//   ^^^^^^^ storage.type
+//           ^ variable
+//             ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+     Integer i ;
+//   ^^^^^^^ storage.type
+//           ^ variable
+//             ^ punctuation.terminator.statement
+     i := 5 ;
+//   ^ variable
+//     ^^ keyword.operator.assignment
+//        ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 39") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Check that the formal parameters are global to the") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- procedure body.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   P (i) ;
+// ^ entity.name.function
+//   ^ punctuation.section.parens
+//    ^ variable
+//     ^ punctuation.section.parens
+//       ^ punctuation.terminator.statement
+
+   if i <> 0 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Wrong variable used in procedure body.") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 39") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

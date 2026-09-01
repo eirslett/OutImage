@@ -1,0 +1,132 @@
+// SYNTAX TEST "source.simula" "simtst58"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 58
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test goto statement within a connection block where the
+// <----------------------------------------------------------------------- comment.directive
+%               destination is in the corresponding otherwise-clause.
+// <--------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   22/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   integer i;
+// ^^^^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.terminator.statement
+
+   Class A;;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//        ^^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 58");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext ("--- Test goto statement within a connection block where the");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext ("--- destination is in the corresponding otherwise-clause.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+   Outimage; Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+   found_error := true;
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+//                    ^ punctuation.terminator.statement
+
+   Inspect new A do
+// ^^^^^^^ keyword.control.inspect
+//         ^^^ keyword.control.new
+//             ^ entity.name.class
+//               ^^ keyword.control.do
+   Begin Goto L End
+// ^^^^^ keyword.control.begin
+//       ^^^^ keyword.control.goto
+//            ^ entity.name.label
+//              ^^^ keyword.control.end
+   Otherwise L: found_error := false;
+// ^^^^^^^^^ keyword.control.otherwise
+//           ^ entity.name.label
+//            ^ punctuation.separator
+//              ^^^^^^^^^^^ variable
+//                          ^^ keyword.operator.assignment
+//                             ^^^^^ constant.language.bool
+//                                  ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   Begin
+// ^^^^^ keyword.control.begin
+       Outtext ("*** ERROR : In goto statement.");
+//     ^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+       Outimage;
+//     ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+   END
+// ^^^ keyword.control.end
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 58");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

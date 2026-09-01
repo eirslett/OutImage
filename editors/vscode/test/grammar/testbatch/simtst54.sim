@@ -1,0 +1,1055 @@
+// SYNTAX TEST "source.simula" "simtst54"
+% =====================================   Main   program =============
+// <---------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 54
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test virtual switches and labels
+// <------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  REWRITTEN BY:  BEH   01/08-86
+// <-------------------------------- comment.directive
+% ====================================================================
+// <---------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   text t;
+// ^^^^ storage.type
+//      ^ variable
+//       ^ punctuation.terminator.statement
+
+   Class A (L, S, I);
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.section.parens
+//          ^ variable.parameter
+//           ^ punctuation.separator
+//             ^ variable.parameter
+//              ^ punctuation.separator
+//                ^ variable.parameter
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Boolean L, S;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ variable
+//                ^ punctuation.terminator.statement
+      Integer I;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+      Virtual: Label L1, L2;
+//    ^^^^^^^ keyword.other.virtual
+//           ^ punctuation.separator
+//             ^^^^^ keyword.other.label
+//                   ^^ variable
+//                     ^ punctuation.separator
+//                       ^^ variable
+//                         ^ punctuation.terminator.statement
+               Switch S1, S2;
+//             ^^^^^^ keyword.control.switch
+//                    ^^ variable
+//                      ^ punctuation.separator
+//                        ^^ variable
+//                          ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Switch S1 := L1, L2;
+//    ^^^^^^ keyword.control.switch
+//           ^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                     ^^ variable
+//                       ^ punctuation.terminator.statement
+
+      If L then Goto L1;
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^ keyword.control.goto
+//                   ^^ entity.name.label
+//                     ^ punctuation.terminator.statement
+      If S then Goto S1 (I);
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^ keyword.control.goto
+//                   ^^ entity.name.label
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+      Goto OutA;
+//    ^^^^ keyword.control.goto
+//         ^^^^ entity.name.label
+//             ^ punctuation.terminator.statement
+
+      L1: Outtext (" A.L1 "); Goto OutA;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+      L2: Outtext (" A.L2 "); Goto OutA;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+      L3: Outtext (" A.L3 "); Goto OutA;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+
+     OutA:
+//   ^^^^ entity.name.label
+//       ^ punctuation.separator
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   A Class B (L, S, I);
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.section.parens
+//            ^ variable.parameter
+//             ^ punctuation.separator
+//               ^ variable.parameter
+//                ^ punctuation.separator
+//                  ^ variable.parameter
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+      Boolean L, S;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ variable
+//                ^ punctuation.terminator.statement
+      Integer I;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+      Virtual: Label L3;
+//    ^^^^^^^ keyword.other.virtual
+//           ^ punctuation.separator
+//             ^^^^^ keyword.other.label
+//                   ^^ variable
+//                     ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Switch S2 := L3, L4;
+//    ^^^^^^ keyword.control.switch
+//           ^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                     ^^ variable
+//                       ^ punctuation.terminator.statement
+
+      If L then Goto L2;
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^ keyword.control.goto
+//                   ^^ entity.name.label
+//                     ^ punctuation.terminator.statement
+      If S then Goto S2 (I);
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^ keyword.control.goto
+//                   ^^ entity.name.label
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+      Goto OutB;
+//    ^^^^ keyword.control.goto
+//         ^^^^ entity.name.label
+//             ^ punctuation.terminator.statement
+
+      L2: Outtext (" B.L2 "); Goto OutB;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+      L3: Outtext (" B.L3 "); Goto OutB;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+      L4: Outtext (" B.L4 "); Goto OutB;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+
+     OutB:
+//   ^^^^ entity.name.label
+//       ^ punctuation.separator
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   B Class C (L, S, I);
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.section.parens
+//            ^ variable.parameter
+//             ^ punctuation.separator
+//               ^ variable.parameter
+//                ^ punctuation.separator
+//                  ^ variable.parameter
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+      Boolean L, S;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ variable
+//                ^ punctuation.terminator.statement
+      Integer I;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Switch S1 := L1, L3, L6;
+//    ^^^^^^ keyword.control.switch
+//           ^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                     ^^ variable
+//                       ^ punctuation.separator
+//                         ^^ variable
+//                           ^ punctuation.terminator.statement
+      Switch S3 := L4, L6;
+//    ^^^^^^ keyword.control.switch
+//           ^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                     ^^ variable
+//                       ^ punctuation.terminator.statement
+
+      Goto OutC;
+//    ^^^^ keyword.control.goto
+//         ^^^^ entity.name.label
+//             ^ punctuation.terminator.statement
+
+      If L then Goto L3;
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^ keyword.control.goto
+//                   ^^ entity.name.label
+//                     ^ punctuation.terminator.statement
+      If S then Goto S3 (I);
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^ keyword.control.goto
+//                   ^^ entity.name.label
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+      L1: Outtext (" C.L1 "); Goto OutC;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+      L3: Outtext (" C.L3 "); Goto OutC;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+      L4: Outtext (" C.L4 "); Goto OutC;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+      L6: Outtext (" C.L6 "); Goto OutC;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+
+     OutC:
+//   ^^^^ entity.name.label
+//       ^ punctuation.separator
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   A Class D (L, S, I);
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.section.parens
+//            ^ variable.parameter
+//             ^ punctuation.separator
+//               ^ variable.parameter
+//                ^ punctuation.separator
+//                  ^ variable.parameter
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+      Boolean L, S;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ variable
+//                ^ punctuation.terminator.statement
+      Integer I;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+      Virtual: Switch S3;
+//    ^^^^^^^ keyword.other.virtual
+//           ^ punctuation.separator
+//             ^^^^^^ keyword.control.switch
+//                    ^^ variable
+//                      ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Switch S1 := L1, L3;
+//    ^^^^^^ keyword.control.switch
+//           ^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                     ^^ variable
+//                       ^ punctuation.terminator.statement
+      Switch S2 := L4;
+//    ^^^^^^ keyword.control.switch
+//           ^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^ variable
+//                   ^ punctuation.terminator.statement
+
+      If L then Goto L4;
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^ keyword.control.goto
+//                   ^^ entity.name.label
+//                     ^ punctuation.terminator.statement
+      If S then Goto S2 (I);
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^ keyword.control.goto
+//                   ^^ entity.name.label
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+      Goto OutD;
+//    ^^^^ keyword.control.goto
+//         ^^^^ entity.name.label
+//             ^ punctuation.terminator.statement
+
+      L1: Outtext (" D.L1 "); Goto OutD;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+      L3: Outtext (" D.L3 "); Goto OutD;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+      L4: Outtext (" D.L4 ");
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+     OutD:
+//   ^^^^ entity.name.label
+//       ^ punctuation.separator
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   D Class E (L, S, I);
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.section.parens
+//            ^ variable.parameter
+//             ^ punctuation.separator
+//               ^ variable.parameter
+//                ^ punctuation.separator
+//                  ^ variable.parameter
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+      Boolean L, S;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ variable
+//                ^ punctuation.terminator.statement
+      Integer I;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Switch S3 := L2;
+//    ^^^^^^ keyword.control.switch
+//           ^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^ variable
+//                   ^ punctuation.terminator.statement
+
+      If L then Goto L3;
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^ keyword.control.goto
+//                   ^^ entity.name.label
+//                     ^ punctuation.terminator.statement
+      If S then Goto S3 (I);
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^ keyword.control.goto
+//                   ^^ entity.name.label
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+      Goto OutE;
+//    ^^^^ keyword.control.goto
+//         ^^^^ entity.name.label
+//             ^ punctuation.terminator.statement
+
+      L2: Outtext (" E.L2 "); Goto OutE;
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ keyword.control.goto
+//                                 ^^^^ entity.name.label
+//                                     ^ punctuation.terminator.statement
+      L3: Outtext (" E.L3 ");
+//    ^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+     OutE:
+//   ^^^^ entity.name.label
+//       ^ punctuation.separator
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Ref (A) RA;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.terminator.statement
+   Ref (B) RB;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.terminator.statement
+   Ref (C) RC;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.terminator.statement
+   Ref (D) RD;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.terminator.statement
+   Ref (E) RE;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 54");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext ("--- Test virtual switches and labels.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+   Outimage; Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+   RA :- New A (false, true, 2);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^^ constant.language.bool
+//                   ^ punctuation.separator
+//                     ^^^^ constant.language.bool
+//                         ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+   RB :- New B (true, false, 0, false, true, 1);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^ constant.language.bool
+//                  ^ punctuation.separator
+//                    ^^^^^ constant.language.bool
+//                         ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                              ^^^^^ constant.language.bool
+//                                   ^ punctuation.separator
+//                                     ^^^^ constant.language.bool
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+   RB :- New B (false, true, 2, false, true, 2);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^^ constant.language.bool
+//                   ^ punctuation.separator
+//                     ^^^^ constant.language.bool
+//                         ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                              ^^^^^ constant.language.bool
+//                                   ^ punctuation.separator
+//                                     ^^^^ constant.language.bool
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+   RC :- New C (false, true, 3, true, false, 0, false, true, 1);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^^ constant.language.bool
+//                   ^ punctuation.separator
+//                     ^^^^ constant.language.bool
+//                         ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                              ^^^^ constant.language.bool
+//                                  ^ punctuation.separator
+//                                    ^^^^^ constant.language.bool
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.separator
+//                                              ^^^^^ constant.language.bool
+//                                                   ^ punctuation.separator
+//                                                     ^^^^ constant.language.bool
+//                                                         ^ punctuation.separator
+//                                                           ^ constant.numeric.decimal
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+   RC :- New C (true, false, 0, false, true, 2, false, true, 2);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^ constant.language.bool
+//                  ^ punctuation.separator
+//                    ^^^^^ constant.language.bool
+//                         ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                              ^^^^^ constant.language.bool
+//                                   ^ punctuation.separator
+//                                     ^^^^ constant.language.bool
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.separator
+//                                              ^^^^^ constant.language.bool
+//                                                   ^ punctuation.separator
+//                                                     ^^^^ constant.language.bool
+//                                                         ^ punctuation.separator
+//                                                           ^ constant.numeric.decimal
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+   RC :- New C (false, false, 0, false, true, 1, false, true, 1);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^^ constant.language.bool
+//                   ^ punctuation.separator
+//                     ^^^^^ constant.language.bool
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                               ^^^^^ constant.language.bool
+//                                    ^ punctuation.separator
+//                                      ^^^^ constant.language.bool
+//                                          ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+//                                               ^^^^^ constant.language.bool
+//                                                    ^ punctuation.separator
+//                                                      ^^^^ constant.language.bool
+//                                                          ^ punctuation.separator
+//                                                            ^ constant.numeric.decimal
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+
+   t :- copy(sysout.image.strip);
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^ variable
+//                       ^ punctuation.accessor
+//                        ^^^^^ variable
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+   sysout.image.setpos (1);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   sysout.image := notext ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^^^ constant.language.null
+//                        ^ punctuation.terminator.statement
+
+   if t = " A.L2  A.L1  B.L3  B.L2  C.L6  C.L1  C.L3" then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Wrong sequence of statements (1).");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext ("            Erroneus output :");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext ("            ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      Outtext (t);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   RD :- New D (false, true, 2, true, false, 0);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^^ constant.language.bool
+//                   ^ punctuation.separator
+//                     ^^^^ constant.language.bool
+//                         ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                              ^^^^ constant.language.bool
+//                                  ^ punctuation.separator
+//                                    ^^^^^ constant.language.bool
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+   RD :- New D (false, true, 3, true, false, 0);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^^ constant.language.bool
+//                   ^ punctuation.separator
+//                     ^^^^ constant.language.bool
+//                         ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                              ^^^^ constant.language.bool
+//                                  ^ punctuation.separator
+//                                    ^^^^^ constant.language.bool
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+   RE :- New E (false, false, 0, false, true, 2, false, true, 1);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^^ constant.language.bool
+//                   ^ punctuation.separator
+//                     ^^^^^ constant.language.bool
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                               ^^^^^ constant.language.bool
+//                                    ^ punctuation.separator
+//                                      ^^^^ constant.language.bool
+//                                          ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+//                                               ^^^^^ constant.language.bool
+//                                                    ^ punctuation.separator
+//                                                      ^^^^ constant.language.bool
+//                                                          ^ punctuation.separator
+//                                                            ^ constant.numeric.decimal
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+   RE :- New E (true, false, 0, true, true, 1, false, true, 1);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^ constant.language.bool
+//                  ^ punctuation.separator
+//                    ^^^^^ constant.language.bool
+//                         ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                              ^^^^ constant.language.bool
+//                                  ^ punctuation.separator
+//                                    ^^^^ constant.language.bool
+//                                        ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                             ^^^^^ constant.language.bool
+//                                                  ^ punctuation.separator
+//                                                    ^^^^ constant.language.bool
+//                                                        ^ punctuation.separator
+//                                                          ^ constant.numeric.decimal
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+   RA :- New D (false, true, 2, true, false, 0);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^^ constant.language.bool
+//                   ^ punctuation.separator
+//                     ^^^^ constant.language.bool
+//                         ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                              ^^^^ constant.language.bool
+//                                  ^ punctuation.separator
+//                                    ^^^^^ constant.language.bool
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+   RB :- New C (false, true, 2, false, true, 1, false, true, 1);
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^^ constant.language.bool
+//                   ^ punctuation.separator
+//                     ^^^^ constant.language.bool
+//                         ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                              ^^^^^ constant.language.bool
+//                                   ^ punctuation.separator
+//                                     ^^^^ constant.language.bool
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.separator
+//                                              ^^^^^ constant.language.bool
+//                                                   ^ punctuation.separator
+//                                                     ^^^^ constant.language.bool
+//                                                         ^ punctuation.separator
+//                                                           ^ constant.numeric.decimal
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+
+   t :- copy(sysout.image.strip);
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^ variable
+//                       ^ punctuation.accessor
+//                        ^^^^^ variable
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+   sysout.image.setpos (1);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   sysout.image := notext ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^^^ constant.language.null
+//                        ^ punctuation.terminator.statement
+
+   if t = " D.L3  D.L4  E.L2  D.L1  E.L2  D.L3  C.L3" then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Wrong sequence of statements (2).");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext ("            Erroneus output :");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext ("            ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      Outtext (t);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   If found_error then
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 54");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

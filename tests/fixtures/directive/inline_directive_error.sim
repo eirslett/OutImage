@@ -1,0 +1,3 @@
+begin
+    outimage; % directive is not allowed
+end

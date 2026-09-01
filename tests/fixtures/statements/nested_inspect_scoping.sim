@@ -1,0 +1,25 @@
+! §4.8.6: nested inspect / inner connection-statement scoping.;
+begin
+    class OuterCls;
+    integer x;
+    begin
+        x := 1;
+    end;
+    class InnerCls;
+    integer y;
+    begin
+        y := 2;
+    end;
+    ref(OuterCls) o;
+    ref(InnerCls) i;
+    integer seen_inner;
+    integer seen_outer;
+    o :- new OuterCls;
+    i :- new InnerCls;
+    inspect o do
+    begin
+        inspect i do
+            seen_inner := y;
+        seen_outer := x;
+    end;
+end

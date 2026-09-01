@@ -1,0 +1,9 @@
+[E0207] Error: ARRAY BOUNDS: an array declaration needs at least one bound pair
+   ╭─[ empty_array_bounds.sim:1:7 ]
+   │
+ 1 │ begin integer array a(); end;
+   │       ─────────┬────────  
+   │                ╰────────── here
+   │ 
+   │ Help: write bounds such as `a(1:n)`
+───╯

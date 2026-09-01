@@ -1,0 +1,10 @@
+begin
+  class Node;
+  begin
+  end Node;
+  integer picked;
+  ref(Node) n;
+  n :- new Node;
+  picked := 0;
+  inspect n when Node do picked := 1;
+end;

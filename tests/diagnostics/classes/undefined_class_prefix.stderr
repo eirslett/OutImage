@@ -1,0 +1,12 @@
+[E0405] Error: PREFIX SCOPE: prefix class `B` is not local to the block declaring class `A`
+   ╭─[ undefined_class_prefix.sim:1:7 ]
+   │
+ 1 │ begin B class A; begin end; end;
+   │       ──────────┬──────────  
+   │                 ╰──────────── here
+   │ 
+   │ Help: declare it in the same block, or list it in an `external` head
+   │ 
+   │ Note: 1 more error(s) reported
+───╯
+[E0404] Error: UNKNOWN CLASS: I cannot find a class named `B`

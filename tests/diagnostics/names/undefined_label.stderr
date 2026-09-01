@@ -1,0 +1,9 @@
+[E0304] Error: UNDEFINED LABEL: there is no label `missing` visible here
+   ╭─[ undefined_label.sim:1:7 ]
+   │
+ 1 │ begin goto missing; end;
+   │       ──────┬──────  
+   │             ╰──────── this label
+   │ 
+   │ Help: declare the label in this block, or pass a `label` parameter
+───╯

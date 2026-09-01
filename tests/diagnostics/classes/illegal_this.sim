@@ -1,0 +1,4 @@
+begin
+this Point begin end;
+class Point; begin end;
+end;

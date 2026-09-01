@@ -1,0 +1,1975 @@
+// SYNTAX TEST "source.simula" "simtst06"
+% =================================   Main   Program  ===========
+// <----------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 6
+// <------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  PURPOSE:  To test the mathematical functions x**y, Sqrt, Ln, Exp, Sin, Cos
+// <----------------------------------------------------------------------------- comment.directive
+%            and ArcTan on variables of type long real.
+// <------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:   Compare the results obtained by using the functions in different
+// <----------------------------------------------------------------------------- comment.directive
+%            ways, which should give the same answer.  If the difference is
+// <--------------------------------------------------------------------------- comment.directive
+%            unacceptable, an error-message is given.
+// <----------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  NOTE: 1 - At line marked with NOTE 1, the lowest acceptable difference
+// <------------------------------------------------------------------------- comment.directive
+%            between answers should be filled in.
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  REWRITTEN AND COMMENTED BY:   BEH  09/07-86
+// <---------------------------------------------- comment.directive
+% ===============================================================
+// <----------------------------------------------------------------- comment.directive
+begin
+// <----- keyword.control.begin
+
+class testmatlib;
+// <----- keyword.other.class
+//    ^^^^^^^^^^ entity.name.class
+//              ^ punctuation.terminator.statement
+begin
+// <----- keyword.control.begin
+
+    Boolean found_error;
+//  ^^^^^^^ storage.type
+//          ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+    long real maxlongdig;
+//  ^^^^ storage.type
+//       ^^^^ storage.type
+//            ^^^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+
+    procedure error (t); value t; text t;
+//  ^^^^^^^^^ storage.type
+//            ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ variable.parameter
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                       ^^^^^ keyword.other.value
+//                             ^ variable
+//                              ^ punctuation.terminator.statement
+//                                ^^^^ storage.type
+//                                     ^ variable
+//                                      ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+          outtext ("*** Error in the ");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+          outtext (t);
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+          outtext (" routine");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+          outimage;
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+          found_error:= true;
+//        ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+//                          ^ punctuation.terminator.statement
+    end of procedure error;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^ comment.block
+//                        ^ punctuation.terminator.statement
+
+
+    boolean procedure realdiff (x, y); long real x, y;
+//  ^^^^^^^ storage.type
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ variable.parameter
+//                               ^ punctuation.separator
+//                                 ^ variable.parameter
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+//                                     ^^^^ storage.type
+//                                          ^^^^ storage.type
+//                                               ^ variable
+//                                                ^ punctuation.separator
+//                                                  ^ variable
+//                                                   ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+       long real diff; integer pow;
+//     ^^^^ storage.type
+//          ^^^^ storage.type
+//               ^^^^ variable
+//                   ^ punctuation.terminator.statement
+//                     ^^^^^^^ storage.type
+//                             ^^^ variable
+//                                ^ punctuation.terminator.statement
+%      if x > maxlongdig then begin 
+// <------------------------------------ comment.directive
+%         while x > 10 do begin x:=x/(10&&16); pow:=pow+16 end;
+// <--------------------------------------------------------------- comment.directive
+%         x:=x*(10&&0**pow);
+// <---------------------------- comment.directive
+%      end;
+// <----------- comment.directive
+%      if y > maxlongdig then begin
+// <----------------------------------- comment.directive
+%         while y > 10 do begin y:=y/(10&&16); pow:=pow+16 end;
+// <--------------------------------------------------------------- comment.directive
+%         y:=y*(10&&0**pow);
+// <---------------------------- comment.directive
+%      end;
+// <----------- comment.directive
+
+       diff:= abs (if x=0 then x-y else (x-y) / x);
+//     ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^ keyword.control.if
+//                    ^ variable
+//                     ^ keyword.operator.comparison
+//                      ^ constant.numeric.decimal
+//                        ^^^^ keyword.control.then
+//                             ^ variable
+//                              ^ keyword.operator.arithmetic
+//                               ^ variable
+//                                 ^^^^ keyword.control.else
+//                                      ^ punctuation.section.parens
+//                                       ^ variable
+//                                        ^ keyword.operator.arithmetic
+//                                         ^ variable
+//                                          ^ punctuation.section.parens
+//                                            ^ keyword.operator.arithmetic
+//                                              ^ variable
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+
+       if diff > 7.0&-14 then                             !***** NOTE 1 *****;
+//     ^^ keyword.control.if
+//        ^^^^ variable
+//             ^ keyword.operator.comparison
+//               ^^^^^^^ constant.numeric.decimal
+//                       ^^^^ keyword.control.then
+//                                                        ^^^^^^^^^^^^^^^^^^^^ comment.block
+       begin
+//     ^^^^^ keyword.control.begin
+          outtext ("*** rel. error= ");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+          outreal (diff, 16, 23);
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^ variable
+//                     ^ punctuation.separator
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+          outimage;
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+          realdiff:=  true;
+//        ^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                    ^^^^ constant.language.bool
+//                        ^ punctuation.terminator.statement
+       end
+//     ^^^ keyword.control.end
+    end of procedure realdiff;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^^^^ comment.block
+//                           ^ punctuation.terminator.statement
+
+
+    long real procedure rpower (x, y); long real x, y;
+//  ^^^^ storage.type
+//       ^^^^ storage.type
+//            ^^^^^^^^^ storage.type
+//                      ^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ variable.parameter
+//                               ^ punctuation.separator
+//                                 ^ variable.parameter
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+//                                     ^^^^ storage.type
+//                                          ^^^^ storage.type
+//                                               ^ variable
+//                                                ^ punctuation.separator
+//                                                  ^ variable
+//                                                   ^ punctuation.terminator.statement
+       rpower:= exp (y * ln (x) );
+//     ^^^^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ variable
+//                     ^ keyword.operator.arithmetic
+//                       ^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.section.parens
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+
+
+    long real procedure ipower (b, j); long real b; integer j;
+//  ^^^^ storage.type
+//       ^^^^ storage.type
+//            ^^^^^^^^^ storage.type
+//                      ^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ variable.parameter
+//                               ^ punctuation.separator
+//                                 ^ variable.parameter
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+//                                     ^^^^ storage.type
+//                                          ^^^^ storage.type
+//                                               ^ variable
+//                                                ^ punctuation.terminator.statement
+//                                                  ^^^^^^^ storage.type
+//                                                          ^ variable
+//                                                           ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+       integer exp; long real prod, base;
+//     ^^^^^^^ storage.type
+//             ^^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^^^ storage.type
+//                       ^^^^ storage.type
+//                            ^^^^ variable
+//                                ^ punctuation.separator
+//                                  ^^^^ variable
+//                                      ^ punctuation.terminator.statement
+
+       boolean procedure bit0 (n); integer n;
+//     ^^^^^^^ storage.type
+//             ^^^^^^^^^ storage.type
+//                       ^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable.parameter
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+//                                 ^^^^^^^ storage.type
+//                                         ^ variable
+//                                          ^ punctuation.terminator.statement
+          bit0:= (n//2) * 2<n;
+//        ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ keyword.operator.arithmetic
+//                        ^ constant.numeric.decimal
+//                         ^ keyword.operator.comparison
+//                          ^ variable
+//                           ^ punctuation.terminator.statement
+
+       base:= b; exp:= abs (j);
+//     ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ variable
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+       prod:= if bit0 (exp) then base else 1.0;
+//     ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^ keyword.control.if
+//               ^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^ variable
+//                        ^ punctuation.section.parens
+//                          ^^^^ keyword.control.then
+//                               ^^^^ variable
+//                                    ^^^^ keyword.control.else
+//                                         ^^^ constant.numeric.decimal
+//                                            ^ punctuation.terminator.statement
+
+       while exp > 1 do
+//     ^^^^^ keyword.control.while
+//           ^^^ variable
+//               ^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+//                   ^^ keyword.control.do
+       begin
+//     ^^^^^ keyword.control.begin
+          base:= base * base; exp:= exp//2;
+//        ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^^^^ variable
+//                          ^ punctuation.terminator.statement
+//                            ^^^ variable
+//                               ^^ keyword.operator.assignment
+//                                  ^^^ variable
+//                                     ^^ keyword.operator.arithmetic
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.terminator.statement
+          if bit0 (exp) then prod:= prod * base;
+//        ^^ keyword.control.if
+//           ^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^ variable
+//                    ^ punctuation.section.parens
+//                      ^^^^ keyword.control.then
+//                           ^^^^ variable
+//                               ^^ keyword.operator.assignment
+//                                  ^^^^ variable
+//                                       ^ keyword.operator.arithmetic
+//                                         ^^^^ variable
+//                                             ^ punctuation.terminator.statement
+       end;
+//     ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+       ipower:= if j>0 then prod else 1.0 / prod;
+//     ^^^^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^ keyword.control.if
+//                 ^ variable
+//                  ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+//                          ^^^^ variable
+//                               ^^^^ keyword.control.else
+//                                    ^^^ constant.numeric.decimal
+//                                        ^ keyword.operator.arithmetic
+//                                          ^^^^ variable
+//                                              ^ punctuation.terminator.statement
+
+    end of procedure ipower;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^^ comment.block
+//                         ^ punctuation.terminator.statement
+
+
+    procedure testrpower (b, e); long real b, e;
+//  ^^^^^^^^^ storage.type
+//            ^^^^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable.parameter
+//                         ^ punctuation.separator
+//                           ^ variable.parameter
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+//                               ^^^^ storage.type
+//                                    ^^^^ storage.type
+//                                         ^ variable
+//                                          ^ punctuation.separator
+//                                            ^ variable
+//                                             ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+       long real x, y;
+//     ^^^^ storage.type
+//          ^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+
+       if b>0.0 then
+//     ^^ keyword.control.if
+//        ^ variable
+//         ^ keyword.operator.comparison
+//          ^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.then
+       begin
+//     ^^^^^ keyword.control.begin
+          x:= rpower (b, e); y:= b**e;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.separator
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^ variable
+//                            ^^ keyword.operator.assignment
+//                               ^ variable
+//                                ^^ keyword.operator.arithmetic
+//                                  ^ variable
+//                                   ^ punctuation.terminator.statement
+
+          if realdiff (x, y) then
+//        ^^ keyword.control.if
+//           ^^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.separator
+//                        ^ variable
+//                         ^ punctuation.section.parens
+//                           ^^^^ keyword.control.then
+          begin
+//        ^^^^^ keyword.control.begin
+             error ("rpower");
+//           ^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+             outtext ("  base=");
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+             outreal (b, 16, 23);
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.separator
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+             outtext ("          exp=");
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+             outreal (e, 16, 23);
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.separator
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+             outimage;
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+             outtext ("  exp(y*ln(x))= ");
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+             outreal (x, 16, 23);
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.separator
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+             outimage;
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+             outtext ("  base**exp=    ");
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+             outreal (y, 16, 23);
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.separator
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+             outimage; outimage
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+//                     ^^^^^^^^ variable
+          end if
+//        ^^^ keyword.control.end
+//            ^^ comment.block
+       end
+//     ^^^ keyword.control.end
+    end of procedure testrpower;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+//                             ^ punctuation.terminator.statement
+
+
+    procedure testipower (b, e); integer b, e;
+//  ^^^^^^^^^ storage.type
+//            ^^^^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable.parameter
+//                         ^ punctuation.separator
+//                           ^ variable.parameter
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+//                               ^^^^^^^ storage.type
+//                                       ^ variable
+//                                        ^ punctuation.separator
+//                                          ^ variable
+//                                           ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+       long real x, y, z, r;
+//     ^^^^ storage.type
+//          ^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ variable
+//                      ^ punctuation.separator
+//                        ^ variable
+//                         ^ punctuation.terminator.statement
+       Boolean n;
+//     ^^^^^^^ storage.type
+//             ^ variable
+//              ^ punctuation.terminator.statement
+
+       r:= b;
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ punctuation.terminator.statement
+       if b<>0 and e<>0 then
+//     ^^ keyword.control.if
+//        ^ variable
+//         ^^ keyword.operator.comparison
+//           ^ constant.numeric.decimal
+//             ^^^ keyword.operator
+//                 ^ variable
+//                  ^^ keyword.operator.comparison
+//                    ^ constant.numeric.decimal
+//                      ^^^^ keyword.control.then
+       begin
+//     ^^^^^ keyword.control.begin
+          if e<0 then begin n:= true; e:= -e end;
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.then
+//                    ^^^^^ keyword.control.begin
+//                          ^ variable
+//                           ^^ keyword.operator.assignment
+//                              ^^^^ constant.language.bool
+//                                  ^ punctuation.terminator.statement
+//                                    ^ variable
+//                                     ^^ keyword.operator.assignment
+//                                        ^ keyword.operator.arithmetic
+//                                         ^ variable
+//                                           ^^^ keyword.control.end
+//                                              ^ punctuation.terminator.statement
+
+          x:= ipower (b, e); y:= b**e; z:= r**e;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.separator
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^ variable
+//                            ^^ keyword.operator.assignment
+//                               ^ variable
+//                                ^^ keyword.operator.arithmetic
+//                                  ^ variable
+//                                   ^ punctuation.terminator.statement
+//                                     ^ variable
+//                                      ^^ keyword.operator.assignment
+//                                         ^ variable
+//                                          ^^ keyword.operator.arithmetic
+//                                            ^ variable
+//                                             ^ punctuation.terminator.statement
+
+          if realdiff (x, y) or realdiff (y, z) then
+//        ^^ keyword.control.if
+//           ^^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.separator
+//                        ^ variable
+//                         ^ punctuation.section.parens
+//                           ^^ keyword.operator
+//                              ^^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^ variable
+//                                         ^ punctuation.separator
+//                                           ^ variable
+//                                            ^ punctuation.section.parens
+//                                              ^^^^ keyword.control.then
+          begin
+//        ^^^^^ keyword.control.begin
+             if n then e:= -e;
+//           ^^ keyword.control.if
+//              ^ variable
+//                ^^^^ keyword.control.then
+//                     ^ variable
+//                      ^^ keyword.operator.assignment
+//                         ^ keyword.operator.arithmetic
+//                          ^ variable
+//                           ^ punctuation.terminator.statement
+             error ("ipower");
+//           ^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+             outtext ("  base=");
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+             outint (b, 12);
+//           ^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ variable
+//                    ^ punctuation.separator
+//                      ^^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+             outtext ("                     exp=");
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+             outint (e, 12);
+//           ^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ variable
+//                    ^ punctuation.separator
+//                      ^^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+             outimage;
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+             outtext ("  base**abs(exp) ="); outimage;
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^^ variable
+//                                                   ^ punctuation.terminator.statement
+             outtext("  ipower: "); outreal (x, 16, 23); outimage;
+//           ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+//                                  ^^^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^ variable
+//                                            ^ punctuation.separator
+//                                              ^^ constant.numeric.decimal
+//                                                ^ punctuation.separator
+//                                                  ^^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^^^^^ variable
+//                                                               ^ punctuation.terminator.statement
+             outtext("  i**i:   "); outreal (y, 16, 23); outimage;
+//           ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+//                                  ^^^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^ variable
+//                                            ^ punctuation.separator
+//                                              ^^ constant.numeric.decimal
+//                                                ^ punctuation.separator
+//                                                  ^^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^^^^^ variable
+//                                                               ^ punctuation.terminator.statement
+             outtext("  r**i:   "); outreal (z, 16, 23); outimage;
+//           ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+//                                  ^^^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^ variable
+//                                            ^ punctuation.separator
+//                                              ^^ constant.numeric.decimal
+//                                                ^ punctuation.separator
+//                                                  ^^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^^^^^ variable
+//                                                               ^ punctuation.terminator.statement
+             outimage
+//           ^^^^^^^^ variable
+          end error
+//        ^^^ keyword.control.end
+//            ^^^^^ comment.block
+       end
+//     ^^^ keyword.control.end
+    end of procedure testipower;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+//                             ^ punctuation.terminator.statement
+
+
+    procedure testsqrt (x); long real x;
+//  ^^^^^^^^^ storage.type
+//            ^^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable.parameter
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+//                          ^^^^ storage.type
+//                               ^^^^ storage.type
+//                                    ^ variable
+//                                     ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+       long real a;
+//     ^^^^ storage.type
+//          ^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.terminator.statement
+
+       a:= sqrt (x)**2;
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.section.parens
+//                 ^^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.terminator.statement
+
+       if realdiff (a, x) then
+//     ^^ keyword.control.if
+//        ^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                        ^^^^ keyword.control.then
+       begin
+//     ^^^^^ keyword.control.begin
+          error ("sqrt");
+//        ^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+          outtext ("  x=            ");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+          outreal (x, 16, 23); outimage;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^^ variable
+//                                     ^ punctuation.terminator.statement
+          outtext ("  sqrt(x)**2=   ");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+          outreal (a, 16, 23);
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+          outimage; outimage;
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^^^^^^^ variable
+//                          ^ punctuation.terminator.statement
+        end;
+//      ^^^ keyword.control.end
+//         ^ punctuation.terminator.statement
+    end of procedure testsqrt;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^^^^ comment.block
+//                           ^ punctuation.terminator.statement
+
+
+    procedure testln (x, y); long real x, y;
+//  ^^^^^^^^^ storage.type
+//            ^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable.parameter
+//                     ^ punctuation.separator
+//                       ^ variable.parameter
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^^^^ storage.type
+//                                ^^^^ storage.type
+//                                     ^ variable
+//                                      ^ punctuation.separator
+//                                        ^ variable
+//                                         ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+       long real a, b;
+//     ^^^^ storage.type
+//          ^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+
+       a:= ln (x*y);
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ keyword.operator.arithmetic
+//               ^ variable
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+       b:= ln (x) + ln (y);
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.arithmetic
+//                  ^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+
+       if realdiff (a, b) then
+//     ^^ keyword.control.if
+//        ^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                        ^^^^ keyword.control.then
+       begin
+//     ^^^^^ keyword.control.begin
+          error ("ln");
+//        ^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+          outtext ("  x=");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+          outreal (x, 16, 23);
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+          outtext ("             y=  ");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+          outreal (y, 16, 23);
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+          outimage;
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+          outtext ("  ln(x*y)=      ");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+          outreal (a, 16, 23); outimage;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^^ variable
+//                                     ^ punctuation.terminator.statement
+          outtext ("  ln(x)+ln(y) = ");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+          outreal (b, 16, 23);
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+          outimage; outimage
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^^^^^^^ variable
+        end;
+//      ^^^ keyword.control.end
+//         ^ punctuation.terminator.statement
+    end of procedure testln;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^^ comment.block
+//                         ^ punctuation.terminator.statement
+
+
+    procedure testexp (x, y); long real x, y;
+//  ^^^^^^^^^ storage.type
+//            ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable.parameter
+//                      ^ punctuation.separator
+//                        ^ variable.parameter
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ storage.type
+//                                 ^^^^ storage.type
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                         ^ variable
+//                                          ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+       long real a, b;
+//     ^^^^ storage.type
+//          ^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+
+       a:= exp (x+y); b:= exp (x) * exp (y);
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ keyword.operator.arithmetic
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+//                    ^ variable
+//                     ^^ keyword.operator.assignment
+//                        ^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable
+//                              ^ punctuation.section.parens
+//                                ^ keyword.operator.arithmetic
+//                                  ^^^ entity.name.function
+//                                      ^ punctuation.section.parens
+//                                       ^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+
+       if realdiff (a, b)  then
+//     ^^ keyword.control.if
+//        ^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                         ^^^^ keyword.control.then
+       begin
+//     ^^^^^ keyword.control.begin
+          error ("exp");
+//        ^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+          outtext ("  x="); outreal (x, 16, 23); outtext("           ");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+//                          ^^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ variable
+//                                    ^ punctuation.separator
+//                                      ^^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                          ^^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+//                                               ^^^^^^^ entity.name.function
+//                                                      ^ punctuation.section.parens
+//                                                       ^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+          outtext ("  y=  "); outreal (y, 16, 23); outimage;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ variable
+//                                      ^ punctuation.separator
+//                                        ^^ constant.numeric.decimal
+//                                          ^ punctuation.separator
+//                                            ^^ constant.numeric.decimal
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+//                                                 ^^^^^^^^ variable
+//                                                         ^ punctuation.terminator.statement
+          outtext ("  exp (x+y)=    ");   outreal (a, 16, 23);
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                        ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^ variable
+//                                                  ^ punctuation.separator
+//                                                    ^^ constant.numeric.decimal
+//                                                      ^ punctuation.separator
+//                                                        ^^ constant.numeric.decimal
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+          outimage;
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+          outtext ("  exp(x)*exp(y)=");    outreal (b, 16, 23);
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                         ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^ variable
+//                                                   ^ punctuation.separator
+//                                                     ^^ constant.numeric.decimal
+//                                                       ^ punctuation.separator
+//                                                         ^^ constant.numeric.decimal
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+          outimage; outimage;
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^^^^^^^ variable
+//                          ^ punctuation.terminator.statement
+        end;
+//      ^^^ keyword.control.end
+//         ^ punctuation.terminator.statement
+    end of procedure testexp;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^^^ comment.block
+//                          ^ punctuation.terminator.statement
+
+
+    procedure testlnexp (x); long real x;
+//  ^^^^^^^^^ storage.type
+//            ^^^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable.parameter
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^^^^ storage.type
+//                                ^^^^ storage.type
+//                                     ^ variable
+//                                      ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+       long real a, b;
+//     ^^^^ storage.type
+//          ^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+
+       a:= exp (ln (x) );
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+       b:= ln (exp (x) );
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+
+       if realdiff (a, b)  or realdiff (b, x)  then
+//     ^^ keyword.control.if
+//        ^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                         ^^ keyword.operator
+//                            ^^^^^^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                         ^ variable
+//                                          ^ punctuation.section.parens
+//                                             ^^^^ keyword.control.then
+       begin
+//     ^^^^^ keyword.control.begin
+          error ("ln or exp");
+//        ^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+          outtext ("  x=");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+          outreal (x, 16, 23); outimage;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^^ variable
+//                                     ^ punctuation.terminator.statement
+          outtext ("  exp (ln (x) )="); outreal (a, 16, 23); outimage;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                      ^^^^^^^ entity.name.function
+//                                              ^ punctuation.section.parens
+//                                               ^ variable
+//                                                ^ punctuation.separator
+//                                                  ^^ constant.numeric.decimal
+//                                                    ^ punctuation.separator
+//                                                      ^^ constant.numeric.decimal
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+//                                                           ^^^^^^^^ variable
+//                                                                   ^ punctuation.terminator.statement
+          outtext ("  ln (exp (x) )="); outreal (b, 16, 23);
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                      ^^^^^^^ entity.name.function
+//                                              ^ punctuation.section.parens
+//                                               ^ variable
+//                                                ^ punctuation.separator
+//                                                  ^^ constant.numeric.decimal
+//                                                    ^ punctuation.separator
+//                                                      ^^ constant.numeric.decimal
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+          outimage; outimage
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^^^^^^^ variable
+        end
+//      ^^^ keyword.control.end
+    end of procedure testlnexp;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^^^^^ comment.block
+//                            ^ punctuation.terminator.statement
+
+
+    procedure testsincos (x); long real x;
+//  ^^^^^^^^^ storage.type
+//            ^^^^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable.parameter
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ storage.type
+//                                 ^^^^ storage.type
+//                                      ^ variable
+//                                       ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+       long real a;
+//     ^^^^ storage.type
+//          ^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.terminator.statement
+
+       a:= sin (x)**2 + cos (x)**2;
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.section.parens
+//                ^^ keyword.operator.arithmetic
+//                  ^ constant.numeric.decimal
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.section.parens
+//                             ^^ keyword.operator.arithmetic
+//                               ^ constant.numeric.decimal
+//                                ^ punctuation.terminator.statement
+
+       if realdiff (a, 1) then
+//     ^^ keyword.control.if
+//        ^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^^^^ keyword.control.then
+       begin
+//     ^^^^^ keyword.control.begin
+          error ("sin or cos");
+//        ^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+          outtext ("  x=");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+          outreal (x, 16, 23); outimage;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^^ variable
+//                                     ^ punctuation.terminator.statement
+          outtext ("  sin(x)**2+cos(x)**2=");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+          outreal (a, 16, 23); outimage;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^^ variable
+//                                     ^ punctuation.terminator.statement
+          outtext ("  Theoretical value=   1.0");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+          outimage; outimage
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^^^^^^^ variable
+        end
+//      ^^^ keyword.control.end
+    end of procedure testsincos;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+//                             ^ punctuation.terminator.statement
+
+
+    procedure testarctan (x); long real x;
+//  ^^^^^^^^^ storage.type
+//            ^^^^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable.parameter
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ storage.type
+//                                 ^^^^ storage.type
+//                                      ^ variable
+//                                       ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+       long real a;
+//     ^^^^ storage.type
+//          ^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.terminator.statement
+
+       a:= arctan (sin (x) / cos (x) );
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.section.parens
+//                         ^ keyword.operator.arithmetic
+//                           ^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^ variable
+//                                 ^ punctuation.section.parens
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+
+       if realdiff (a, x) then
+//     ^^ keyword.control.if
+//        ^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                        ^^^^ keyword.control.then
+       begin
+//     ^^^^^ keyword.control.begin
+          error ("arctan");
+//        ^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+          outtext ("  x=                     ");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+          outreal (x, 16, 23); outimage;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^^ variable
+//                                     ^ punctuation.terminator.statement
+          outtext ("  arctan(sin(x)/cos(x))= ");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+          outreal (a, 16, 23); outimage;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^^ variable
+//                                     ^ punctuation.terminator.statement
+          outtext ("  Theoretical value = x");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+          outimage; outimage
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^^^^^^^ variable
+        end
+//      ^^^ keyword.control.end
+    end of procedure testarctan;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+//                             ^ punctuation.terminator.statement
+
+    procedure testepsilon(x); long real x;
+//  ^^^^^^^^^ storage.type
+//            ^^^^^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable.parameter
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^ storage.type
+//                                 ^^^^ storage.type
+//                                      ^ variable
+//                                       ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+       long real a, b;
+//     ^^^^ storage.type
+//          ^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+       a:= subepsilon(addepsilon(x));
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ variable
+//                                ^^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+       b:= addepsilon(subepsilon(x));
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ variable
+//                                ^^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+       if realdiff(a,x) or realdiff (b,x) then
+//     ^^ keyword.control.if
+//        ^^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                   ^ variable
+//                    ^ punctuation.section.parens
+//                      ^^ keyword.operator
+//                         ^^^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ variable
+//                                    ^ punctuation.separator
+//                                     ^ variable
+//                                      ^ punctuation.section.parens
+//                                        ^^^^ keyword.control.then
+       begin
+//     ^^^^^ keyword.control.begin
+          error("Add/sub-epsilon");
+//        ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+          outtext("  x=");
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+          outreal(x,16,23); outimage;
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+//                          ^^^^^^^^ variable
+//                                  ^ punctuation.terminator.statement
+       end;
+//     ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+    end procedure testepsilon;
+//  ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^^^^^^ comment.block
+//                           ^ punctuation.terminator.statement
+
+    maxlongdig:= 10.0&&17;
+//  ^^^^^^^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^ constant.numeric.decimal
+//                       ^ punctuation.terminator.statement
+
+    Outtext ("--- START Simula a.s. TEST 6");
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+    Outimage;
+//  ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+    Outtext ("--- Test of math. functions");
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+    Outimage; Outimage;
+//  ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+    inner;
+//  ^^^^^ keyword.other.inner
+//       ^ punctuation.terminator.statement
+
+    IF found_error THEN  ELSE
+//  ^^ keyword.control.if
+//     ^^^^^^^^^^^ variable
+//                 ^^^^ keyword.control.then
+//                       ^^^^ keyword.control.else
+       begin Outtext ("--- NO ERRORS FOUND IN THIS TEST"); Outimage; end;
+//     ^^^^^ keyword.control.begin
+//           ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+//                                                         ^^^^^^^^ variable
+//                                                                 ^ punctuation.terminator.statement
+//                                                                   ^^^ keyword.control.end
+//                                                                      ^ punctuation.terminator.statement
+    outtext ("--- END Simula a.s. TEST 6");
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+    outimage;
+//  ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+
+end of class testmatlib;
+// <--- keyword.control.end
+//  ^^^^^^^^^^^^^^^^^^^ comment.block
+//                     ^ punctuation.terminator.statement
+
+testmatlib
+// <---------- entity.name.class
+begin integer i, j, k, u1, u2; long real x, y;
+// <----- keyword.control.begin
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^^ variable
+//                       ^ punctuation.separator
+//                         ^^ variable
+//                           ^ punctuation.terminator.statement
+//                             ^^^^ storage.type
+//                                  ^^^^ storage.type
+//                                       ^ variable
+//                                        ^ punctuation.separator
+//                                          ^ variable
+//                                           ^ punctuation.terminator.statement
+    Long Real limexp=7.09782712893384&&2; ! ln(maxlongreal);
+//  ^^^^ storage.type
+//       ^^^^ storage.type
+//            ^^^^^^ variable
+//                  ^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^^^^^^^^ constant.numeric.decimal
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^^^^^^^^^^^^ comment.block
+    Integer Ipowbaselim=215,          
+//  ^^^^^^^ storage.type
+//          ^^^^^^^^^^^ variable
+//                     ^ keyword.operator.comparison
+//                      ^^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+            Ipowexplim=4;               ! base**exp<maxint;
+//          ^^^^^^^^^^ variable
+//                    ^ keyword.operator.comparison
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.terminator.statement
+//                                      ^^^^^^^^^^^^^^^^^^^ comment.block
+    Long Real Lpowbaselim=1.844674407370955&&19,
+//  ^^^^ storage.type
+//       ^^^^ storage.type
+//            ^^^^^^^^^^^ variable
+//                       ^ keyword.operator.comparison
+//                        ^^^^^^^^^^^^^^^^^^^^^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+              Lpowexplim=1.60&&1;       ! base**exp<maxlongreal;
+//            ^^^^^^^^^^ variable
+//                      ^ keyword.operator.comparison
+//                       ^^^^^^^ constant.numeric.decimal
+//                              ^ punctuation.terminator.statement
+//                                      ^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+    Long Real Twopi = 6.2831853&&0;
+//  ^^^^ storage.type
+//       ^^^^ storage.type
+//            ^^^^^ variable
+//                  ^ keyword.operator.comparison
+//                    ^^^^^^^^^^^^ constant.numeric.decimal
+//                                ^ punctuation.terminator.statement
+    Long Real Pihalf= 1.5707963&&0;
+//  ^^^^ storage.type
+//       ^^^^ storage.type
+//            ^^^^^^ variable
+//                  ^ keyword.operator.comparison
+//                    ^^^^^^^^^^^^ constant.numeric.decimal
+//                                ^ punctuation.terminator.statement
+    long real hlexp;
+//  ^^^^ storage.type
+//       ^^^^ storage.type
+//            ^^^^^ variable
+//                 ^ punctuation.terminator.statement
+    u1:=  455470314;                    ! Start values chosen to avoid;
+//  ^^ variable
+//    ^^ keyword.operator.assignment
+//        ^^^^^^^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+//                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+    u2:= 2011455689;                    ! dependent series;
+//  ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^^^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+//                                      ^^^^^^^^^^^^^^^^^^^ comment.block
+
+    for k:= 1 step 1 until 20 do
+//  ^^^ keyword.control.for
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^ constant.numeric.decimal
+//            ^^^^ keyword.control.step
+//                 ^ constant.numeric.decimal
+//                   ^^^^^ keyword.control.until
+//                         ^^ constant.numeric.decimal
+//                            ^^ keyword.control.do
+    begin
+//  ^^^^^ keyword.control.begin
+        i:= randint (-Ipowbaselim, Ipowbaselim, u1);
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ keyword.operator.arithmetic
+//                    ^^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                 ^^^^^^^^^^^ variable
+//                                            ^ punctuation.separator
+//                                              ^^ variable
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+        j:= randint (0, Ipowexplim, u2);
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^^^^^^^^^^ variable
+//                                ^ punctuation.separator
+//                                  ^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+        testipower (i, j);
+//      ^^^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+        x:= uniform (0.0&&0, Lpowbaselim, u1);
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^^^^^^^^^^ variable
+//                                      ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+        y:= uniform (-Lpowexplim, Lpowexplim, u2);
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ keyword.operator.arithmetic
+//                    ^^^^^^^^^^ variable
+//                              ^ punctuation.separator
+//                                ^^^^^^^^^^ variable
+//                                          ^ punctuation.separator
+//                                            ^^ variable
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+        testrpower (x, y);
+//      ^^^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+        x:= uniform (0.0&&0, maxlongreal, u1);
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^^^^^^^^^^ variable
+//                                      ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+        testsqrt (x);
+//      ^^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+        y:= uniform (0.0&&0, maxlongreal/x, u2);
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^^^^^^^^^^ variable
+//                                      ^ keyword.operator.arithmetic
+//                                       ^ variable
+//                                        ^ punctuation.separator
+//                                          ^^ variable
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+        testln (x, y);
+//      ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ variable
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+        x:= uniform (-limexp, limexp, u1);
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ keyword.operator.arithmetic
+//                    ^^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^ variable
+//                                  ^ punctuation.separator
+//                                    ^^ variable
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+        y:= abs(x);
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+        hlexp:= if y<1.0&&0 then limexp else limexp/y;
+//      ^^^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^ keyword.control.if
+//                 ^ variable
+//                  ^ keyword.operator.comparison
+//                   ^^^^^^ constant.numeric.decimal
+//                          ^^^^ keyword.control.then
+//                               ^^^^^^ variable
+//                                      ^^^^ keyword.control.else
+//                                           ^^^^^^ variable
+//                                                 ^ keyword.operator.arithmetic
+//                                                  ^ variable
+//                                                   ^ punctuation.terminator.statement
+        y:= uniform (-hlexp, hlexp, u2);
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ keyword.operator.arithmetic
+//                    ^^^^^ variable
+//                         ^ punctuation.separator
+//                           ^^^^^ variable
+//                                ^ punctuation.separator
+//                                  ^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+        testexp (x, y);
+//      ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+        testlnexp (abs (x) );
+//      ^^^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+        x:= uniform (-Twopi, Twopi, u1);
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ keyword.operator.arithmetic
+//                    ^^^^^ variable
+//                         ^ punctuation.separator
+//                           ^^^^^ variable
+//                                ^ punctuation.separator
+//                                  ^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+        testsincos (x);
+//      ^^^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+        x:= uniform (-Pihalf, Pihalf, u1);
+//      ^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ keyword.operator.arithmetic
+//                    ^^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^ variable
+//                                  ^ punctuation.separator
+//                                    ^^ variable
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+        testarctan (x);
+//      ^^^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+        testepsilon(x);
+//      ^^^^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+
+    end;
+//  ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+    testepsilon(0.0&&0);
+//  ^^^^^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+ end of prefixed block;
+// <~--- keyword.control.end
+//   ^^^^^^^^^^^^^^^^^ comment.block
+//                    ^ punctuation.terminator.statement
+end of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

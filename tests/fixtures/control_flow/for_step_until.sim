@@ -1,0 +1,5 @@
+begin
+  integer i, sum;
+  sum := 0;
+  for i := 1 step 1 until 5 do sum := sum + i;
+end;

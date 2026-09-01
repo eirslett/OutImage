@@ -1,0 +1,23 @@
+! §5.4.15 / fig. 5.1: value, name, text-reference, and array formal correspondence.;
+begin
+    integer n, acc;
+    text msg;
+    integer array a(1:2);
+    procedure mix(v, byname, t, arr);
+        value v; name byname;
+        integer v, byname; text t; integer array arr;
+    begin
+        v := v + 1;
+        byname := byname + 1;
+        t :- "x";
+        arr(1) := arr(1) + 1;
+    end;
+    n := 10;
+    acc := 0;
+    msg :- "hi";
+    a(1) := 0;
+    a(2) := 0;
+    mix(n, acc, msg, a);
+    if n = 10 and acc = 1 and a(1) = 1 and msg = "hi" then OutText("ok");
+    OutImage;
+end

@@ -1,0 +1,9 @@
+[E0503] Error: FORMAL NAME: procedure identifier `p` cannot appear in its own formal parameter list
+   ╭─[ procedure_name_as_formal.sim:1:1 ]
+   │
+ 1 │ begin procedure p(p); procedure p; begin end; end;
+   │ │ 
+   │ ╰─ here
+   │ 
+   │ Help: choose a different formal name
+───╯

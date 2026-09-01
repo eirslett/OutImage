@@ -1,0 +1,27 @@
+[workspace]
+
+[package]
+name = "outimage-wasm-rt"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "Simula runtime helpers compiled to wasm32 and instantiated beside generated modules"
+
+[lib]
+crate-type = ["cdylib"]
+path = "src/lib.rs"
+
+[profile.release]
+opt-level = "s"
+lto = true
+panic = "abort"
+codegen-units = 1
+strip = true
+
+[features]
+default = ["full"]
+full = []
+math-only = ["dep:libm"]
+
+[dependencies]
+libm = { version = "0.2", optional = true }

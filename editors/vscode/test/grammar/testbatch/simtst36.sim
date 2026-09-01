@@ -1,0 +1,354 @@
+// SYNTAX TEST "source.simula" "simtst36"
+% =====================================   Main   program =============
+// <---------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 36
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test Jensens Device - call by name.
+// <--------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  REWRITTEN BY:  BEH   23/07-86
+// <-------------------------------- comment.directive
+% ====================================================================
+// <---------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   real eps;
+// ^^^^ storage.type
+//      ^^^ variable
+//         ^ punctuation.terminator.statement
+
+   PROCEDURE Gps(n, v, z);  NAME v, z;  INTEGER n;  REAL v, z;
+// ^^^^^^^^^ storage.type
+//           ^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable.parameter
+//                ^ punctuation.separator
+//                  ^ variable.parameter
+//                   ^ punctuation.separator
+//                     ^ variable.parameter
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+//                          ^^^^ keyword.other.name
+//                               ^ variable
+//                                ^ punctuation.separator
+//                                  ^ variable
+//                                   ^ punctuation.terminator.statement
+//                                      ^^^^^^^ storage.type
+//                                              ^ variable
+//                                               ^ punctuation.terminator.statement
+//                                                  ^^^^ storage.type
+//                                                       ^ variable
+//                                                        ^ punctuation.separator
+//                                                          ^ variable
+//                                                           ^ punctuation.terminator.statement
+      FOR  cv:= 1  STEP 1 UNTIL n DO  v:= z;
+//    ^^^ keyword.control.for
+//         ^^ variable
+//           ^^ keyword.operator.assignment
+//              ^ constant.numeric.decimal
+//                 ^^^^ keyword.control.step
+//                      ^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^ variable
+//                                ^^ keyword.control.do
+//                                    ^ variable
+//                                     ^^ keyword.operator.assignment
+//                                        ^ variable
+//                                         ^ punctuation.terminator.statement
+
+   Procedure test(r, v); real r, v;
+// ^^^^^^^^^ storage.type
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable.parameter
+//                 ^ punctuation.separator
+//                   ^ variable.parameter
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                       ^^^^ storage.type
+//                            ^ variable
+//                             ^ punctuation.separator
+//                               ^ variable
+//                                ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      if r-r*eps > v or r+r*eps < v then
+//    ^^ keyword.control.if
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^^^ variable
+//               ^ keyword.operator.comparison
+//                 ^ variable
+//                   ^^ keyword.operator
+//                      ^ variable
+//                       ^ keyword.operator.arithmetic
+//                        ^ variable
+//                         ^ keyword.operator.arithmetic
+//                          ^^^ variable
+//                              ^ keyword.operator.comparison
+//                                ^ variable
+//                                  ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Erroneous value: ");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+         Outreal(r, 5, 12);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error:= true
+//       ^^^^^^^^^^^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   INTEGER ARRAY      x(1:9);
+// ^^^^^^^ storage.type
+//         ^^^^^ storage.type
+//                    ^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+   INTEGER            cv, limit;
+// ^^^^^^^ storage.type
+//                    ^^ variable
+//                      ^ punctuation.separator
+//                        ^^^^^ variable
+//                             ^ punctuation.terminator.statement
+   REAL               innerp, simpson;
+// ^^^^ storage.type
+//                    ^^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^ variable
+//                                   ^ punctuation.terminator.statement
+
+
+   Outtext("--- START Simula a.s. TEST 36");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext("--- Test Jensen's Device - Call by name.");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   Outimage; Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+   eps:= 0.001;
+// ^^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^ constant.numeric.decimal
+//            ^ punctuation.terminator.statement
+
+   FOR  cv:= 1  STEP 1 UNTIL 9 DO x(cv):= cv*cv*cv;
+// ^^^ keyword.control.for
+//      ^^ variable
+//        ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^ constant.numeric.decimal
+//                     ^^^^^ keyword.control.until
+//                           ^ constant.numeric.decimal
+//                             ^^ keyword.control.do
+//                                ^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^^ keyword.operator.assignment
+//                                        ^^ variable
+//                                          ^ keyword.operator.arithmetic
+//                                           ^^ variable
+//                                             ^ keyword.operator.arithmetic
+//                                              ^^ variable
+//                                                ^ punctuation.terminator.statement
+   limit:= 9;
+// ^^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   Gps(limit, innerp, innerp + x(cv) !**2; *x(cv));
+// ^^^ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^^^ variable
+//          ^ punctuation.separator
+//            ^^^^^^ variable
+//                  ^ punctuation.separator
+//                    ^^^^^^ variable
+//                           ^ keyword.operator.arithmetic
+//                             ^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^ variable
+//                                 ^ punctuation.section.parens
+//                                   ^^^^^ comment.block
+//                                         ^ keyword.operator.arithmetic
+//                                          ^ entity.name.function
+//                                           ^ punctuation.section.parens
+//                                            ^^ variable
+//                                              ^^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+
+                         COMMENT WE HAVE NOW FOUND
+//                       ^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                 1**6+2**6+3**6...9**6=978405
+// <------------------------------------------------------------- comment.block
+                                 HELD IN INNERP;
+// <------------------------------------------------ comment.block
+   test(innerp, 978405);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^ variable
+//            ^ punctuation.separator
+//              ^^^^^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+
+   limit:= 4;
+// ^^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+ Gps(limit, simpson, simpson +(x(2*cv - 1) + 4*x(2*cv) + x(2*cv + 1))/3);
+// <~--- entity.name.function
+//  ^ punctuation.section.parens
+//   ^^^^^ variable
+//        ^ punctuation.separator
+//          ^^^^^^^ variable
+//                 ^ punctuation.separator
+//                   ^^^^^^^ variable
+//                           ^ keyword.operator.arithmetic
+//                            ^ punctuation.section.parens
+//                             ^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ constant.numeric.decimal
+//                                ^ keyword.operator.arithmetic
+//                                 ^^ variable
+//                                    ^ keyword.operator.arithmetic
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.section.parens
+//                                         ^ keyword.operator.arithmetic
+//                                           ^ constant.numeric.decimal
+//                                            ^ keyword.operator.arithmetic
+//                                             ^ entity.name.function
+//                                              ^ punctuation.section.parens
+//                                               ^ constant.numeric.decimal
+//                                                ^ keyword.operator.arithmetic
+//                                                 ^^ variable
+//                                                   ^ punctuation.section.parens
+//                                                     ^ keyword.operator.arithmetic
+//                                                       ^ entity.name.function
+//                                                        ^ punctuation.section.parens
+//                                                         ^ constant.numeric.decimal
+//                                                          ^ keyword.operator.arithmetic
+//                                                           ^^ variable
+//                                                              ^ keyword.operator.arithmetic
+//                                                                ^ constant.numeric.decimal
+//                                                                 ^^ punctuation.section.parens
+//                                                                   ^ keyword.operator.arithmetic
+//                                                                    ^ constant.numeric.decimal
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+                       COMMENT SIMPSON NOW HOLDS 1640 THE
+//                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                               INTEGRAL OF ***3 BETWEEN 1 AND 9
+// <--------------------------------------------------------------- comment.block
+                               FOR FORTHER EXAMPLES OF A
+// <-------------------------------------------------------- comment.block
+                               MORE GENERAL GPS WHICH WILL
+// <---------------------------------------------------------- comment.block
+                               COMPUTE ANY COMPUTABLE
+// <----------------------------------------------------- comment.block
+                               FUNCTION SEE KNUTH AND
+// <----------------------------------------------------- comment.block
+                               MERNER CACM V4, (1961)PP.
+// <-------------------------------------------------------- comment.block
+                               268-272 "ALGOL 60 CONFIDENTIAL".
+// <--------------------------------------------------------------- comment.block
+                               THERE IS AN ERROR P.271, LINE 24
+// <--------------------------------------------------------------- comment.block
+                               WHERE THE LAST CALL ON GPS SHOULD
+// <---------------------------------------------------------------- comment.block
+                               READ:  "Gps(A, 1 0, I, -1.0)";
+// <------------------------------------------------------------- comment.block
+
+   test(simpson, 1640);
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^ variable
+//             ^ punctuation.separator
+//               ^^^^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext("--- END Simula a.s. TEST 36");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

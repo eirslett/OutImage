@@ -1,0 +1,11 @@
+[E0103] Error: MISSING END: this block is missing `end`
+   ╭─[ unexpected_eof.sim:1:7 ]
+   │
+ 1 │ begin integer
+   │ ──┬── ───┬───  
+   │   ╰──────────── this `begin` was never closed
+   │          │     
+   │          ╰───── expected `end` here
+   │ 
+   │ Help: add `end` to close the `begin`
+───╯

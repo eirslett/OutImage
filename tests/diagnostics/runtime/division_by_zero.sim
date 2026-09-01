@@ -1,0 +1,1 @@
+begin integer x; x := 1 // 0; OutInt(x, 1); OutImage; end;

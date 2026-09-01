@@ -1,0 +1,1 @@
+begin integer n; integer array a(1:n); end;

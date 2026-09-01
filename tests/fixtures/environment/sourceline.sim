@@ -1,0 +1,9 @@
+! Chapter 9 sourceline enquiry.;
+begin
+    integer line;
+    boolean ok;
+    line := sourceline;
+    ok := line = 5;
+    if ok then OutText("ok") else OutText("fail");
+    OutImage;
+end

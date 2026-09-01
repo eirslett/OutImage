@@ -1,0 +1,639 @@
+// SYNTAX TEST "source.simula" "simtst95"
+% =============================================   Main   program =====
+// <---------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s - SIMULA TEST NO 95
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test nested declaration of classes and prefixing.
+// <----------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   13/01-87
+// <------------------------------ comment.directive
+%
+// <- comment.directive
+% ====================================================================
+// <---------------------------------------------------------------------- comment.directive
+
+BEGIN
+// <----- keyword.control.begin
+
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Procedure obs(i); integer i;
+// ^^^^^^^^^ storage.type
+//           ^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable.parameter
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+//                   ^^^^^^^ storage.type
+//                           ^ variable
+//                            ^ punctuation.terminator.statement
+   Begin nr:=nr+1; seq(nr):=i end;
+// ^^^^^ keyword.control.begin
+//       ^^ variable
+//         ^^ keyword.operator.assignment
+//           ^^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//               ^ punctuation.terminator.statement
+//                 ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ variable
+//                       ^ punctuation.section.parens
+//                        ^^ keyword.operator.assignment
+//                          ^ variable
+//                            ^^^ keyword.control.end
+//                               ^ punctuation.terminator.statement
+
+   Integer nr,i; Integer array seq(1:50);
+// ^^^^^^^ storage.type
+//         ^^ variable
+//           ^ punctuation.separator
+//            ^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^^^^^ storage.type
+//                       ^^^^^ storage.type
+//                             ^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                   ^^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+
+   Class A1 (Pa1); Boolean Pa1;
+// ^^^^^ keyword.other.class
+//       ^^ entity.name.class
+//          ^ punctuation.section.parens
+//           ^^^ variable.parameter
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+//                 ^^^^^^^ storage.type
+//                         ^^^ variable
+//                            ^ punctuation.terminator.statement
+   Begin Class A2(Pa2); Boolean Pa2;
+// ^^^^^ keyword.control.begin
+//       ^^^^^ keyword.other.class
+//             ^^ entity.name.class
+//               ^ punctuation.section.parens
+//                ^^^ variable.parameter
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+//                      ^^^^^^^ storage.type
+//                              ^^^ variable
+//                                 ^ punctuation.terminator.statement
+         Begin Class A3(Pa3); Boolean Pa3;
+//       ^^^^^ keyword.control.begin
+//             ^^^^^ keyword.other.class
+//                   ^^ entity.name.class
+//                     ^ punctuation.section.parens
+//                      ^^^ variable.parameter
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ storage.type
+//                                    ^^^ variable
+//                                       ^ punctuation.terminator.statement
+               Begin Class A4(Pa4); Boolean Pa4;
+//             ^^^^^ keyword.control.begin
+//                   ^^^^^ keyword.other.class
+//                         ^^ entity.name.class
+//                           ^ punctuation.section.parens
+//                            ^^^ variable.parameter
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+//                                  ^^^^^^^ storage.type
+//                                          ^^^ variable
+//                                             ^ punctuation.terminator.statement
+                     Begin Class A5(Pa5); Boolean Pa5;
+//                   ^^^^^ keyword.control.begin
+//                         ^^^^^ keyword.other.class
+//                               ^^ entity.name.class
+//                                 ^ punctuation.section.parens
+//                                  ^^^ variable.parameter
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^ storage.type
+//                                                ^^^ variable
+//                                                   ^ punctuation.terminator.statement
+                           Begin if Pa5 then obs(13);
+//                         ^^^^^ keyword.control.begin
+//                               ^^ keyword.control.if
+//                                  ^^^ variable
+//                                      ^^^^ keyword.control.then
+//                                           ^^^ entity.name.function
+//                                              ^ punctuation.section.parens
+//                                               ^^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+                                 inner;
+//                               ^^^^^ keyword.other.inner
+//                                    ^ punctuation.terminator.statement
+                                 if Pa5 then obs(15)
+//                               ^^ keyword.control.if
+//                                  ^^^ variable
+//                                      ^^^^ keyword.control.then
+//                                           ^^^ entity.name.function
+//                                              ^ punctuation.section.parens
+//                                               ^^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+                                 else begin new B1(true); obs(24); end;
+//                               ^^^^ keyword.control.else
+//                                    ^^^^^ keyword.control.begin
+//                                          ^^^ keyword.control.new
+//                                              ^^ entity.name.class
+//                                                ^ punctuation.section.parens
+//                                                 ^^^^ constant.language.bool
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+//                                                        ^^^ entity.name.function
+//                                                           ^ punctuation.section.parens
+//                                                            ^^ constant.numeric.decimal
+//                                                              ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+//                                                                 ^^^ keyword.control.end
+//                                                                    ^ punctuation.terminator.statement
+                           End class a5;
+//                         ^^^ keyword.control.end
+//                             ^^^^^^^^ comment.block
+//                                     ^ punctuation.terminator.statement
+                           if Pa4 then obs(11)
+//                         ^^ keyword.control.if
+//                            ^^^ variable
+//                                ^^^^ keyword.control.then
+//                                     ^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+                           else begin obs(4); new A5(false) end;
+//                         ^^^^ keyword.control.else
+//                              ^^^^^ keyword.control.begin
+//                                    ^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+//                                            ^^^ keyword.control.new
+//                                                ^^ entity.name.class
+//                                                  ^ punctuation.section.parens
+//                                                   ^^^^^ constant.language.bool
+//                                                        ^ punctuation.section.parens
+//                                                          ^^^ keyword.control.end
+//                                                             ^ punctuation.terminator.statement
+                           inner;
+//                         ^^^^^ keyword.other.inner
+//                              ^ punctuation.terminator.statement
+                           if Pa4 then obs(17)
+//                         ^^ keyword.control.if
+//                            ^^^ variable
+//                                ^^^^ keyword.control.then
+//                                     ^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+                           else obs(25);
+//                         ^^^^ keyword.control.else
+//                              ^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^ constant.numeric.decimal
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+                     End class a4;
+//                   ^^^ keyword.control.end
+//                       ^^^^^^^^ comment.block
+//                               ^ punctuation.terminator.statement
+                     if Pa3 then obs(9)
+//                   ^^ keyword.control.if
+//                      ^^^ variable
+//                          ^^^^ keyword.control.then
+//                               ^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.section.parens
+                     else begin new A4(false); obs(23); end;
+//                   ^^^^ keyword.control.else
+//                        ^^^^^ keyword.control.begin
+//                              ^^^ keyword.control.new
+//                                  ^^ entity.name.class
+//                                    ^ punctuation.section.parens
+//                                     ^^^^^ constant.language.bool
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+//                                             ^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^^ constant.numeric.decimal
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+//                                                      ^^^ keyword.control.end
+//                                                         ^ punctuation.terminator.statement
+                     inner;
+//                   ^^^^^ keyword.other.inner
+//                        ^ punctuation.terminator.statement
+                     if Pa3 then obs(19)
+//                   ^^ keyword.control.if
+//                      ^^^ variable
+//                          ^^^^ keyword.control.then
+//                               ^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+                     else obs(26);
+//                   ^^^^ keyword.control.else
+//                        ^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+               End class a3;
+//             ^^^ keyword.control.end
+//                 ^^^^^^^^ comment.block
+//                         ^ punctuation.terminator.statement
+               if Pa2 then obs(7)
+//             ^^ keyword.control.if
+//                ^^^ variable
+//                    ^^^^ keyword.control.then
+//                         ^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+               else obs(3);
+//             ^^^^ keyword.control.else
+//                  ^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+               inner;
+//             ^^^^^ keyword.other.inner
+//                  ^ punctuation.terminator.statement
+               if Pa2 then obs(21)
+//             ^^ keyword.control.if
+//                ^^^ variable
+//                    ^^^^ keyword.control.then
+//                         ^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+               else begin new A3(false); obs(27) end;
+//             ^^^^ keyword.control.else
+//                  ^^^^^ keyword.control.begin
+//                        ^^^ keyword.control.new
+//                            ^^ entity.name.class
+//                              ^ punctuation.section.parens
+//                               ^^^^^ constant.language.bool
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                               ^^^ keyword.control.end
+//                                                  ^ punctuation.terminator.statement
+         End class a2;
+//       ^^^ keyword.control.end
+//           ^^^^^^^^ comment.block
+//                   ^ punctuation.terminator.statement
+
+         if Pa1 then obs(5)
+//       ^^ keyword.control.if
+//          ^^^ variable
+//              ^^^^ keyword.control.then
+//                   ^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+         else obs(1);
+//       ^^^^ keyword.control.else
+//            ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+         inner;
+//       ^^^^^ keyword.other.inner
+//            ^ punctuation.terminator.statement
+         if Pa1 then obs(23)
+//       ^^ keyword.control.if
+//          ^^^ variable
+//              ^^^^ keyword.control.then
+//                   ^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+         else begin obs(2); new A2(false); obs(28) end;
+//       ^^^^ keyword.control.else
+//            ^^^^^ keyword.control.begin
+//                  ^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+//                          ^^^ keyword.control.new
+//                              ^^ entity.name.class
+//                                ^ punctuation.section.parens
+//                                 ^^^^^ constant.language.bool
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^^ constant.numeric.decimal
+//                                               ^ punctuation.section.parens
+//                                                 ^^^ keyword.control.end
+//                                                    ^ punctuation.terminator.statement
+   End class a1;
+// ^^^ keyword.control.end
+//     ^^^^^^^^ comment.block
+//             ^ punctuation.terminator.statement
+
+   A1 Class B1;
+// ^^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^^ entity.name.class
+//            ^ punctuation.terminator.statement
+   Begin A2 Class B2;
+// ^^^^^ keyword.control.begin
+//       ^^ entity.name.class
+//          ^^^^^ keyword.other.class
+//                ^^ entity.name.class
+//                  ^ punctuation.terminator.statement
+         Begin A3 Class B3;
+//       ^^^^^ keyword.control.begin
+//             ^^ entity.name.class
+//                ^^^^^ keyword.other.class
+//                      ^^ entity.name.class
+//                        ^ punctuation.terminator.statement
+               Begin A4 Class B4;
+//             ^^^^^ keyword.control.begin
+//                   ^^ entity.name.class
+//                      ^^^^^ keyword.other.class
+//                            ^^ entity.name.class
+//                              ^ punctuation.terminator.statement
+                     Begin A5 Class B5; obs(14);
+//                   ^^^^^ keyword.control.begin
+//                         ^^ entity.name.class
+//                            ^^^^^ keyword.other.class
+//                                  ^^ entity.name.class
+//                                    ^ punctuation.terminator.statement
+//                                      ^^^ entity.name.function
+//                                         ^ punctuation.section.parens
+//                                          ^^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+                           obs(12);
+//                         ^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+                           new B5(true);
+//                         ^^^ keyword.control.new
+//                             ^^ entity.name.class
+//                               ^ punctuation.section.parens
+//                                ^^^^ constant.language.bool
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+                           obs(16);
+//                         ^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+                     End class b4;
+//                   ^^^ keyword.control.end
+//                       ^^^^^^^^ comment.block
+//                               ^ punctuation.terminator.statement
+                     obs(10);
+//                   ^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+                     new B4(true);
+//                   ^^^ keyword.control.new
+//                       ^^ entity.name.class
+//                         ^ punctuation.section.parens
+//                          ^^^^ constant.language.bool
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+                     obs(18);
+//                   ^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+               End class b3;
+//             ^^^ keyword.control.end
+//                 ^^^^^^^^ comment.block
+//                         ^ punctuation.terminator.statement
+               obs(8);
+//             ^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+               new B3(true);
+//             ^^^ keyword.control.new
+//                 ^^ entity.name.class
+//                   ^ punctuation.section.parens
+//                    ^^^^ constant.language.bool
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+               obs(20);
+//             ^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+         End class b2;
+//       ^^^ keyword.control.end
+//           ^^^^^^^^ comment.block
+//                   ^ punctuation.terminator.statement
+         obs(6);
+//       ^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+         new B2(true);
+//       ^^^ keyword.control.new
+//           ^^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^^^^ constant.language.bool
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         obs(22);
+//       ^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   End class b1;
+// ^^^ keyword.control.end
+//     ^^^^^^^^ comment.block
+//             ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s TEST 95"); Outimage ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^^ variable
+//                                                    ^ punctuation.terminator.statement
+   Outtext ("--- Test nested declaration of classes and prefixing.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   New A1(false);
+// ^^^ keyword.control.new
+//     ^^ entity.name.class
+//       ^ punctuation.section.parens
+//        ^^^^^ constant.language.bool
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+
+   for i:=1 step 1 until nr do if seq(i)<>i then found_error:=false;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//        ^ constant.numeric.decimal
+//          ^^^^ keyword.control.step
+//               ^ constant.numeric.decimal
+//                 ^^^^^ keyword.control.until
+//                       ^^ variable
+//                          ^^ keyword.control.do
+//                             ^^ keyword.control.if
+//                                ^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^ variable
+//                                     ^ punctuation.section.parens
+//                                      ^^ keyword.operator.comparison
+//                                        ^ variable
+//                                          ^^^^ keyword.control.then
+//                                               ^^^^^^^^^^^ variable
+//                                                          ^^ keyword.operator.assignment
+//                                                            ^^^^^ constant.language.bool
+//                                                                 ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   Begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR : Sequence of statements"); Outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+//                                                   ^^^^^^^^ variable
+//                                                           ^ punctuation.terminator.statement
+      Outtext("            Call of procedure obs:"); Outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+//                                                   ^^^^^^^^ variable
+//                                                           ^ punctuation.terminator.statement
+      Outtext("                ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      for i:=1 step 1 until nr do
+//    ^^^ keyword.control.for
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//             ^^^^ keyword.control.step
+//                  ^ constant.numeric.decimal
+//                    ^^^^^ keyword.control.until
+//                          ^^ variable
+//                             ^^ keyword.control.do
+      begin
+//    ^^^^^ keyword.control.begin
+         if mod(i,5)=1 then
+//       ^^ keyword.control.if
+//          ^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+            begin Outimage; Outtext("                "); end;
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^^^ variable
+//                        ^ punctuation.terminator.statement
+//                          ^^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^ keyword.control.end
+//                                                          ^ punctuation.terminator.statement
+         outint(seq(i),5);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+    end
+//  ^^^ keyword.control.end
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s TEST 95") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+ END
+// <~--- keyword.control.end

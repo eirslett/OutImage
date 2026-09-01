@@ -1,0 +1,9 @@
+[E0205] Error: WRONG NUMBER OF ARGUMENTS: `OutText` expects 1 argument, but this call has 2
+   ╭─[ outtext_arity.sim:1:7 ]
+   │
+ 1 │ begin OutText("a", "b"); end;
+   │       ─────────┬────────  
+   │                ╰────────── this call
+   │ 
+   │ Help: pass exactly 1 argument
+───╯

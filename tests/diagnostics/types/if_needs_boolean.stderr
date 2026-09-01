@@ -1,0 +1,9 @@
+[E0204] Error: TYPE MISMATCH: this `if` needs a boolean condition, but this expression is integer
+   ╭─[ if_needs_boolean.sim:1:29 ]
+   │
+ 1 │ begin integer x; x := 1; if x then x := 0; end;
+   │                             ┬  
+   │                             ╰── this is integer
+   │ 
+   │ Help: write a boolean (`true` / `false`) or a relation such as `x > 0`
+───╯

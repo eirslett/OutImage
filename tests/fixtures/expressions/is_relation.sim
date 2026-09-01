@@ -1,0 +1,17 @@
+! §3.3.4: object-relation `is` (exact class membership).;
+begin
+    class Node; begin end;
+    class Other; begin end;
+    ref(Node) n;
+    boolean b;
+    n :- new Node;
+    b := n is Node;
+    if b then OutText("is-node") else OutText("fail");
+    OutImage;
+    b := n is Other;
+    if not b then OutText("not-other") else OutText("fail");
+    OutImage;
+    b := none is Node;
+    if not b then OutText("none") else OutText("fail");
+    OutImage;
+end

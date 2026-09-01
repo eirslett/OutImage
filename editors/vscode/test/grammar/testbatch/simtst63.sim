@@ -1,0 +1,909 @@
+// SYNTAX TEST "source.simula" "simtst63"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 63
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test transmission by name of reference types.
+// <------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   06/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   class A ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      integer aa ;
+//    ^^^^^^^ storage.type
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   A Class B ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      integer bb ;
+//    ^^^^^^^ storage.type
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   B Class C ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      integer cc ;
+//    ^^^^^^^ storage.type
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   ref (A) array X (0:2) ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^^^^ storage.type
+//               ^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+   integer i ;
+// ^^^^^^^ storage.type
+//         ^ variable
+//           ^ punctuation.terminator.statement
+
+   procedure P (Q, x, i) ;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable.parameter
+//               ^ punctuation.separator
+//                 ^ variable.parameter
+//                  ^ punctuation.separator
+//                    ^ variable.parameter
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      name x, i ;
+//    ^^^^ keyword.other.name
+//         ^ variable
+//          ^ punctuation.separator
+//            ^ variable
+//              ^ punctuation.terminator.statement
+      procedure Q ; Ref (C) x ; integer i ;
+//    ^^^^^^^^^ storage.type
+//              ^ entity.name.function
+//                ^ punctuation.terminator.statement
+//                  ^^^ storage.modifier
+//                      ^ punctuation.section.parens
+//                       ^ entity.name.class
+//                        ^ punctuation.section.parens
+//                          ^ variable
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^^ storage.type
+//                                      ^ variable
+//                                        ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      Q (x, i) ;
+//    ^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^ variable
+//        ^ punctuation.separator
+//          ^ variable
+//           ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   procedure Q (y, i) ;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable.parameter
+//               ^ punctuation.separator
+//                 ^ variable.parameter
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+      name y, i ;
+//    ^^^^ keyword.other.name
+//         ^ variable
+//          ^ punctuation.separator
+//            ^ variable
+//              ^ punctuation.terminator.statement
+      Ref (A) y ; integer i ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^ variable
+//              ^ punctuation.terminator.statement
+//                ^^^^^^^ storage.type
+//                        ^ variable
+//                          ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      i := 0 ; y.aa := 1 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+//             ^ variable
+//              ^ punctuation.accessor
+//               ^^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^ constant.numeric.decimal
+//                       ^ punctuation.terminator.statement
+      i := 1 ; y qua B.bb := x (0).aa ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+//             ^ variable
+//               ^^^ keyword.operator
+//                   ^ variable
+//                    ^ punctuation.accessor
+//                     ^^ variable
+//                        ^^ keyword.operator.assignment
+//                           ^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.accessor
+//                                 ^^ variable
+//                                    ^ punctuation.terminator.statement
+      i := 2 ; y qua C.cc := x (0).aa ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+//             ^ variable
+//               ^^^ keyword.operator
+//                   ^ variable
+//                    ^ punctuation.accessor
+//                     ^^ variable
+//                        ^^ keyword.operator.assignment
+//                           ^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.accessor
+//                                 ^^ variable
+//                                    ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   procedure R (y, i) ;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable.parameter
+//               ^ punctuation.separator
+//                 ^ variable.parameter
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+      name y, i ;
+//    ^^^^ keyword.other.name
+//         ^ variable
+//          ^ punctuation.separator
+//            ^ variable
+//              ^ punctuation.terminator.statement
+      ref (A) y ; integer i ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^ variable
+//              ^ punctuation.terminator.statement
+//                ^^^^^^^ storage.type
+//                        ^ variable
+//                          ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      integer j ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+      for j := 0,1,2 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                   ^^ keyword.control.do
+      begin
+//    ^^^^^ keyword.control.begin
+         i := j ;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^ punctuation.terminator.statement
+         inspect y
+//       ^^^^^^^ keyword.control.inspect
+//               ^ variable
+            when C do
+//          ^^^^ keyword.control.when
+//               ^ entity.name.class
+//                 ^^ keyword.control.do
+               cc := x (0).aa
+//             ^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.accessor
+//                         ^^ variable
+            when B do
+//          ^^^^ keyword.control.when
+//               ^ entity.name.class
+//                 ^^ keyword.control.do
+               bb := x (0).aa
+//             ^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.accessor
+//                         ^^ variable
+            when A do
+//          ^^^^ keyword.control.when
+//               ^ entity.name.class
+//                 ^^ keyword.control.do
+               aa := 2 ;
+//             ^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^ constant.numeric.decimal
+//                     ^ punctuation.terminator.statement
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   procedure S (y, i) ;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable.parameter
+//               ^ punctuation.separator
+//                 ^ variable.parameter
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+      name y, i ;
+//    ^^^^ keyword.other.name
+//         ^ variable
+//          ^ punctuation.separator
+//            ^ variable
+//              ^ punctuation.terminator.statement
+      ref (A) y ; integer i ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^ variable
+//              ^ punctuation.terminator.statement
+//                ^^^^^^^ storage.type
+//                        ^ variable
+//                          ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      integer j ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+      for j := 0, 1, 2 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+      begin
+//    ^^^^^ keyword.control.begin
+         i := j ;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^ punctuation.terminator.statement
+         if y is C then
+//       ^^ keyword.control.if
+//          ^ variable
+//            ^^ keyword.other.is
+//               ^ variable
+//                 ^^^^ keyword.control.then
+            y qua C.cc := x (0).aa
+//          ^ variable
+//            ^^^ keyword.operator
+//                ^ variable
+//                 ^ punctuation.accessor
+//                  ^^ variable
+//                     ^^ keyword.operator.assignment
+//                        ^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.accessor
+//                              ^^ variable
+         else
+//       ^^^^ keyword.control.else
+         if y is B then
+//       ^^ keyword.control.if
+//          ^ variable
+//            ^^ keyword.other.is
+//               ^ variable
+//                 ^^^^ keyword.control.then
+            y qua B.bb := x (0).aa
+//          ^ variable
+//            ^^^ keyword.operator
+//                ^ variable
+//                 ^ punctuation.accessor
+//                  ^^ variable
+//                     ^^ keyword.operator.assignment
+//                        ^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.accessor
+//                              ^^ variable
+         else
+//       ^^^^ keyword.control.else
+         if y is A then
+//       ^^ keyword.control.if
+//          ^ variable
+//            ^^ keyword.other.is
+//               ^ variable
+//                 ^^^^ keyword.control.then
+            y.aa := 3 ;
+//          ^ variable
+//           ^ punctuation.accessor
+//            ^^ variable
+//               ^^ keyword.operator.assignment
+//                  ^ constant.numeric.decimal
+//                    ^ punctuation.terminator.statement
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 63") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test transmission by name of reference types.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   x (0) :- new A ;
+// ^ entity.name.function
+//   ^ punctuation.section.parens
+//    ^ constant.numeric.decimal
+//     ^ punctuation.section.parens
+//       ^^ keyword.operator.assignment
+//          ^^^ keyword.control.new
+//              ^ entity.name.class
+//                ^ punctuation.terminator.statement
+   x (1) :- new B ;
+// ^ entity.name.function
+//   ^ punctuation.section.parens
+//    ^ constant.numeric.decimal
+//     ^ punctuation.section.parens
+//       ^^ keyword.operator.assignment
+//          ^^^ keyword.control.new
+//              ^ entity.name.class
+//                ^ punctuation.terminator.statement
+   x (2) :- new C ;
+// ^ entity.name.function
+//   ^ punctuation.section.parens
+//    ^ constant.numeric.decimal
+//     ^ punctuation.section.parens
+//       ^^ keyword.operator.assignment
+//          ^^^ keyword.control.new
+//              ^ entity.name.class
+//                ^ punctuation.terminator.statement
+
+   P (Q, x (i), i) ;
+// ^ entity.name.function
+//   ^ punctuation.section.parens
+//    ^ variable
+//     ^ punctuation.separator
+//       ^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//           ^ punctuation.section.parens
+//            ^ punctuation.separator
+//              ^ variable
+//               ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+
+   if     x (0).aa = 1
+// ^^ keyword.control.if
+//        ^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.accessor
+//              ^^ variable
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+      and x (1) qua B.bb = 1
+//    ^^^ keyword.operator
+//        ^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//              ^^^ keyword.operator
+//                  ^ variable
+//                   ^ punctuation.accessor
+//                    ^^ variable
+//                       ^ keyword.operator.comparison
+//                         ^ constant.numeric.decimal
+      and x (2) qua C.cc = 1 then
+//    ^^^ keyword.operator
+//        ^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//              ^^^ keyword.operator
+//                  ^ variable
+//                   ^ punctuation.accessor
+//                    ^^ variable
+//                       ^ keyword.operator.comparison
+//                         ^ constant.numeric.decimal
+//                           ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Call by name (1).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values : x (0).aa = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outint (x (0).aa, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                 ^ punctuation.accessor
+//                  ^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                              x (1).bb = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outint (x (1) qua B.bb, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^^^ keyword.operator
+//                      ^ variable
+//                       ^ punctuation.accessor
+//                        ^^ variable
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                              x (2).cc = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outint (x (2) qua C.cc, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^^^ keyword.operator
+//                      ^ variable
+//                       ^ punctuation.accessor
+//                        ^^ variable
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   P (R, x (i), i) ;
+// ^ entity.name.function
+//   ^ punctuation.section.parens
+//    ^ variable
+//     ^ punctuation.separator
+//       ^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//           ^ punctuation.section.parens
+//            ^ punctuation.separator
+//              ^ variable
+//               ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+
+   if     x (0).aa = 2
+// ^^ keyword.control.if
+//        ^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.accessor
+//              ^^ variable
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+      and x (1) qua B.bb = 2
+//    ^^^ keyword.operator
+//        ^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//              ^^^ keyword.operator
+//                  ^ variable
+//                   ^ punctuation.accessor
+//                    ^^ variable
+//                       ^ keyword.operator.comparison
+//                         ^ constant.numeric.decimal
+      and x (2) qua C.cc = 2 then
+//    ^^^ keyword.operator
+//        ^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//              ^^^ keyword.operator
+//                  ^ variable
+//                   ^ punctuation.accessor
+//                    ^^ variable
+//                       ^ keyword.operator.comparison
+//                         ^ constant.numeric.decimal
+//                           ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Call by name (2).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values : x (0).aa = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outint (x (0).aa, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                 ^ punctuation.accessor
+//                  ^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                              x (1).bb = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outint (x (1) qua B.bb, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^^^ keyword.operator
+//                      ^ variable
+//                       ^ punctuation.accessor
+//                        ^^ variable
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                              x (2).cc = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outint (x (2) qua C.cc, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^^^ keyword.operator
+//                      ^ variable
+//                       ^ punctuation.accessor
+//                        ^^ variable
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   P (S, x (i), i) ;
+// ^ entity.name.function
+//   ^ punctuation.section.parens
+//    ^ variable
+//     ^ punctuation.separator
+//       ^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//           ^ punctuation.section.parens
+//            ^ punctuation.separator
+//              ^ variable
+//               ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+
+   if     x (0).aa = 3
+// ^^ keyword.control.if
+//        ^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.accessor
+//              ^^ variable
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+      and x (1) qua B.bb = 3
+//    ^^^ keyword.operator
+//        ^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//              ^^^ keyword.operator
+//                  ^ variable
+//                   ^ punctuation.accessor
+//                    ^^ variable
+//                       ^ keyword.operator.comparison
+//                         ^ constant.numeric.decimal
+      and x (2) qua C.cc = 3 then
+//    ^^^ keyword.operator
+//        ^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//              ^^^ keyword.operator
+//                  ^ variable
+//                   ^ punctuation.accessor
+//                    ^^ variable
+//                       ^ keyword.operator.comparison
+//                         ^ constant.numeric.decimal
+//                           ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Call by name (3).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values : x (0).aa = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outint (x (0).aa, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                 ^ punctuation.accessor
+//                  ^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                              x (1).bb = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outint (x (1) qua B.bb, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^^^ keyword.operator
+//                      ^ variable
+//                       ^ punctuation.accessor
+//                        ^^ variable
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                              x (2).cc = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outint (x (2) qua C.cc, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^^^ keyword.operator
+//                      ^ variable
+//                       ^ punctuation.accessor
+//                        ^^ variable
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 63") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

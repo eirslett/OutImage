@@ -1,0 +1,1203 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Simula",
+  "scopeName": "source.simula",
+  "patterns": [
+    {
+      "include": "#external_procedure_declaration"
+    },
+    {
+      "include": "#directive"
+    },
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#assignment_statement"
+    },
+    {
+      "include": "#boolean_expression"
+    },
+    {
+      "include": "#procedure_declaration"
+    },
+    {
+      "include": "#external_class_declaration"
+    },
+    {
+      "include": "#number"
+    },
+    {
+      "include": "#string"
+    },
+    {
+      "include": "#character"
+    },
+    {
+      "include": "#label"
+    },
+    {
+      "include": "#nulls"
+    },
+    {
+      "include": "#boolean"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#ref_types"
+    },
+    {
+      "include": "#object_expression"
+    },
+    {
+      "include": "#conditional_statement"
+    },
+    {
+      "include": "#while_statement"
+    },
+    {
+      "include": "#goto_statement"
+    },
+    {
+      "include": "#procedure_statement"
+    },
+    {
+      "include": "#object_generator"
+    },
+    {
+      "include": "#connection_statement"
+    },
+    {
+      "include": "#end"
+    },
+    {
+      "include": "#class_declaration"
+    },
+    {
+      "include": "#parens"
+    },
+    {
+      "include": "#compound_statement"
+    },
+    {
+      "include": "#control_flow_keywords"
+    },
+    {
+      "include": "#misc_keywords"
+    },
+    {
+      "include": "#assignment_operators"
+    },
+    {
+      "include": "#arithmetic_operators"
+    },
+    {
+      "include": "#comparison_operators"
+    },
+    {
+      "include": "#terminator"
+    },
+    {
+      "include": "#variable"
+    },
+    {
+      "include": "#punctuation"
+    },
+    {
+      "include": "#identifier"
+    }
+  ],
+  "repository": {
+    "external_procedure_declaration": {
+      "patterns": [
+        {
+          "begin": "(?i)(external)\\s+(procedure)\\s+",
+          "end": "(;)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.terminator.statement"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#directive"
+            },
+            {
+              "include": "#comments"
+            },
+            {
+              "include": "#string"
+            },
+            {
+              "include": "#punctuation"
+            },
+            {
+              "match": "\\b\\p{L}[\\p{L}0-9_]*\\b",
+              "name": "entity.name.function"
+            }
+          ],
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.other.external"
+            },
+            "2": {
+              "name": "storage.type"
+            }
+          }
+        },
+        {
+          "begin": "(?i)(external)\\s+(?!(?i)(?:activate|after|and|array|at|before|begin|boolean|character|class|comment|delay|do|else|end|eq|eqv|external|false|for|ge|go|goto|gt|hidden|if|imp|in|inner|inspect|integer|is|label|le|long|lt|name|ne|new|none|not|notext|or|otherwise|prior|procedure|protected|qua|reactivate|real|ref|short|step|switch|text|then|this|to|true|until|value|virtual|when|while)\\b)(\\p{L}[\\p{L}0-9_]*)\\s+(procedure)\\s+",
+          "end": "(;)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.terminator.statement"
+            }
+          },
+          "patterns": [
+            {
+              "match": "(?!(?i)(?:activate|after|and|array|at|before|begin|boolean|character|class|comment|delay|do|else|end|eq|eqv|external|false|for|ge|go|goto|gt|hidden|if|imp|in|inner|inspect|integer|is|label|le|long|lt|name|ne|new|none|not|notext|or|otherwise|prior|procedure|protected|qua|reactivate|real|ref|short|step|switch|text|then|this|to|true|until|value|virtual|when|while)\\b)\\b(\\p{L}[\\p{L}0-9_]*)\\s*(=)\\s*(\"[^\"]*\")",
+              "captures": {
+                "1": {
+                  "name": "entity.name.function"
+                },
+                "2": {
+                  "name": "keyword.operator.comparison"
+                },
+                "3": {
+                  "name": "string"
+                }
+              }
+            },
+            {
+              "match": "(?i)(\\bis\\b)",
+              "name": "keyword.control.is"
+            },
+            {
+              "include": "#punctuation"
+            },
+            {
+              "include": "#procedure_declaration"
+            }
+          ],
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.other.external"
+            },
+            "2": {
+              "name": "entity.name.other"
+            },
+            "3": {
+              "name": "storage.type"
+            }
+          }
+        }
+      ]
+    },
+    "directive": {
+      "patterns": [
+        {
+          "name": "comment.directive",
+          "match": "^%.*$"
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block",
+          "begin": "!",
+          "end": ";"
+        },
+        {
+          "name": "comment.block",
+          "begin": "\\b(?i)comment\\b",
+          "end": ";"
+        },
+        {
+          "name": "comment.block",
+          "match": "--.*$"
+        }
+      ]
+    },
+    "assignment_statement": {
+      "patterns": [
+        {
+          "match": "(?!(?i)(?:activate|after|and|array|at|before|begin|boolean|character|class|comment|delay|do|else|end|eq|eqv|external|false|for|ge|go|goto|gt|hidden|if|imp|in|inner|inspect|integer|is|label|le|long|lt|name|ne|new|none|not|notext|or|otherwise|prior|procedure|protected|qua|reactivate|real|ref|short|step|switch|text|then|this|to|true|until|value|virtual|when|while)\\b)(\\p{L}[\\p{L}0-9_]*)\\s*(:[=-])\\s*",
+          "captures": {
+            "1": {
+              "name": "variable"
+            },
+            "2": {
+              "name": "keyword.operator.assignment"
+            }
+          }
+        }
+      ]
+    },
+    "boolean_expression": {
+      "patterns": [
+        {
+          "match": "(?i)(\\bis\\b)",
+          "name": "keyword.other.is"
+        },
+        {
+          "match": "(?i)(\\band\\s+then\\b|\\bor\\s+else\\b|\\blt\\b|\\ble\\b|\\beq\\b|\\bge\\b|\\bgt\\b|\\bne\\b|\\bin\\b|\\bnot\\b|\\band\\b|\\bor\\b|\\bimp\\b|\\beqv\\b|\\bqua\\b)",
+          "name": "keyword.operator"
+        }
+      ]
+    },
+    "procedure_declaration": {
+      "patterns": [
+        {
+          "begin": "(?i)(procedure)\\s*([A-z][A-z0-9_]*)?",
+          "beginCaptures": {
+            "1": {
+              "name": "storage.type"
+            },
+            "2": {
+              "name": "entity.name.function"
+            }
+          },
+          "end": "(;)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.terminator.statement"
+            }
+          },
+          "patterns": [
+            {
+              "begin": "(\\()",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.section.parens"
+                }
+              },
+              "end": "(\\))",
+              "endCaptures": {
+                "1": {
+                  "name": "punctuation.section.parens"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "#directive"
+                },
+                {
+                  "include": "#comments"
+                },
+                {
+                  "include": "#punctuation"
+                },
+                {
+                  "match": "\\b\\p{L}[\\p{L}0-9_]*\\b",
+                  "name": "variable.parameter"
+                }
+              ]
+            },
+            {
+              "include": "#directive"
+            },
+            {
+              "include": "#comments"
+            },
+            {
+              "include": "#punctuation"
+            },
+            {
+              "match": "\\b\\p{L}[\\p{L}0-9_]*\\b",
+              "name": "entity.name.function"
+            }
+          ]
+        }
+      ]
+    },
+    "external_class_declaration": {
+      "patterns": [
+        {
+          "begin": "(?i)(external)\\s+(class)\\s+",
+          "end": "(;)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.terminator.statement"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#directive"
+            },
+            {
+              "include": "#comments"
+            },
+            {
+              "include": "#string"
+            },
+            {
+              "include": "#punctuation"
+            },
+            {
+              "match": "\\b\\p{L}[\\p{L}0-9_]*\\b",
+              "name": "entity.name.class"
+            }
+          ],
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.other.external"
+            },
+            "2": {
+              "name": "keyword.other.class"
+            }
+          }
+        }
+      ]
+    },
+    "number": {
+      "patterns": [
+        {
+          "match": "(?i)(?<![\\p{L}0-9_])([1248]|(16))R[\\dA-F]+",
+          "name": "constant.numeric.radix"
+        },
+        {
+          "match": "&&?[+-]?\\d[\\d_]*",
+          "name": "constant.numeric.decimal"
+        },
+        {
+          "match": "(?<![\\p{L}0-9_])((\\d+\\.\\d[\\d_]*)|(\\.?\\d[\\d_]*))(&&?[+-]?\\d+)?",
+          "name": "constant.numeric.decimal"
+        }
+      ]
+    },
+    "string": {
+      "name": "string.quoted.double",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape",
+          "match": "\"\""
+        }
+      ]
+    },
+    "character": {
+      "patterns": [
+        {
+          "name": "constant.character",
+          "match": "'!\\d{1,3}!'"
+        },
+        {
+          "name": "invalid.illegal.character.too_many",
+          "match": "'[^']{2,}'"
+        },
+        {
+          "name": "constant.character",
+          "match": "'.'"
+        }
+      ]
+    },
+    "label": {
+      "patterns": [
+        {
+          "match": "(?!(?i)(?:activate|after|and|array|at|before|begin|boolean|character|class|comment|delay|do|else|end|eq|eqv|external|false|for|ge|go|goto|gt|hidden|if|imp|in|inner|inspect|integer|is|label|le|long|lt|name|ne|new|none|not|notext|or|otherwise|prior|procedure|protected|qua|reactivate|real|ref|short|step|switch|text|then|this|to|true|until|value|virtual|when|while)\\b)(\\p{L}[\\p{L}0-9_]*)\\s*(:)",
+          "captures": {
+            "1": {
+              "name": "entity.name.label"
+            },
+            "2": {
+              "name": "punctuation.separator"
+            }
+          }
+        }
+      ]
+    },
+    "nulls": {
+      "patterns": [
+        {
+          "match": "\\b(?i)(none|notext)\\b",
+          "name": "constant.language.null"
+        }
+      ]
+    },
+    "boolean": {
+      "match": "\\b(?i)(true|false)\\b",
+      "name": "constant.language.bool"
+    },
+    "types": {
+      "match": "\\b(?i)(boolean|character|integer|long|short|real|text|array)\\b",
+      "name": "storage.type"
+    },
+    "ref_types": {
+      "patterns": [
+        {
+          "match": "\\b(?i)(ref)\\s*(\\()(\\p{L}[\\p{L}0-9_]*)(\\))",
+          "name": "storage.modifier",
+          "captures": {
+            "1": {
+              "name": "keyword.other"
+            },
+            "2": {
+              "name": "punctuation.section.parens"
+            },
+            "3": {
+              "name": "entity.name.class"
+            },
+            "4": {
+              "name": "punctuation.section.parens"
+            }
+          }
+        }
+      ]
+    },
+    "object_expression": {
+      "patterns": [
+        {
+          "match": "\\b(?i)(this)\\s+(\\p{L}[\\p{L}0-9_]*)",
+          "captures": {
+            "1": {
+              "name": "keyword.other.this"
+            },
+            "2": {
+              "name": "variable"
+            }
+          }
+        }
+      ]
+    },
+    "conditional_statement": {
+      "patterns": [
+        {
+          "match": "(?i)(\\bif\\b)",
+          "name": "keyword.control.if"
+        },
+        {
+          "match": "(?i)(\\bthen\\b)",
+          "name": "keyword.control.then"
+        },
+        {
+          "match": "(?i)(\\belse\\b)",
+          "name": "keyword.control.else"
+        }
+      ]
+    },
+    "while_statement": {
+      "patterns": [
+        {
+          "match": "(?i)\\b(do)\\s+(begin)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.do"
+            },
+            "2": {
+              "name": "keyword.control.begin"
+            }
+          }
+        }
+      ]
+    },
+    "goto_statement": {
+      "patterns": [
+        {
+          "match": "\\b(?i)(goto|go\\s+to)\\s+(\\p{L}[\\p{L}0-9_]*)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.goto"
+            },
+            "2": {
+              "name": "entity.name.label"
+            }
+          }
+        }
+      ]
+    },
+    "procedure_statement": {
+      "patterns": [
+        {
+          "begin": "(?!(?i)(?:activate|after|and|array|at|before|begin|boolean|character|class|comment|delay|do|else|end|eq|eqv|external|false|for|ge|go|goto|gt|hidden|if|imp|in|inner|inspect|integer|is|label|le|long|lt|name|ne|new|none|not|notext|or|otherwise|prior|procedure|protected|qua|reactivate|real|ref|short|step|switch|text|then|this|to|true|until|value|virtual|when|while)\\b)\\b(\\p{L}[\\p{L}0-9_]*)\\s*(\\()",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.function"
+            },
+            "2": {
+              "name": "punctuation.section.parens"
+            }
+          },
+          "end": "(\\))",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.section.parens"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#directive"
+            },
+            {
+              "include": "#comments"
+            },
+            {
+              "include": "#procedure_statement"
+            },
+            {
+              "include": "#object_expression"
+            },
+            {
+              "include": "#object_generator"
+            },
+            {
+              "include": "#conditional_statement"
+            },
+            {
+              "include": "#boolean_expression"
+            },
+            {
+              "include": "#parens"
+            },
+            {
+              "include": "#number"
+            },
+            {
+              "include": "#string"
+            },
+            {
+              "include": "#character"
+            },
+            {
+              "include": "#nulls"
+            },
+            {
+              "include": "#boolean"
+            },
+            {
+              "include": "#arithmetic_operators"
+            },
+            {
+              "include": "#comparison_operators"
+            },
+            {
+              "include": "#assignment_operators"
+            },
+            {
+              "include": "#misc_keywords"
+            },
+            {
+              "include": "#punctuation"
+            },
+            {
+              "include": "#variable"
+            }
+          ]
+        }
+      ]
+    },
+    "object_generator": {
+      "patterns": [
+        {
+          "begin": "\\b(?i)(new)\\s+\\b(\\p{L}[\\p{L}0-9_]*)\\s*(\\()",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.new"
+            },
+            "2": {
+              "name": "entity.name.class"
+            },
+            "3": {
+              "name": "punctuation.section.parens"
+            }
+          },
+          "end": "(\\))",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.section.parens"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#directive"
+            },
+            {
+              "include": "#comments"
+            },
+            {
+              "include": "#procedure_statement"
+            },
+            {
+              "include": "#object_expression"
+            },
+            {
+              "include": "#object_generator"
+            },
+            {
+              "include": "#conditional_statement"
+            },
+            {
+              "include": "#boolean_expression"
+            },
+            {
+              "include": "#parens"
+            },
+            {
+              "include": "#number"
+            },
+            {
+              "include": "#string"
+            },
+            {
+              "include": "#character"
+            },
+            {
+              "include": "#nulls"
+            },
+            {
+              "include": "#boolean"
+            },
+            {
+              "include": "#arithmetic_operators"
+            },
+            {
+              "include": "#comparison_operators"
+            },
+            {
+              "include": "#assignment_operators"
+            },
+            {
+              "include": "#misc_keywords"
+            },
+            {
+              "include": "#punctuation"
+            },
+            {
+              "include": "#variable"
+            }
+          ]
+        },
+        {
+          "match": "\\b(?i)(new)\\s+\\b(\\p{L}[\\p{L}0-9_]*)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.new"
+            },
+            "2": {
+              "name": "entity.name.class"
+            }
+          }
+        }
+      ]
+    },
+    "connection_statement": {
+      "patterns": [
+        {
+          "match": "(?i)\\b(when)\\s+(\\p{L}[\\p{L}0-9_]*)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.when"
+            },
+            "2": {
+              "name": "entity.name.class"
+            }
+          }
+        },
+        {
+          "match": "(?i)\\b(do)\\s+(begin)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.do"
+            },
+            "2": {
+              "name": "keyword.control.begin"
+            }
+          }
+        },
+        {
+          "match": "(?i)\\b(otherwise)\\s+(begin)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.otherwise"
+            },
+            "2": {
+              "name": "keyword.control.begin"
+            }
+          }
+        },
+        {
+          "match": "(?i)(\\bdisconnect\\b)",
+          "name": "keyword.control.disconnect"
+        }
+      ]
+    },
+    "end": {
+      "patterns": [
+        {
+          "match": "(?i)(end)(?=;)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.end"
+            },
+            "2": {
+              "name": "punctuation.terminator.statement"
+            }
+          }
+        },
+        {
+          "begin": "\\s?(?i)(end)([^A-Za-z0-9;])",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.end"
+            },
+            "2": {
+              "name": "comment.block"
+            }
+          },
+          "end": "(?=(?i)(;|\\bend\\b|\\belse\\b|\\bwhen\\b|\\botherwise\\b))",
+          "name": "comment.block"
+        }
+      ]
+    },
+    "class_declaration": {
+      "patterns": [
+        {
+          "begin": "(?!(?i)(?:activate|after|and|array|at|before|begin|boolean|character|class|comment|delay|do|else|end|eq|eqv|external|false|for|ge|go|goto|gt|hidden|if|imp|in|inner|inspect|integer|is|label|le|long|lt|name|ne|new|none|not|notext|or|otherwise|prior|procedure|protected|qua|reactivate|real|ref|short|step|switch|text|then|this|to|true|until|value|virtual|when|while)\\b)(?i)(\\p{L}[\\p{L}0-9_]*)\\s+(class)\\s*(\\p{L}[\\p{L}0-9_]*)?",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.class"
+            },
+            "2": {
+              "name": "keyword.other.class"
+            },
+            "3": {
+              "name": "entity.name.class"
+            }
+          },
+          "end": "(;)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.terminator.statement"
+            }
+          },
+          "patterns": [
+            {
+              "begin": "(\\()",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.section.parens"
+                }
+              },
+              "end": "(\\))",
+              "endCaptures": {
+                "1": {
+                  "name": "punctuation.section.parens"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "#directive"
+                },
+                {
+                  "include": "#comments"
+                },
+                {
+                  "include": "#punctuation"
+                },
+                {
+                  "match": "\\b\\p{L}[\\p{L}0-9_]*\\b",
+                  "name": "variable.parameter"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "begin": "(?i)(class)\\s*(\\p{L}[\\p{L}0-9_]*)?",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.other.class"
+            },
+            "2": {
+              "name": "entity.name.class"
+            }
+          },
+          "end": "(;)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.terminator.statement"
+            }
+          },
+          "patterns": [
+            {
+              "begin": "(\\()",
+              "beginCaptures": {
+                "1": {
+                  "name": "punctuation.section.parens"
+                }
+              },
+              "end": "(\\))",
+              "endCaptures": {
+                "1": {
+                  "name": "punctuation.section.parens"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "#directive"
+                },
+                {
+                  "include": "#comments"
+                },
+                {
+                  "include": "#punctuation"
+                },
+                {
+                  "match": "\\b\\p{L}[\\p{L}0-9_]*\\b",
+                  "name": "variable.parameter"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "parens": {
+      "patterns": [
+        {
+          "begin": "\\(",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.section.parens"
+            }
+          },
+          "end": "\\)",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.section.parens"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#directive"
+            },
+            {
+              "include": "#comments"
+            },
+            {
+              "include": "#procedure_statement"
+            },
+            {
+              "include": "#object_expression"
+            },
+            {
+              "include": "#object_generator"
+            },
+            {
+              "include": "#conditional_statement"
+            },
+            {
+              "include": "#boolean_expression"
+            },
+            {
+              "include": "#parens"
+            },
+            {
+              "include": "#number"
+            },
+            {
+              "include": "#string"
+            },
+            {
+              "include": "#character"
+            },
+            {
+              "include": "#nulls"
+            },
+            {
+              "include": "#boolean"
+            },
+            {
+              "include": "#arithmetic_operators"
+            },
+            {
+              "include": "#comparison_operators"
+            },
+            {
+              "include": "#assignment_operators"
+            },
+            {
+              "include": "#misc_keywords"
+            },
+            {
+              "include": "#punctuation"
+            },
+            {
+              "include": "#variable"
+            }
+          ]
+        }
+      ]
+    },
+    "compound_statement": {
+      "patterns": [
+        {
+          "match": "(?!(?i)(?:activate|after|and|array|at|before|begin|boolean|character|class|comment|delay|do|else|end|eq|eqv|external|false|for|ge|go|goto|gt|hidden|if|imp|in|inner|inspect|integer|is|label|le|long|lt|name|ne|new|none|not|notext|or|otherwise|prior|procedure|protected|qua|reactivate|real|ref|short|step|switch|text|then|this|to|true|until|value|virtual|when|while)\\b)\\b(\\p{L}[\\p{L}0-9_]*)\\s*(?i)(begin)\\b",
+          "captures": {
+            "1": {
+              "name": "entity.name.class"
+            },
+            "2": {
+              "name": "keyword.control.begin"
+            }
+          }
+        },
+        {
+          "match": "\\b(?i)(begin)\\b",
+          "name": "keyword.control.begin"
+        }
+      ]
+    },
+    "control_flow_keywords": {
+      "patterns": [
+        {
+          "match": "(?i)(\\bif\\b)",
+          "name": "keyword.control.if"
+        },
+        {
+          "match": "(?i)(\\bthen\\b)",
+          "name": "keyword.control.then"
+        },
+        {
+          "match": "(?i)(\\belse\\b)",
+          "name": "keyword.control.else"
+        },
+        {
+          "match": "(?i)(\\bwhile\\b)",
+          "name": "keyword.control.while"
+        },
+        {
+          "match": "(?i)(\\bdo\\b)",
+          "name": "keyword.control.do"
+        },
+        {
+          "match": "(?i)(\\bfor\\b)",
+          "name": "keyword.control.for"
+        },
+        {
+          "match": "(?i)(\\bstep\\b)",
+          "name": "keyword.control.step"
+        },
+        {
+          "match": "(?i)(\\buntil\\b)",
+          "name": "keyword.control.until"
+        },
+        {
+          "match": "(?i)(\\bgoto\\b)",
+          "name": "keyword.control.goto"
+        },
+        {
+          "match": "(?i)(\\bgo\\b)",
+          "name": "keyword.control.go"
+        },
+        {
+          "match": "(?i)(\\bto\\b)",
+          "name": "keyword.control.to"
+        },
+        {
+          "match": "(?i)(\\binspect\\b)",
+          "name": "keyword.control.inspect"
+        },
+        {
+          "match": "(?i)(\\bwhen\\b)",
+          "name": "keyword.control.when"
+        },
+        {
+          "match": "(?i)(\\botherwise\\b)",
+          "name": "keyword.control.otherwise"
+        },
+        {
+          "match": "(?i)(\\bswitch\\b)",
+          "name": "keyword.control.switch"
+        },
+        {
+          "match": "(?i)(\\bactivate\\b)",
+          "name": "keyword.control.activate"
+        },
+        {
+          "match": "(?i)(\\breactivate\\b)",
+          "name": "keyword.control.reactivate"
+        },
+        {
+          "match": "(?i)(\\bat\\b)",
+          "name": "keyword.control.at"
+        },
+        {
+          "match": "(?i)(\\bdelay\\b)",
+          "name": "keyword.control.delay"
+        },
+        {
+          "match": "(?i)(\\bbefore\\b)",
+          "name": "keyword.control.before"
+        },
+        {
+          "match": "(?i)(\\bafter\\b)",
+          "name": "keyword.control.after"
+        },
+        {
+          "match": "(?i)(\\bprior\\b)",
+          "name": "keyword.control.prior"
+        }
+      ]
+    },
+    "misc_keywords": {
+      "patterns": [
+        {
+          "match": "(?i)(\\bref\\b)",
+          "name": "keyword.other.ref"
+        },
+        {
+          "match": "(?i)(\\bthis\\b)",
+          "name": "keyword.other.this"
+        },
+        {
+          "match": "(?i)(\\bnew\\b)",
+          "name": "keyword.other.new"
+        },
+        {
+          "match": "(?i)(\\bclass\\b)",
+          "name": "keyword.other.class"
+        },
+        {
+          "match": "(?i)(\\binner\\b)",
+          "name": "keyword.other.inner"
+        },
+        {
+          "match": "(?i)(\\bname\\b)",
+          "name": "keyword.other.name"
+        },
+        {
+          "match": "(?i)(\\bvalue\\b)",
+          "name": "keyword.other.value"
+        },
+        {
+          "match": "(?i)(\\bexternal\\b)",
+          "name": "keyword.other.external"
+        },
+        {
+          "match": "(?i)(\\bvirtual\\b)",
+          "name": "keyword.other.virtual"
+        },
+        {
+          "match": "(?i)(\\bhidden\\b)",
+          "name": "keyword.other.hidden"
+        },
+        {
+          "match": "(?i)(\\bprotected\\b)",
+          "name": "keyword.other.protected"
+        },
+        {
+          "match": "(?i)(\\bis\\b)",
+          "name": "keyword.other.is"
+        },
+        {
+          "match": "(?i)(\\blabel\\b)",
+          "name": "keyword.other.label"
+        },
+        {
+          "match": "(?i)(\\bprocedure\\b)",
+          "name": "keyword.other.procedure"
+        }
+      ]
+    },
+    "assignment_operators": {
+      "patterns": [
+        {
+          "match": ":=|:-",
+          "name": "keyword.operator.assignment"
+        }
+      ]
+    },
+    "arithmetic_operators": {
+      "patterns": [
+        {
+          "match": "//",
+          "name": "keyword.operator.arithmetic"
+        },
+        {
+          "match": "\\*\\*",
+          "name": "keyword.operator.arithmetic"
+        },
+        {
+          "match": "&&",
+          "name": "keyword.operator.arithmetic"
+        },
+        {
+          "match": "[+\\-*/&]",
+          "name": "keyword.operator.arithmetic"
+        }
+      ]
+    },
+    "comparison_operators": {
+      "patterns": [
+        {
+          "match": "=/=",
+          "name": "keyword.operator.comparison"
+        },
+        {
+          "match": "==",
+          "name": "keyword.operator.comparison"
+        },
+        {
+          "match": "<=",
+          "name": "keyword.operator.comparison"
+        },
+        {
+          "match": ">=",
+          "name": "keyword.operator.comparison"
+        },
+        {
+          "match": "<>",
+          "name": "keyword.operator.comparison"
+        },
+        {
+          "match": "[<>=]",
+          "name": "keyword.operator.comparison"
+        }
+      ]
+    },
+    "terminator": {
+      "match": ";",
+      "name": "punctuation.terminator.statement"
+    },
+    "variable": {
+      "match": "\\b\\p{L}[\\p{L}0-9_]*\\b",
+      "name": "variable"
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "match": "\\[",
+          "name": "punctuation.section.brackets"
+        },
+        {
+          "match": "\\]",
+          "name": "punctuation.section.brackets"
+        },
+        {
+          "match": "\\.",
+          "name": "punctuation.accessor"
+        },
+        {
+          "match": ",",
+          "name": "punctuation.separator"
+        },
+        {
+          "match": ":",
+          "name": "punctuation.separator"
+        },
+        {
+          "match": "'",
+          "name": "punctuation.definition.character"
+        }
+      ]
+    },
+    "identifier": {
+      "match": "\\b\\p{L}[\\p{L}0-9_]*\\b",
+      "name": "entity.other"
+    }
+  }
+}

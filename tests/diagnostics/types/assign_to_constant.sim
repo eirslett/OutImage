@@ -1,0 +1,1 @@
+begin integer k = 1; k := 2; end;

@@ -1,0 +1,15 @@
+[E0401] Error: PROTECTED ATTRIBUTE: protected attribute `i` is not accessible from this context
+    ╭─[ hidden_remote.sim:10:8 ]
+    │
+ 10 │ OutInt(r.i, 2);
+    │        ─┬─  
+    │         ╰─── this access
+    │
+    ├─[ hidden_remote.sim:10:8 ]
+    │
+  3 │ protected i;
+    │ ─────┬─────  
+    │      ╰─────── this `protected` specification
+    │ 
+    │ Help: access it from the class body, a subclass, or an `inspect` of that class
+────╯

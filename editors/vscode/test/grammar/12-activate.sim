@@ -1,0 +1,41 @@
+// SYNTAX TEST "source.simula" "12-activate"
+begin
+// <----- keyword.control.begin
+    activate Spaceship;
+//  ^^^^^^^^ keyword.control.activate
+//           ^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+    activate Power before Engine;
+//  ^^^^^^^^ keyword.control.activate
+//           ^^^^^ variable
+//                 ^^^^^^ keyword.control.before
+//                        ^^^^^^ variable
+//                              ^ punctuation.terminator.statement
+    activate Alarm after Fire;
+//  ^^^^^^^^ keyword.control.activate
+//           ^^^^^ variable
+//                 ^^^^^ keyword.control.after
+//                       ^^^^ variable
+//                           ^ punctuation.terminator.statement
+    activate Notification delay 6.5;
+//  ^^^^^^^^ keyword.control.activate
+//           ^^^^^^^^^^^^ variable
+//                        ^^^^^ keyword.control.delay
+//                              ^^^ constant.numeric.decimal
+//                                 ^ punctuation.terminator.statement
+    activate Music delay 6.5 prior;
+//  ^^^^^^^^ keyword.control.activate
+//           ^^^^^ variable
+//                 ^^^^^ keyword.control.delay
+//                       ^^^ constant.numeric.decimal
+//                           ^^^^^ keyword.control.prior
+//                                ^ punctuation.terminator.statement
+    activate NightMode at 23;
+//  ^^^^^^^^ keyword.control.activate
+//           ^^^^^^^^^ variable
+//                     ^^ keyword.control.at
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.terminator.statement
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement

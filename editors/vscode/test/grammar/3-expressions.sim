@@ -1,0 +1,129 @@
+// SYNTAX TEST "source.simula" "3-expressions"
+BEGIN
+// <----- keyword.control.begin
+    ! variables;
+//  ^^^^^^^^^^^^ comment.block
+    Foo := Bar.Cat;
+//  ^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^ variable
+//            ^ punctuation.accessor
+//             ^^^ variable
+//                ^ punctuation.terminator.statement
+    MyArray(1) := 1;
+//  ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ constant.numeric.decimal
+//           ^ punctuation.section.parens
+//             ^^ keyword.operator.assignment
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+
+    ! boolean expressions;
+//  ^^^^^^^^^^^^^^^^^^^^^^ comment.block
+    a := 1 < 2;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^ constant.numeric.decimal
+//         ^ keyword.operator.comparison
+//           ^ constant.numeric.decimal
+//            ^ punctuation.terminator.statement
+    a := 5 lt 6;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^ constant.numeric.decimal
+//         ^^ keyword.operator
+//            ^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+    b := x =/= y;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^ variable
+//         ^^^ keyword.operator.comparison
+//             ^ variable
+//              ^ punctuation.terminator.statement
+    c := 1 < 2 and then 3 < 4;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^ constant.numeric.decimal
+//         ^ keyword.operator.comparison
+//           ^ constant.numeric.decimal
+//             ^^^ keyword.operator
+//                 ^^^^ keyword.operator
+//                      ^ constant.numeric.decimal
+//                        ^ keyword.operator.comparison
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.terminator.statement
+    d := 1 < 2 or else 3 < 4;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^ constant.numeric.decimal
+//         ^ keyword.operator.comparison
+//           ^ constant.numeric.decimal
+//             ^^ keyword.operator
+//                ^^^^ keyword.operator
+//                     ^ constant.numeric.decimal
+//                       ^ keyword.operator.comparison
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.terminator.statement
+    negative := not true;
+//  ^^^^^^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ keyword.operator
+//                  ^^^^ constant.language.bool
+//                      ^ punctuation.terminator.statement
+
+    ! arithmetic expressions;
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+    total := 1 + 2 ** 2 / (pi - 7);
+//  ^^^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//             ^ keyword.operator.arithmetic
+//               ^ constant.numeric.decimal
+//                 ^^ keyword.operator.arithmetic
+//                    ^ constant.numeric.decimal
+//                      ^ keyword.operator.arithmetic
+//                        ^ punctuation.section.parens
+//                         ^^ variable
+//                            ^ keyword.operator.arithmetic
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+
+    ! object expressions;
+//  ^^^^^^^^^^^^^^^^^^^^^ comment.block
+    obj :- none;
+//  ^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.language.null
+//             ^ punctuation.terminator.statement
+    o :- new MyClass;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^^^^^^^ entity.name.class
+//                  ^ punctuation.terminator.statement
+    o :- new MyClass2(1, 2, 3);
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^^^^^^^^ entity.name.class
+//                   ^ punctuation.section.parens
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+
+    x := y qua MyClass2;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^ variable
+//         ^^^ keyword.operator
+//             ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+End
+// <--- keyword.control.end

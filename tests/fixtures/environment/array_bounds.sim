@@ -1,0 +1,7 @@
+begin
+    integer array A(2:5);
+    boolean ok;
+    ok := lowerbound(A, 1) = 2 and upperbound(A, 1) = 5;
+    if ok then OutText("ok") else OutText("fail");
+    OutImage;
+end

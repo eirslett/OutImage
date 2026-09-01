@@ -1,0 +1,815 @@
+// SYNTAX TEST "source.simula" "simtst31"
+% =======================================   Main   program =============
+// <------------------------------------------------------------------------ comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 31
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test labels and switches as parameters to procedures
+// <-------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  REWRITTEN BY:  BEH   21/07-86
+// <-------------------------------- comment.directive
+% ======================================================================
+// <------------------------------------------------------------------------ comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   PROCEDURE P(LFD);  LABEL LFD;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ variable.parameter
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+//                    ^^^^^ keyword.other.label
+//                          ^^^ variable
+//                             ^ punctuation.terminator.statement
+      BEGIN
+//    ^^^^^ keyword.control.begin
+      b :=  NOT b;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//          ^^^ keyword.operator
+//              ^ variable
+//               ^ punctuation.terminator.statement
+      GOTO LFD
+//    ^^^^ keyword.control.goto
+//         ^^^ entity.name.label
+   END of procedure P;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^ comment.block
+//                   ^ punctuation.terminator.statement
+
+   PROCEDURE Q(LFN);  NAME LFN;  LABEL LFN;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ variable.parameter
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+//                    ^^^^ keyword.other.name
+//                         ^^^ variable
+//                            ^ punctuation.terminator.statement
+//                               ^^^^^ keyword.other.label
+//                                     ^^^ variable
+//                                        ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      b :=  NOT b;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//          ^^^ keyword.operator
+//              ^ variable
+//               ^ punctuation.terminator.statement
+      GOTO LFN
+//    ^^^^ keyword.control.goto
+//         ^^^ entity.name.label
+   END of procedure Q;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^ comment.block
+//                   ^ punctuation.terminator.statement
+
+   PROCEDURE R(SFD);  SWITCH SFD;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ variable.parameter
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+//                    ^^^^^^ keyword.control.switch
+//                           ^^^ variable
+//                              ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      b :=  NOT b;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//          ^^^ keyword.operator
+//              ^ variable
+//               ^ punctuation.terminator.statement
+      i := i + 1;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//           ^ keyword.operator.arithmetic
+//             ^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+      GOTO SFD(i);
+//    ^^^^ keyword.control.goto
+//         ^^^ entity.name.label
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      GOTO SFD(1)
+//    ^^^^ keyword.control.goto
+//         ^^^ entity.name.label
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+   END of procedure R;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^ comment.block
+//                   ^ punctuation.terminator.statement
+
+   PROCEDURE S(SFN);  NAME SFN;  SWITCH SFN;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ variable.parameter
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+//                    ^^^^ keyword.other.name
+//                         ^^^ variable
+//                            ^ punctuation.terminator.statement
+//                               ^^^^^^ keyword.control.switch
+//                                      ^^^ variable
+//                                         ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      b :=  NOT b;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//          ^^^ keyword.operator
+//              ^ variable
+//               ^ punctuation.terminator.statement
+      i := i + 1;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//           ^ keyword.operator.arithmetic
+//             ^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+      GOTO SFN(i);
+//    ^^^^ keyword.control.goto
+//         ^^^ entity.name.label
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      GOTO SFN(1)
+//    ^^^^ keyword.control.goto
+//         ^^^ entity.name.label
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+   END of procedure S;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^ comment.block
+//                   ^ punctuation.terminator.statement
+
+
+   procedure testpath(p); value p; text p;
+// ^^^^^^^^^ storage.type
+//           ^^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable.parameter
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^ keyword.other.value
+//                              ^ variable
+//                               ^ punctuation.terminator.statement
+//                                 ^^^^ storage.type
+//                                      ^ variable
+//                                       ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      if path.strip = p then
+//    ^^ keyword.control.if
+//       ^^^^ variable
+//           ^ punctuation.accessor
+//            ^^^^^ variable
+//                  ^ keyword.operator.comparison
+//                    ^ variable
+//                      ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR : Wrong path selected (");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+         Outint(j, if j < 10 then 1 else 2);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^^ keyword.control.if
+//                    ^ variable
+//                      ^ keyword.operator.comparison
+//                        ^^ constant.numeric.decimal
+//                           ^^^^ keyword.control.then
+//                                ^ constant.numeric.decimal
+//                                  ^^^^ keyword.control.else
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext(").");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values : ");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outtext(path.strip);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^ variable
+//                   ^ punctuation.accessor
+//                    ^^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+         Outint(j, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end
+//    ^^^ keyword.control.end
+   end pros. testpath;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^ comment.block
+//                   ^ punctuation.terminator.statement
+
+
+   SWITCH S1 := L1, L2, L3, S2(1);
+// ^^^^^^ keyword.control.switch
+//        ^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^ variable
+//                ^ punctuation.separator
+//                  ^^ variable
+//                    ^ punctuation.separator
+//                      ^^ variable
+//                        ^ punctuation.separator
+//                          ^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+   SWITCH S2 := S1(1), L2, S2(2);
+// ^^^^^^ keyword.control.switch
+//        ^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.separator
+//                     ^^ variable
+//                       ^ punctuation.separator
+//                         ^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+   SWITCH S3 := IF b THEN L2 ELSE L3;
+// ^^^^^^ keyword.control.switch
+//        ^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^ keyword.control.if
+//                 ^ variable
+//                   ^^^^ keyword.control.then
+//                        ^^ variable
+//                           ^^^^ keyword.control.else
+//                                ^^ variable
+//                                  ^ punctuation.terminator.statement
+   SWITCH CONTROL := C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12;
+// ^^^^^^ keyword.control.switch
+//        ^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^ variable
+//                     ^ punctuation.separator
+//                       ^^ variable
+//                         ^ punctuation.separator
+//                           ^^ variable
+//                             ^ punctuation.separator
+//                               ^^ variable
+//                                 ^ punctuation.separator
+//                                   ^^ variable
+//                                     ^ punctuation.separator
+//                                       ^^ variable
+//                                         ^ punctuation.separator
+//                                           ^^ variable
+//                                             ^ punctuation.separator
+//                                               ^^ variable
+//                                                 ^ punctuation.separator
+//                                                   ^^ variable
+//                                                     ^ punctuation.separator
+//                                                       ^^^ variable
+//                                                          ^ punctuation.separator
+//                                                            ^^^ variable
+//                                                               ^ punctuation.separator
+//                                                                 ^^^ variable
+//                                                                    ^ punctuation.terminator.statement
+
+   BOOLEAN            b;
+// ^^^^^^^ storage.type
+//                    ^ variable
+//                     ^ punctuation.terminator.statement
+   INTEGER            i, j;
+// ^^^^^^^ storage.type
+//                    ^ variable
+//                     ^ punctuation.separator
+//                       ^ variable
+//                        ^ punctuation.terminator.statement
+   TEXT               path;
+// ^^^^ storage.type
+//                    ^^^^ variable
+//                        ^ punctuation.terminator.statement
+
+   GOTO START;
+// ^^^^ keyword.control.goto
+//      ^^^^^ entity.name.label
+//           ^ punctuation.terminator.statement
+
+   L1: path.putchar('1');
+// ^^ entity.name.label
+//   ^ punctuation.separator
+//     ^^^^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^ constant.character
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   GOTO RETURN;
+// ^^^^ keyword.control.goto
+//      ^^^^^^ entity.name.label
+//            ^ punctuation.terminator.statement
+
+   L2: path.putchar('2');
+// ^^ entity.name.label
+//   ^ punctuation.separator
+//     ^^^^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^ constant.character
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   GOTO RETURN;
+// ^^^^ keyword.control.goto
+//      ^^^^^^ entity.name.label
+//            ^ punctuation.terminator.statement
+
+   L3: path.putchar('3');
+// ^^ entity.name.label
+//   ^ punctuation.separator
+//     ^^^^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^ constant.character
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   GOTO RETURN;
+// ^^^^ keyword.control.goto
+//      ^^^^^^ entity.name.label
+//            ^ punctuation.terminator.statement
+
+   L4: path.putchar('4');
+// ^^ entity.name.label
+//   ^ punctuation.separator
+//     ^^^^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^ constant.character
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   GOTO RETURN;
+// ^^^^ keyword.control.goto
+//      ^^^^^^ entity.name.label
+//            ^ punctuation.terminator.statement
+
+
+RETURN:
+// <------ entity.name.label
+//    ^ punctuation.separator
+
+   GOTO CONTROL(J);
+// ^^^^ keyword.control.goto
+//      ^^^^^^^ entity.name.label
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+
+
+START:
+// <----- entity.name.label
+//   ^ punctuation.separator
+
+   Outtext("--- START Simula a.s. TEST 31");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outtext(" (labels/switches as procedure parameters)");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   path :- blanks(20);
+// ^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+   j := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   P(L1);
+// ^ entity.name.function
+//  ^ punctuation.section.parens
+//   ^^ variable
+//     ^ punctuation.section.parens
+//      ^ punctuation.terminator.statement
+
+C1:
+// <-- entity.name.label
+//^ punctuation.separator
+   testpath("1");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ string.quoted.double
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   j := 2;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   P(IF b THEN L2 ELSE L1);
+// ^ entity.name.function
+//  ^ punctuation.section.parens
+//   ^^ keyword.control.if
+//      ^ variable
+//        ^^^^ keyword.control.then
+//             ^^ variable
+//                ^^^^ keyword.control.else
+//                     ^^ variable
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+
+C2:
+// <-- entity.name.label
+//^ punctuation.separator
+   testpath("12");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ string.quoted.double
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   j := 3;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   Q(S1(3));
+// ^ entity.name.function
+//  ^ punctuation.section.parens
+//   ^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^^ punctuation.section.parens
+//         ^ punctuation.terminator.statement
+
+C3:
+// <-- entity.name.label
+//^ punctuation.separator
+   testpath("123");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^ string.quoted.double
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   j := 4;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   Q(IF b THEN S1(3) ELSE L4);
+// ^ entity.name.function
+//  ^ punctuation.section.parens
+//   ^^ keyword.control.if
+//      ^ variable
+//        ^^^^ keyword.control.then
+//             ^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^^^^ keyword.control.else
+//                        ^^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+C4:
+// <-- entity.name.label
+//^ punctuation.separator
+   testpath("1234");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^ string.quoted.double
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+   j := 5;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   i := 0;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   R(S1);
+// ^ entity.name.function
+//  ^ punctuation.section.parens
+//   ^^ variable
+//     ^ punctuation.section.parens
+//      ^ punctuation.terminator.statement
+
+C5:
+// <-- entity.name.label
+//^ punctuation.separator
+   testpath("12341");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^ string.quoted.double
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+   j := 6;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   i := 2;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   R(S1);
+// ^ entity.name.function
+//  ^ punctuation.section.parens
+//   ^^ variable
+//     ^ punctuation.section.parens
+//      ^ punctuation.terminator.statement
+
+C6:
+// <-- entity.name.label
+//^ punctuation.separator
+   testpath("123413");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^ string.quoted.double
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+   j := 7;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   i := 0;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   R(S2);
+// ^ entity.name.function
+//  ^ punctuation.section.parens
+//   ^^ variable
+//     ^ punctuation.section.parens
+//      ^ punctuation.terminator.statement
+
+C7:
+// <-- entity.name.label
+//^ punctuation.separator
+   testpath("1234131");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+   j := 8;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   i := 0;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   S(S1);
+// ^ entity.name.function
+//  ^ punctuation.section.parens
+//   ^^ variable
+//     ^ punctuation.section.parens
+//      ^ punctuation.terminator.statement
+
+C8:
+// <-- entity.name.label
+//^ punctuation.separator
+   testpath("12341311");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+   j := 9;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   i := 3;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   S(S1);
+// ^ entity.name.function
+//  ^ punctuation.section.parens
+//   ^^ variable
+//     ^ punctuation.section.parens
+//      ^ punctuation.terminator.statement
+
+C9:
+// <-- entity.name.label
+//^ punctuation.separator
+   testpath("123413111");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   j := 10;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+   i := 0;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   if b then S(S1) else S(S3);
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^^^ keyword.control.then
+//           ^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.section.parens
+//                 ^^^^ keyword.control.else
+//                      ^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+C10:
+// <--- entity.name.label
+// ^ punctuation.separator
+   testpath("1234131113");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+   j := 11;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+   b := TRUE;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^ constant.language.bool
+//          ^ punctuation.terminator.statement
+   i := 0;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   if b then R(S3) else R(S2);
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^^^ keyword.control.then
+//           ^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.section.parens
+//                 ^^^^ keyword.control.else
+//                      ^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+C11:
+// <--- entity.name.label
+// ^ punctuation.separator
+   testpath("12341311133");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   j := 12;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+   i := 0;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   S(S3);
+// ^ entity.name.function
+//  ^ punctuation.section.parens
+//   ^^ variable
+//     ^ punctuation.section.parens
+//      ^ punctuation.terminator.statement
+
+C12:
+// <--- entity.name.label
+// ^ punctuation.separator
+   testpath("123413111332");
+// ^^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext("--- END Simula a.s. TEST 31");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

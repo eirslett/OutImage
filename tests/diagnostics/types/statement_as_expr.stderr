@@ -1,0 +1,9 @@
+[E0210] Error: NOT AN EXPRESSION: `OutText` is a statement and cannot be used as an expression
+   ╭─[ statement_as_expr.sim:1:23 ]
+   │
+ 1 │ begin integer x; x := OutText("a"); end;
+   │                       ──────┬─────  
+   │                             ╰─────── here
+   │ 
+   │ Help: call it as a statement, or use a typed procedure that returns a value
+───╯

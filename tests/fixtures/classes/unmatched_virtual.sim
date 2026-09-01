@@ -1,0 +1,10 @@
+! §5.6.7: unmatched virtual quantity is visible in the class body.;
+begin
+    class Base; virtual: integer v;
+    begin
+        OutInt(v, 0);
+        OutImage;
+    end;
+    ref(Base) b;
+    b :- new Base;
+end

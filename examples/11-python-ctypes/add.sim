@@ -1,0 +1,4 @@
+integer procedure add(a, b); integer a, b;
+begin
+   add := a + b;
+end;

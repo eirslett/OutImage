@@ -1,0 +1,11 @@
+! Nested block locals must not leak into the enclosing scope;
+begin
+    integer n;
+    n := 1;
+    begin
+        integer k;
+        k := 2;
+        n := k;
+    end;
+    n := 3;
+end

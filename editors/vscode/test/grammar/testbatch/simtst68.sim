@@ -1,0 +1,722 @@
+// SYNTAX TEST "source.simula" "simtst68"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 68
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test of coroutines.
+// <----------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   08/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+Begin
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Text array lines, facit (1:20) ;
+// ^^^^ storage.type
+//      ^^^^^ storage.type
+//            ^^^^^ variable
+//                 ^ punctuation.separator
+//                   ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+   Integer lnr ;
+// ^^^^^^^ storage.type
+//         ^^^ variable
+//             ^ punctuation.terminator.statement
+
+   Procedure Saveline ;
+// ^^^^^^^^^ storage.type
+//           ^^^^^^^^ entity.name.function
+//                    ^ punctuation.terminator.statement
+   Begin
+// ^^^^^ keyword.control.begin
+      lnr := lnr + 1 ;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^^ variable
+//               ^ keyword.operator.arithmetic
+//                 ^ constant.numeric.decimal
+//                   ^ punctuation.terminator.statement
+      lines (lnr) :- Copy (sysout.image.strip) ;
+//    ^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^^^ variable
+//                                     ^ punctuation.accessor
+//                                      ^^^^^ variable
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      sysout.image.setpos (1) ;
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      sysout.image := Notext
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^^ constant.language.null
+   End ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Procedure Checklines (n, e) ;
+// ^^^^^^^^^ storage.type
+//           ^^^^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable.parameter
+//                        ^ punctuation.separator
+//                          ^ variable.parameter
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+      integer n, e ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ variable
+//                 ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      Boolean Ok ;
+//    ^^^^^^^ storage.type
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+      integer i ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+
+      Ok := true ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.language.bool
+//               ^ punctuation.terminator.statement
+
+      if n = lnr then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^^^ variable
+//               ^^^^ keyword.control.then
+      Begin
+//    ^^^^^ keyword.control.begin
+         For i := 1 step 1 until n do
+//       ^^^ keyword.control.for
+//           ^ variable
+//             ^^ keyword.operator.assignment
+//                ^ constant.numeric.decimal
+//                  ^^^^ keyword.control.step
+//                       ^ constant.numeric.decimal
+//                         ^^^^^ keyword.control.until
+//                               ^ variable
+//                                 ^^ keyword.control.do
+         If lines (i) <> facit (i) then
+//       ^^ keyword.control.if
+//          ^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.comparison
+//                       ^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ variable
+//                               ^ punctuation.section.parens
+//                                 ^^^^ keyword.control.then
+            Ok := false ;
+//          ^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^ constant.language.bool
+//                      ^ punctuation.terminator.statement
+      End else
+//    ^^^ keyword.control.end
+//        ^^^^ keyword.control.else
+         Ok := false ;
+//       ^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^^^^ constant.language.bool
+//                   ^ punctuation.terminator.statement
+
+      If not Ok then
+//    ^^ keyword.control.if
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^^^ keyword.control.then
+      Begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Coroutines (") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+         Outint (e, if e < 10 then 1 else 2) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^^ keyword.control.if
+//                     ^ variable
+//                       ^ keyword.operator.comparison
+//                         ^^ constant.numeric.decimal
+//                            ^^^^ keyword.control.then
+//                                 ^ constant.numeric.decimal
+//                                   ^^^^ keyword.control.else
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+         Outtext (").") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus output : lnr = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+         Outint (lnr, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         For i := 1 step 1 until lnr do
+//       ^^^ keyword.control.for
+//           ^ variable
+//             ^^ keyword.operator.assignment
+//                ^ constant.numeric.decimal
+//                  ^^^^ keyword.control.step
+//                       ^ constant.numeric.decimal
+//                         ^^^^^ keyword.control.until
+//                               ^^^ variable
+//                                   ^^ keyword.control.do
+         begin
+//       ^^^^^ keyword.control.begin
+            Outtext ("                 ") ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+            Outtext (lines (i)) ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ variable
+//                           ^^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+            Outimage ;
+//          ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+         end ;
+//       ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      For i := 1 step 1 until 20 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^^ constant.numeric.decimal
+//                               ^^ keyword.control.do
+         lines (i) :- facit (i) :- notext ;
+//       ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.section.parens
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.section.parens
+//                              ^^ keyword.operator.assignment
+//                                 ^^^^^^ constant.language.null
+//                                        ^ punctuation.terminator.statement
+      lnr := 0 ;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+
+   end pros. checklines ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^^^ comment.block
+//                      ^ punctuation.terminator.statement
+
+
+   Character c1, c2 ;
+// ^^^^^^^^^ storage.type
+//           ^^ variable
+//             ^ punctuation.separator
+//               ^^ variable
+//                  ^ punctuation.terminator.statement
+
+   Class Coroutine ;
+// ^^^^^ keyword.other.class
+//       ^^^^^^^^^ entity.name.class
+//                 ^ punctuation.terminator.statement
+      detach ;
+//    ^^^^^^ variable
+//           ^ punctuation.terminator.statement
+
+   Coroutine Class Reader ;
+// ^^^^^^^^^ entity.name.class
+//           ^^^^^ keyword.other.class
+//                 ^^^^^^ entity.name.class
+//                        ^ punctuation.terminator.statement
+   While true do
+// ^^^^^ keyword.control.while
+//       ^^^^ constant.language.bool
+//            ^^ keyword.control.do
+   Begin
+// ^^^^^ keyword.control.begin
+      c1 := inchar ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+      Detach ;
+//    ^^^^^^ variable
+//           ^ punctuation.terminator.statement
+   End ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Coroutine Class Changer ;
+// ^^^^^^^^^ entity.name.class
+//           ^^^^^ keyword.other.class
+//                 ^^^^^^^ entity.name.class
+//                         ^ punctuation.terminator.statement
+   Begin
+// ^^^^^ keyword.control.begin
+      Call (r) ;
+//    ^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//           ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+      While true do
+//    ^^^^^ keyword.control.while
+//          ^^^^ constant.language.bool
+//               ^^ keyword.control.do
+      Begin
+//    ^^^^^ keyword.control.begin
+         if c1 = '*' then
+//       ^^ keyword.control.if
+//          ^^ variable
+//             ^ keyword.operator.comparison
+//               ^^^ constant.character
+//                   ^^^^ keyword.control.then
+         Begin
+//       ^^^^^ keyword.control.begin
+            Call (r) ;
+//          ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+            if c1 = '*' then
+//          ^^ keyword.control.if
+//             ^^ variable
+//                ^ keyword.operator.comparison
+//                  ^^^ constant.character
+//                      ^^^^ keyword.control.then
+               c2 := '$'
+//             ^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^ constant.character
+            else
+//          ^^^^ keyword.control.else
+            Begin
+//          ^^^^^ keyword.control.begin
+               c2 := '*' ;
+//             ^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^ constant.character
+//                       ^ punctuation.terminator.statement
+               Resume (w) ;
+//             ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+               c2 := c1
+//             ^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^ variable
+            End ;
+//          ^^^ keyword.control.end
+//              ^ punctuation.terminator.statement
+         End else c2 := c1 ;
+//       ^^^ keyword.control.end
+//           ^^^^ keyword.control.else
+//                ^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^ variable
+//                         ^ punctuation.terminator.statement
+         Resume (w) ; Call (r) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+//                    ^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ variable
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+      End ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+   End class changer ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^ comment.block
+//                   ^ punctuation.terminator.statement
+
+   Coroutine Class Writer ;
+// ^^^^^^^^^ entity.name.class
+//           ^^^^^ keyword.other.class
+//                 ^^^^^^ entity.name.class
+//                        ^ punctuation.terminator.statement
+   Begin
+// ^^^^^ keyword.control.begin
+      Integer i ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+
+      While true do
+//    ^^^^^ keyword.control.while
+//          ^^^^ constant.language.bool
+//               ^^ keyword.control.do
+      Begin
+//    ^^^^^ keyword.control.begin
+         for i := 1 step 1 until 15 do
+//       ^^^ keyword.control.for
+//           ^ variable
+//             ^^ keyword.operator.assignment
+//                ^ constant.numeric.decimal
+//                  ^^^^ keyword.control.step
+//                       ^ constant.numeric.decimal
+//                         ^^^^^ keyword.control.until
+//                               ^^ constant.numeric.decimal
+//                                  ^^ keyword.control.do
+         Begin
+//       ^^^^^ keyword.control.begin
+            if c2 = '!' then
+//          ^^ keyword.control.if
+//             ^^ variable
+//                ^ keyword.operator.comparison
+//                  ^^^ constant.character
+//                      ^^^^ keyword.control.then
+            Begin
+//          ^^^^^ keyword.control.begin
+               Saveline ;
+//             ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+               detach ;
+//             ^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+               Goto R
+//             ^^^^ keyword.control.goto
+//                  ^ entity.name.label
+            End else
+//          ^^^ keyword.control.end
+//              ^^^^ keyword.control.else
+            Begin
+//          ^^^^^ keyword.control.begin
+               outchar(c2) ;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ variable
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+               Resume (c)
+//             ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+            End ;
+//          ^^^ keyword.control.end
+//              ^ punctuation.terminator.statement
+         End ;
+//       ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+         Saveline ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+       R :
+//     ^ entity.name.label
+//       ^ punctuation.separator
+      End ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+   End ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Ref (Coroutine) r, c, w ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^ entity.name.class
+//               ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^ variable
+//                     ^ punctuation.separator
+//                       ^ variable
+//                         ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 68") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test coroutines.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   r :- New Reader ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^ entity.name.class
+//                 ^ punctuation.terminator.statement
+   c :- New Changer ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^ entity.name.class
+//                  ^ punctuation.terminator.statement
+   w :- New Writer ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^ entity.name.class
+//                 ^ punctuation.terminator.statement
+
+   sysin.image := "|lhkjdfjg*fdgh*98dsgh**kjdk*sgjfhgh***kljhasdg*kfhgs!ksdf" ;
+// ^^^^^ variable
+//      ^ punctuation.accessor
+//       ^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                            ^ punctuation.terminator.statement
+   sysin.image.setpos (1) ;
+// ^^^^^ variable
+//      ^ punctuation.accessor
+//       ^^^^^ variable
+//            ^ punctuation.accessor
+//             ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+
+   resume (c) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ variable
+//          ^ punctuation.section.parens
+//            ^ punctuation.terminator.statement
+
+   facit (1) :- "|lhkjdfjg*fdgh*" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.terminator.statement
+   facit (2) :- "98dsgh$kjdk*sgj" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.terminator.statement
+   facit (3) :- "fhgh$*kljhasdg*" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.terminator.statement
+   facit (4) :- "kfhgs" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^ string.quoted.double
+//                      ^ punctuation.terminator.statement
+
+   Checklines (4, 1) ;
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+   sysin.image.setpos (1) ;
+// ^^^^^ variable
+//      ^ punctuation.accessor
+//       ^^^^^ variable
+//            ^ punctuation.accessor
+//             ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   sysin.image := "hi*auer****5tp9a**e598yu5e*890u**yj89u***53pq**98790!" ;
+// ^^^^^ variable
+//      ^ punctuation.accessor
+//       ^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                        ^ punctuation.terminator.statement
+
+   resume (c) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ variable
+//          ^ punctuation.section.parens
+//            ^ punctuation.terminator.statement
+
+   facit (1) :- "hi*auer$$5tp9a$" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.terminator.statement
+   facit (2) :- "e598yu5e*890u$y" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.terminator.statement
+   facit (3) :- "j89u$*53pq$9879" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.terminator.statement
+   facit (4) :- "0" ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^ string.quoted.double
+//                  ^ punctuation.terminator.statement
+
+   Checklines (4, 2) ;
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   Begin
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   End ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   OutText ("--- END Simula a.s. TEST 68") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ End
+// <~--- keyword.control.end

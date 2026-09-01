@@ -1,0 +1,11 @@
+! Inlined typed procedure: result slot must not appear as a caller local;
+begin
+    integer n;
+    boolean procedure ispos;
+    begin
+        ispos := n > 0;
+    end;
+    n := 0;
+    if ispos then n := 1;
+    n := 2;
+end

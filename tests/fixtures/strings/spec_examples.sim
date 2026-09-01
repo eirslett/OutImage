@@ -1,0 +1,8 @@
+begin
+  text str;
+  str :- "Ab" "cde";
+  str :- "AB" "CDE";
+  str :- "!2!ABCDE!3!";
+  str :- "!2" "!ABCDE!" "3!";
+  str :- "AB"" C""DE";
+end

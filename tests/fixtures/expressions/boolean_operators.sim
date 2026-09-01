@@ -1,0 +1,5 @@
+begin boolean a, b, c;
+    b := not a and b or c;
+    b := a and then b or else c;
+    b := a imp b eqv c;
+end

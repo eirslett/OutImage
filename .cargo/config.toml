@@ -1,0 +1,11 @@
+[alias]
+# Host tool: builds `outimage-browser-interp` for wasm32 and writes JS glue to
+# `target/outimage-browser-interp/` (consumed by `website/`).
+browser-interp = "run -p outimage-browser-interp --example pack --release"
+
+[env]
+# The chumsky-based recursive-descent parser recurses once per AST node.
+# Adding a `Span` to every `Expr`/`Statement` grew each recursion frame
+# slightly, which was enough to overflow the default 2MiB test-thread stack
+# on the largest fixtures (e.g. `dbdump.sim`). Give test threads more room.
+RUST_MIN_STACK = "67108864"

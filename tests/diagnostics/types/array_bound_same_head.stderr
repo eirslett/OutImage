@@ -1,0 +1,9 @@
+[E0208] Error: ARRAY BOUND: array bound may not reference `n` declared in the same block head
+   ╭─[ array_bound_same_head.sim:1:36 ]
+   │
+ 1 │ begin integer n; integer array a(1:n); end;
+   │                                    ┬  
+   │                                    ╰── this bound
+   │ 
+   │ Help: use a simple identifier from an enclosing block, or a constant
+───╯

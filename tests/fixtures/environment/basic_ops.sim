@@ -1,0 +1,20 @@
+! Chapter 9 basic ops — including real sign and epsilon.;
+begin
+    boolean ok;
+    ok := mod(7, 3) = 1
+       and rem(7, 3) = 1
+       and mod(-7, 3) = 2
+       and rem(-7, 3) = -1
+       and abs(-5) = 5
+       and sign(5) = 1
+       and sign(0) = 0
+       and sign(-3) = -1
+       and sign(0.5) = 1
+       and sign(-0.5) = -1
+       and entier(1.8) = 1
+       and entier(-1.8) = -2
+       and addepsilon(1.0) > 1.0
+       and subepsilon(1.0) < 1.0;
+    if ok then OutText("ok") else OutText("fail");
+    OutImage;
+end

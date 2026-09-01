@@ -1,0 +1,1251 @@
+// SYNTAX TEST "source.simula" "simtst22"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 22
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test for-loops with various for-list elements
+// <------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:      Count number of times loops are iterated.
+// <--------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  REWRITTEN BY:  BEH   15/07-86
+// <-------------------------------- comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   class c;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//        ^ punctuation.terminator.statement
+   begin ref(c)next; end c;
+// ^^^^^ keyword.control.begin
+//       ^^^ storage.modifier
+//          ^ punctuation.section.parens
+//           ^ entity.name.class
+//            ^ punctuation.section.parens
+//             ^^^^ variable
+//                 ^ punctuation.terminator.statement
+//                   ^^^ keyword.control.end
+//                       ^ comment.block
+//                        ^ punctuation.terminator.statement
+
+   integer i,j,n;
+// ^^^^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//           ^ variable
+//            ^ punctuation.separator
+//             ^ variable
+//              ^ punctuation.terminator.statement
+   ref(c)cp;
+// ^^^ storage.modifier
+//    ^ punctuation.section.parens
+//     ^ entity.name.class
+//      ^ punctuation.section.parens
+//       ^^ variable
+//         ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 22") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test for-loops with various for-list elements.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                              ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   n := 1 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+
+   for i:= 1 step 1 until 2 do            ! Fast For ;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.step
+//                ^ constant.numeric.decimal
+//                  ^^^^^ keyword.control.until
+//                        ^ constant.numeric.decimal
+//                          ^^ keyword.control.do
+//                                        ^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//              ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Fast For (1).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values : ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+         Outint (i,3) ; Outint (n,3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+//                      ^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ variable
+//                               ^ punctuation.separator
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+      n:=n+1;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   if i <> n then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ variable
+//           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Fast For (2).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (i, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outint (n, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+       Outimage ;
+//     ^^^^^^^^ variable
+//              ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   n := 1 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+
+   for i:= 1 step 1 until j+2 do          ! Single Step Element ;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.step
+//                ^ constant.numeric.decimal
+//                  ^^^^^ keyword.control.until
+//                        ^ variable
+//                         ^ keyword.operator.arithmetic
+//                          ^ constant.numeric.decimal
+//                            ^^ keyword.control.do
+//                                        ^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//              ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Single Step Element (3).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outint (i, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outint (n, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+      n:=n+1;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   if i <> n then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ variable
+//           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR :Single Step Element (4).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (i, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outint (n, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   n := 1 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+
+   for i:= 1 step 1 until 2, j do         ! Complex For ;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.step
+//                ^ constant.numeric.decimal
+//                  ^^^^^ keyword.control.until
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^ variable
+//                             ^^ keyword.control.do
+//                                        ^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if    i <> n and n < 3
+//    ^^ keyword.control.if
+//          ^ variable
+//            ^^ keyword.operator.comparison
+//               ^ variable
+//                 ^^^ keyword.operator
+//                     ^ variable
+//                       ^ keyword.operator.comparison
+//                         ^ constant.numeric.decimal
+         or n = 3 and i <> j then
+//       ^^ keyword.operator
+//          ^ variable
+//            ^ keyword.operator.comparison
+//              ^ constant.numeric.decimal
+//                ^^^ keyword.operator
+//                    ^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^ variable
+//                           ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Complex For (5).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outint (i, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outint (n, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      n:=n+1;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   if i <> j then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ variable
+//           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Complex For (6).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (i, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outint (n, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   n := 1 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+
+   for i:= 1 while i>j do                 ! Single While Element ;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^^^^^ keyword.control.while
+//                 ^ variable
+//                  ^ keyword.operator.comparison
+//                   ^ variable
+//                     ^^ keyword.control.do
+//                                        ^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n  or  n > 1 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//               ^^ keyword.operator
+//                   ^ variable
+//                     ^ keyword.operator.comparison
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Single While Element (7).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outint (i, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outint (n, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      n:=n+1;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+      j:=2;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if i <> 1 or n > 2 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+//                    ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Singel While Element (8).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (i, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outint (n, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   n := 1 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+
+   for i:= 1 while i>j, 4 do               ! Complex For ;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^^^^^ keyword.control.while
+//                 ^ variable
+//                  ^ keyword.operator.comparison
+//                   ^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                        ^^ keyword.control.do
+//                                         ^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> 4 or n > 1 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+//              ^^ keyword.operator
+//                 ^ variable
+//                   ^ keyword.operator.comparison
+//                     ^ constant.numeric.decimal
+//                       ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Complex For (9).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outint (i, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outint (n, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      n:=n+1;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if i <> 4 or n > 2 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+//                    ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Complex For (10).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (i, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outint (n, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   n := 1 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+
+   for cp:-new c, cp.next while cp=/=none do        ! Complex For ;
+// ^^^ keyword.control.for
+//     ^^ variable
+//       ^^ keyword.operator.assignment
+//         ^^^ keyword.control.new
+//             ^ entity.name.class
+//              ^ punctuation.separator
+//                ^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^ variable
+//                        ^^^^^ keyword.control.while
+//                              ^^ variable
+//                                ^^^ keyword.operator.comparison
+//                                   ^^^^ constant.language.null
+//                                        ^^ keyword.control.do
+//                                                  ^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      integer i;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+
+      if n <> 1 or i <> 0 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+//              ^^ keyword.operator
+//                 ^ variable
+//                   ^^ keyword.operator.comparison
+//                      ^ constant.numeric.decimal
+//                        ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Complex For (11).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outint (i, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outint (n, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      n:=n+1;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if n <> 2 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Complex For (12).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (i, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outint (n, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   n := 1 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+
+   for cp:-new c, cp.next while cp=/=none, new c.next do   ! Complex For ;
+// ^^^ keyword.control.for
+//     ^^ variable
+//       ^^ keyword.operator.assignment
+//         ^^^ keyword.control.new
+//             ^ entity.name.class
+//              ^ punctuation.separator
+//                ^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^ variable
+//                        ^^^^^ keyword.control.while
+//                              ^^ variable
+//                                ^^^ keyword.operator.comparison
+//                                   ^^^^ constant.language.null
+//                                       ^ punctuation.separator
+//                                         ^^^ keyword.control.new
+//                                             ^ entity.name.class
+//                                              ^ punctuation.accessor
+//                                               ^^^^ variable
+//                                                    ^^ keyword.control.do
+//                                                         ^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      integer n1 ;
+//    ^^^^^^^ storage.type
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+
+      if cp == none and n = 1 or cp =/= none and n = 2 then
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^^ keyword.operator.comparison
+//             ^^^^ constant.language.null
+//                  ^^^ keyword.operator
+//                      ^ variable
+//                        ^ keyword.operator.comparison
+//                          ^ constant.numeric.decimal
+//                            ^^ keyword.operator
+//                               ^^ variable
+//                                  ^^^ keyword.operator.comparison
+//                                      ^^^^ constant.language.null
+//                                           ^^^ keyword.operator
+//                                               ^ variable
+//                                                 ^ keyword.operator.comparison
+//                                                   ^ constant.numeric.decimal
+//                                                     ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Complex For (13).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outint (i, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outint (n, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      n1 := 1 ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^ constant.numeric.decimal
+//            ^ punctuation.terminator.statement
+
+      for i:= 1 while i>j,4 do                             ! Complex For ;
+//    ^^^ keyword.control.for
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ constant.numeric.decimal
+//              ^^^^^ keyword.control.while
+//                    ^ variable
+//                     ^ keyword.operator.comparison
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                          ^^ keyword.control.do
+//                                                         ^^^^^^^^^^^^^^^ comment.block
+      begin
+//    ^^^^^ keyword.control.begin
+         if i <> 4 or n1 <> 1 then
+//       ^^ keyword.control.if
+//          ^ variable
+//            ^^ keyword.operator.comparison
+//               ^ constant.numeric.decimal
+//                 ^^ keyword.operator
+//                    ^^ variable
+//                       ^^ keyword.operator.comparison
+//                          ^ constant.numeric.decimal
+//                            ^^^^ keyword.control.then
+         begin
+//       ^^^^^ keyword.control.begin
+            Outtext ("*** ERROR : Complex For (14).") ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+            Outimage ;
+//          ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+            Outtext ("            Erroneus values :") ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+            Outint (i, 3) ;
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+            Outint (n, 3) ;
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+            Outimage ;
+//          ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+            found_error := true
+//          ^^^^^^^^^^^ variable
+//                      ^^ keyword.operator.assignment
+//                         ^^^^ constant.language.bool
+         end ;
+//       ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+         n1:=n1+1;
+//       ^^ variable
+//         ^^ keyword.operator.assignment
+//           ^^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//               ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      if i <> 4 or n1 <> 2 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+//              ^^ keyword.operator
+//                 ^^ variable
+//                    ^^ keyword.operator.comparison
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Complex For (15).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outint (i, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outint (n, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      n:=n+1;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if n <> 3 or cp =/= none then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^^ variable
+//                 ^^^ keyword.operator.comparison
+//                     ^^^^ constant.language.null
+//                          ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Complex For (16).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (n, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outtext (if cp == none then " cp == none" else " cp =/= none") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.operator.comparison
+//                      ^^^^ constant.language.null
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^ string.quoted.double
+//                                              ^^^^ keyword.control.else
+//                                                   ^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 22") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

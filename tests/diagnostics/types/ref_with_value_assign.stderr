@@ -1,0 +1,13 @@
+[E0202] Error: WRONG ASSIGNMENT: value assignment (`:=`) cannot target an object reference
+   ╭─[ ref_with_value_assign.sim:1:42 ]
+   │
+ 1 │ begin class P; begin end; ref(P) p; p := none; end;
+   │                                          ──┬─  
+   │                                            ╰─── this is a `ref` destination
+   │ 
+   │ Help 1: write `:-` instead of `:=`
+   │ 
+   │ Help 2: suggestion: replace `:=` with `:-`
+   │ 
+   │ Note: `:=` copies values; object references are bound with `:-` (Standard §3.6)
+───╯

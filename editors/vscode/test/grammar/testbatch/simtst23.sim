@@ -1,0 +1,4534 @@
+// SYNTAX TEST "source.simula" "simtst23"
+% ======================================   Main   program  ===========
+// <---------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 23
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:  To test all possible type conversions in connection with for
+// <------------------------------------------------------------------------- comment.directive
+%            step-until element.
+// <-------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:   Count number of times loops are iterated, and check the value of
+// <----------------------------------------------------------------------------- comment.directive
+%            the controlled variable.
+// <------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY: BEH  16/07-86
+// <---------------------------- comment.directive
+% =====f]============================================================
+// <--------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   real eps;
+// ^^^^ storage.type
+//      ^^^ variable
+//         ^ punctuation.terminator.statement
+
+   integer i,n;
+// ^^^^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//           ^ variable
+//            ^ punctuation.terminator.statement
+   real r;
+// ^^^^ storage.type
+//      ^ variable
+//       ^ punctuation.terminator.statement
+   long real lr;
+// ^^^^ storage.type
+//      ^^^^ storage.type
+//           ^^ variable
+//             ^ punctuation.terminator.statement
+
+   Outtext("--- START Simula a.s. TEST 23");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   outtext("--- Test all possible type conversions in connection with");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext("--- step-until");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+   Outimage; Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+   eps := 0.01;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^^ constant.numeric.decimal
+//            ^ punctuation.terminator.statement
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for i:= 3.14 step 1 until 6 do                   ! INT INT INT;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^ constant.numeric.decimal
+//                     ^^^^^ keyword.control.until
+//                           ^ constant.numeric.decimal
+//                             ^^ keyword.control.do
+//                                                  ^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n+2 or n > 4 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//                ^^ keyword.operator
+//                   ^ variable
+//                     ^ keyword.operator.comparison
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - int int int(1).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outint(i, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+//            ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if i <> 7 or n <> 5 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or value of controlled");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         variable - int int int(2).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outint(i, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for r:= 3.14 step 1.0 until 6.0 do               ! REAL REAL REAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^ constant.numeric.decimal
+//                       ^^^^^ keyword.control.until
+//                             ^^^ constant.numeric.decimal
+//                                 ^^ keyword.control.do
+//                                                  ^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if r < n+2.14-eps or r > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^ variable
+//            ^ keyword.operator.arithmetic
+//             ^^^^ constant.numeric.decimal
+//                 ^ keyword.operator.arithmetic
+//                  ^^^ variable
+//                      ^^ keyword.operator
+//                         ^ variable
+//                           ^ keyword.operator.comparison
+//                             ^ variable
+//                              ^ keyword.operator.arithmetic
+//                               ^^^^ constant.numeric.decimal
+//                                   ^ keyword.operator.arithmetic
+//                                    ^^^ variable
+//                                        ^^ keyword.operator
+//                                           ^ variable
+//                                             ^ keyword.operator.comparison
+//                                               ^ constant.numeric.decimal
+//                                                 ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - real real real(3).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(r, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n:=n+1;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if n <> 4 or r < 6.14-eps or r > 6.14+eps then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^ keyword.operator.comparison
+//                  ^^^^ constant.numeric.decimal
+//                      ^ keyword.operator.arithmetic
+//                       ^^^ variable
+//                           ^^ keyword.operator
+//                              ^ variable
+//                                ^ keyword.operator.comparison
+//                                  ^^^^ constant.numeric.decimal
+//                                      ^ keyword.operator.arithmetic
+//                                       ^^^ variable
+//                                           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variabel - real real real(4).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(r, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for lr:= 3.14 step 1&&0 until 6&&0 do        ! LREAL LREAL LREAL;
+// ^^^ keyword.control.for
+//     ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^^^^ constant.numeric.decimal
+//                         ^^^^^ keyword.control.until
+//                               ^^^^ constant.numeric.decimal
+//                                    ^^ keyword.control.do
+//                                              ^^^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if lr < n+2.14-eps or lr > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^^^^ constant.numeric.decimal
+//                  ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                       ^^ keyword.operator
+//                          ^^ variable
+//                             ^ keyword.operator.comparison
+//                               ^ variable
+//                                ^ keyword.operator.arithmetic
+//                                 ^^^^ constant.numeric.decimal
+//                                     ^ keyword.operator.arithmetic
+//                                      ^^^ variable
+//                                          ^^ keyword.operator
+//                                             ^ variable
+//                                               ^ keyword.operator.comparison
+//                                                 ^ constant.numeric.decimal
+//                                                   ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - lreal lreal lreal(5).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(lr, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n:=n+1;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if lr < 6.14-eps or lr > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.arithmetic
+//              ^^^ variable
+//                  ^^ keyword.operator
+//                     ^^ variable
+//                        ^ keyword.operator.comparison
+//                          ^^^^ constant.numeric.decimal
+//                              ^ keyword.operator.arithmetic
+//                               ^^^ variable
+//                                   ^^ keyword.operator
+//                                      ^ variable
+//                                        ^^ keyword.operator.comparison
+//                                           ^ constant.numeric.decimal
+//                                             ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - lreal lreal lreal(6).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(lr, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for i:= 3.14 step 1 until 6.0 do                   ! INT INT REAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^ constant.numeric.decimal
+//                     ^^^^^ keyword.control.until
+//                           ^^^ constant.numeric.decimal
+//                               ^^ keyword.control.do
+//                                                    ^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n+2 or n > 4 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//                ^^ keyword.operator
+//                   ^ variable
+//                     ^ keyword.operator.comparison
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - int int real(7).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outint(i, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n:=n+1;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if i <> 7 or n <> 5 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - int int real(8).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outint(i, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for i:= 3.14 step 1.0 until 6 do                 ! INT REAL INT;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^ constant.numeric.decimal
+//                       ^^^^^ keyword.control.until
+//                             ^ constant.numeric.decimal
+//                               ^^ keyword.control.do
+//                                                  ^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n+2 or n > 4 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//                ^^ keyword.operator
+//                   ^ variable
+//                     ^ keyword.operator.comparison
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - int real int(9).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outint(i, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+//            ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if i <> 7 or n <> 5 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - int real int(10).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outint(i, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for r:= 3.14 step 1 until 6 do                   ! REAL INT INT;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^ constant.numeric.decimal
+//                     ^^^^^ keyword.control.until
+//                           ^ constant.numeric.decimal
+//                             ^^ keyword.control.do
+//                                                  ^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if r < n+2.14-eps or r > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^ variable
+//            ^ keyword.operator.arithmetic
+//             ^^^^ constant.numeric.decimal
+//                 ^ keyword.operator.arithmetic
+//                  ^^^ variable
+//                      ^^ keyword.operator
+//                         ^ variable
+//                           ^ keyword.operator.comparison
+//                             ^ variable
+//                              ^ keyword.operator.arithmetic
+//                               ^^^^ constant.numeric.decimal
+//                                   ^ keyword.operator.arithmetic
+//                                    ^^^ variable
+//                                        ^^ keyword.operator
+//                                           ^ variable
+//                                             ^ keyword.operator.comparison
+//                                               ^ constant.numeric.decimal
+//                                                 ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - real int int(11).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(r, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n:=n+1;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if r < 6.14-eps or r > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^ constant.numeric.decimal
+//            ^ keyword.operator.arithmetic
+//             ^^^ variable
+//                 ^^ keyword.operator
+//                    ^ variable
+//                      ^ keyword.operator.comparison
+//                        ^^^^ constant.numeric.decimal
+//                            ^ keyword.operator.arithmetic
+//                             ^^^ variable
+//                                 ^^ keyword.operator
+//                                    ^ variable
+//                                      ^^ keyword.operator.comparison
+//                                         ^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations - real int int(12).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(r, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for i:= 3.14 step 1 until 6&&0 do              ! INT INT LREAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^ constant.numeric.decimal
+//                     ^^^^^ keyword.control.until
+//                           ^^^^ constant.numeric.decimal
+//                                ^^ keyword.control.do
+//                                                ^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n+2 or n > 4 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//                ^^ keyword.operator
+//                   ^ variable
+//                     ^ keyword.operator.comparison
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - int int lreal(13).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outint(i, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+//            ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if i <> 7 or n <> 5 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - int int lreal(14).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outint(i, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for i:= 3.14 step 1&&0 until 6 do                 ! INT LREAL INT;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^ constant.numeric.decimal
+//                                ^^ keyword.control.do
+//                                                   ^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n+2 or n > 4 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//                ^^ keyword.operator
+//                   ^ variable
+//                     ^ keyword.operator.comparison
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - int lreal int(15).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outint(i, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+//            ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if i <> 7 or n <> 5 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of  ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - int lreal int(16).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outint(i, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for lr:= 3.14 step 1 until 6 do                   ! LREAL INT INT;
+// ^^^ keyword.control.for
+//     ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^ constant.numeric.decimal
+//                              ^^ keyword.control.do
+//                                                   ^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if lr < n+2.14-eps or lr > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^^^^ constant.numeric.decimal
+//                  ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                       ^^ keyword.operator
+//                          ^^ variable
+//                             ^ keyword.operator.comparison
+//                               ^ variable
+//                                ^ keyword.operator.arithmetic
+//                                 ^^^^ constant.numeric.decimal
+//                                     ^ keyword.operator.arithmetic
+//                                      ^^^ variable
+//                                          ^^ keyword.operator
+//                                             ^ variable
+//                                               ^ keyword.operator.comparison
+//                                                 ^ constant.numeric.decimal
+//                                                   ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - lreal int int(18).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(lr, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if lr < 6.14-eps or lr > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.arithmetic
+//              ^^^ variable
+//                  ^^ keyword.operator
+//                     ^^ variable
+//                        ^ keyword.operator.comparison
+//                          ^^^^ constant.numeric.decimal
+//                              ^ keyword.operator.arithmetic
+//                               ^^^ variable
+//                                   ^^ keyword.operator
+//                                      ^ variable
+//                                        ^^ keyword.operator.comparison
+//                                           ^ constant.numeric.decimal
+//                                             ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - lreal int int(19).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(lr, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for i:= 3.14 step 1.0 until 6&&0 do            ! INT REAL LREAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^ constant.numeric.decimal
+//                       ^^^^^ keyword.control.until
+//                             ^^^^ constant.numeric.decimal
+//                                  ^^ keyword.control.do
+//                                                ^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n+2 or n > 4 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//                ^^ keyword.operator
+//                   ^ variable
+//                     ^ keyword.operator.comparison
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - int real lreal(20).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outint(i, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if i <> 7 or n <> 5 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of " );
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - int real lreal(21).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outint(i, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for i:= 3.14 step 1&&0 until 6.0 do            ! INT LREAL REAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^^^ constant.numeric.decimal
+//                                  ^^ keyword.control.do
+//                                                ^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n+2 or n > 4 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//                ^^ keyword.operator
+//                   ^ variable
+//                     ^ keyword.operator.comparison
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - int lreal real(22).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outint(i, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if i <> 7 or n <> 5 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - int lreal real(23).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outint(i, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for r:= 3.14 step 1 until 6&&0 do              ! REAL INT LREAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^ constant.numeric.decimal
+//                     ^^^^^ keyword.control.until
+//                           ^^^^ constant.numeric.decimal
+//                                ^^ keyword.control.do
+//                                                ^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if r < n+2.14-eps or r > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^ variable
+//            ^ keyword.operator.arithmetic
+//             ^^^^ constant.numeric.decimal
+//                 ^ keyword.operator.arithmetic
+//                  ^^^ variable
+//                      ^^ keyword.operator
+//                         ^ variable
+//                           ^ keyword.operator.comparison
+//                             ^ variable
+//                              ^ keyword.operator.arithmetic
+//                               ^^^^ constant.numeric.decimal
+//                                   ^ keyword.operator.arithmetic
+//                                    ^^^ variable
+//                                        ^^ keyword.operator
+//                                           ^ variable
+//                                             ^ keyword.operator.comparison
+//                                               ^ constant.numeric.decimal
+//                                                 ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - real int lreal(24).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(r, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if r < 6.14-eps or r > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^ constant.numeric.decimal
+//            ^ keyword.operator.arithmetic
+//             ^^^ variable
+//                 ^^ keyword.operator
+//                    ^ variable
+//                      ^ keyword.operator.comparison
+//                        ^^^^ constant.numeric.decimal
+//                            ^ keyword.operator.arithmetic
+//                             ^^^ variable
+//                                 ^^ keyword.operator
+//                                    ^ variable
+//                                      ^^ keyword.operator.comparison
+//                                         ^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - real int lreal(25).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(r, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for r:= 3.14 step 1&&0 until 6 do              ! REAL LREAL INT;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^ constant.numeric.decimal
+//                                ^^ keyword.control.do
+//                                                ^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if r < n+2.14-eps or r > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^ variable
+//            ^ keyword.operator.arithmetic
+//             ^^^^ constant.numeric.decimal
+//                 ^ keyword.operator.arithmetic
+//                  ^^^ variable
+//                      ^^ keyword.operator
+//                         ^ variable
+//                           ^ keyword.operator.comparison
+//                             ^ variable
+//                              ^ keyword.operator.arithmetic
+//                               ^^^^ constant.numeric.decimal
+//                                   ^ keyword.operator.arithmetic
+//                                    ^^^ variable
+//                                        ^^ keyword.operator
+//                                           ^ variable
+//                                             ^ keyword.operator.comparison
+//                                               ^ constant.numeric.decimal
+//                                                 ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - real lreal int(26).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(r, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if r < 6.14-eps or r > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^ constant.numeric.decimal
+//            ^ keyword.operator.arithmetic
+//             ^^^ variable
+//                 ^^ keyword.operator
+//                    ^ variable
+//                      ^ keyword.operator.comparison
+//                        ^^^^ constant.numeric.decimal
+//                            ^ keyword.operator.arithmetic
+//                             ^^^ variable
+//                                 ^^ keyword.operator
+//                                    ^ variable
+//                                      ^^ keyword.operator.comparison
+//                                         ^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - real lreal int(27).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(r, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for lr:= 3.14 step 1 until 6.0 do                ! LREAL INT REAL;
+// ^^^ keyword.control.for
+//     ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^^^ constant.numeric.decimal
+//                                ^^ keyword.control.do
+//                                                  ^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if lr < n+2.14-eps or lr > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^^^^ constant.numeric.decimal
+//                  ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                       ^^ keyword.operator
+//                          ^^ variable
+//                             ^ keyword.operator.comparison
+//                               ^ variable
+//                                ^ keyword.operator.arithmetic
+//                                 ^^^^ constant.numeric.decimal
+//                                     ^ keyword.operator.arithmetic
+//                                      ^^^ variable
+//                                          ^^ keyword.operator
+//                                             ^ variable
+//                                               ^ keyword.operator.comparison
+//                                                 ^ constant.numeric.decimal
+//                                                   ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - lreal int real(28).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(lr, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if lr < 6.14-eps or lr > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.arithmetic
+//              ^^^ variable
+//                  ^^ keyword.operator
+//                     ^^ variable
+//                        ^ keyword.operator.comparison
+//                          ^^^^ constant.numeric.decimal
+//                              ^ keyword.operator.arithmetic
+//                               ^^^ variable
+//                                   ^^ keyword.operator
+//                                      ^ variable
+//                                        ^^ keyword.operator.comparison
+//                                           ^ constant.numeric.decimal
+//                                             ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - lreal int real(29).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(lr, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for lr:= 3.14 step 1.0 until 6 do                ! LREAL REAL INT;
+// ^^^ keyword.control.for
+//     ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^^^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^ constant.numeric.decimal
+//                                ^^ keyword.control.do
+//                                                  ^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if lr < n+2.14-eps or lr > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^^^^ constant.numeric.decimal
+//                  ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                       ^^ keyword.operator
+//                          ^^ variable
+//                             ^ keyword.operator.comparison
+//                               ^ variable
+//                                ^ keyword.operator.arithmetic
+//                                 ^^^^ constant.numeric.decimal
+//                                     ^ keyword.operator.arithmetic
+//                                      ^^^ variable
+//                                          ^^ keyword.operator
+//                                             ^ variable
+//                                               ^ keyword.operator.comparison
+//                                                 ^ constant.numeric.decimal
+//                                                   ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - lreal real int(30).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(lr, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if lr < 6.14-eps or lr > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.arithmetic
+//              ^^^ variable
+//                  ^^ keyword.operator
+//                     ^^ variable
+//                        ^ keyword.operator.comparison
+//                          ^^^^ constant.numeric.decimal
+//                              ^ keyword.operator.arithmetic
+//                               ^^^ variable
+//                                   ^^ keyword.operator
+//                                      ^ variable
+//                                        ^^ keyword.operator.comparison
+//                                           ^ constant.numeric.decimal
+//                                             ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - lreal real int(31).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(lr, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for r:= 3.14 step 1.0 until 6 do                   ! REAL REAL INT;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^ constant.numeric.decimal
+//                       ^^^^^ keyword.control.until
+//                             ^ constant.numeric.decimal
+//                               ^^ keyword.control.do
+//                                                    ^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if r < n+2.14-eps or r > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^ variable
+//            ^ keyword.operator.arithmetic
+//             ^^^^ constant.numeric.decimal
+//                 ^ keyword.operator.arithmetic
+//                  ^^^ variable
+//                      ^^ keyword.operator
+//                         ^ variable
+//                           ^ keyword.operator.comparison
+//                             ^ variable
+//                              ^ keyword.operator.arithmetic
+//                               ^^^^ constant.numeric.decimal
+//                                   ^ keyword.operator.arithmetic
+//                                    ^^^ variable
+//                                        ^^ keyword.operator
+//                                           ^ variable
+//                                             ^ keyword.operator.comparison
+//                                               ^ constant.numeric.decimal
+//                                                 ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - real real int(32).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(r, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if r < 6.14-eps or r > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^ constant.numeric.decimal
+//            ^ keyword.operator.arithmetic
+//             ^^^ variable
+//                 ^^ keyword.operator
+//                    ^ variable
+//                      ^ keyword.operator.comparison
+//                        ^^^^ constant.numeric.decimal
+//                            ^ keyword.operator.arithmetic
+//                             ^^^ variable
+//                                 ^^ keyword.operator
+//                                    ^ variable
+//                                      ^^ keyword.operator.comparison
+//                                         ^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - real real int(33).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(r, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for r:= 3.14 step 1 until 6.0 do                 ! REAL INT REAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^ constant.numeric.decimal
+//                     ^^^^^ keyword.control.until
+//                           ^^^ constant.numeric.decimal
+//                               ^^ keyword.control.do
+//                                                  ^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if r < n+2.14-eps or r > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^ variable
+//            ^ keyword.operator.arithmetic
+//             ^^^^ constant.numeric.decimal
+//                 ^ keyword.operator.arithmetic
+//                  ^^^ variable
+//                      ^^ keyword.operator
+//                         ^ variable
+//                           ^ keyword.operator.comparison
+//                             ^ variable
+//                              ^ keyword.operator.arithmetic
+//                               ^^^^ constant.numeric.decimal
+//                                   ^ keyword.operator.arithmetic
+//                                    ^^^ variable
+//                                        ^^ keyword.operator
+//                                           ^ variable
+//                                             ^ keyword.operator.comparison
+//                                               ^ constant.numeric.decimal
+//                                                 ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - real int real(34).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(r, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if r < 6.14-eps or r > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^ constant.numeric.decimal
+//            ^ keyword.operator.arithmetic
+//             ^^^ variable
+//                 ^^ keyword.operator
+//                    ^ variable
+//                      ^ keyword.operator.comparison
+//                        ^^^^ constant.numeric.decimal
+//                            ^ keyword.operator.arithmetic
+//                             ^^^ variable
+//                                 ^^ keyword.operator
+//                                    ^ variable
+//                                      ^^ keyword.operator.comparison
+//                                         ^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - real int real(35).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(r, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for i:= 3.14 step 1.0 until 6.0 do                   ! INT REAL REAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^ constant.numeric.decimal
+//                       ^^^^^ keyword.control.until
+//                             ^^^ constant.numeric.decimal
+//                                 ^^ keyword.control.do
+//                                                      ^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n+2 or n > 4 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//                ^^ keyword.operator
+//                   ^ variable
+//                     ^ keyword.operator.comparison
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - int real real(36).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outint(i, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if i <> 7 or n <> 5 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - int real real(37).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outint(i, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for r:= 3.14 step 1.0 until 6&&0 do            ! REAL REAL LREAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^ constant.numeric.decimal
+//                       ^^^^^ keyword.control.until
+//                             ^^^^ constant.numeric.decimal
+//                                  ^^ keyword.control.do
+//                                                ^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if r < n+2.14-eps or r > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^ variable
+//            ^ keyword.operator.arithmetic
+//             ^^^^ constant.numeric.decimal
+//                 ^ keyword.operator.arithmetic
+//                  ^^^ variable
+//                      ^^ keyword.operator
+//                         ^ variable
+//                           ^ keyword.operator.comparison
+//                             ^ variable
+//                              ^ keyword.operator.arithmetic
+//                               ^^^^ constant.numeric.decimal
+//                                   ^ keyword.operator.arithmetic
+//                                    ^^^ variable
+//                                        ^^ keyword.operator
+//                                           ^ variable
+//                                             ^ keyword.operator.comparison
+//                                               ^ constant.numeric.decimal
+//                                                 ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - real real lreal(38).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(r, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if r < 6.14-eps or r > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^ constant.numeric.decimal
+//            ^ keyword.operator.arithmetic
+//             ^^^ variable
+//                 ^^ keyword.operator
+//                    ^ variable
+//                      ^ keyword.operator.comparison
+//                        ^^^^ constant.numeric.decimal
+//                            ^ keyword.operator.arithmetic
+//                             ^^^ variable
+//                                 ^^ keyword.operator
+//                                    ^ variable
+//                                      ^^ keyword.operator.comparison
+//                                         ^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - real real lreal(39).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(r, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for r:= 3.14 step 1&&0 until 6.0 do            ! REAL LREAL REAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^^^ constant.numeric.decimal
+//                                  ^^ keyword.control.do
+//                                                ^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if r < n+2.14-eps or r > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^ variable
+//            ^ keyword.operator.arithmetic
+//             ^^^^ constant.numeric.decimal
+//                 ^ keyword.operator.arithmetic
+//                  ^^^ variable
+//                      ^^ keyword.operator
+//                         ^ variable
+//                           ^ keyword.operator.comparison
+//                             ^ variable
+//                              ^ keyword.operator.arithmetic
+//                               ^^^^ constant.numeric.decimal
+//                                   ^ keyword.operator.arithmetic
+//                                    ^^^ variable
+//                                        ^^ keyword.operator
+//                                           ^ variable
+//                                             ^ keyword.operator.comparison
+//                                               ^ constant.numeric.decimal
+//                                                 ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - real lreal real(40).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(r, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if r < 6.14-eps or r > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^ constant.numeric.decimal
+//            ^ keyword.operator.arithmetic
+//             ^^^ variable
+//                 ^^ keyword.operator
+//                    ^ variable
+//                      ^ keyword.operator.comparison
+//                        ^^^^ constant.numeric.decimal
+//                            ^ keyword.operator.arithmetic
+//                             ^^^ variable
+//                                 ^^ keyword.operator
+//                                    ^ variable
+//                                      ^^ keyword.operator.comparison
+//                                         ^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - real lreal real(41).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(r, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for lr:= 3.14 step 1.0 until 6.0 do              ! LREAL REAL REAL;
+// ^^^ keyword.control.for
+//     ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^^^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^^^ constant.numeric.decimal
+//                                  ^^ keyword.control.do
+//                                                  ^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if lr < n+2.14-eps or lr > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^^^^ constant.numeric.decimal
+//                  ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                       ^^ keyword.operator
+//                          ^^ variable
+//                             ^ keyword.operator.comparison
+//                               ^ variable
+//                                ^ keyword.operator.arithmetic
+//                                 ^^^^ constant.numeric.decimal
+//                                     ^ keyword.operator.arithmetic
+//                                      ^^^ variable
+//                                          ^^ keyword.operator
+//                                             ^ variable
+//                                               ^ keyword.operator.comparison
+//                                                 ^ constant.numeric.decimal
+//                                                   ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - lreal real real(42).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(lr, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if lr < 6.14-eps or lr > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.arithmetic
+//              ^^^ variable
+//                  ^^ keyword.operator
+//                     ^^ variable
+//                        ^ keyword.operator.comparison
+//                          ^^^^ constant.numeric.decimal
+//                              ^ keyword.operator.arithmetic
+//                               ^^^ variable
+//                                   ^^ keyword.operator
+//                                      ^ variable
+//                                        ^^ keyword.operator.comparison
+//                                           ^ constant.numeric.decimal
+//                                             ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - lreal real real(43).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(lr, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for lr:= 3.14 step 1&&0 until 6 do             ! LREAL LREAL INT;
+// ^^^ keyword.control.for
+//     ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^^^^ constant.numeric.decimal
+//                         ^^^^^ keyword.control.until
+//                               ^ constant.numeric.decimal
+//                                 ^^ keyword.control.do
+//                                                ^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if lr < n+2.14-eps or lr > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^^^^ constant.numeric.decimal
+//                  ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                       ^^ keyword.operator
+//                          ^^ variable
+//                             ^ keyword.operator.comparison
+//                               ^ variable
+//                                ^ keyword.operator.arithmetic
+//                                 ^^^^ constant.numeric.decimal
+//                                     ^ keyword.operator.arithmetic
+//                                      ^^^ variable
+//                                          ^^ keyword.operator
+//                                             ^ variable
+//                                               ^ keyword.operator.comparison
+//                                                 ^ constant.numeric.decimal
+//                                                   ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - lreal lreal int(44).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(lr, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if lr < 6.14-eps or lr > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.arithmetic
+//              ^^^ variable
+//                  ^^ keyword.operator
+//                     ^^ variable
+//                        ^ keyword.operator.comparison
+//                          ^^^^ constant.numeric.decimal
+//                              ^ keyword.operator.arithmetic
+//                               ^^^ variable
+//                                   ^^ keyword.operator
+//                                      ^ variable
+//                                        ^^ keyword.operator.comparison
+//                                           ^ constant.numeric.decimal
+//                                             ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - lreal lreal int(45).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(lr, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for lr:= 3.14 step 1 until 6&&0 do             ! LREAL INT LREAL;
+// ^^^ keyword.control.for
+//     ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^^^^ constant.numeric.decimal
+//                                 ^^ keyword.control.do
+//                                                ^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if lr < n+2.14-eps or lr > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^^^^ constant.numeric.decimal
+//                  ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                       ^^ keyword.operator
+//                          ^^ variable
+//                             ^ keyword.operator.comparison
+//                               ^ variable
+//                                ^ keyword.operator.arithmetic
+//                                 ^^^^ constant.numeric.decimal
+//                                     ^ keyword.operator.arithmetic
+//                                      ^^^ variable
+//                                          ^^ keyword.operator
+//                                             ^ variable
+//                                               ^ keyword.operator.comparison
+//                                                 ^ constant.numeric.decimal
+//                                                   ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - lreal int lreal(46).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(lr, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if lr < 6.14-eps or lr > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.arithmetic
+//              ^^^ variable
+//                  ^^ keyword.operator
+//                     ^^ variable
+//                        ^ keyword.operator.comparison
+//                          ^^^^ constant.numeric.decimal
+//                              ^ keyword.operator.arithmetic
+//                               ^^^ variable
+//                                   ^^ keyword.operator
+//                                      ^ variable
+//                                        ^^ keyword.operator.comparison
+//                                           ^ constant.numeric.decimal
+//                                             ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - lreal int lreal(47).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(lr, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for i:= 3.14 step 1&&0 until 6&&0 do         ! INT LREAL LREAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^^^^ constant.numeric.decimal
+//                                   ^^ keyword.control.do
+//                                              ^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if i <> n+2 or n > 4 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//                ^^ keyword.operator
+//                   ^ variable
+//                     ^ keyword.operator.comparison
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - int lreal lreal(48).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outint(i, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if i <> 7 or n <> 5 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^ keyword.operator
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - int lreal lreal(49).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outint(i, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for lr:= 3.14 step 1&&0 until 6.0 do             ! LREAL LREAL REAL;
+// ^^^ keyword.control.for
+//     ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^^^^ constant.numeric.decimal
+//                         ^^^^^ keyword.control.until
+//                               ^^^ constant.numeric.decimal
+//                                   ^^ keyword.control.do
+//                                                  ^^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if lr < n+2.14-eps or lr > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^^^^ constant.numeric.decimal
+//                  ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                       ^^ keyword.operator
+//                          ^^ variable
+//                             ^ keyword.operator.comparison
+//                               ^ variable
+//                                ^ keyword.operator.arithmetic
+//                                 ^^^^ constant.numeric.decimal
+//                                     ^ keyword.operator.arithmetic
+//                                      ^^^ variable
+//                                          ^^ keyword.operator
+//                                             ^ variable
+//                                               ^ keyword.operator.comparison
+//                                                 ^ constant.numeric.decimal
+//                                                   ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - lreal lreal real(50).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(lr, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if lr < 6.14-eps or lr > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.arithmetic
+//              ^^^ variable
+//                  ^^ keyword.operator
+//                     ^^ variable
+//                        ^ keyword.operator.comparison
+//                          ^^^^ constant.numeric.decimal
+//                              ^ keyword.operator.arithmetic
+//                               ^^^ variable
+//                                   ^^ keyword.operator
+//                                      ^ variable
+//                                        ^^ keyword.operator.comparison
+//                                           ^ constant.numeric.decimal
+//                                             ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - lreal lreal real(51).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(lr, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for lr:= 3.14 step 1.0 until 6&&0 do             ! LREAL REAL LREAL;
+// ^^^ keyword.control.for
+//     ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^^^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^^^^ constant.numeric.decimal
+//                                   ^^ keyword.control.do
+//                                                  ^^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if lr < n+2.14-eps or lr > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^ keyword.operator.comparison
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^^^^ constant.numeric.decimal
+//                  ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                       ^^ keyword.operator
+//                          ^^ variable
+//                             ^ keyword.operator.comparison
+//                               ^ variable
+//                                ^ keyword.operator.arithmetic
+//                                 ^^^^ constant.numeric.decimal
+//                                     ^ keyword.operator.arithmetic
+//                                      ^^^ variable
+//                                          ^^ keyword.operator
+//                                             ^ variable
+//                                               ^ keyword.operator.comparison
+//                                                 ^ constant.numeric.decimal
+//                                                   ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - lreal real lreal(52).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(lr, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if lr < 6.14-eps or lr > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.arithmetic
+//              ^^^ variable
+//                  ^^ keyword.operator
+//                     ^^ variable
+//                        ^ keyword.operator.comparison
+//                          ^^^^ constant.numeric.decimal
+//                              ^ keyword.operator.arithmetic
+//                               ^^^ variable
+//                                   ^^ keyword.operator
+//                                      ^ variable
+//                                        ^^ keyword.operator.comparison
+//                                           ^ constant.numeric.decimal
+//                                             ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - lreal real lreal(53).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(lr, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   n := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+
+   for r:= 3.14 step 1&&0 until 6&&0 do         ! REAL LREAL LREAL;
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^^^^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^^^^ constant.numeric.decimal
+//                                   ^^ keyword.control.do
+//                                              ^^^^^^^^^^^^^^^^^^^ comment.block
+   begin
+// ^^^^^ keyword.control.begin
+      if r < n+2.14-eps or r > n+2.14+eps or n > 3 then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^ variable
+//            ^ keyword.operator.arithmetic
+//             ^^^^ constant.numeric.decimal
+//                 ^ keyword.operator.arithmetic
+//                  ^^^ variable
+//                      ^^ keyword.operator
+//                         ^ variable
+//                           ^ keyword.operator.comparison
+//                             ^ variable
+//                              ^ keyword.operator.arithmetic
+//                               ^^^^ constant.numeric.decimal
+//                                   ^ keyword.operator.arithmetic
+//                                    ^^^ variable
+//                                        ^^ keyword.operator
+//                                           ^ variable
+//                                             ^ keyword.operator.comparison
+//                                               ^ constant.numeric.decimal
+//                                                 ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext("*** ERROR: Iteration - real lreal lreal(54).");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Erroneous values :");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outreal(r, 4, 11);
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outint(n, 3);
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   if r < 6.14-eps or r > 6.14+eps or n <> 4 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^ constant.numeric.decimal
+//            ^ keyword.operator.arithmetic
+//             ^^^ variable
+//                 ^^ keyword.operator
+//                    ^ variable
+//                      ^ keyword.operator.comparison
+//                        ^^^^ constant.numeric.decimal
+//                            ^ keyword.operator.arithmetic
+//                             ^^^ variable
+//                                 ^^ keyword.operator
+//                                    ^ variable
+//                                      ^^ keyword.operator.comparison
+//                                         ^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("*** ERROR: Number of iterations or final value of");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("***         controlled variable - real lreal lreal(55).");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      Outtext("            Erroneous values :");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal(r, 4, 11);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      Outint(n, 3);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+   if not found_error then
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^^^^^^^^^^ variable
+//                    ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext("--- END Simula a.s. TEST 23");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+END
+// <--- keyword.control.end

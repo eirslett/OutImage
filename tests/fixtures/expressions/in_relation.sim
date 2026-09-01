@@ -1,0 +1,20 @@
+! §3.3.4: object-relation `in` (class or inner-class membership).;
+begin
+    class Point; begin integer x; end;
+    Point class Polar; begin integer r; end;
+    ref(Polar) p;
+    boolean b;
+    p :- new Polar;
+    b := p in Polar;
+    if b then OutText("in-polar") else OutText("fail");
+    OutImage;
+    b := p in Point;
+    if b then OutText("in-point") else OutText("fail");
+    OutImage;
+    b := p is Point;
+    if not b then OutText("not-is-point") else OutText("fail");
+    OutImage;
+    b := none in Point;
+    if not b then OutText("none") else OutText("fail");
+    OutImage;
+end

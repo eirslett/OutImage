@@ -1,0 +1,465 @@
+// SYNTAX TEST "source.simula" "simtst20"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   SIMULA A/S - SIMULA TEST NO 20
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Do some simple tests of the relational operators <, <=, =,
+// <-------------------------------------------------------------------------- comment.directive
+%               >=, > and <> on integers.
+// <----------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:      Examples..
+// <-------------------------- comment.directive
+%
+// <- comment.directive
+%  NOTE:    1 - At line marked with NOTE 1, extremum values (max or min) for
+// <---------------------------------------------------------------------------- comment.directive
+%               integer or short integer on your implementation should be
+// <------------------------------------------------------------------------- comment.directive
+%               filled in.
+// <-------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   15/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   integer i,j ;
+// ^^^^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//           ^ variable
+//             ^ punctuation.terminator.statement
+   short integer si, sj ;
+// ^^^^^ storage.type
+//       ^^^^^^^ storage.type
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^^ variable
+//                      ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 20") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test the relational operators <, <=, =, >=, > ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                              ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- and <> on integers.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   i := 5 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+   si := 3 ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^ constant.numeric.decimal
+//         ^ punctuation.terminator.statement
+
+   if     i = 5
+// ^^ keyword.control.if
+//        ^ variable
+//          ^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+      and j <= sj
+//    ^^^ keyword.operator
+//        ^ variable
+//          ^^ keyword.operator.comparison
+//             ^^ variable
+      and i > si
+//    ^^^ keyword.operator
+//        ^ variable
+//          ^ keyword.operator.comparison
+//            ^^ variable
+      and si >= sj
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+      and j+si < i
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ keyword.operator.arithmetic
+//          ^^ variable
+//             ^ keyword.operator.comparison
+//               ^ variable
+      and si <> j then
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^ variable
+//                ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Integer relations (1).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outtext ("            ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+      Outint (i, 12) ; Outint (j, 12) ; Outint (si, 12) ; Outint (sj, 12) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+//                     ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable
+//                              ^ punctuation.separator
+//                                ^^ constant.numeric.decimal
+//                                  ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                      ^^^^^^ entity.name.function
+//                                             ^ punctuation.section.parens
+//                                              ^^ variable
+//                                                ^ punctuation.separator
+//                                                  ^^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+//                                                        ^^^^^^ entity.name.function
+//                                                               ^ punctuation.section.parens
+//                                                                ^^ variable
+//                                                                  ^ punctuation.separator
+//                                                                    ^^ constant.numeric.decimal
+//                                                                      ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+      Outimage ; Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^^^^^^ variable
+//                        ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   j := -12 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ keyword.operator.arithmetic
+//       ^^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+   sj := -34 ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^ keyword.operator.arithmetic
+//        ^^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+
+   if     sj-j = -22
+// ^^ keyword.control.if
+//        ^^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ variable
+//             ^ keyword.operator.comparison
+//               ^ keyword.operator.arithmetic
+//                ^^ constant.numeric.decimal
+      and j <= si
+//    ^^^ keyword.operator
+//        ^ variable
+//          ^^ keyword.operator.comparison
+//             ^^ variable
+      and sj < i
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^ variable
+      and i+j >= sj
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ keyword.operator.arithmetic
+//          ^ variable
+//            ^^ keyword.operator.comparison
+//               ^^ variable
+      and j > sj
+//    ^^^ keyword.operator
+//        ^ variable
+//          ^ keyword.operator.comparison
+//            ^^ variable
+      and i <> j then
+//    ^^^ keyword.operator
+//        ^ variable
+//          ^^ keyword.operator.comparison
+//             ^ variable
+//               ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Integer relations (2).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outtext ("            ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+      Outint (i, 12) ; Outint (j, 12) ; Outint (si, 12) ; Outint (sj, 12) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+//                     ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable
+//                              ^ punctuation.separator
+//                                ^^ constant.numeric.decimal
+//                                  ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                      ^^^^^^ entity.name.function
+//                                             ^ punctuation.section.parens
+//                                              ^^ variable
+//                                                ^ punctuation.separator
+//                                                  ^^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+//                                                        ^^^^^^ entity.name.function
+//                                                               ^ punctuation.section.parens
+//                                                                ^^ variable
+//                                                                  ^ punctuation.separator
+//                                                                    ^^ constant.numeric.decimal
+//                                                                      ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+      Outimage ; Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^^^^^^ variable
+//                        ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   i := 2147483647 ;                                      !***** NOTE 1 *****;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+//                                                        ^^^^^^^^^^^^^^^^^^^^ comment.block
+   j := i - 10 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ variable
+//        ^ keyword.operator.arithmetic
+//          ^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+   si := 32767 ;                                          !***** NOTE 1 *****;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+//                                                        ^^^^^^^^^^^^^^^^^^^^ comment.block
+   sj := -32768 ;                                         !***** NOTE 1 *****;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^ keyword.operator.arithmetic
+//        ^^^^^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+//                                                        ^^^^^^^^^^^^^^^^^^^^ comment.block
+
+   if     sj + si = -1
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^ keyword.operator.arithmetic
+//             ^^ variable
+//                ^ keyword.operator.comparison
+//                  ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+      and j < i
+//    ^^^ keyword.operator
+//        ^ variable
+//          ^ keyword.operator.comparison
+//            ^ variable
+      and si <= i
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^ variable
+      and i >= 2147483647                                 !***** NOTE 1 *****;
+//    ^^^ keyword.operator
+//        ^ variable
+//          ^^ keyword.operator.comparison
+//             ^^^^^^^^^^ constant.numeric.decimal
+//                                                        ^^^^^^^^^^^^^^^^^^^^ comment.block
+      and sj+1 > sj then
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+//             ^ keyword.operator.comparison
+//               ^^ variable
+//                  ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Integer relations (3).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outtext ("            ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+      Outint (i, 12) ; Outint (j, 12) ; Outint (si, 12) ; Outint (sj, 12) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+//                     ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable
+//                              ^ punctuation.separator
+//                                ^^ constant.numeric.decimal
+//                                  ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                      ^^^^^^ entity.name.function
+//                                             ^ punctuation.section.parens
+//                                              ^^ variable
+//                                                ^ punctuation.separator
+//                                                  ^^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+//                                                        ^^^^^^ entity.name.function
+//                                                               ^ punctuation.section.parens
+//                                                                ^^ variable
+//                                                                  ^ punctuation.separator
+//                                                                    ^^ constant.numeric.decimal
+//                                                                      ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+      Outimage ; Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^^^^^^ variable
+//                        ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 20") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

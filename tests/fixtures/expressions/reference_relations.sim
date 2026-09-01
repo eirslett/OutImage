@@ -1,0 +1,4 @@
+begin boolean b;
+    b := p == q;
+    b := t =/= u;
+end

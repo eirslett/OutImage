@@ -1,0 +1,7 @@
+external Host procedure add = "add"
+   is integer procedure add(a, b); integer a, b;
+
+integer procedure combo;
+begin
+   combo := add(40, 2);
+end;

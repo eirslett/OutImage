@@ -1,0 +1,823 @@
+// SYNTAX TEST "source.simula" "simtst09"
+% ===========================   Main   program  ===========
+// <----------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST  NO 9
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:  To test the relops =, <, <=, >, >= and <> (eq, lt, le, gt, ge and
+// <------------------------------------------------------------------------------ comment.directive
+%            ne) for characters, and the procedures CHAR, RANK, ISO-RANK,
+// <------------------------------------------------------------------------- comment.directive
+%            ISO-CHAR, LETTER and DIGIT.
+// <---------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:  Use the relops and procedures on various character constants and
+// <---------------------------------------------------------------------------- comment.directive
+%           variables.
+// <---------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  THE  07/11-83
+// <----------------------------- comment.directive
+% ==========================================================
+// <------------------------------------------------------------ comment.directive
+BEGIN
+// <----- keyword.control.begin
+BOOLEAN            found_error;        ! Set to true when errors are ;
+// <------- storage.type
+//                 ^^^^^^^^^^^ variable
+//                            ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! found.                      ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+CHARACTER          c1;                 ! To be compared by the relops;
+// <--------- storage.type
+//                 ^^ variable
+//                   ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+CHARACTER          c2;                 ! To be compared by the relops;
+// <--------- storage.type
+//                 ^^ variable
+//                   ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+
+Outtext ("--- START Simula a.s. TEST 9");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+Outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+Outtext ("--- Character relations etc.");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+Outimage; Outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Start testing of rel-ops.   ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+c1 := ' ';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^ constant.character
+//       ^ punctuation.terminator.statement
+c2 := '!32!';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^^^^ constant.character
+//          ^ punctuation.terminator.statement
+
+IF   NOT  c1 EQ ' '
+// <-- keyword.control.if
+//   ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^^ constant.character
+  OR      c1 LT c2
+//^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^ variable
+  OR NOT  c1 <= c2
+//^^ keyword.operator
+//   ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+  OR      c1 >  c2
+//^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//              ^^ variable
+  OR NOT  c1 >= '!32!'
+//^^ keyword.operator
+//   ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^^^^^ constant.character
+  OR      c1 <> c2   THEN
+//^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+//                   ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : comparing characters (1).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+c1 := '1';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^ constant.character
+//       ^ punctuation.terminator.statement
+c2 := '!55!';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^^^^ constant.character
+//          ^ punctuation.terminator.statement
+
+IF        c1 =  c2
+// <-- keyword.control.if
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//              ^^ variable
+  OR NOT  c1 <  c2
+//^^ keyword.operator
+//   ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//              ^^ variable
+  OR NOT '6' LE c2
+//^^ keyword.operator
+//   ^^^ keyword.operator
+//       ^^^ constant.character
+//           ^^ keyword.operator
+//              ^^ variable
+  OR  '!48!' GT c2
+//^^ keyword.operator
+//    ^^^^^^ constant.character
+//           ^^ keyword.operator
+//              ^^ variable
+  OR      c1 >= c2
+//^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+  OR NOT  c1 <> c2   THEN
+//^^ keyword.operator
+//   ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+//                   ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : comparing characters (2).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+c1 := IF (IF c1 = '1' THEN c1 < '1' ELSE c1 >= '1') THEN 'B' ELSE '!90!';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^ keyword.control.if
+//       ^ punctuation.section.parens
+//        ^^ keyword.control.if
+//           ^^ variable
+//              ^ keyword.operator.comparison
+//                ^^^ constant.character
+//                    ^^^^ keyword.control.then
+//                         ^^ variable
+//                            ^ keyword.operator.comparison
+//                              ^^^ constant.character
+//                                  ^^^^ keyword.control.else
+//                                       ^^ variable
+//                                          ^^ keyword.operator.comparison
+//                                             ^^^ constant.character
+//                                                ^ punctuation.section.parens
+//                                                  ^^^^ keyword.control.then
+//                                                       ^^^ constant.character
+//                                                           ^^^^ keyword.control.else
+//                                                                ^^^^^^ constant.character
+//                                                                      ^ punctuation.terminator.statement
+c2 := 'A';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^ constant.character
+//       ^ punctuation.terminator.statement
+
+IF   NOT  c1 =  'Z'
+// <-- keyword.control.if
+//   ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//              ^^^ constant.character
+  OR      c1 <  c2
+//^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//              ^^ variable
+  OR      c1 <= c2
+//^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+  OR NOT  c1 >  c2
+//^^ keyword.operator
+//   ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//              ^^ variable
+  OR NOT  c1 GE c2
+//^^ keyword.operator
+//   ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^ variable
+  OR  '!75!' NE 'K'  THEN
+//^^ keyword.operator
+//    ^^^^^^ constant.character
+//           ^^ keyword.operator
+//              ^^^ constant.character
+//                   ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : comparing characters (3).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Test procedure DIGIT.       ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+c1 := '0';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^ constant.character
+//       ^ punctuation.terminator.statement
+c2 := '!42!';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^^^^ constant.character
+//          ^ punctuation.terminator.statement
+
+IF   NOT digit (c1)
+// <-- keyword.control.if
+//   ^^^ keyword.operator
+//       ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^ variable
+//                ^ punctuation.section.parens
+  OR NOT digit ('5')
+//^^ keyword.operator
+//   ^^^ keyword.operator
+//       ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^ constant.character
+//                 ^ punctuation.section.parens
+  OR NOT digit ('!57!')
+//^^ keyword.operator
+//   ^^^ keyword.operator
+//       ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^ constant.character
+//                    ^ punctuation.section.parens
+  OR     digit (c2)
+//^^ keyword.operator
+//       ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^ variable
+//                ^ punctuation.section.parens
+  OR     digit ('a')
+//^^ keyword.operator
+//       ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^ constant.character
+//                 ^ punctuation.section.parens
+  OR     digit ('!33!')  THEN
+//^^ keyword.operator
+//       ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^ constant.character
+//                    ^ punctuation.section.parens
+//                       ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In procedure digit.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Test procedure LETTER.      ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+c1 := 'd';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^ constant.character
+//       ^ punctuation.terminator.statement
+c2 := '!32!';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^^^^ constant.character
+//          ^ punctuation.terminator.statement
+
+IF   NOT letter (c1)
+// <-- keyword.control.if
+//   ^^^ keyword.operator
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.section.parens
+  OR NOT letter ('x')
+//^^ keyword.operator
+//   ^^^ keyword.operator
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^ constant.character
+//                  ^ punctuation.section.parens
+  OR NOT letter ('!65!')
+//^^ keyword.operator
+//   ^^^ keyword.operator
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^ constant.character
+//                     ^ punctuation.section.parens
+  OR     letter (c2)
+//^^ keyword.operator
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.section.parens
+  OR     letter ('1')
+//^^ keyword.operator
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^ constant.character
+//                  ^ punctuation.section.parens
+  OR     letter ('!61!')  THEN
+//^^ keyword.operator
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^ constant.character
+//                     ^ punctuation.section.parens
+//                        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In procedure letter.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Test procedure ISORANK.     ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+c1 := '!0!';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^^^ constant.character
+//         ^ punctuation.terminator.statement
+c2 := ' ';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^ constant.character
+//       ^ punctuation.terminator.statement
+
+IF   isorank (c1) <> 0
+// <-- keyword.control.if
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+  OR isorank (c2) <> 32
+//^^ keyword.operator
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.comparison
+//                   ^^ constant.numeric.decimal
+  OR isorank ('!127!') <> 127
+//^^ keyword.operator
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^ constant.character
+//                   ^ punctuation.section.parens
+//                     ^^ keyword.operator.comparison
+//                        ^^^ constant.numeric.decimal
+  OR isorank ('/') <> 47
+//^^ keyword.operator
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^ constant.character
+//               ^ punctuation.section.parens
+//                 ^^ keyword.operator.comparison
+//                    ^^ constant.numeric.decimal
+  OR isorank (IF isorank (c1) > 0 THEN '9' ELSE '!12!') <> 12   THEN
+//^^ keyword.operator
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ keyword.control.if
+//               ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^ variable
+//                          ^ punctuation.section.parens
+//                            ^ keyword.operator.comparison
+//                              ^ constant.numeric.decimal
+//                                ^^^^ keyword.control.then
+//                                     ^^^ constant.character
+//                                         ^^^^ keyword.control.else
+//                                              ^^^^^^ constant.character
+//                                                    ^ punctuation.section.parens
+//                                                      ^^ keyword.operator.comparison
+//                                                         ^^ constant.numeric.decimal
+//                                                              ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In procedure isorank.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Test procedure ISOCHAR.     ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+c1 := '!127!';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^^^^^ constant.character
+//           ^ punctuation.terminator.statement
+c2 := '-';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^ constant.character
+//       ^ punctuation.terminator.statement
+
+IF   isochar (127) <> c1
+// <-- keyword.control.if
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^^ keyword.operator.comparison
+//                    ^^ variable
+  OR isochar (45) <> c2
+//^^ keyword.operator
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.comparison
+//                   ^^ variable
+  OR isochar (33) <> '!'
+//^^ keyword.operator
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.comparison
+//                   ^^^ constant.character
+  OR isochar (isorank (c1)) <> c1
+//^^ keyword.operator
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ variable
+//                       ^^ punctuation.section.parens
+//                          ^^ keyword.operator.comparison
+//                             ^^ variable
+  OR isochar (IF isochar (62) >= '>' THEN 65 ELSE 32) <> 'A'  THEN
+//^^ keyword.operator
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ keyword.control.if
+//               ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^^ keyword.operator.comparison
+//                               ^^^ constant.character
+//                                   ^^^^ keyword.control.then
+//                                        ^^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.else
+//                                                ^^ constant.numeric.decimal
+//                                                  ^ punctuation.section.parens
+//                                                    ^^ keyword.operator.comparison
+//                                                       ^^^ constant.character
+//                                                            ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In procedure isochar.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Test procedure RANK.        ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+c1 := '1';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^ constant.character
+//       ^ punctuation.terminator.statement
+c2 := '2';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^ constant.character
+//       ^ punctuation.terminator.statement
+
+IF   rank (c1) - rank ('0') <> 1
+// <-- keyword.control.if
+//   ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.section.parens
+//             ^ keyword.operator.arithmetic
+//               ^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^ constant.character
+//                        ^ punctuation.section.parens
+//                          ^^ keyword.operator.comparison
+//                             ^ constant.numeric.decimal
+  OR rank (c2) - rank ('0') <> 2
+//^^ keyword.operator
+//   ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.section.parens
+//             ^ keyword.operator.arithmetic
+//               ^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^ constant.character
+//                        ^ punctuation.section.parens
+//                          ^^ keyword.operator.comparison
+//                             ^ constant.numeric.decimal
+  OR rank ('9') - rank ('0') <> 9
+//^^ keyword.operator
+//   ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.character
+//            ^ punctuation.section.parens
+//              ^ keyword.operator.arithmetic
+//                ^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^ constant.character
+//                         ^ punctuation.section.parens
+//                           ^^ keyword.operator.comparison
+//                              ^ constant.numeric.decimal
+  OR rank ('!55!') - rank ('0') <> 7   THEN
+//^^ keyword.operator
+//   ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^ constant.character
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.arithmetic
+//                   ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^ constant.character
+//                            ^ punctuation.section.parens
+//                              ^^ keyword.operator.comparison
+//                                 ^ constant.numeric.decimal
+//                                     ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In procedure rank.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Test procedure CHAR.        ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+c1 := 'A';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^ constant.character
+//       ^ punctuation.terminator.statement
+c2 := 'Z';
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^ constant.character
+//       ^ punctuation.terminator.statement
+
+IF   char (rank (c1)) <> c1
+// <-- keyword.control.if
+//   ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^^ punctuation.section.parens
+//                    ^^ keyword.operator.comparison
+//                       ^^ variable
+  OR char (rank (c2)) <> c2
+//^^ keyword.operator
+//   ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^^ punctuation.section.parens
+//                    ^^ keyword.operator.comparison
+//                       ^^ variable
+  OR char (rank ('9')) <> '9'
+//^^ keyword.operator
+//   ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^ constant.character
+//                  ^^ punctuation.section.parens
+//                     ^^ keyword.operator.comparison
+//                        ^^^ constant.character
+  OR char (rank ('!55!')) <> '7'
+//^^ keyword.operator
+//   ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^ constant.character
+//                     ^^ punctuation.section.parens
+//                        ^^ keyword.operator.comparison
+//                           ^^^ constant.character
+  OR char (1) >= char (2)
+//^^ keyword.operator
+//   ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.comparison
+//               ^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+  OR char (0) > char (rank ('B'))  THEN
+//^^ keyword.operator
+//   ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^ keyword.operator.comparison
+//              ^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^^ constant.character
+//                             ^^ punctuation.section.parens
+//                                 ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In procedure char.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+IF found_error THEN  ELSE
+// <-- keyword.control.if
+// ^^^^^^^^^^^ variable
+//             ^^^^ keyword.control.then
+//                   ^^^^ keyword.control.else
+   begin Outtext ("--- NO ERRORS FOUND IN THIS TEST"); Outimage; end;
+// ^^^^^ keyword.control.begin
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+//                                                     ^^^^^^^^ variable
+//                                                             ^ punctuation.terminator.statement
+//                                                               ^^^ keyword.control.end
+//                                                                  ^ punctuation.terminator.statement
+outtext ("--- END Simula a.s. TEST 9");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+outimage
+// <-------- variable
+
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

@@ -1,0 +1,279 @@
+// SYNTAX TEST "source.simula" "simtst72"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM Name:   Simula a.s. - SIMULA TEST NO 72
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test of formal procedures.
+// <------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   25/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+Begin
+// <----- keyword.control.begin
+
+   Ref(A) x, v;
+// ^^^ storage.modifier
+//    ^ punctuation.section.parens
+//     ^ entity.name.class
+//      ^ punctuation.section.parens
+//        ^ variable
+//         ^ punctuation.separator
+//           ^ variable
+//            ^ punctuation.terminator.statement
+
+   Class A;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//        ^ punctuation.terminator.statement
+   Begin Ref(A) Procedure Z;
+// ^^^^^ keyword.control.begin
+//       ^^^ storage.modifier
+//          ^ punctuation.section.parens
+//           ^ entity.name.class
+//            ^ punctuation.section.parens
+//              ^^^^^^^^^ storage.type
+//                        ^ entity.name.function
+//                         ^ punctuation.terminator.statement
+         Begin P(x);
+//       ^^^^^ keyword.control.begin
+//             ^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+               Z:- v:- New A;
+//             ^ variable
+//              ^^ keyword.operator.assignment
+//                 ^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^^^ keyword.control.new
+//                         ^ entity.name.class
+//                          ^ punctuation.terminator.statement
+         End;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+
+         Integer  i;
+//       ^^^^^^^ storage.type
+//                ^ variable
+//                 ^ punctuation.terminator.statement
+
+         i:=5;
+//       ^ variable
+//        ^^ keyword.operator.assignment
+//          ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+   End;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Procedure P(y); Name y; Ref(A)y;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable.parameter
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+//                 ^^^^ keyword.other.name
+//                      ^ variable
+//                       ^ punctuation.terminator.statement
+//                         ^^^ storage.modifier
+//                            ^ punctuation.section.parens
+//                             ^ entity.name.class
+//                              ^ punctuation.section.parens
+//                               ^ variable
+//                                ^ punctuation.terminator.statement
+   Begin Q(y.i) End;
+// ^^^^^ keyword.control.begin
+//       ^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ variable
+//          ^ punctuation.accessor
+//           ^ variable
+//            ^ punctuation.section.parens
+//              ^^^ keyword.control.end
+//                 ^ punctuation.terminator.statement
+
+   Procedure Q(ii); Name ii; Integer ii;
+// ^^^^^^^^^ storage.type
+//           ^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable.parameter
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+//                  ^^^^ keyword.other.name
+//                       ^^ variable
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^^ storage.type
+//                                   ^^ variable
+//                                     ^ punctuation.terminator.statement
+   Begin ii:=ii+2 End;
+// ^^^^^ keyword.control.begin
+//       ^^ variable
+//         ^^ keyword.operator.assignment
+//           ^^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//                ^^^ keyword.control.end
+//                   ^ punctuation.terminator.statement
+
+   Outtext("--- START Simula a.s. TEST 72") ;
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext("--- Test of formal procedures.") ;
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   x:- New A;
+// ^ variable
+//  ^^ keyword.operator.assignment
+//     ^^^ keyword.control.new
+//         ^ entity.name.class
+//          ^ punctuation.terminator.statement
+   P(x.Z);
+// ^ entity.name.function
+//  ^ punctuation.section.parens
+//   ^ variable
+//    ^ punctuation.accessor
+//     ^ variable
+//      ^ punctuation.section.parens
+//       ^ punctuation.terminator.statement
+
+
+   IF x.i = 9 and v.i = 5 THEN
+// ^^ keyword.control.if
+//    ^ variable
+//     ^ punctuation.accessor
+//      ^ variable
+//        ^ keyword.operator.comparison
+//          ^ constant.numeric.decimal
+//            ^^^ keyword.operator
+//                ^ variable
+//                 ^ punctuation.accessor
+//                  ^ variable
+//                    ^ keyword.operator.comparison
+//                      ^ constant.numeric.decimal
+//                        ^^^^ keyword.control.then
+   Begin
+// ^^^^^ keyword.control.begin
+      Outtext("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   End Else
+// ^^^ keyword.control.end
+//     ^^^^ keyword.control.else
+   Begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Procedure calls.") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values: x.i = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      if x =/= none then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^ keyword.operator.comparison
+//             ^^^^ constant.language.null
+//                  ^^^^ keyword.control.then
+         Outint (x.i, 5)
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+      else
+//    ^^^^ keyword.control.else
+         Outtext (" object none") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                             v.i = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      if v =/= none then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^ keyword.operator.comparison
+//             ^^^^ constant.language.null
+//                  ^^^^ keyword.control.then
+         Outint (v.i, 5)
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+      else
+//    ^^^^ keyword.control.else
+         Outtext (" object none") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   End;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext("--- END Simula a.s. TEST 72") ;
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ End
+// <~--- keyword.control.end

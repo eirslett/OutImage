@@ -1,0 +1,327 @@
+// SYNTAX TEST "source.simula" "simtst91"
+% ================================================   Main   program  ===========
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 91
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE: Test virtual procedures, simple case.
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:
+// <---------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:
+// <-------------- comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+begin ref(A) x; text timage;
+// <----- keyword.control.begin
+//    ^^^ storage.modifier
+//       ^ punctuation.section.parens
+//        ^ entity.name.class
+//         ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^ storage.type
+//                   ^^^^^^ variable
+//                         ^ punctuation.terminator.statement
+      text array ta(0:3); integer ti;
+//    ^^^^ storage.type
+//         ^^^^^ storage.type
+//               ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^^^ storage.type
+//                                ^^ variable
+//                                  ^ punctuation.terminator.statement
+      boolean found_error;
+//    ^^^^^^^ storage.type
+//            ^^^^^^^^^^^ variable
+//                       ^ punctuation.terminator.statement
+
+      Procedure Test;
+//    ^^^^^^^^^ storage.type
+//              ^^^^ entity.name.function
+//                  ^ punctuation.terminator.statement
+      if timage <> ta(ti) then
+//    ^^ keyword.control.if
+//       ^^^^^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^ variable
+//                      ^ punctuation.section.parens
+//                        ^^^^ keyword.control.then
+      begin outtext("--- ERROR Virtual test no ");
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+            outint(ti,4); outimage; outimage;
+//          ^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^^^^ variable
+//                                ^ punctuation.terminator.statement
+//                                  ^^^^^^^^ variable
+//                                          ^ punctuation.terminator.statement
+            found_error:= true;
+//          ^^^^^^^^^^^ variable
+//                     ^^ keyword.operator.assignment
+//                        ^^^^ constant.language.bool
+//                            ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      class A;
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      virtual: procedure P1,P2;
+//    ^^^^^^^ keyword.other.virtual
+//           ^ punctuation.separator
+//             ^^^^^^^^^ storage.type
+//                       ^^ entity.name.function
+//                         ^ punctuation.separator
+//                          ^^ entity.name.function
+//                            ^ punctuation.terminator.statement
+      begin
+//    ^^^^^ keyword.control.begin
+            procedure P1(t); text t;
+//          ^^^^^^^^^ storage.type
+//                    ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable.parameter
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^^^^ storage.type
+//                                ^ variable
+//                                 ^ punctuation.terminator.statement
+            begin timage:= "Ref.  text: ";
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^ variable
+//                      ^^ keyword.operator.assignment
+//                         ^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.terminator.statement
+                  timage.sub(13,t.length):= t;
+//                ^^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                              ^ variable
+//                               ^ punctuation.accessor
+//                                ^^^^^^ variable
+//                                      ^ punctuation.section.parens
+//                                       ^^ keyword.operator.assignment
+//                                          ^ variable
+//                                           ^ punctuation.terminator.statement
+                  Test; ti:= ti + 1;
+//                ^^^^ variable
+//                    ^ punctuation.terminator.statement
+//                      ^^ variable
+//                        ^^ keyword.operator.assignment
+//                           ^^ variable
+//                              ^ keyword.operator.arithmetic
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+
+            procedure P2(t); value t; text t;
+//          ^^^^^^^^^ storage.type
+//                    ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable.parameter
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^ keyword.other.value
+//                                 ^ variable
+//                                  ^ punctuation.terminator.statement
+//                                    ^^^^ storage.type
+//                                         ^ variable
+//                                          ^ punctuation.terminator.statement
+            begin timage:= "Value text: ";
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^ variable
+//                      ^^ keyword.operator.assignment
+//                         ^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.terminator.statement
+                  timage.sub(13,t.length):= t;
+//                ^^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                              ^ variable
+//                               ^ punctuation.accessor
+//                                ^^^^^^ variable
+//                                      ^ punctuation.section.parens
+//                                       ^^ keyword.operator.assignment
+//                                          ^ variable
+//                                           ^ punctuation.terminator.statement
+                  Test; ti:= ti + 1;
+//                ^^^^ variable
+//                    ^ punctuation.terminator.statement
+//                      ^^ variable
+//                        ^^ keyword.operator.assignment
+//                           ^^ variable
+//                              ^ keyword.operator.arithmetic
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      timage:- blanks(43);
+//    ^^^^^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      ta(0):- "Ref.  text: dette var bra !!!!             ";
+//    ^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+      ta(1):- "Value text: dette var ogs} bra !!!!        ";
+//    ^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+      ta(2):- "Ref.  text: og dette var bra !!!!          ";
+//    ^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+      ta(3):- "Value text: og til slutt var dette bra !!!!";
+//    ^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.terminator.statement
+
+      outtext("--- START Simula a.s. TEST 91"); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^^ variable
+//                                                      ^ punctuation.terminator.statement
+      outtext("--- Test simple virtual procedures");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      outimage; outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+      x:-new A;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//            ^ punctuation.terminator.statement
+      x.P1("dette var bra !!!!");
+//    ^ variable
+//     ^ punctuation.accessor
+//      ^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+      x.P2("dette var ogs} bra !!!!");
+//    ^ variable
+//     ^ punctuation.accessor
+//      ^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+      x.P1(copy("og dette var bra !!!!"));
+//    ^ variable
+//     ^ punctuation.accessor
+//      ^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+      x.P2(copy("og til slutt var dette bra !!!!"));
+//    ^ variable
+//     ^ punctuation.accessor
+//      ^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+
+      if not found_error then
+//    ^^ keyword.control.if
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^^ variable
+//                       ^^^^ keyword.control.then
+      begin outtext("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+            outimage;
+//          ^^^^^^^^ variable
+//                  ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+      outtext("--- END Simula a.s. TEST 91"); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+//                                            ^^^^^^^^ variable
+//                                                    ^ punctuation.terminator.statement
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

@@ -1,0 +1,603 @@
+// SYNTAX TEST "source.simula" "simtst69"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 69
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test complex use of detach, call and resume.
+// <------------------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   19/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Integer array test (1:50) ;
+// ^^^^^^^ storage.type
+//         ^^^^^ storage.type
+//               ^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+   Integer testnr, i ;
+// ^^^^^^^ storage.type
+//         ^^^^^^ variable
+//               ^ punctuation.separator
+//                 ^ variable
+//                   ^ punctuation.terminator.statement
+
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Procedure Sjekk (i); Integer i;
+// ^^^^^^^^^ storage.type
+//           ^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable.parameter
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+//                      ^^^^^^^ storage.type
+//                              ^ variable
+//                               ^ punctuation.terminator.statement
+   Begin testnr := testnr+1; test(testnr):= i End;
+// ^^^^^ keyword.control.begin
+//       ^^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^^^ variable
+//                       ^ keyword.operator.arithmetic
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.terminator.statement
+//                           ^^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^^^^^^ variable
+//                                      ^ punctuation.section.parens
+//                                       ^^ keyword.operator.assignment
+//                                          ^ variable
+//                                            ^^^ keyword.control.end
+//                                               ^ punctuation.terminator.statement
+
+   Class A;;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//        ^^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 69") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test complex use of detach, call and resume.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+ A Begin Class C1;
+// <~- entity.name.class
+// ^^^^^ keyword.control.begin
+//       ^^^^^ keyword.other.class
+//             ^^ entity.name.class
+//               ^ punctuation.terminator.statement
+         Begin Procedure P1;
+//       ^^^^^ keyword.control.begin
+//             ^^^^^^^^^ storage.type
+//                       ^^ entity.name.function
+//                         ^ punctuation.terminator.statement
+               Begin Ref (C3) rC3;
+//             ^^^^^ keyword.control.begin
+//                   ^^^ storage.modifier
+//                       ^ punctuation.section.parens
+//                        ^^ entity.name.class
+//                          ^ punctuation.section.parens
+//                            ^^^ variable
+//                               ^ punctuation.terminator.statement
+                     Begin Class C4;
+//                   ^^^^^ keyword.control.begin
+//                         ^^^^^ keyword.other.class
+//                               ^^ entity.name.class
+//                                 ^ punctuation.terminator.statement
+                           Begin Sjekk(4); Detach;
+//                         ^^^^^ keyword.control.begin
+//                               ^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^ variable
+//                                               ^ punctuation.terminator.statement
+                                 Sjekk(11);
+//                               ^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^ constant.numeric.decimal
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+                           End;
+//                         ^^^ keyword.control.end
+//                            ^ punctuation.terminator.statement
+                           Ref (C4) rC4;
+//                         ^^^ storage.modifier
+//                             ^ punctuation.section.parens
+//                              ^^ entity.name.class
+//                                ^ punctuation.section.parens
+//                                  ^^^ variable
+//                                     ^ punctuation.terminator.statement
+                           rC4:- new C4; rC3:- new C3;
+//                         ^^^ variable
+//                            ^^ keyword.operator.assignment
+//                               ^^^ keyword.control.new
+//                                   ^^ entity.name.class
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^ variable
+//                                          ^^ keyword.operator.assignment
+//                                             ^^^ keyword.control.new
+//                                                 ^^ entity.name.class
+//                                                   ^ punctuation.terminator.statement
+                           Inspect rC4 do
+//                         ^^^^^^^ keyword.control.inspect
+//                                 ^^^ variable
+//                                     ^^ keyword.control.do
+                           Begin Resume(rC3);
+//                         ^^^^^ keyword.control.begin
+//                               ^^^^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^^^ variable
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+                                 Sjekk(10); Call(rC4);
+//                               ^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^ constant.numeric.decimal
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+//                                          ^^^^ entity.name.function
+//                                              ^ punctuation.section.parens
+//                                               ^^^ variable
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+                                 Sjekk(12);
+//                               ^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^ constant.numeric.decimal
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+                           End;
+//                         ^^^ keyword.control.end
+//                            ^ punctuation.terminator.statement
+                     End;
+//                   ^^^ keyword.control.end
+//                      ^ punctuation.terminator.statement
+                     Call(rC3);
+//                   ^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^ variable
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+               End;
+//             ^^^ keyword.control.end
+//                ^ punctuation.terminator.statement
+
+               Sjekk(1); Detach;
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                       ^^^^^^ variable
+//                             ^ punctuation.terminator.statement
+               Sjekk(3); P1;
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                       ^^ variable
+//                         ^ punctuation.terminator.statement
+               Sjekk(14); Detach;
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^^ variable
+//                              ^ punctuation.terminator.statement
+               Sjekk(20);
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+         End;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+
+         Class C3;
+//       ^^^^^ keyword.other.class
+//             ^^ entity.name.class
+//               ^ punctuation.terminator.statement
+         Begin Sjekk(5); Detach;
+//       ^^^^^ keyword.control.begin
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                       ^^^^^^ variable
+//                             ^ punctuation.terminator.statement
+               Sjekk(6); P2;
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                       ^^ variable
+//                         ^ punctuation.terminator.statement
+               Sjekk(9); Detach;
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                       ^^^^^^ variable
+//                             ^ punctuation.terminator.statement
+               Sjekk(13);
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+         End;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+
+         Procedure P2;
+//       ^^^^^^^^^ storage.type
+//                 ^^ entity.name.function
+//                   ^ punctuation.terminator.statement
+         Begin Sjekk(7); Detach; Sjekk(8) End;
+//       ^^^^^ keyword.control.begin
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                       ^^^^^^ variable
+//                             ^ punctuation.terminator.statement
+//                               ^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.section.parens
+//                                        ^^^ keyword.control.end
+//                                           ^ punctuation.terminator.statement
+
+         Begin Class C2;
+//       ^^^^^ keyword.control.begin
+//             ^^^^^ keyword.other.class
+//                   ^^ entity.name.class
+//                     ^ punctuation.terminator.statement
+               Begin Ref (C5) rC5;
+//             ^^^^^ keyword.control.begin
+//                   ^^^ storage.modifier
+//                       ^ punctuation.section.parens
+//                        ^^ entity.name.class
+//                          ^ punctuation.section.parens
+//                            ^^^ variable
+//                               ^ punctuation.terminator.statement
+                     Detach;
+//                   ^^^^^^ variable
+//                         ^ punctuation.terminator.statement
+                     Sjekk(16);
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+                     rC5 :- new C5;
+//                   ^^^ variable
+//                       ^^ keyword.operator.assignment
+//                          ^^^ keyword.control.new
+//                              ^^ entity.name.class
+//                                ^ punctuation.terminator.statement
+                     Call(rC5);
+//                   ^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^ variable
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+                     Sjekk(23);
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+               End;
+//             ^^^ keyword.control.end
+//                ^ punctuation.terminator.statement
+
+               Class C5;
+//             ^^^^^ keyword.other.class
+//                   ^^ entity.name.class
+//                     ^ punctuation.terminator.statement
+               Begin Sjekk(17); Detach;
+//             ^^^^^ keyword.control.begin
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                     Sjekk(18);
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+                     Inspect rC2 do Detach;
+//                   ^^^^^^^ keyword.control.inspect
+//                           ^^^ variable
+//                               ^^ keyword.control.do
+//                                  ^^^^^^ variable
+//                                        ^ punctuation.terminator.statement
+                     Sjekk(22); Detach;
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                     Sjekk(25);
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+               End;
+//             ^^^ keyword.control.end
+//                ^ punctuation.terminator.statement
+
+               Ref (C1) rC1;
+//             ^^^ storage.modifier
+//                 ^ punctuation.section.parens
+//                  ^^ entity.name.class
+//                    ^ punctuation.section.parens
+//                      ^^^ variable
+//                         ^ punctuation.terminator.statement
+               Ref (C2) rC2;
+//             ^^^ storage.modifier
+//                 ^ punctuation.section.parens
+//                  ^^ entity.name.class
+//                    ^ punctuation.section.parens
+//                      ^^^ variable
+//                         ^ punctuation.terminator.statement
+
+               rC1 :- new C1; rC2:- new C2;
+//             ^^^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^ keyword.control.new
+//                        ^^ entity.name.class
+//                          ^ punctuation.terminator.statement
+//                            ^^^ variable
+//                               ^^ keyword.operator.assignment
+//                                  ^^^ keyword.control.new
+//                                      ^^ entity.name.class
+//                                        ^ punctuation.terminator.statement
+               Sjekk(2);
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+               Inspect rC1 do
+//             ^^^^^^^ keyword.control.inspect
+//                     ^^^ variable
+//                         ^^ keyword.control.do
+               Begin Call (rC1);
+//             ^^^^^ keyword.control.begin
+//                   ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^ variable
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+                     Sjekk(15); Call(rC2);
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^^ variable
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+                     Sjekk(19); Resume(rC1);
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+               End;
+//             ^^^ keyword.control.end
+//                ^ punctuation.terminator.statement
+               Sjekk(21); Resume(rC2);
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^^ variable
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+               Sjekk(24); Resume(rC2.rC5);
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^^ variable
+//                                  ^ punctuation.accessor
+//                                   ^^^ variable
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+               Sjekk(26);
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+         End;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+   End;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   For i := 1 step 1 until testnr do
+// ^^^ keyword.control.for
+//     ^ variable
+//       ^^ keyword.operator.assignment
+//          ^ constant.numeric.decimal
+//            ^^^^ keyword.control.step
+//                 ^ constant.numeric.decimal
+//                   ^^^^^ keyword.control.until
+//                         ^^^^^^ variable
+//                                ^^ keyword.control.do
+   if test(i) <> i then
+// ^^ keyword.control.if
+//    ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ variable
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.comparison
+//               ^ variable
+//                 ^^^^ keyword.control.then
+      found_error := true;
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+//                       ^ punctuation.terminator.statement
+
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   Begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Program sequencing.") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Values of actual parameter in subsequent") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            calls on Sjekk : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      For i := 1 step 1 until testnr do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^^^^^^ variable
+//                                   ^^ keyword.control.do
+      Begin
+//    ^^^^^ keyword.control.begin
+         Outint (i, 15) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+         Outint (test(i), 4) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+      End
+//    ^^^ keyword.control.end
+   End ELSE
+// ^^^ keyword.control.end
+//     ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 69") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

@@ -1,0 +1,9 @@
+[E0105] Error: INCOMPLETE TYPE: `short` must be followed by `integer`
+   ╭─[ incomplete_short.sim:1:7 ]
+   │
+ 1 │ begin short x; end;
+   │       ──┬──  
+   │         ╰──── incomplete type
+   │ 
+   │ Help: write `short `integer``
+───╯

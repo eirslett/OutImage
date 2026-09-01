@@ -1,0 +1,11 @@
+[E0406] Error: VIRTUAL MISMATCH: virtual procedure `hash` heading does not match in class `C`
+   ╭─[ virtual_heading.sim:2:1 ]
+   │
+ 2 │ ╭─▶ class C;
+   ┆ ┆   
+ 7 │ ├─▶ end;
+   │ │          
+   │ ╰────────── here
+   │ │   
+   │ │   Help: make the virtual specification and the matching attribute or procedure heading agree
+───╯

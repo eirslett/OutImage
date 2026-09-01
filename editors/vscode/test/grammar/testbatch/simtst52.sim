@@ -1,0 +1,378 @@
+// SYNTAX TEST "source.simula" "simtst52"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 52
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test 'inner'
+// <---------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   31/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   LONG REAL          a ;
+// ^^^^ storage.type
+//      ^^^^ storage.type
+//                    ^ variable
+//                      ^ punctuation.terminator.statement
+   REAL               b ;
+// ^^^^ storage.type
+//                    ^ variable
+//                      ^ punctuation.terminator.statement
+
+   CLASS C ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      LONG REAL       d ;
+//    ^^^^ storage.type
+//         ^^^^ storage.type
+//                    ^ variable
+//                      ^ punctuation.terminator.statement
+      d := a + b ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//           ^ keyword.operator.arithmetic
+//             ^ variable
+//               ^ punctuation.terminator.statement
+      INNER ;
+//    ^^^^^ keyword.other.inner
+//          ^ punctuation.terminator.statement
+      b := a + b + d
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//           ^ keyword.operator.arithmetic
+//             ^ variable
+//               ^ keyword.operator.arithmetic
+//                 ^ variable
+   END of class C ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   C CLASS E ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      REAL            f ;
+//    ^^^^ storage.type
+//                    ^ variable
+//                      ^ punctuation.terminator.statement
+      f := d + b ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//           ^ keyword.operator.arithmetic
+//             ^ variable
+//               ^ punctuation.terminator.statement
+      a := f + d
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//           ^ keyword.operator.arithmetic
+//             ^ variable
+   END of class E ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   REF (C)            g ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//                    ^ variable
+//                      ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 52") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test 'inner'.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   a := b := 5.45;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ variable
+//        ^^ keyword.operator.assignment
+//           ^^^^ constant.numeric.decimal
+//               ^ punctuation.terminator.statement
+
+   g :- NEW C;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+
+   if b-b/1000 > 21.8 or b+b/1000 < 21.8 or
+// ^^ keyword.control.if
+//    ^ variable
+//     ^ keyword.operator.arithmetic
+//      ^ variable
+//       ^ keyword.operator.arithmetic
+//        ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.comparison
+//               ^^^^ constant.numeric.decimal
+//                    ^^ keyword.operator
+//                       ^ variable
+//                        ^ keyword.operator.arithmetic
+//                         ^ variable
+//                          ^ keyword.operator.arithmetic
+//                           ^^^^ constant.numeric.decimal
+//                                ^ keyword.operator.comparison
+//                                  ^^^^ constant.numeric.decimal
+//                                       ^^ keyword.operator
+      a-a/1000 > 5.45 or a+a/1000 < 5.45 then
+//    ^ variable
+//     ^ keyword.operator.arithmetic
+//      ^ variable
+//       ^ keyword.operator.arithmetic
+//        ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.comparison
+//               ^^^^ constant.numeric.decimal
+//                    ^^ keyword.operator
+//                       ^ variable
+//                        ^ keyword.operator.arithmetic
+//                         ^ variable
+//                          ^ keyword.operator.arithmetic
+//                           ^^^^ constant.numeric.decimal
+//                                ^ keyword.operator.comparison
+//                                  ^^^^ constant.numeric.decimal
+//                                       ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Global variables a or b have wrong values after") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                          ^ punctuation.section.parens
+//                                                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            execution of class body (1).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values : a = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      outreal (a, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                              b = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outreal (b, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   g :- NEW E ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^ entity.name.class
+//            ^ punctuation.terminator.statement
+
+   if b-b/1000 > 125.35 or b+b/1000 < 125.35 or
+// ^^ keyword.control.if
+//    ^ variable
+//     ^ keyword.operator.arithmetic
+//      ^ variable
+//       ^ keyword.operator.arithmetic
+//        ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.comparison
+//               ^^^^^^ constant.numeric.decimal
+//                      ^^ keyword.operator
+//                         ^ variable
+//                          ^ keyword.operator.arithmetic
+//                           ^ variable
+//                            ^ keyword.operator.arithmetic
+//                             ^^^^ constant.numeric.decimal
+//                                  ^ keyword.operator.comparison
+//                                    ^^^^^^ constant.numeric.decimal
+//                                           ^^ keyword.operator
+      a-a/1000 > 76.30  or a+a/1000 < 76.30  then
+//    ^ variable
+//     ^ keyword.operator.arithmetic
+//      ^ variable
+//       ^ keyword.operator.arithmetic
+//        ^^^^ constant.numeric.decimal
+//             ^ keyword.operator.comparison
+//               ^^^^^ constant.numeric.decimal
+//                      ^^ keyword.operator
+//                         ^ variable
+//                          ^ keyword.operator.arithmetic
+//                           ^ variable
+//                            ^ keyword.operator.arithmetic
+//                             ^^^^ constant.numeric.decimal
+//                                  ^ keyword.operator.comparison
+//                                    ^^^^^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Global variables a or b have wrong values after") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                          ^ punctuation.section.parens
+//                                                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            execution of class body (2).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values : a = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      outreal (a, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                              b = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outreal (b, 4, 10) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 52") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

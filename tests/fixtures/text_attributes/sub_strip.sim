@@ -1,0 +1,8 @@
+begin
+    text t, sub, stripped;
+    t :- "abc   ";
+    sub :- t.sub(2, 2);
+    stripped :- t.strip;
+    if sub = "bc" and stripped = "abc" then OutText("ok") else OutText("fail");
+    OutImage;
+end

@@ -1,0 +1,7 @@
+begin
+    OutChar('H');
+    OutChar('i');
+    BreakOutImage;
+    OutText("there");
+    OutImage;
+end;

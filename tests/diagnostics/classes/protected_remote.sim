@@ -1,0 +1,1 @@
+begin class C; protected x; begin integer x; end; ref(C) r; r :- new C; integer n; n := r.x; end;

@@ -1,0 +1,285 @@
+// SYNTAX TEST "source.simula" "simtst80"
+% =======================================   Main   program =============
+// <------------------------------------------------------------------------ comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 80
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test the attribute 'IsOpen' of class file.
+// <---------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:      Check the value of the attribute in one file object
+// <------------------------------------------------------------------- comment.directive
+%               where the file still is open but another file object 
+// <--------------------------------------------------------------------- comment.directive
+%               has called close, both refering to the same file.
+// <----------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WARNING:     In some (erroneous) cases the program may loop!!!
+// <----------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  NOTE:    1 - The filename given must be a legal filename.
+// <------------------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   27/08-86
+// <------------------------------ comment.directive
+% ======================================================================
+// <------------------------------------------------------------------------ comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean errorFound ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   Ref(imagefile) f1, f2;
+// ^^^ storage.modifier
+//    ^ punctuation.section.parens
+//     ^^^^^^^^^ entity.name.class
+//              ^ punctuation.section.parens
+//                ^^ variable
+//                  ^ punctuation.separator
+//                    ^^ variable
+//                      ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 80") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test the attribute 'IsOpen' of class file") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+   Outtext (" (uses infile ""any8089"").") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   f1:- New Infile("any8089");                  !**** NOTE 1 ****;
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                                              ^^^^^^^^^^^^^^^^^^ comment.block
+   f2:- New Infile("any8089");                  !**** NOTE 1 ****;
+// ^^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                                              ^^^^^^^^^^^^^^^^^^ comment.block
+
+   If not f1 qua Infile.open (blanks(100)) then begin
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^^ constant.numeric.decimal
+//                                      ^^ punctuation.section.parens
+//                                         ^^^^ keyword.control.then
+//                                              ^^^^^ keyword.control.begin
+      outtext("ERROR: File ""any8089"" cannot be opened."); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+//                                                          ^^^^^^^^ variable
+//                                                                  ^ punctuation.terminator.statement
+      errorFound:=true; goto EXIT end;
+//    ^^^^^^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+//                    ^ punctuation.terminator.statement
+//                      ^^^^ keyword.control.goto
+//                           ^^^^ entity.name.label
+//                                ^^^ keyword.control.end
+//                                   ^ punctuation.terminator.statement
+   If not f2 qua Infile.open (blanks(100)) then begin
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^^ constant.numeric.decimal
+//                                      ^^ punctuation.section.parens
+//                                         ^^^^ keyword.control.then
+//                                              ^^^^^ keyword.control.begin
+      outtext("WARNING: cannot open infile (f2)"); outimage end;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+//                                                 ^^^^^^^^ variable
+//                                                          ^^^ keyword.control.end
+//                                                             ^ punctuation.terminator.statement
+
+   f1 qua Infile.Inimage;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+   While f1 qua Infile.endfile do f1 qua Infile.Inimage;
+// ^^^^^ keyword.control.while
+//       ^^ variable
+//          ^^^ keyword.operator
+//              ^^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^^^ variable
+//                             ^^ keyword.control.do
+//                                ^^ variable
+//                                   ^^^ keyword.operator
+//                                       ^^^^^^ variable
+//                                             ^ punctuation.accessor
+//                                              ^^^^^^^ variable
+//                                                     ^ punctuation.terminator.statement
+
+   if f2.isOpen then begin
+// ^^ keyword.control.if
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^^^^^^ variable
+//              ^^^^ keyword.control.then
+//                   ^^^^^ keyword.control.begin
+      If not f2 qua Infile.Close then begin errorFound:=true;
+//    ^^ keyword.control.if
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^^ keyword.operator
+//                  ^^^^^^ variable
+//                        ^ punctuation.accessor
+//                         ^^^^^ variable
+//                               ^^^^ keyword.control.then
+//                                    ^^^^^ keyword.control.begin
+//                                          ^^^^^^^^^^ variable
+//                                                    ^^ keyword.operator.assignment
+//                                                      ^^^^ constant.language.bool
+//                                                          ^ punctuation.terminator.statement
+         outtext("ERROR: cannot close infile (f2)"); outimage end;
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+//                                                   ^^^^^^^^ variable
+//                                                            ^^^ keyword.control.end
+//                                                               ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   IF f1.IsOpen THEN !OK;
+// ^^ keyword.control.if
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^^^^^^ variable
+//              ^^^^ keyword.control.then
+//                   ^^^^ comment.block
+   Else begin errorFound:=true;
+// ^^^^ keyword.control.else
+//      ^^^^^ keyword.control.begin
+//            ^^^^^^^^^^ variable
+//                      ^^ keyword.operator.assignment
+//                        ^^^^ constant.language.bool
+//                            ^ punctuation.terminator.statement
+      Outtext("ERROR : 'IsOpen' returns false"
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+                 " but the file should be open");
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   End;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   If not f1 qua Infile.Close then begin errorFound:=true;
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^^ variable
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^ keyword.control.begin
+//                                       ^^^^^^^^^^ variable
+//                                                 ^^ keyword.operator.assignment
+//                                                   ^^^^ constant.language.bool
+//                                                       ^ punctuation.terminator.statement
+      outtext("ERROR: cannot close infile"); outimage; end;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^^ variable
+//                                                   ^ punctuation.terminator.statement
+//                                                     ^^^ keyword.control.end
+//                                                        ^ punctuation.terminator.statement
+
+EXIT:
+// <---- entity.name.label
+//  ^ punctuation.separator
+   Outtext ("--- END Simula a.s. TEST 80") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   if not errorFound then Outtext (" (NO ERRORS FOUND)") ;
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^^^^^^^^^ variable
+//                   ^^^^ keyword.control.then
+//                        ^^^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

@@ -1,0 +1,1758 @@
+// SYNTAX TEST "source.simula" "simtst02"
+% ======================================   Main   program  ===========
+// <---------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST  NO 2
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:  To test the boolean operators not, and, or, imp, eqv,
+// <------------------------------------------------------------------ comment.directive
+%            and-then and or-else.
+// <---------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:  Use the operators in various boolean expressions.
+// <------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:    THE  16/09-83
+// <------------------------------- comment.directive
+%  REWRITTEN BY:  BEH  08/07-86
+// <------------------------------- comment.directive
+% ====================================================================
+// <---------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+BOOLEAN            result; !To contain the result of the;
+// <------- storage.type
+//                 ^^^^^^ variable
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                           ! various boolean expressions;
+//                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+BOOLEAN          b1,b2,b3; ! b1-b3 always TRUE  ;
+// <------- storage.type
+//               ^^ variable
+//                 ^ punctuation.separator
+//                  ^^ variable
+//                    ^ punctuation.separator
+//                     ^^ variable
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^^^^^^^^^^^^^^^^ comment.block
+BOOLEAN          b4,b5,b6; ! b4-b6 always FALSE ;
+// <------- storage.type
+//               ^^ variable
+//                 ^ punctuation.separator
+//                  ^^ variable
+//                    ^ punctuation.separator
+//                     ^^ variable
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+BOOLEAN       found_error;  ! set TRUE if error found;
+// <------- storage.type
+//            ^^^^^^^^^^^ variable
+//                       ^ punctuation.terminator.statement
+//                          ^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+outtext ("--- START Simula a.s. TEST 2");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+Outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+outtext ("--- Test Boolean operators");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+outimage; Outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+
+b1 := TRUE;
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^^^ constant.language.bool
+//        ^ punctuation.terminator.statement
+b2 := IF b1 THEN b1 ELSE FALSE;
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^^^^ keyword.control.then
+//               ^^ variable
+//                  ^^^^ keyword.control.else
+//                       ^^^^^ constant.language.bool
+//                            ^ punctuation.terminator.statement
+b3 := IF b2 THEN b1 ELSE FALSE;
+// <-- variable
+// ^^ keyword.operator.assignment
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^^^^ keyword.control.then
+//               ^^ variable
+//                  ^^^^ keyword.control.else
+//                       ^^^^^ constant.language.bool
+//                            ^ punctuation.terminator.statement
+
+                            !*****************************;
+//                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                            ! Check that all variables   ;
+//                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                            ! have correct value.        ;
+//                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                            !*****************************;
+//                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+IF b1 THEN
+// <-- keyword.control.if
+// ^^ variable
+//    ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Wrong value assigned to the variable b1.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+IF b2 THEN
+// <-- keyword.control.if
+// ^^ variable
+//    ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Wrong value assigned to the variable b2.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+IF b3 THEN
+// <-- keyword.control.if
+// ^^ variable
+//    ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Wrong value assigned to the variable b3.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+IF b4 THEN
+// <-- keyword.control.if
+// ^^ variable
+//    ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Wrong value assigned to the variable b4.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+IF b5 THEN
+// <-- keyword.control.if
+// ^^ variable
+//    ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Wrong value assigned to the variable b5.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+IF b6 THEN
+// <-- keyword.control.if
+// ^^ variable
+//    ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Wrong value assigned to the variable b6.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                             !*****************************;
+//                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                             ! First test simple          ;
+//                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                             ! expressions with 'and'.    ;
+//                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+result := b1 AND b2;        !*****************************;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+//                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'and' (1).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b1 AND b4;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'and' (2).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b6 AND b3;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'and' (3).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b4 AND b5;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'and' (4).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                             !*****************************;
+//                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                             ! Then try simple expressions;
+//                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                             ! with 'or'.                 ;
+//                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+result := b1 OR b2;         !*****************************;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^ variable
+//                ^ punctuation.terminator.statement
+//                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'or' (1).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b1 OR b4;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^ variable
+//                ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'or' (2).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b6 OR b3;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^ variable
+//                ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'or' (3).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b4 OR b5;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^ variable
+//                ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'or' (4).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Test simple expressions    ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! with 'not'.                ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+result := NOT b1;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ keyword.operator
+//            ^^ variable
+//              ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'not' did not give expected result (1).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := NOT b6;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ keyword.operator
+//            ^^ variable
+//              ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'not' (2).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Test simple expressions    ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! with 'imp'.                ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+result := b1 IMP b2;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'imp' (1).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b1 IMP b4;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'imp' (2).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b6 IMP b3;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'imp' (3).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b4 IMP b5;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'imp' (4).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Test simple expressions    ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! with 'eqv'.                ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+result := b1 EQV b2;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'eqv' (1).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b1 EQV b4;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'eqv' (2).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b6 EQV b3;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'eqv' (3).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b4 EQV b5;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  'eqv' (4).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Test simple expression with;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! and then.                  ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+result := b1 and then b2;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^ keyword.operator
+//                    ^^ variable
+//                      ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : 'and then' (1).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b1 and then b6;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^ keyword.operator
+//                    ^^ variable
+//                      ^ punctuation.terminator.statement
+
+if result then
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : 'and then' (2).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+result := b4 and then b2;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^ keyword.operator
+//                    ^^ variable
+//                      ^ punctuation.terminator.statement
+
+if result then
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : 'and then' (3).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+result := b5 and then b6;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^ keyword.operator
+//                    ^^ variable
+//                      ^ punctuation.terminator.statement
+
+if result then
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : 'and then' (4).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Test simple expression with;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! or else.                   ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+result := b1 or else b2;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^^^ keyword.operator
+//                   ^^ variable
+//                     ^ punctuation.terminator.statement
+
+if result then
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+else
+// <---- keyword.control.else
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : 'or else' (1).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+result := b3 or else b6;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^^^ keyword.operator
+//                   ^^ variable
+//                     ^ punctuation.terminator.statement
+
+if result then
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+else
+// <---- keyword.control.else
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : 'or else' (2).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+result := b4 or else b2;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^^^ keyword.operator
+//                   ^^ variable
+//                     ^ punctuation.terminator.statement
+
+if result then
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+else
+// <---- keyword.control.else
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : 'or else' (3).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+result := b6 or else b5;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^^^ keyword.operator
+//                   ^^ variable
+//                     ^ punctuation.terminator.statement
+
+if result then
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : 'or else' (4).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! Now try some more complex  ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! expressions.               ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       !*****************************;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+result := b1 AND b2 OR b3 AND b4;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                  ^^ keyword.operator
+//                     ^^ variable
+//                        ^^^ keyword.operator
+//                            ^^ variable
+//                              ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Boolean expr. (1).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := NOT b1 OR b2;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ keyword.operator
+//            ^^ variable
+//               ^^ keyword.operator
+//                  ^^ variable
+//                    ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Boolean expr. (2).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := NOT b6 AND b5;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ keyword.operator
+//            ^^ variable
+//               ^^^ keyword.operator
+//                   ^^ variable
+//                     ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Boolean expr. (3).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+
+result := b4 EQV b5 IMP b1;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                  ^^^ keyword.operator
+//                      ^^ variable
+//                        ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Boolean expr. (4).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b1 AND b5 EQV b6 OR b1;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                  ^^^ keyword.operator
+//                      ^^ variable
+//                         ^^ keyword.operator
+//                            ^^ variable
+//                              ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Boolean expr. (5).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+                                       ! ********* NOTE 1 ***********;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+result := NOT (NOT (NOT (NOT (NOT (NOT (NOT b6))))));
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ keyword.operator
+//            ^ punctuation.section.parens
+//             ^^^ keyword.operator
+//                 ^ punctuation.section.parens
+//                  ^^^ keyword.operator
+//                      ^ punctuation.section.parens
+//                       ^^^ keyword.operator
+//                           ^ punctuation.section.parens
+//                            ^^^ keyword.operator
+//                                ^ punctuation.section.parens
+//                                 ^^^ keyword.operator
+//                                     ^ punctuation.section.parens
+//                                      ^^^ keyword.operator
+//                                          ^^ variable
+//                                            ^^^^^^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Boolean expr. (6).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b1 IMP b2 IMP b3 IMP b4;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^ variable
+//                  ^^^ keyword.operator
+//                      ^^ variable
+//                         ^^^ keyword.operator
+//                             ^^ variable
+//                               ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Boolean expr. (7).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := (b4 AND b1 EQV b5 OR b6) IMP b1 AND NOT b6;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^ punctuation.section.parens
+//         ^^ variable
+//            ^^^ keyword.operator
+//                ^^ variable
+//                   ^^^ keyword.operator
+//                       ^^ variable
+//                          ^^ keyword.operator
+//                             ^^ variable
+//                               ^ punctuation.section.parens
+//                                 ^^^ keyword.operator
+//                                     ^^ variable
+//                                        ^^^ keyword.operator
+//                                            ^^^ keyword.operator
+//                                                ^^ variable
+//                                                  ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Boolean expr. (8).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := IF b1 THEN
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ keyword.control.if
+//           ^^ variable
+//              ^^^^ keyword.control.then
+             (IF b6 THEN
+//           ^ punctuation.section.parens
+//            ^^ keyword.control.if
+//               ^^ variable
+//                  ^^^^ keyword.control.then
+                 b1
+//               ^^ variable
+              ELSE
+//            ^^^^ keyword.control.else
+                 IF b1 THEN
+//               ^^ keyword.control.if
+//                  ^^ variable
+//                     ^^^^ keyword.control.then
+                    b6
+//                  ^^ variable
+                 ELSE
+//               ^^^^ keyword.control.else
+                    b1)
+//                  ^^ variable
+//                    ^ punctuation.section.parens
+          ELSE
+//        ^^^^ keyword.control.else
+             b1;
+//           ^^ variable
+//             ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Boolean expr. (9).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := IF b1 THEN b2 ELSE b5 AND b6;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ keyword.control.if
+//           ^^ variable
+//              ^^^^ keyword.control.then
+//                   ^^ variable
+//                      ^^^^ keyword.control.else
+//                           ^^ variable
+//                              ^^^ keyword.operator
+//                                  ^^ variable
+//                                    ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Boolean expr. (10).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := NOT b1 EQV b2 AND b3 IMP (IF IF b1 THEN b1 ELSE b6 THEN
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ keyword.operator
+//            ^^ variable
+//               ^^^ keyword.operator
+//                   ^^ variable
+//                      ^^^ keyword.operator
+//                          ^^ variable
+//                             ^^^ keyword.operator
+//                                 ^ punctuation.section.parens
+//                                  ^^ keyword.control.if
+//                                     ^^ keyword.control.if
+//                                        ^^ variable
+//                                           ^^^^ keyword.control.then
+//                                                ^^ variable
+//                                                   ^^^^ keyword.control.else
+//                                                        ^^ variable
+//                                                           ^^^^ keyword.control.then
+                                       b1 AND b2 OR b1 AND b6 IMP b2
+//                                     ^^ variable
+//                                        ^^^ keyword.operator
+//                                            ^^ variable
+//                                               ^^ keyword.operator
+//                                                  ^^ variable
+//                                                     ^^^ keyword.operator
+//                                                         ^^ variable
+//                                                            ^^^ keyword.operator
+//                                                                ^^ variable
+                                    ELSE
+//                                  ^^^^ keyword.control.else
+                                       b1 EQV NOT (b1 AND b2 IMP b2));
+//                                     ^^ variable
+//                                        ^^^ keyword.operator
+//                                            ^^^ keyword.operator
+//                                                ^ punctuation.section.parens
+//                                                 ^^ variable
+//                                                    ^^^ keyword.operator
+//                                                        ^^ variable
+//                                                           ^^^ keyword.operator
+//                                                               ^^ variable
+//                                                                 ^^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+
+IF result THEN
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR :  Boolean expr. (11).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+result := b4 or else b2 and b6;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^^^ keyword.operator
+//                   ^^ variable
+//                      ^^^ keyword.operator
+//                          ^^ variable
+//                            ^ punctuation.terminator.statement
+
+if result then
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : Boolean expr. (12).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+result := b3 and then not b2 or else b6 imp b5;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^^^^ keyword.operator
+//                    ^^^ keyword.operator
+//                        ^^ variable
+//                           ^^ keyword.operator
+//                              ^^^^ keyword.operator
+//                                   ^^ variable
+//                                      ^^^ keyword.operator
+//                                          ^^ variable
+//                                            ^ punctuation.terminator.statement
+
+if result then
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+else
+// <---- keyword.control.else
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : Boolean expr. (13).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+result := b2 or else not b6 imp b2 and b2 eqv not b5;
+// <------ variable
+//     ^^ keyword.operator.assignment
+//        ^^ variable
+//           ^^ keyword.operator
+//              ^^^^ keyword.operator
+//                   ^^^ keyword.operator
+//                       ^^ variable
+//                          ^^^ keyword.operator
+//                              ^^ variable
+//                                 ^^^ keyword.operator
+//                                     ^^ variable
+//                                        ^^^ keyword.operator
+//                                            ^^^ keyword.operator
+//                                                ^^ variable
+//                                                  ^ punctuation.terminator.statement
+
+if result then
+// <-- keyword.control.if
+// ^^^^^^ variable
+//        ^^^^ keyword.control.then
+else
+// <---- keyword.control.else
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : Boolean expr. (14).");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+IF found_error THEN  ELSE
+// <-- keyword.control.if
+// ^^^^^^^^^^^ variable
+//             ^^^^ keyword.control.then
+//                   ^^^^ keyword.control.else
+   begin outtext ("--- NO ERRORS FOUND IN THIS TEST"); Outimage; end;
+// ^^^^^ keyword.control.begin
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+//                                                     ^^^^^^^^ variable
+//                                                             ^ punctuation.terminator.statement
+//                                                               ^^^ keyword.control.end
+//                                                                  ^ punctuation.terminator.statement
+outtext ("--- END Simula a.s. TEST 2");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+outimage
+// <-------- variable
+
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

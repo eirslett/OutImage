@@ -1,0 +1,10 @@
+begin
+    integer i := 42;
+    short integer si := 1;
+    real r := 3.14;
+    long real lr := 1.0&&10;
+    boolean b := true;
+    character c := 'A';
+    text t := "hello";
+    ref(File) f;
+end;

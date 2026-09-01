@@ -1,0 +1,13 @@
+! Ch.7 MVP: detach during new suspends, call resumes.;
+begin
+    class Worker;
+    begin
+        OutText("A"); OutImage;
+        detach;
+        OutText("B"); OutImage;
+    end;
+    ref(Worker) w;
+    w :- new Worker;
+    OutText("C"); OutImage;
+    call(w);
+end

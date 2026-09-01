@@ -1,0 +1,10 @@
+begin
+    integer i;
+    short integer si;
+    real r;
+    long real lr;
+    boolean b;
+    character c;
+    text t;
+    ref(Node) node;
+end;

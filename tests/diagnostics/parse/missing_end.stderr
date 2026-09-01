@@ -1,0 +1,11 @@
+[E0103] Error: MISSING END: this block is missing `end`
+   ╭─[ missing_end.sim:1:24 ]
+   │
+ 1 │ begin integer x; x := 1;
+   │ ──┬──                  ┬  
+   │   ╰─────────────────────── this `begin` was never closed
+   │                        │  
+   │                        ╰── expected `end` here
+   │ 
+   │ Help: add `end` to close the `begin`
+───╯

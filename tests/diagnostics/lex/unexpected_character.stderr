@@ -1,0 +1,9 @@
+[E0001] Error: UNEXPECTED CHARACTER: `@` is not a legal character here
+   ╭─[ unexpected_character.sim:1:23 ]
+   │
+ 1 │ begin integer x; x := @1; end;
+   │                       ┬  
+   │                       ╰── unexpected character
+   │ 
+   │ Help: remove it, or put it inside a string or a comment
+───╯

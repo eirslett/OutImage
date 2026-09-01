@@ -1,0 +1,8 @@
+/target
+tmp/ # local scratch
+website/node_modules/
+website/dist/
+
+# A bare `target` rule (e.g. in a global gitignore) would otherwise swallow
+# the `src/target` source module.
+!/src/target/

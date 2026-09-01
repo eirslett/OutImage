@@ -1,0 +1,508 @@
+// SYNTAX TEST "source.simula" "simtst27"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   SIMULA A/S - SIMULA TEST NO 27
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test while-loops.
+// <--------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   18/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   text t ;
+// ^^^^ storage.type
+//      ^ variable
+//        ^ punctuation.terminator.statement
+   integer i, j, n;
+// ^^^^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ variable
+//                ^ punctuation.terminator.statement
+   Boolean b ;
+// ^^^^^^^ storage.type
+//         ^ variable
+//           ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 27") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test of while-loops.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+
+   while b do n := n+1 ;
+// ^^^^^ keyword.control.while
+//       ^ variable
+//         ^^ keyword.control.do
+//            ^ variable
+//              ^^ keyword.operator.assignment
+//                 ^ variable
+//                  ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+//                     ^ punctuation.terminator.statement
+
+   if n <> 0 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Number of iterations in while-loop (1).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Number of iterations : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      Outint (n, 5) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   n := 0 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+   t :- "12345678" ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^ string.quoted.double
+//                 ^ punctuation.terminator.statement
+
+   while t.more do begin t.getchar ; n := n+1 end ;
+// ^^^^^ keyword.control.while
+//       ^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+//              ^^ keyword.control.do
+//                 ^^^^^ keyword.control.begin
+//                       ^ variable
+//                        ^ punctuation.accessor
+//                         ^^^^^^^ variable
+//                                 ^ punctuation.terminator.statement
+//                                   ^ variable
+//                                     ^^ keyword.operator.assignment
+//                                        ^ variable
+//                                         ^ keyword.operator.arithmetic
+//                                          ^ constant.numeric.decimal
+//                                            ^^^ keyword.control.end
+//                                                ^ punctuation.terminator.statement
+
+   if n <> 8 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Number of iterations in while-loop (2).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Number of iterations : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      Outint (n, 5) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   i := 5 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+   n := 0 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+
+   while j < i and not b do
+// ^^^^^ keyword.control.while
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^ variable
+//             ^^^ keyword.operator
+//                 ^^^ keyword.operator
+//                     ^ variable
+//                       ^^ keyword.control.do
+   if j < 3 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^ constant.numeric.decimal
+//          ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      j := j+1 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end else
+// ^^^ keyword.control.end
+//     ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      b := true ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.language.bool
+//              ^ punctuation.terminator.statement
+      n := n+1 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   if n <> 4 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Number of iterations in while-loop (3).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Number of iterations : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      Outint (n, 5) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   n := 0 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+
+   while j < 15 do
+// ^^^^^ keyword.control.while
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^^ constant.numeric.decimal
+//              ^^ keyword.control.do
+   for i := 1 step j until 20 do
+// ^^^ keyword.control.for
+//     ^ variable
+//       ^^ keyword.operator.assignment
+//          ^ constant.numeric.decimal
+//            ^^^^ keyword.control.step
+//                 ^ variable
+//                   ^^^^^ keyword.control.until
+//                         ^^ constant.numeric.decimal
+//                            ^^ keyword.control.do
+   begin
+// ^^^^^ keyword.control.begin
+      j := j+1 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+      if i+j > 20 then n := n+1
+//    ^^ keyword.control.if
+//       ^ variable
+//        ^ keyword.operator.arithmetic
+//         ^ variable
+//           ^ keyword.operator.comparison
+//             ^^ constant.numeric.decimal
+//                ^^^^ keyword.control.then
+//                     ^ variable
+//                       ^^ keyword.operator.assignment
+//                          ^ variable
+//                           ^ keyword.operator.arithmetic
+//                            ^ constant.numeric.decimal
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   if n <> 5 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Number of iterations in while-loop (4).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Number of iterations : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      Outint (n, 5) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   n := 0;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   i := j := 1 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ variable
+//        ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+
+   while i < 64 do
+// ^^^^^ keyword.control.while
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^^ constant.numeric.decimal
+//              ^^ keyword.control.do
+   begin
+// ^^^^^ keyword.control.begin
+      while j < i do j := j+1 ;
+//    ^^^^^ keyword.control.while
+//          ^ variable
+//            ^ keyword.operator.comparison
+//              ^ variable
+//                ^^ keyword.control.do
+//                   ^ variable
+//                     ^^ keyword.operator.assignment
+//                        ^ variable
+//                         ^ keyword.operator.arithmetic
+//                          ^ constant.numeric.decimal
+//                            ^ punctuation.terminator.statement
+      i := i+j ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ variable
+//             ^ punctuation.terminator.statement
+      n := n+1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   if n <> 6 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^^ keyword.operator.comparison
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Number of iterations in while-loop (5).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Number of iterations : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      Outint (n, 5) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 27") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

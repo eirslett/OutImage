@@ -1,0 +1,282 @@
+// SYNTAX TEST "source.simula" "simtst88"
+% ================================================   Main   program  ===========
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 88
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE: Checking coroutines.
+// <-------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:  read-changer-writer: input from SYSIN, no more than 5 chars/line
+// <---------------------------------------------------------------------------- comment.directive
+%           passes evrything except "**" and "!" unchanged to SYSOUT.
+// <--------------------------------------------------------------------- comment.directive
+%           "**" is changed to "$", "!" terminates the program
+// <-------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%    NOTE: -- this program should be changed ---
+// <------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:
+// <-------------- comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+begin character c1,c2;
+// <----- keyword.control.begin
+//    ^^^^^^^^^ storage.type
+//              ^^ variable
+//                ^ punctuation.separator
+//                 ^^ variable
+//                   ^ punctuation.terminator.statement
+      ref(coroutine) r,c,w;
+//    ^^^ storage.modifier
+//       ^ punctuation.section.parens
+//        ^^^^^^^^^ entity.name.class
+//                 ^ punctuation.section.parens
+//                   ^ variable
+//                    ^ punctuation.separator
+//                     ^ variable
+//                      ^ punctuation.separator
+//                       ^ variable
+//                        ^ punctuation.terminator.statement
+
+      class coroutine; detach;
+//    ^^^^^ keyword.other.class
+//          ^^^^^^^^^ entity.name.class
+//                   ^ punctuation.terminator.statement
+//                     ^^^^^^ variable
+//                           ^ punctuation.terminator.statement
+
+      coroutine class reader;
+//    ^^^^^^^^^ entity.name.class
+//              ^^^^^ keyword.other.class
+//                    ^^^^^^ entity.name.class
+//                          ^ punctuation.terminator.statement
+      while true do begin c1:=inchar; resume(c) end;
+//    ^^^^^ keyword.control.while
+//          ^^^^ constant.language.bool
+//               ^^ keyword.control.do
+//                  ^^^^^ keyword.control.begin
+//                        ^^ variable
+//                          ^^ keyword.operator.assignment
+//                            ^^^^^^ variable
+//                                  ^ punctuation.terminator.statement
+//                                    ^^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^ variable
+//                                            ^ punctuation.section.parens
+//                                              ^^^ keyword.control.end
+//                                                 ^ punctuation.terminator.statement
+
+      coroutine class changer;
+//    ^^^^^^^^^ entity.name.class
+//              ^^^^^ keyword.other.class
+//                    ^^^^^^^ entity.name.class
+//                           ^ punctuation.terminator.statement
+      while true do
+//    ^^^^^ keyword.control.while
+//          ^^^^ constant.language.bool
+//               ^^ keyword.control.do
+      begin if c1='*' then
+//    ^^^^^ keyword.control.begin
+//          ^^ keyword.control.if
+//             ^^ variable
+//               ^ keyword.operator.comparison
+//                ^^^ constant.character
+//                    ^^^^ keyword.control.then
+            begin resume(r);
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+                  if c1='*' then c2:='$' else
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                     ^ keyword.operator.comparison
+//                      ^^^ constant.character
+//                          ^^^^ keyword.control.then
+//                               ^^ variable
+//                                 ^^ keyword.operator.assignment
+//                                   ^^^ constant.character
+//                                       ^^^^ keyword.control.else
+                  begin c2:='*'; resume(w); c2:=c1 end;
+//                ^^^^^ keyword.control.begin
+//                      ^^ variable
+//                        ^^ keyword.operator.assignment
+//                          ^^^ constant.character
+//                             ^ punctuation.terminator.statement
+//                               ^^^^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ variable
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+//                                          ^^ variable
+//                                            ^^ keyword.operator.assignment
+//                                              ^^ variable
+//                                                 ^^^ keyword.control.end
+//                                                    ^ punctuation.terminator.statement
+            end else c2:=c1;
+//          ^^^ keyword.control.end
+//              ^^^^ keyword.control.else
+//                   ^^ variable
+//                     ^^ keyword.operator.assignment
+//                       ^^ variable
+//                         ^ punctuation.terminator.statement
+            resume(w); resume(r);
+//          ^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+//                     ^^^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^ variable
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      coroutine class writer;
+//    ^^^^^^^^^ entity.name.class
+//              ^^^^^ keyword.other.class
+//                    ^^^^^^ entity.name.class
+//                          ^ punctuation.terminator.statement
+      begin integer i;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ storage.type
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+            while true do
+//          ^^^^^ keyword.control.while
+//                ^^^^ constant.language.bool
+//                     ^^ keyword.control.do
+            begin for i:=1 step 1 until 30 do
+//          ^^^^^ keyword.control.begin
+//                ^^^ keyword.control.for
+//                    ^ variable
+//                     ^^ keyword.operator.assignment
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.step
+//                              ^ constant.numeric.decimal
+//                                ^^^^^ keyword.control.until
+//                                      ^^ constant.numeric.decimal
+//                                         ^^ keyword.control.do
+                  begin if c2='!' then  begin outimage; detach end
+//                ^^^^^ keyword.control.begin
+//                      ^^ keyword.control.if
+//                         ^^ variable
+//                           ^ keyword.operator.comparison
+//                            ^^^ constant.character
+//                                ^^^^ keyword.control.then
+//                                      ^^^^^ keyword.control.begin
+//                                            ^^^^^^^^ variable
+//                                                    ^ punctuation.terminator.statement
+//                                                      ^^^^^^ variable
+//                                                             ^^^ keyword.control.end
+                   else begin outchar(c2); resume(c) end;
+//                 ^^^^ keyword.control.else
+//                      ^^^^^ keyword.control.begin
+//                            ^^^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^ variable
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^ entity.name.function
+//                                               ^ punctuation.section.parens
+//                                                ^ variable
+//                                                 ^ punctuation.section.parens
+//                                                   ^^^ keyword.control.end
+//                                                      ^ punctuation.terminator.statement
+                  end;
+//                ^^^ keyword.control.end
+//                   ^ punctuation.terminator.statement
+                  outimage;
+//                ^^^^^^^^ variable
+//                        ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      outtext("--- START Simula a.s. TEST 88"); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^^ variable
+//                                                      ^ punctuation.terminator.statement
+      outtext("--- input from SYSIN, no more than 5 chars."); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+//                                                            ^^^^^^^^ variable
+//                                                                    ^ punctuation.terminator.statement
+      outtext(" ('!' terminates the program)"); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^^ variable
+//                                                      ^ punctuation.terminator.statement
+      sysin.image:-sysin.image.sub(1,5);
+//    ^^^^^ variable
+//         ^ punctuation.accessor
+//          ^^^^^ variable
+//               ^^ keyword.operator.assignment
+//                 ^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^^ variable
+//                            ^ punctuation.accessor
+//                             ^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+      r:-new reader; c:-new changer; w:-new writer;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^^^^^^ entity.name.class
+//                 ^ punctuation.terminator.statement
+//                   ^ variable
+//                    ^^ keyword.operator.assignment
+//                      ^^^ keyword.control.new
+//                          ^^^^^^^ entity.name.class
+//                                 ^ punctuation.terminator.statement
+//                                   ^ variable
+//                                    ^^ keyword.operator.assignment
+//                                      ^^^ keyword.control.new
+//                                          ^^^^^^ entity.name.class
+//                                                ^ punctuation.terminator.statement
+      resume(r);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+      outtext("--- END Simula a.s. TEST 88"); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+//                                            ^^^^^^^^ variable
+//                                                    ^ punctuation.terminator.statement
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement

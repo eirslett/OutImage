@@ -1,0 +1,71 @@
+[workspace]
+members = [".", "browser-interp"]
+default-members = ["."]
+resolver = "2"
+
+[package]
+name = "outimage"
+version = "0.1.0"
+edition = "2024"
+build = "build.rs"
+publish = false
+
+[features]
+default = ["native-aot", "lsp", "dap"]
+# Simula → wasm (wasm-encoder). Used by the native CLI.
+wasm-aot = ["dep:wasm-encoder", "dep:walrus", "dep:gimli"]
+native-aot = [
+    "wasm-aot",
+    "dep:cranelift",
+    "dep:cranelift-codegen",
+    "dep:cranelift-frontend",
+    "dep:cranelift-module",
+    "dep:cranelift-object",
+    "dep:object",
+    "dep:target-lexicon",
+]
+lsp = ["dep:tokio", "dep:tower-lsp-server"]
+dap = []
+
+[dependencies]
+chumsky = "0.13.0"
+clap = { version = "4.6.1", features = ["derive"] }
+ariadne = { version = "0.6", features = ["auto-color"] }
+cranelift = { version = "0.133.1", optional = true }
+cranelift-codegen = { version = "0.133.1", optional = true, features = ["x86", "arm64"] }
+cranelift-frontend = { version = "0.133.1", optional = true }
+cranelift-module = { version = "0.133.1", optional = true }
+cranelift-object = { version = "0.133.1", optional = true }
+gimli = { version = "0.33.0", default-features = false, optional = true, features = ["write", "read"] }
+object = { version = "0.39.0", default-features = false, optional = true, features = ["read", "write", "std", "macho", "elf", "pe", "coff"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+target-lexicon = { version = "0.13.3", optional = true }
+thiserror = "2.0.18"
+wasm-encoder = { version = "0.240.0", optional = true }
+walrus = { version = "0.26", optional = true }
+tower-lsp-server = { version = "0.23.0", optional = true }
+tokio = { version = "1.53.1", optional = true, features = ["rt-multi-thread", "io-std", "macros", "sync", "time"] }
+
+[build-dependencies]
+cc = "1.2.51"
+
+[dev-dependencies]
+futures = "0.3.33"
+insta = "1.48.0"
+tower = { version = "0.5.3", features = ["util"] }
+
+[lints.clippy]
+# Rich diagnostics intentionally make `CompileError` large; boxing every
+# `Result<_, CompileError>` call site is not worth the churn.
+result_large_err = "allow"
+# MIR/codegen builders take many explicit operands by design.
+too_many_arguments = "allow"
+# Parser/AST enums and complex MIR helper types trip these without clarity gains.
+type_complexity = "allow"
+large_enum_variant = "allow"
+
+[[bin]]
+name = "sim"
+path = "src/main.rs"
+required-features = ["dap"]

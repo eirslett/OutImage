@@ -1,0 +1,325 @@
+// SYNTAX TEST "source.simula" "simtst74"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 74
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test resume and detach.
+// <--------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   25/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Text t;
+// ^^^^ storage.type
+//      ^ variable
+//       ^ punctuation.terminator.statement
+
+   Procedure Sjekk (c); Character c;
+// ^^^^^^^^^ storage.type
+//           ^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable.parameter
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+//                      ^^^^^^^^^ storage.type
+//                                ^ variable
+//                                 ^ punctuation.terminator.statement
+         Outchar (c);
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   Ref (A) x;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^ variable
+//          ^ punctuation.terminator.statement
+   Ref (B) y;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^ variable
+//          ^ punctuation.terminator.statement
+
+   Class A;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//        ^ punctuation.terminator.statement
+   Begin Real array X(P:1); Sjekk ('A');
+// ^^^^^ keyword.control.begin
+//       ^^^^ storage.type
+//            ^^^^^ storage.type
+//                  ^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+//                          ^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^^^ constant.character
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+         Detach; Sjekk ('B');
+//       ^^^^^^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^ constant.character
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+         Detach; Sjekk ('F');
+//       ^^^^^^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^ constant.character
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+   End;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Class B;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//        ^ punctuation.terminator.statement
+   Begin Real array X(P:1); Sjekk ('E');
+// ^^^^^ keyword.control.begin
+//       ^^^^ storage.type
+//            ^^^^^ storage.type
+//                  ^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+//                          ^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^^^ constant.character
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+         Detach; Sjekk ('G');
+//       ^^^^^^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^ constant.character
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+         Detach; Sjekk ('H');
+//       ^^^^^^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^ constant.character
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+   End;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Real Procedure P;
+// ^^^^ storage.type
+//      ^^^^^^^^^ storage.type
+//                ^ entity.name.function
+//                 ^ punctuation.terminator.statement
+   Begin If x=/=none then Resume(x); Sjekk ('C');
+// ^^^^^ keyword.control.begin
+//       ^^ keyword.control.if
+//          ^ variable
+//           ^^^ keyword.operator.comparison
+//              ^^^^ constant.language.null
+//                   ^^^^ keyword.control.then
+//                        ^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ variable
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+//                                   ^^^^^ entity.name.function
+//                                         ^ punctuation.section.parens
+//                                          ^^^ constant.character
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+         If y=/=none then Resume(y); Sjekk ('D');
+//       ^^ keyword.control.if
+//          ^ variable
+//           ^^^ keyword.operator.comparison
+//              ^^^^ constant.language.null
+//                   ^^^^ keyword.control.then
+//                        ^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ variable
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+//                                   ^^^^^ entity.name.function
+//                                         ^ punctuation.section.parens
+//                                          ^^^ constant.character
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+   End;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 74") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test resume and detach.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   x:- New A;
+// ^ variable
+//  ^^ keyword.operator.assignment
+//     ^^^ keyword.control.new
+//         ^ entity.name.class
+//          ^ punctuation.terminator.statement
+   y:- New B;
+// ^ variable
+//  ^^ keyword.operator.assignment
+//     ^^^ keyword.control.new
+//         ^ entity.name.class
+//          ^ punctuation.terminator.statement
+   y:- New B;
+// ^ variable
+//  ^^ keyword.operator.assignment
+//     ^^^ keyword.control.new
+//         ^ entity.name.class
+//          ^ punctuation.terminator.statement
+   x:- none; x:- New A;
+// ^ variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ constant.language.null
+//         ^ punctuation.terminator.statement
+//           ^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^ keyword.control.new
+//                   ^ entity.name.class
+//                    ^ punctuation.terminator.statement
+   Resume(y);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ variable
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+
+   t:- Copy(sysout.image.strip);
+// ^ variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^^ variable
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+   sysout.setpos (1);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+   sysout.image := notext;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^^^ constant.language.null
+//                       ^ punctuation.terminator.statement
+
+   IF t = "CDABCDEFCGDECGDAH" THEN
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                            ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ELSE
+// ^^^ keyword.control.end
+//     ^^^^ keyword.control.else
+   Begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Resume - Detach.");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus sequencing: ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outtext (t);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      Outimage; Outimage
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^^ variable
+   End;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 74") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

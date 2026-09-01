@@ -1,0 +1,22 @@
+! Standard library module: io / BASICIO free wrappers
+!
+! Free terminal procedures resolve as if the program were nested in
+! `inspect SYSIN do inspect SYSOUT do …` (Chapter 10).
+!
+! File classes use Standard APIs:
+!   outf :- new OutFile(filename);
+!   if outf.open(blanks(n)) then …;
+
+procedure OutText(text value); external;
+procedure OutImage; external;
+! §10.5.8 — both arguments required (free form of sysout.outint).;
+procedure OutInt(integer i, w); external;
+procedure OutChar(character value); external;
+procedure BreakOutImage; external;
+procedure InImage; external;
+character procedure InChar; external;
+boolean procedure Endfile; external;
+text procedure InLine; external;
+ref (InFile) procedure sysin; external;
+ref (PrintFile) procedure sysout; external;
+procedure terminate_program; external;

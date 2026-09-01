@@ -1,0 +1,12 @@
+% External class for SIMULA TEST NO 59 (virtual label).
+% Not shipped in the TestBatch tree; reconstructed from the original C59.
+% `l: i := 2` is the default virtual match; a prefixed block that
+% supplies `L` must receive the `goto l` instead (i still 1).
+class c59 ;
+   virtual: Label l;
+begin
+   integer i;
+   i:= 1;
+   goto l;
+l: i:= 2;
+end;

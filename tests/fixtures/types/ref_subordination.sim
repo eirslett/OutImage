@@ -1,0 +1,8 @@
+begin
+    class Point(x); integer x; begin end;
+    Point class Polar(r); real r; begin end;
+    ref(Point) p;
+    ref(Polar) q;
+    q :- new Polar(10, 0.0);
+    p :- q;
+end;

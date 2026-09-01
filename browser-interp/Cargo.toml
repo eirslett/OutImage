@@ -1,0 +1,22 @@
+[package]
+name = "outimage-browser-interp"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "OutImage MIR interpreter as a wasm32 module for the in-browser playground"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+outimage = { path = "..", default-features = false }
+wasm-bindgen = "0.2.127"
+js-sys = "0.3"
+console_error_panic_hook = "0.1.7"
+
+[dev-dependencies]
+wasm-bindgen-cli-support = "=0.2.127"
+
+[lints.clippy]
+# Same as the compiler crate: `CompileError` is intentionally large.
+result_large_err = "allow"

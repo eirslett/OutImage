@@ -1,0 +1,14 @@
+begin
+   class Cell;
+   begin
+      integer n;
+   end;
+   ref (Cell) a, b;
+   external C procedure keep = "keep"
+      is ref (Cell) procedure keep(r); ref (Cell) r;
+   a :- new Cell;
+   a.n := 7;
+   b :- keep(a);
+   OutInt(b.n, 0);
+   OutImage;
+end;

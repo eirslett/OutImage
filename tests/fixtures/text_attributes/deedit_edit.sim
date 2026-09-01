@@ -1,0 +1,11 @@
+begin
+    text amount, price, payment;
+    integer pay;
+    amount :- " 1200";
+    price :- "155.75";
+    pay := amount.getint * price.getfrac;
+    payment :- blanks(12);
+    payment.putfrac(pay, 2);
+    OutText(payment.strip);
+    OutImage;
+end

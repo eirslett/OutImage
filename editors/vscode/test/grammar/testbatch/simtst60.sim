@@ -1,0 +1,221 @@
+// SYNTAX TEST "source.simula" "simtst60"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 60
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test visibility of protected attributes.
+// <-------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   04/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Class A ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+
+   begin
+// ^^^^^ keyword.control.begin
+      integer i ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+      integer procedure vai ; vai := i ;
+//    ^^^^^^^ storage.type
+//            ^^^^^^^^^ storage.type
+//                      ^^^ entity.name.function
+//                          ^ punctuation.terminator.statement
+//                            ^^^ variable
+//                                ^^ keyword.operator.assignment
+//                                   ^ variable
+//                                     ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   A Class B ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      Protected i ;
+//    ^^^^^^^^^ keyword.other.protected
+//              ^ variable
+//                ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      integer i ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+      integer procedure vbi ; vbi := i ;
+//    ^^^^^^^ storage.type
+//            ^^^^^^^^^ storage.type
+//                      ^^^ entity.name.function
+//                          ^ punctuation.terminator.statement
+//                            ^^^ variable
+//                                ^^ keyword.operator.assignment
+//                                   ^ variable
+//                                     ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   ref (B) xb ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 60") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test visibility of protected attributes.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   xb :- new B ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+
+   xb.i := 5 ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+
+   if xb.vai = 5 and xb.vbi = 0 then
+// ^^ keyword.control.if
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^^^ variable
+//           ^ keyword.operator.comparison
+//             ^ constant.numeric.decimal
+//               ^^^ keyword.operator
+//                   ^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^ variable
+//                          ^ keyword.operator.comparison
+//                            ^ constant.numeric.decimal
+//                              ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Visibility of protected attribute.") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values : vai = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+      Outint (xb.vai, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                              vbi = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+      Outint (xb.vbi, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 60") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

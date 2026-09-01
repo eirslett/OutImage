@@ -1,0 +1,4 @@
+begin
+    ref(Node) a, b, c;
+    a :- b :- none;
+end;

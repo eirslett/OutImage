@@ -1,0 +1,622 @@
+// SYNTAX TEST "source.simula" "simtst90"
+% ================================================   Main   program  ===========
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 90
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE: Test getfrac/putfrac.
+// <--------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:
+// <---------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:
+// <-------------- comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+begin text s,t,u; integer i,j;
+// <----- keyword.control.begin
+//    ^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//           ^ variable
+//            ^ punctuation.separator
+//             ^ variable
+//              ^ punctuation.terminator.statement
+//                ^^^^^^^ storage.type
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^ variable
+//                           ^ punctuation.terminator.statement
+      text array th(0:29); integer ti;
+//    ^^^^ storage.type
+//         ^^^^^ storage.type
+//               ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^ storage.type
+//                                 ^^ variable
+//                                   ^ punctuation.terminator.statement
+      text timage;
+//    ^^^^ storage.type
+//         ^^^^^^ variable
+//               ^ punctuation.terminator.statement
+      boolean found_error;
+//    ^^^^^^^ storage.type
+//            ^^^^^^^^^^^ variable
+//                       ^ punctuation.terminator.statement
+
+      outtext("--- START Simula a.s. TEST 90"); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^^ variable
+//                                                      ^ punctuation.terminator.statement
+      outtext("--- Test getfrac/putfrac"); outimage; outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^^ variable
+//                                                 ^ punctuation.terminator.statement
+//                                                   ^^^^^^^^ variable
+//                                                           ^ punctuation.terminator.statement
+
+th(0):- "ab           1 234 567wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^ constant.numeric.decimal
+//  ^ punctuation.section.parens
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(1):- "ab           123 456.7wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^ constant.numeric.decimal
+//  ^ punctuation.section.parens
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(2):- "ab           12 345.67wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^ constant.numeric.decimal
+//  ^ punctuation.section.parens
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(3):- "ab           1 234.567wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^ constant.numeric.decimal
+//  ^ punctuation.section.parens
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(4):- "ab           123.456 7wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^ constant.numeric.decimal
+//  ^ punctuation.section.parens
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(5):- "ab           12.345 67wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^ constant.numeric.decimal
+//  ^ punctuation.section.parens
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(6):- "ab           1.234 567wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^ constant.numeric.decimal
+//  ^ punctuation.section.parens
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(7):- "ab          .123 456 7wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^ constant.numeric.decimal
+//  ^ punctuation.section.parens
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(8):- "ab         .012 345 67wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^ constant.numeric.decimal
+//  ^ punctuation.section.parens
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(9):-"ab        .001 234 567wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^ constant.numeric.decimal
+//  ^ punctuation.section.parens
+//   ^^ keyword.operator.assignment
+//     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.terminator.statement
+th(10):-"ab      .000 123 456 7wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(11):-"ab     .000 012 345 67wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(12):-"ab    .000 001 234 567wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(13):-"ab  .000 000 123 456 7wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(14):-"ab .000 000 012 345 67wx  1234567/21  1234567/21  1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(15):-"ab          -1 234 567wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(16):-"ab          -123 456.7wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(17):-"ab          -12 345.67wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(18):-"ab          -1 234.567wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(19):-"ab          -123.456 7wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(20):-"ab          -12.345 67wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(21):-"ab          -1.234 567wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(22):-"ab         -.123 456 7wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(23):-"ab        -.012 345 67wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(24):-"ab       -.001 234 567wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(25):-"ab     -.000 123 456 7wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(26):-"ab    -.000 012 345 67wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(27):-"ab   -.000 001 234 567wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(28):-"ab -.000 000 123 456 7wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+th(29):-"ab-.000 000 012 345 67wx -1234567/21 -1234567/21 -1234567/21";
+// <-- entity.name.function
+//^ punctuation.section.parens
+// ^^ constant.numeric.decimal
+//   ^ punctuation.section.parens
+//    ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.terminator.statement
+timage:- blanks(60);
+// <------ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+
+      for i:=1234567,-i do
+//    ^^^ keyword.control.for
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                   ^ keyword.operator.arithmetic
+//                    ^ variable
+//                      ^^ keyword.control.do
+      for j:=0 step 1 until 14 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//             ^^^^ keyword.control.step
+//                  ^ constant.numeric.decimal
+//                    ^^^^^ keyword.control.until
+//                          ^^ constant.numeric.decimal
+//                             ^^ keyword.control.do
+      begin t:-copy("abcdefghijklmnopqrtsuvwx");
+//    ^^^^^ keyword.control.begin
+//          ^ variable
+//           ^^ keyword.operator.assignment
+//             ^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+            t.sub(3,20).putfrac(i,j); s:-t.sub(3,22); u:-t.sub(23,2);
+//          ^ variable
+//           ^ punctuation.accessor
+//            ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.accessor
+//                      ^^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ variable
+//                               ^ punctuation.separator
+//                                ^ variable
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+//                                    ^ variable
+//                                     ^^ keyword.operator.assignment
+//                                       ^ variable
+//                                        ^ punctuation.accessor
+//                                         ^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.separator
+//                                               ^^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+//                                                    ^ variable
+//                                                     ^^ keyword.operator.assignment
+//                                                       ^ variable
+//                                                        ^ punctuation.accessor
+//                                                         ^^^ entity.name.function
+//                                                            ^ punctuation.section.parens
+//                                                             ^^ constant.numeric.decimal
+//                                                               ^ punctuation.separator
+//                                                                ^ constant.numeric.decimal
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+            timage:= t;
+//          ^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^ variable
+//                    ^ punctuation.terminator.statement
+            timage.sub(25,9).putint(s.getfrac);
+//          ^^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.accessor
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^^^^^ variable
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+            timage.sub(34,1):= "/";
+//          ^^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^^ keyword.operator.assignment
+//                             ^^^ string.quoted.double
+//                                ^ punctuation.terminator.statement
+            timage.sub(35,2).putint(s.pos);
+//          ^^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.accessor
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^ variable
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+            u:=" .";
+//          ^ variable
+//           ^^ keyword.operator.assignment
+//             ^^^^ string.quoted.double
+//                 ^ punctuation.terminator.statement
+            timage.sub(37,9).putint(s.getfrac);
+//          ^^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.accessor
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^^^^^ variable
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+            timage.sub(46,1):= "/";
+//          ^^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^^ keyword.operator.assignment
+//                             ^^^ string.quoted.double
+//                                ^ punctuation.terminator.statement
+            timage.sub(47,2).putint(s.pos);
+//          ^^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.accessor
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^ variable
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+            u:=". ";
+//          ^ variable
+//           ^^ keyword.operator.assignment
+//             ^^^^ string.quoted.double
+//                 ^ punctuation.terminator.statement
+            timage.sub(49,9).putint(s.getfrac);
+//          ^^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.accessor
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^^^^^ variable
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+            timage.sub(58,1):= "/";
+//          ^^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^^ keyword.operator.assignment
+//                             ^^^ string.quoted.double
+//                                ^ punctuation.terminator.statement
+            timage.sub(59,2).putint(s.pos);
+//          ^^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.accessor
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^ variable
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+            u:=". ";
+//          ^ variable
+//           ^^ keyword.operator.assignment
+//             ^^^^ string.quoted.double
+//                 ^ punctuation.terminator.statement
+            if th(ti) <> timage then
+//          ^^ keyword.control.if
+//             ^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.comparison
+//                       ^^^^^^ variable
+//                              ^^^^ keyword.control.then
+            begin outtext("--- ERROR: Getfrac/Putfrac ");
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+                  outint(ti,4); outimage;
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ variable
+//                         ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^^^ variable
+//                                      ^ punctuation.terminator.statement
+                  found_error:= true;
+//                ^^^^^^^^^^^ variable
+//                           ^^ keyword.operator.assignment
+//                              ^^^^ constant.language.bool
+//                                  ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+            ti:= ti + 1; timage:= notext;
+//          ^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^ variable
+//                  ^ keyword.operator.arithmetic
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.terminator.statement
+//                       ^^^^^^ variable
+//                             ^^ keyword.operator.assignment
+//                                ^^^^^^ constant.language.null
+//                                      ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+      if not found_error then
+//    ^^ keyword.control.if
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^^ variable
+//                       ^^^^ keyword.control.then
+      begin outtext("--- NO ERRORS FOUND IN THIS TEST"); outimage; end;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^^^^^ variable
+//                                                               ^ punctuation.terminator.statement
+//                                                                 ^^^ keyword.control.end
+//                                                                    ^ punctuation.terminator.statement
+      outtext("--- END Simula a.s. TEST 90"); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+//                                            ^^^^^^^^ variable
+//                                                    ^ punctuation.terminator.statement
+end
+// <--- keyword.control.end

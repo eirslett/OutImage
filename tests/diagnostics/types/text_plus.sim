@@ -1,0 +1,1 @@
+begin text t; t := "a" + "b"; end;

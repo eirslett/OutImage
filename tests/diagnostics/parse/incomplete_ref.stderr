@@ -1,0 +1,9 @@
+[E0105] Error: INCOMPLETE TYPE: `ref` must be followed by `(Class)`
+   ╭─[ incomplete_ref.sim:1:7 ]
+   │
+ 1 │ begin ref x; end;
+   │       ─┬─  
+   │        ╰─── incomplete type
+   │ 
+   │ Help: write `ref `(Class)``
+───╯

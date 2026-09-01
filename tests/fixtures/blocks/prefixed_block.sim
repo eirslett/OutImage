@@ -1,0 +1,12 @@
+! §4.10.1: prefixed block (`block-prefix main-block`).;
+begin
+    class Point;
+    begin
+        integer x;
+        x := 7;
+    end;
+    Point begin
+        OutInt(x, 0);
+        OutImage;
+    end;
+end

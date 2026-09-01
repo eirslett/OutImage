@@ -1,0 +1,73 @@
+! Standard library module: environment
+!
+! Simula Standard Chapter 9 ENVIRONMENT procedures.
+! Bodies are provided by the OutImage runtime (interpreter + native MIR);
+! these declarations document the surface and support separate tooling.;
+
+! §9.1 Basic operations;
+integer procedure mod(i, j); integer i, j; external;
+integer procedure rem(i, j); integer i, j; external;
+integer procedure sign(e); external;
+integer procedure entier(r); external;
+real procedure addepsilon(r); external;
+real procedure subepsilon(r); external;
+
+! §9.2 Text utilities;
+character procedure char(n); integer n; external;
+character procedure isochar(n); integer n; external;
+integer procedure rank(c); character c; external;
+integer procedure isorank(c); character c; external;
+boolean procedure digit(c); character c; external;
+boolean procedure letter(c); character c; external;
+character procedure lowten(c); character c; external;
+character procedure decimalmark(c); character c; external;
+! CURRENTLOWTEN / CURRENTDECIMALMARK are bare readable/writable character attrs.;
+text procedure upcase(t); text t; external;
+text procedure lowcase(t); text t; external;
+
+! §9.4 Mathematical functions;
+real procedure sqrt(r); external;
+real procedure sin(r); external;
+real procedure cos(r); external;
+real procedure tan(r); external;
+real procedure cotan(r); external;
+real procedure arcsin(r); external;
+real procedure arccos(r); external;
+real procedure arctan(r); external;
+real procedure arctan2(y, x); external;
+real procedure sinh(r); external;
+real procedure cosh(r); external;
+real procedure tanh(r); external;
+real procedure ln(r); external;
+real procedure log10(r); external;
+real procedure exp(r); external;
+
+! §9.5 Extremum functions;
+! max/min are polymorphic (integer, real, character, text).;
+
+! §9.6 Environmental enquiries;
+integer procedure sourceline; external;
+
+! §9.7 Error control;
+procedure error(t); text t; external;
+
+! §9.8 Array quantities;
+! lowerbound/upperbound take an array and dimension index.;
+
+! §9.9 Random drawing (stream parameter is an integer name variable);
+boolean procedure draw(a, U); name U; external;
+integer procedure randint(a, b, U); integer a, b; name U; external;
+real procedure uniform(a, b, U); name U; external;
+real procedure normal(a, b, U); name U; external;
+real procedure negexp(a, U); name U; external;
+integer procedure poisson(a, U); name U; external;
+real procedure erlang(a, b, U); name U; external;
+! discrete, linear, histd take array + stream name parameters.;
+
+! §9.10 Calendar and timing;
+text procedure datetime; external;
+long real procedure cputime; external;
+long real procedure clocktime; external;
+
+! §9.11 Miscellaneous;
+! histo(A, B, c, d) updates histogram arrays.;

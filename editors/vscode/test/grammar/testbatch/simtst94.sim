@@ -1,0 +1,1320 @@
+// SYNTAX TEST "source.simula" "simtst94"
+% ===============================================   Main   program =====
+// <------------------------------------------------------------------------ comment.directive
+%  PROGRAM NAME:   Simula a.s - SIMULA TEST NO 94
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test Simset - first, last, empty, cardinal and clear.
+// <--------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  DEPENDS ON:  Simtest-93
+// <-------------------------- comment.directive
+%
+// <- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   12/01-87
+// <------------------------------ comment.directive
+%
+// <- comment.directive
+% ======================================================================
+// <------------------------------------------------------------------------ comment.directive
+Begin
+// <----- keyword.control.begin
+
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   SIMSET Begin
+// ^^^^^^ entity.name.class
+//        ^^^^^ keyword.control.begin
+          Link Class Bead(i); Integer i;;
+//        ^^^^ entity.name.class
+//             ^^^^^ keyword.other.class
+//                   ^^^^ entity.name.class
+//                       ^ punctuation.section.parens
+//                        ^ variable.parameter
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ storage.type
+//                                    ^ variable
+//                                     ^^ punctuation.terminator.statement
+
+          Link Class A;;
+//        ^^^^ entity.name.class
+//             ^^^^^ keyword.other.class
+//                   ^ entity.name.class
+//                    ^^ punctuation.terminator.statement
+
+          Procedure Skrivpeker(r); ref(linkage) r;
+//        ^^^^^^^^^ storage.type
+//                  ^^^^^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable.parameter
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+//                                 ^^^ storage.modifier
+//                                    ^ punctuation.section.parens
+//                                     ^^^^^^^ entity.name.class
+//                                            ^ punctuation.section.parens
+//                                              ^ variable
+//                                               ^ punctuation.terminator.statement
+          Begin Inspect r when Bead do begin Outtext("Bead - ");
+//        ^^^^^ keyword.control.begin
+//              ^^^^^^^ keyword.control.inspect
+//                      ^ variable
+//                        ^^^^ keyword.control.when
+//                             ^^^^ entity.name.class
+//                                  ^^ keyword.control.do
+//                                     ^^^^^ keyword.control.begin
+//                                           ^^^^^^^ entity.name.function
+//                                                  ^ punctuation.section.parens
+//                                                   ^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+                                             Outint(i,4) end
+//                                           ^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^ variable
+//                                                   ^ punctuation.separator
+//                                                    ^ constant.numeric.decimal
+//                                                     ^ punctuation.section.parens
+//                                                       ^^^ keyword.control.end
+                          when A    do Outtext("A")
+//                        ^^^^ keyword.control.when
+//                             ^ entity.name.class
+//                                  ^^ keyword.control.do
+//                                     ^^^^^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+                          when Link do Outtext("Link")
+//                        ^^^^ keyword.control.when
+//                             ^^^^ entity.name.class
+//                                  ^^ keyword.control.do
+//                                     ^^^^^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+                          when Head do Outtext("Head")
+//                        ^^^^ keyword.control.when
+//                             ^^^^ entity.name.class
+//                                  ^^ keyword.control.do
+//                                     ^^^^^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+                          when Linkage do Outtext("Linkage")
+//                        ^^^^ keyword.control.when
+//                             ^^^^^^^ entity.name.class
+//                                     ^^ keyword.control.do
+//                                        ^^^^^^^ entity.name.function
+//                                               ^ punctuation.section.parens
+//                                                ^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+                Otherwise              Outtext("none");
+//              ^^^^^^^^^ keyword.control.otherwise
+//                                     ^^^^^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+          End;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          Ref(A) Ar;
+//        ^^^ storage.modifier
+//           ^ punctuation.section.parens
+//            ^ entity.name.class
+//             ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+          Ref(Head) chain; Integer j; Ref(Bead) r,s; Ref(Linkage) x;
+//        ^^^ storage.modifier
+//           ^ punctuation.section.parens
+//            ^^^^ entity.name.class
+//                ^ punctuation.section.parens
+//                  ^^^^^ variable
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^ storage.type
+//                                 ^ variable
+//                                  ^ punctuation.terminator.statement
+//                                    ^^^ storage.modifier
+//                                       ^ punctuation.section.parens
+//                                        ^^^^ entity.name.class
+//                                            ^ punctuation.section.parens
+//                                              ^ variable
+//                                               ^ punctuation.separator
+//                                                ^ variable
+//                                                 ^ punctuation.terminator.statement
+//                                                   ^^^ storage.modifier
+//                                                      ^ punctuation.section.parens
+//                                                       ^^^^^^^ entity.name.class
+//                                                              ^ punctuation.section.parens
+//                                                                ^ variable
+//                                                                 ^ punctuation.terminator.statement
+
+          Outtext ("--- START Simula a.s TEST 94"); Outimage;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+//                                                  ^^^^^^^^ variable
+//                                                          ^ punctuation.terminator.statement
+          Outtext ("--- Test Simset - first, last, empty,");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+          Outtext (" cardinal and clear.");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+          Outimage ; Outimage ;
+//        ^^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+//                   ^^^^^^^^ variable
+//                            ^ punctuation.terminator.statement
+
+          chain:-New Head;
+//        ^^^^^ variable
+//             ^^ keyword.operator.assignment
+//               ^^^ keyword.control.new
+//                   ^^^^ entity.name.class
+//                       ^ punctuation.terminator.statement
+          if chain.first == none and
+//        ^^ keyword.control.if
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                       ^^ keyword.operator.comparison
+//                          ^^^^ constant.language.null
+//                               ^^^ keyword.operator
+             chain.last  == none and
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^ variable
+//                       ^^ keyword.operator.comparison
+//                          ^^^^ constant.language.null
+//                               ^^^ keyword.operator
+             chain.empty         and
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                               ^^^ keyword.operator
+             chain.cardinal = 0 then
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^^^ variable
+//                          ^ keyword.operator.comparison
+//                            ^ constant.numeric.decimal
+//                              ^^^^ keyword.control.then
+          else
+//        ^^^^ keyword.control.else
+          Begin Outtext("*** ERROR : Values of attributes of");
+//        ^^^^^ keyword.control.begin
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+                Outtext(" Head (1).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            First:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+                Skrivpeker(chain.first);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+                Outtext("            Last:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Skrivpeker(chain.last);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^ variable
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Empty:      ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outtext(if chain.empty then "true" else "false");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^ keyword.control.if
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^ string.quoted.double
+//                                                 ^^^^ keyword.control.else
+//                                                      ^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Cardinal:   ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outint(chain.cardinal,5);
+//              ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^^^^^ variable
+//                                   ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+
+          For j:=1 step 1 until 5 do New Bead(j).Into(chain);
+//        ^^^ keyword.control.for
+//            ^ variable
+//             ^^ keyword.operator.assignment
+//               ^ constant.numeric.decimal
+//                 ^^^^ keyword.control.step
+//                      ^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^ constant.numeric.decimal
+//                                ^^ keyword.control.do
+//                                   ^^^ keyword.control.new
+//                                       ^^^^ entity.name.class
+//                                           ^ punctuation.section.parens
+//                                            ^ variable
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.accessor
+//                                               ^^^^ entity.name.function
+//                                                   ^ punctuation.section.parens
+//                                                    ^^^^^ variable
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+          if chain.first=/=none and !then; chain.first is Bead and
+//        ^^ keyword.control.if
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                      ^^^ keyword.operator.comparison
+//                         ^^^^ constant.language.null
+//                              ^^^ keyword.operator
+//                                  ^^^^^^ comment.block
+//                                         ^^^^^ variable
+//                                              ^ punctuation.accessor
+//                                               ^^^^^ variable
+//                                                     ^^ keyword.other.is
+//                                                        ^^^^ variable
+//                                                             ^^^ keyword.operator
+             chain.first qua bead.i=1                          and
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                       ^^^ keyword.operator
+//                           ^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^ variable
+//                                 ^ keyword.operator.comparison
+//                                  ^ constant.numeric.decimal
+//                                                             ^^^ keyword.operator
+             chain.last=/=none and !then; chain.last is Bead and
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^ variable
+//                     ^^^ keyword.operator.comparison
+//                        ^^^^ constant.language.null
+//                             ^^^ keyword.operator
+//                                 ^^^^^^ comment.block
+//                                        ^^^^^ variable
+//                                             ^ punctuation.accessor
+//                                              ^^^^ variable
+//                                                   ^^ keyword.other.is
+//                                                      ^^^^ variable
+//                                                           ^^^ keyword.operator
+             chain.last qua Bead.i=5                           and
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^ variable
+//                      ^^^ keyword.operator
+//                          ^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^ variable
+//                                ^ keyword.operator.comparison
+//                                 ^ constant.numeric.decimal
+//                                                             ^^^ keyword.operator
+             not chain.empty                                   and
+//           ^^^ keyword.operator
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                                                             ^^^ keyword.operator
+             chain.cardinal=5                                  then
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^^^ variable
+//                         ^ keyword.operator.comparison
+//                          ^ constant.numeric.decimal
+//                                                             ^^^^ keyword.control.then
+          else
+//        ^^^^ keyword.control.else
+          Begin Outtext("*** ERROR : Values of attributes of");
+//        ^^^^^ keyword.control.begin
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+                Outtext(" Head (2).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            First:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+                Skrivpeker(chain.first);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+                Outtext("            Last:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Skrivpeker(chain.last);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^ variable
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Empty:      ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outtext(if chain.empty then "true" else "false");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^ keyword.control.if
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^ string.quoted.double
+//                                                 ^^^^ keyword.control.else
+//                                                      ^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Cardinal:   ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outint(chain.cardinal,5);
+//              ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^^^^^ variable
+//                                   ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          chain.first.into(chain);
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.accessor
+//                    ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+          chain.first.precede(chain.last);
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.accessor
+//                    ^^^^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^^ variable
+//                                 ^ punctuation.accessor
+//                                  ^^^^ variable
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+          chain.last.follow(chain.first.suc);
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^^^ variable
+//                                     ^ punctuation.accessor
+//                                      ^^^ variable
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+          chain.first.suc.suc.follow(chain.last.pred.pred);
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.accessor
+//                    ^^^ variable
+//                       ^ punctuation.accessor
+//                        ^^^ variable
+//                           ^ punctuation.accessor
+//                            ^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^^^^ variable
+//                                        ^ punctuation.accessor
+//                                         ^^^^ variable
+//                                             ^ punctuation.accessor
+//                                              ^^^^ variable
+//                                                  ^ punctuation.accessor
+//                                                   ^^^^ variable
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+          if chain.first qua bead.i=3 and
+//        ^^ keyword.control.if
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                       ^^^ keyword.operator
+//                           ^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^ variable
+//                                 ^ keyword.operator.comparison
+//                                  ^ constant.numeric.decimal
+//                                    ^^^ keyword.operator
+             chain.last  qua bead.i=2 and
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^ variable
+//                       ^^^ keyword.operator
+//                           ^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^ variable
+//                                 ^ keyword.operator.comparison
+//                                  ^ constant.numeric.decimal
+//                                    ^^^ keyword.operator
+             not chain.empty          and
+//           ^^^ keyword.operator
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                                    ^^^ keyword.operator
+             chain.cardinal=4         then
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^^^ variable
+//                         ^ keyword.operator.comparison
+//                          ^ constant.numeric.decimal
+//                                    ^^^^ keyword.control.then
+          else
+//        ^^^^ keyword.control.else
+          Begin Outtext("*** ERROR : Values of attributes of");
+//        ^^^^^ keyword.control.begin
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+                Outtext(" Head (3).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            First:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+                Skrivpeker(chain.first);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+                Outtext("            Last:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Skrivpeker(chain.last);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^ variable
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Empty:      ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outtext(if chain.empty then "true" else "false");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^ keyword.control.if
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^ string.quoted.double
+//                                                 ^^^^ keyword.control.else
+//                                                      ^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Cardinal:   ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outint(chain.cardinal,5);
+//              ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^^^^^ variable
+//                                   ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          x:-chain;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^ variable
+//                ^ punctuation.terminator.statement
+          For x:-x.Suc While x=/=none do
+//        ^^^ keyword.control.for
+//            ^ variable
+//             ^^ keyword.operator.assignment
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^^^ variable
+//                     ^^^^^ keyword.control.while
+//                           ^ variable
+//                            ^^^ keyword.operator.comparison
+//                               ^^^^ constant.language.null
+//                                    ^^ keyword.control.do
+          Begin r:-x qua Bead; j:=r.i;
+//        ^^^^^ keyword.control.begin
+//              ^ variable
+//               ^^ keyword.operator.assignment
+//                 ^ variable
+//                   ^^^ keyword.operator
+//                       ^^^^ variable
+//                           ^ punctuation.terminator.statement
+//                             ^ variable
+//                              ^^ keyword.operator.assignment
+//                                ^ variable
+//                                 ^ punctuation.accessor
+//                                  ^ variable
+//                                   ^ punctuation.terminator.statement
+                If j=(j//2)*2 then Begin r.Out; r.Into(chain) end
+//              ^^ keyword.control.if
+//                 ^ variable
+//                  ^ keyword.operator.comparison
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^^ keyword.operator.arithmetic
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ keyword.operator.arithmetic
+//                          ^ constant.numeric.decimal
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^ keyword.control.begin
+//                                       ^ variable
+//                                        ^ punctuation.accessor
+//                                         ^^^ variable
+//                                            ^ punctuation.terminator.statement
+//                                              ^ variable
+//                                               ^ punctuation.accessor
+//                                                ^^^^ entity.name.function
+//                                                    ^ punctuation.section.parens
+//                                                     ^^^^^ variable
+//                                                          ^ punctuation.section.parens
+//                                                            ^^^ keyword.control.end
+          End;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+          if chain.first qua bead.i=3 and                      !3152;
+//        ^^ keyword.control.if
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                       ^^^ keyword.operator
+//                           ^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^ variable
+//                                 ^ keyword.operator.comparison
+//                                  ^ constant.numeric.decimal
+//                                    ^^^ keyword.operator
+//                                                             ^^^^^^ comment.block
+             chain.last  qua bead.i=4 and
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^ variable
+//                       ^^^ keyword.operator
+//                           ^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^ variable
+//                                 ^ keyword.operator.comparison
+//                                  ^ constant.numeric.decimal
+//                                    ^^^ keyword.operator
+             not chain.empty          and
+//           ^^^ keyword.operator
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                                    ^^^ keyword.operator
+             chain.cardinal=4         then
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^^^ variable
+//                         ^ keyword.operator.comparison
+//                          ^ constant.numeric.decimal
+//                                    ^^^^ keyword.control.then
+          else
+//        ^^^^ keyword.control.else
+          Begin Outtext("*** ERROR : Values of attributes of");
+//        ^^^^^ keyword.control.begin
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+                Outtext(" Head (4).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            First:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+                Skrivpeker(chain.first);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+                Outtext("            Last:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Skrivpeker(chain.last);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^ variable
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Empty:      ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outtext(if chain.empty then "true" else "false");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^ keyword.control.if
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^ string.quoted.double
+//                                                 ^^^^ keyword.control.else
+//                                                      ^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Cardinal:   ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outint(chain.cardinal,5);
+//              ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^^^^^ variable
+//                                   ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          New A.follow(chain);
+//        ^^^ keyword.control.new
+//            ^ entity.name.class
+//             ^ punctuation.accessor
+//              ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+          if chain.first is A         and
+//        ^^ keyword.control.if
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                       ^^ keyword.other.is
+//                          ^ variable
+//                                    ^^^ keyword.operator
+             chain.last  qua bead.i=4 and
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^ variable
+//                       ^^^ keyword.operator
+//                           ^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^ variable
+//                                 ^ keyword.operator.comparison
+//                                  ^ constant.numeric.decimal
+//                                    ^^^ keyword.operator
+             not chain.empty          and
+//           ^^^ keyword.operator
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                                    ^^^ keyword.operator
+             chain.cardinal=5         then
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^^^ variable
+//                         ^ keyword.operator.comparison
+//                          ^ constant.numeric.decimal
+//                                    ^^^^ keyword.control.then
+          else
+//        ^^^^ keyword.control.else
+          Begin Outtext("*** ERROR : Values of attributes of");
+//        ^^^^^ keyword.control.begin
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+                Outtext(" Head (5).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            First:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+                Skrivpeker(chain.first);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+                Outtext("            Last:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Skrivpeker(chain.last);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^ variable
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Empty:      ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outtext(if chain.empty then "true" else "false");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^ keyword.control.if
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^ string.quoted.double
+//                                                 ^^^^ keyword.control.else
+//                                                      ^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Cardinal:   ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outint(chain.cardinal,5);
+//              ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^^^^^ variable
+//                                   ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          New A.precede(chain.first.prev qua head.last.pred);
+//        ^^^ keyword.control.new
+//            ^ entity.name.class
+//             ^ punctuation.accessor
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^ variable
+//                           ^ punctuation.accessor
+//                            ^^^^^ variable
+//                                 ^ punctuation.accessor
+//                                  ^^^^ variable
+//                                       ^^^ keyword.operator
+//                                           ^^^^ variable
+//                                               ^ punctuation.accessor
+//                                                ^^^^ variable
+//                                                    ^ punctuation.accessor
+//                                                     ^^^^ variable
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+          if chain.first is A         and
+//        ^^ keyword.control.if
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                       ^^ keyword.other.is
+//                          ^ variable
+//                                    ^^^ keyword.operator
+             chain.last  qua bead.i=4 and
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^ variable
+//                       ^^^ keyword.operator
+//                           ^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^ variable
+//                                 ^ keyword.operator.comparison
+//                                  ^ constant.numeric.decimal
+//                                    ^^^ keyword.operator
+             not chain.empty          and
+//           ^^^ keyword.operator
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                                    ^^^ keyword.operator
+             chain.cardinal=6         then
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^^^ variable
+//                         ^ keyword.operator.comparison
+//                          ^ constant.numeric.decimal
+//                                    ^^^^ keyword.control.then
+          else
+//        ^^^^ keyword.control.else
+          Begin Outtext("*** ERROR : Values of attributes of");
+//        ^^^^^ keyword.control.begin
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+                Outtext(" Head (6).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            First:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+                Skrivpeker(chain.first);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+                Outtext("            Last:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Skrivpeker(chain.last);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^ variable
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Empty:      ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outtext(if chain.empty then "true" else "false");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^ keyword.control.if
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^ string.quoted.double
+//                                                 ^^^^ keyword.control.else
+//                                                      ^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Cardinal:   ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outint(chain.cardinal,5);
+//              ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^^^^^ variable
+//                                   ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          chain.clear;
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.terminator.statement
+          if chain.first == none and
+//        ^^ keyword.control.if
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                       ^^ keyword.operator.comparison
+//                          ^^^^ constant.language.null
+//                               ^^^ keyword.operator
+             chain.last  == none and
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^ variable
+//                       ^^ keyword.operator.comparison
+//                          ^^^^ constant.language.null
+//                               ^^^ keyword.operator
+             chain.empty         and
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^ variable
+//                               ^^^ keyword.operator
+             chain.cardinal = 0 then
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^^^ variable
+//                          ^ keyword.operator.comparison
+//                            ^ constant.numeric.decimal
+//                              ^^^^ keyword.control.then
+          else
+//        ^^^^ keyword.control.else
+          Begin Outtext("*** ERROR : Values of attributes of");
+//        ^^^^^ keyword.control.begin
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+                Outtext(" Head (7).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            First:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+                Skrivpeker(chain.first);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+                Outtext("            Last:       ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Skrivpeker(chain.last);
+//              ^^^^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^ variable
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Empty:      ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outtext(if chain.empty then "true" else "false");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^ keyword.control.if
+//                         ^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^ variable
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^ string.quoted.double
+//                                                 ^^^^ keyword.control.else
+//                                                      ^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Cardinal:   ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+                Outint(chain.cardinal,5);
+//              ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^^^^^ variable
+//                                   ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+     end prefix block;
+//   ^^^ keyword.control.end
+//       ^^^^^^^^^^^^ comment.block
+//                   ^ punctuation.terminator.statement
+
+     IF found_error then
+//   ^^ keyword.control.if
+//      ^^^^^^^^^^^ variable
+//                  ^^^^ keyword.control.then
+     ELSE
+//   ^^^^ keyword.control.else
+     Begin
+//   ^^^^^ keyword.control.begin
+           Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//         ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+           Outimage
+//         ^^^^^^^^ variable
+     End ;
+//   ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+     Outtext ("--- END Simula a.s TEST 94") ;
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+     Outimage
+//   ^^^^^^^^ variable
+End
+// <--- keyword.control.end

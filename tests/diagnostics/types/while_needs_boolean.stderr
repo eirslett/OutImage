@@ -1,0 +1,9 @@
+[E0204] Error: TYPE MISMATCH: this `while` needs a boolean condition, but this expression is integer
+   ╭─[ while_needs_boolean.sim:1:32 ]
+   │
+ 1 │ begin integer x; x := 1; while x do x := 0; end;
+   │                                ┬  
+   │                                ╰── this is integer
+   │ 
+   │ Help: write a boolean (`true` / `false`) or a relation such as `x > 0`
+───╯

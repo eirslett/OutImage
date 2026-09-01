@@ -1,0 +1,4 @@
+begin
+    ref(Node) r, t;
+    r.last :- r.last.next :- t;
+end;

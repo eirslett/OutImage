@@ -1,0 +1,1552 @@
+// SYNTAX TEST "source.simula" "simtst93"
+% ===============================================   Main   program =====
+// <------------------------------------------------------------------------ comment.directive
+%  PROGRAM NAME:   Simula a.s - SIMULA TEST NO 93 (TEST PW 19)
+// <-------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test Simset - linkage, head, link, into, out, follow and
+// <------------------------------------------------------------------------ comment.directive
+%               precede.
+// <------------------------ comment.directive
+%
+// <- comment.directive
+%
+// <- comment.directive
+%  REWRITTEN BY:  BEH   09/01-87
+// <-------------------------------- comment.directive
+%
+// <- comment.directive
+% ======================================================================
+// <------------------------------------------------------------------------ comment.directive
+Begin
+// <----- keyword.control.begin
+
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   SIMSET Begin
+// ^^^^^^ entity.name.class
+//        ^^^^^ keyword.control.begin
+          Link Class Bead(i); Integer i;;
+//        ^^^^ entity.name.class
+//             ^^^^^ keyword.other.class
+//                   ^^^^ entity.name.class
+//                       ^ punctuation.section.parens
+//                        ^ variable.parameter
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ storage.type
+//                                    ^ variable
+//                                     ^^ punctuation.terminator.statement
+
+          Integer Procedure Scanleft;
+//        ^^^^^^^ storage.type
+//                ^^^^^^^^^ storage.type
+//                          ^^^^^^^^ entity.name.function
+//                                  ^ punctuation.terminator.statement
+          Begin Ref(Linkage) l; Integer k;
+//        ^^^^^ keyword.control.begin
+//              ^^^ storage.modifier
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^ entity.name.class
+//                         ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^^ storage.type
+//                                      ^ variable
+//                                       ^ punctuation.terminator.statement
+                l:-chain;
+//              ^ variable
+//               ^^ keyword.operator.assignment
+//                 ^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                For l:-l.Suc While l=/=none do
+//              ^^^ keyword.control.for
+//                  ^ variable
+//                   ^^ keyword.operator.assignment
+//                     ^ variable
+//                      ^ punctuation.accessor
+//                       ^^^ variable
+//                           ^^^^^ keyword.control.while
+//                                 ^ variable
+//                                  ^^^ keyword.operator.comparison
+//                                     ^^^^ constant.language.null
+//                                          ^^ keyword.control.do
+                Inspect l when Bead do k:=k*10+i
+//              ^^^^^^^ keyword.control.inspect
+//                      ^ variable
+//                        ^^^^ keyword.control.when
+//                             ^^^^ entity.name.class
+//                                  ^^ keyword.control.do
+//                                     ^ variable
+//                                      ^^ keyword.operator.assignment
+//                                        ^ variable
+//                                         ^ keyword.operator.arithmetic
+//                                          ^^ constant.numeric.decimal
+//                                            ^ keyword.operator.arithmetic
+//                                             ^ variable
+                Otherwise k:=k*10;
+//              ^^^^^^^^^ keyword.control.otherwise
+//                        ^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^ variable
+//                            ^ keyword.operator.arithmetic
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.terminator.statement
+                Scanleft:=k
+//              ^^^^^^^^ variable
+//                      ^^ keyword.operator.assignment
+//                        ^ variable
+          End;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          Integer Procedure Scanright;
+//        ^^^^^^^ storage.type
+//                ^^^^^^^^^ storage.type
+//                          ^^^^^^^^^ entity.name.function
+//                                   ^ punctuation.terminator.statement
+          Begin Ref(Linkage) l; Integer k;
+//        ^^^^^ keyword.control.begin
+//              ^^^ storage.modifier
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^ entity.name.class
+//                         ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^^ storage.type
+//                                      ^ variable
+//                                       ^ punctuation.terminator.statement
+                l:-chain;
+//              ^ variable
+//               ^^ keyword.operator.assignment
+//                 ^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                For l:-l.PRED While l=/=none do
+//              ^^^ keyword.control.for
+//                  ^ variable
+//                   ^^ keyword.operator.assignment
+//                     ^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^ variable
+//                            ^^^^^ keyword.control.while
+//                                  ^ variable
+//                                   ^^^ keyword.operator.comparison
+//                                      ^^^^ constant.language.null
+//                                           ^^ keyword.control.do
+                Inspect l when Bead do k:=k*10+i
+//              ^^^^^^^ keyword.control.inspect
+//                      ^ variable
+//                        ^^^^ keyword.control.when
+//                             ^^^^ entity.name.class
+//                                  ^^ keyword.control.do
+//                                     ^ variable
+//                                      ^^ keyword.operator.assignment
+//                                        ^ variable
+//                                         ^ keyword.operator.arithmetic
+//                                          ^^ constant.numeric.decimal
+//                                            ^ keyword.operator.arithmetic
+//                                             ^ variable
+                Otherwise k:=k*10;
+//              ^^^^^^^^^ keyword.control.otherwise
+//                        ^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^ variable
+//                            ^ keyword.operator.arithmetic
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.terminator.statement
+                Scanright:=k
+//              ^^^^^^^^^ variable
+//                       ^^ keyword.operator.assignment
+//                         ^ variable
+          End;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          Link Class A;;
+//        ^^^^ entity.name.class
+//             ^^^^^ keyword.other.class
+//                   ^ entity.name.class
+//                    ^^ punctuation.terminator.statement
+          Linkage Class B;;
+//        ^^^^^^^ entity.name.class
+//                ^^^^^ keyword.other.class
+//                      ^ entity.name.class
+//                       ^^ punctuation.terminator.statement
+
+          Ref(A) Ar; Ref(B) Br;
+//        ^^^ storage.modifier
+//           ^ punctuation.section.parens
+//            ^ entity.name.class
+//             ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+//                   ^^^ storage.modifier
+//                      ^ punctuation.section.parens
+//                       ^ entity.name.class
+//                        ^ punctuation.section.parens
+//                          ^^ variable
+//                            ^ punctuation.terminator.statement
+          Ref(Head) chain; Integer j,k; Ref(Bead) r,s; Ref(Linkage) x;
+//        ^^^ storage.modifier
+//           ^ punctuation.section.parens
+//            ^^^^ entity.name.class
+//                ^ punctuation.section.parens
+//                  ^^^^^ variable
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^ storage.type
+//                                 ^ variable
+//                                  ^ punctuation.separator
+//                                   ^ variable
+//                                    ^ punctuation.terminator.statement
+//                                      ^^^ storage.modifier
+//                                         ^ punctuation.section.parens
+//                                          ^^^^ entity.name.class
+//                                              ^ punctuation.section.parens
+//                                                ^ variable
+//                                                 ^ punctuation.separator
+//                                                  ^ variable
+//                                                   ^ punctuation.terminator.statement
+//                                                     ^^^ storage.modifier
+//                                                        ^ punctuation.section.parens
+//                                                         ^^^^^^^ entity.name.class
+//                                                                ^ punctuation.section.parens
+//                                                                  ^ variable
+//                                                                   ^ punctuation.terminator.statement
+
+
+          Outtext ("--- START Simula a.s - SIMULA TEST NO 93") ;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+          Outimage ;
+//        ^^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+          Outtext ("--- Test Simset - linkage, head, link, head, into,") ;
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+          Outimage;
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+          Outtext ("--- out, follow and precede.");
+//        ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+          Outimage ; Outimage ;
+//        ^^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+//                   ^^^^^^^^ variable
+//                            ^ punctuation.terminator.statement
+
+          chain:-New Head; k:=0;
+//        ^^^^^ variable
+//             ^^ keyword.operator.assignment
+//               ^^^ keyword.control.new
+//                   ^^^^ entity.name.class
+//                       ^ punctuation.terminator.statement
+//                         ^ variable
+//                          ^^ keyword.operator.assignment
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.terminator.statement
+          For j:=1 step 1 until 5 do
+//        ^^^ keyword.control.for
+//            ^ variable
+//             ^^ keyword.operator.assignment
+//               ^ constant.numeric.decimal
+//                 ^^^^ keyword.control.step
+//                      ^ constant.numeric.decimal
+//                        ^^^^^ keyword.control.until
+//                              ^ constant.numeric.decimal
+//                                ^^ keyword.control.do
+          begin New Bead(j).Into(chain); k:=k*10+chain.pred qua Bead.i end;
+//        ^^^^^ keyword.control.begin
+//              ^^^ keyword.control.new
+//                  ^^^^ entity.name.class
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.accessor
+//                          ^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^ variable
+//                                        ^^ keyword.operator.assignment
+//                                          ^ variable
+//                                           ^ keyword.operator.arithmetic
+//                                            ^^ constant.numeric.decimal
+//                                              ^ keyword.operator.arithmetic
+//                                               ^^^^^ variable
+//                                                    ^ punctuation.accessor
+//                                                     ^^^^ variable
+//                                                          ^^^ keyword.operator
+//                                                              ^^^^ variable
+//                                                                  ^ punctuation.accessor
+//                                                                   ^ variable
+//                                                                     ^^^ keyword.control.end
+//                                                                        ^ punctuation.terminator.statement
+
+          If k=12345 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//             ^^^^^ constant.numeric.decimal
+//                   ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attribute Into or Pred (1).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been: 12345");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          k:=Scanleft;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+          If k=12345 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//             ^^^^^ constant.numeric.decimal
+//                   ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attribute Suc (2).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been: 12345");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          k:=Scanright;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+          If k=54321 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//             ^^^^^ constant.numeric.decimal
+//                   ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attribute Pred (3).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus reverse chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been:         54321");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          x:-chain;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^ variable
+//                ^ punctuation.terminator.statement
+          For x:-x.Suc While x=/=none do
+//        ^^^ keyword.control.for
+//            ^ variable
+//             ^^ keyword.operator.assignment
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^^^ variable
+//                     ^^^^^ keyword.control.while
+//                           ^ variable
+//                            ^^^ keyword.operator.comparison
+//                               ^^^^ constant.language.null
+//                                    ^^ keyword.control.do
+          Begin r:-x qua Bead; k:=r.i;
+//        ^^^^^ keyword.control.begin
+//              ^ variable
+//               ^^ keyword.operator.assignment
+//                 ^ variable
+//                   ^^^ keyword.operator
+//                       ^^^^ variable
+//                           ^ punctuation.terminator.statement
+//                             ^ variable
+//                              ^^ keyword.operator.assignment
+//                                ^ variable
+//                                 ^ punctuation.accessor
+//                                  ^ variable
+//                                   ^ punctuation.terminator.statement
+                If k=(k//2)*2 then Begin r.Out; r.Into(chain) End;
+//              ^^ keyword.control.if
+//                 ^ variable
+//                  ^ keyword.operator.comparison
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^^ keyword.operator.arithmetic
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ keyword.operator.arithmetic
+//                          ^ constant.numeric.decimal
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^ keyword.control.begin
+//                                       ^ variable
+//                                        ^ punctuation.accessor
+//                                         ^^^ variable
+//                                            ^ punctuation.terminator.statement
+//                                              ^ variable
+//                                               ^ punctuation.accessor
+//                                                ^^^^ entity.name.function
+//                                                    ^ punctuation.section.parens
+//                                                     ^^^^^ variable
+//                                                          ^ punctuation.section.parens
+//                                                            ^^^ keyword.control.end
+//                                                               ^ punctuation.terminator.statement
+          End;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          k:=Scanleft;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+          If k=13452 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//             ^^^^^ constant.numeric.decimal
+//                   ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Suc, Out or Into (4).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been: 13452");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          New Bead(6).Out;  COMMENT NO EFFECT;
+//        ^^^ keyword.control.new
+//            ^^^^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.accessor
+//                    ^^^ variable
+//                       ^ punctuation.terminator.statement
+//                          ^^^^^^^^^^^^^^^^^^ comment.block
+          k:=Scanright;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+          If k=25431 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//             ^^^^^ constant.numeric.decimal
+//                   ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Suc, Out or Into (5).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus reverse chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been:         25431");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+
+          x:-chain.prev;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^ variable
+//                     ^ punctuation.terminator.statement
+          For x:-x.prev While x=/=chain do x.suc.into(chain);
+//        ^^^ keyword.control.for
+//            ^ variable
+//             ^^ keyword.operator.assignment
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^^^^ variable
+//                      ^^^^^ keyword.control.while
+//                            ^ variable
+//                             ^^^ keyword.operator.comparison
+//                                ^^^^^ variable
+//                                      ^^ keyword.control.do
+//                                         ^ variable
+//                                          ^ punctuation.accessor
+//                                           ^^^ variable
+//                                              ^ punctuation.accessor
+//                                               ^^^^ entity.name.function
+//                                                   ^ punctuation.section.parens
+//                                                    ^^^^^ variable
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+          k:=Scanleft;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+          If k=12543 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//             ^^^^^ constant.numeric.decimal
+//                   ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Prev, Suc or Into (6).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been: 12543");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          r:-chain.suc.suc.suc qua Bead;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^ variable
+//                        ^ punctuation.accessor
+//                         ^^^ variable
+//                             ^^^ keyword.operator
+//                                 ^^^^ variable
+//                                     ^ punctuation.terminator.statement
+          r.Follow(r);
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+          k:=Scanleft;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+          If k= 1243 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//              ^^^^ constant.numeric.decimal
+//                   ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Suc or Follow (7).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been:  1243"); Outimage;
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          r.follow(chain);
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+          chain.prev.pred.prev qua link.follow(chain.prev.pred);
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^ variable
+//                       ^ punctuation.accessor
+//                        ^^^^ variable
+//                             ^^^ keyword.operator
+//                                 ^^^^ variable
+//                                     ^ punctuation.accessor
+//                                      ^^^^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^^^^^ variable
+//                                                  ^ punctuation.accessor
+//                                                   ^^^^ variable
+//                                                       ^ punctuation.accessor
+//                                                        ^^^^ variable
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+          k:=Scanright;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+          If k= 32415 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//              ^^^^^ constant.numeric.decimal
+//                    ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Follow, Prev or Pred (8).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                        ^ punctuation.section.parens
+//                                                                         ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus reverse chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been:         32415"); Outimage;
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+//                                                                     ^^^^^^^^ variable
+//                                                                             ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+
+          Ar:-New A; Br:-New B;
+//        ^^ variable
+//          ^^ keyword.operator.assignment
+//            ^^^ keyword.control.new
+//                ^ entity.name.class
+//                 ^ punctuation.terminator.statement
+//                   ^^ variable
+//                     ^^ keyword.operator.assignment
+//                       ^^^ keyword.control.new
+//                           ^ entity.name.class
+//                            ^ punctuation.terminator.statement
+          r.Follow(Br); Ar.Follow(r);
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+//                      ^^ variable
+//                        ^ punctuation.accessor
+//                         ^^^^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^ variable
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+          k:=Scanleft;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+          If k= 1423 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//              ^^^^ constant.numeric.decimal
+//                   ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attribute Follow (9).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been:  1423"); Outimage;
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+
+          chain.suc.suc.follow(none);
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^^ constant.language.null
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+          Ar.follow(chain.suc);
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^ variable
+//                       ^ punctuation.accessor
+//                        ^^^ variable
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+          k:=Scanleft;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+          If k= 1023 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//              ^^^^ constant.numeric.decimal
+//                   ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Suc or Follow (10).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been:  1023"); Outimage;
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+
+          s:-New Bead(7); s.Follow(r);  COMMENT  NO EFFECT;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^ keyword.control.new
+//               ^^^^ entity.name.class
+//                   ^ punctuation.section.parens
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                        ^ variable
+//                         ^ punctuation.accessor
+//                          ^^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^ variable
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+//                                      ^^^^^^^^^^^^^^^^^^^ comment.block
+          k:=Scanleft;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+          If k= 1023 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//              ^^^^ constant.numeric.decimal
+//                   ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Suc or Follow (11).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been:  1023"); Outimage;
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          r.precede(chain);
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^ variable
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+          s.precede(Ar.suc);
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+          k:=Scanleft;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+          If k= 107235 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//              ^^^^^^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Suc or Precede (12).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been: 107235"); Outimage;
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+//                                                              ^^^^^^^^ variable
+//                                                                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+
+          New A.precede(s.prev.suc.suc.pred.suc);
+//        ^^^ keyword.control.new
+//            ^ entity.name.class
+//             ^ punctuation.accessor
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.accessor
+//                        ^^^^ variable
+//                            ^ punctuation.accessor
+//                             ^^^ variable
+//                                ^ punctuation.accessor
+//                                 ^^^ variable
+//                                    ^ punctuation.accessor
+//                                     ^^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^ variable
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+          New A.Into(chain);
+//        ^^^ keyword.control.new
+//            ^ entity.name.class
+//             ^ punctuation.accessor
+//              ^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+          k:=Scanright;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+          If k= 5320701 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//              ^^^^^^^ constant.numeric.decimal
+//                      ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Precede, Prev, Suc, Pred or"
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+                        " Into (13).");
+//                      ^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus reverse chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+                Outint (k,8); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been:         5320701");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+
+          Ar.precede(Ar);
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^ variable
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+          Chain.Prev qua link.precede(Chain.Pred);
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^ variable
+//                   ^^^ keyword.operator
+//                       ^^^^ variable
+//                           ^ punctuation.accessor
+//                            ^^^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^^ variable
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+          s.Precede(s);
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+          k:=Scanleft;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+          If k= 10235 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//              ^^^^^ constant.numeric.decimal
+//                    ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Precede, Prev or Pred (14).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                          ^ punctuation.section.parens
+//                                                                           ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been: 10235"); Outimage;
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+//                                                             ^^^^^^^^ variable
+//                                                                     ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          For j:=1,2,3,4,5 do chain.suc.suc.precede(chain.prev);
+//        ^^^ keyword.control.for
+//            ^ variable
+//             ^^ keyword.operator.assignment
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                         ^^ keyword.control.do
+//                            ^^^^^ variable
+//                                 ^ punctuation.accessor
+//                                  ^^^ variable
+//                                     ^ punctuation.accessor
+//                                      ^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^^^^^ variable
+//                                                       ^ punctuation.accessor
+//                                                        ^^^^ variable
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+          k:=Scanleft;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+          If k= 13025 then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ keyword.operator.comparison
+//              ^^^^^ constant.numeric.decimal
+//                    ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Suc, Precede or Prev (15).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                         ^ punctuation.section.parens
+//                                                                          ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                Outtext("            Erroneus chain: ");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                Outint (k,6); Outimage;
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+                Outtext("            Should had been:  13025"); Outimage;
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+//                                                              ^^^^^^^^ variable
+//                                                                      ^ punctuation.terminator.statement
+                found_error:=true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+          r.precede(r);
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+          s:-chain.suc.suc;
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^ variable
+//                        ^ punctuation.terminator.statement
+          s.out;
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^^ variable
+//             ^ punctuation.terminator.statement
+          if r.Suc==none and r.Pred==none and s.suc==none and s.pred==none then
+//        ^^ keyword.control.if
+//           ^ variable
+//            ^ punctuation.accessor
+//             ^^^ variable
+//                ^^ keyword.operator.comparison
+//                  ^^^^ constant.language.null
+//                       ^^^ keyword.operator
+//                           ^ variable
+//                            ^ punctuation.accessor
+//                             ^^^^ variable
+//                                 ^^ keyword.operator.comparison
+//                                   ^^^^ constant.language.null
+//                                        ^^^ keyword.operator
+//                                            ^ variable
+//                                             ^ punctuation.accessor
+//                                              ^^^ variable
+//                                                 ^^ keyword.operator.comparison
+//                                                   ^^^^ constant.language.null
+//                                                        ^^^ keyword.operator
+//                                                            ^ variable
+//                                                             ^ punctuation.accessor
+//                                                              ^^^^ variable
+//                                                                  ^^ keyword.operator.comparison
+//                                                                    ^^^^ constant.language.null
+//                                                                         ^^^^ keyword.control.then
+          else begin
+//        ^^^^ keyword.control.else
+//             ^^^^^ keyword.control.begin
+                Outtext("*** ERROR : Attributes Precede, Suc or Pred (16).");
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                         ^ punctuation.section.parens
+//                                                                          ^ punctuation.terminator.statement
+                Outimage;
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+                found_error:= true
+//              ^^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                            ^^^^ constant.language.bool
+          end;
+//        ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+     end prefix block;
+//   ^^^ keyword.control.end
+//       ^^^^^^^^^^^^ comment.block
+//                   ^ punctuation.terminator.statement
+
+     IF found_error then
+//   ^^ keyword.control.if
+//      ^^^^^^^^^^^ variable
+//                  ^^^^ keyword.control.then
+     ELSE
+//   ^^^^ keyword.control.else
+     Begin
+//   ^^^^^ keyword.control.begin
+           Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//         ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+           Outimage
+//         ^^^^^^^^ variable
+     End ;
+//   ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+     Outtext ("--- END Simula a.s TEST 93") ;
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+     Outimage
+//   ^^^^^^^^ variable
+End
+// <--- keyword.control.end

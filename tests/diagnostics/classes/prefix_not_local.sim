@@ -1,0 +1,7 @@
+begin
+class Outer;
+begin
+class Nested; begin end;
+Outer class Bad; begin end;
+end;
+end;

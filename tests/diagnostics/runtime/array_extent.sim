@@ -1,0 +1,1 @@
+begin integer array a(1:70000, 1:70000); OutText("x"); OutImage; end;

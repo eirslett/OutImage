@@ -1,0 +1,8 @@
+external C procedure greet = "greet"
+   is procedure greet(msg); value msg; text msg;
+begin
+   text t;
+   t :- Blanks(1);
+   t.putchar(isochar(233));
+   greet(t);
+end;

@@ -1,0 +1,11 @@
+[E0003] Error: MISSING SEPARATOR: these two tokens need a space (or another separator) between them
+   ╭─[ missing_separator.sim:1:8 ]
+   │
+ 1 │ "hello"world
+   │        ┬  
+   │        ╰── missing separator
+   │ 
+   │ Help: insert a space or a newline
+   │ 
+   │ Note: identifiers, keywords, numbers, and strings must be separated (§1.9)
+───╯

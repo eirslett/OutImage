@@ -1,0 +1,596 @@
+// SYNTAX TEST "source.simula" "simtst48"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 48
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test of qua.
+// <---------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   29/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   CLASS A ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Text Procedure Tp ; Tp :- COPY (" A.Tp ") ;
+//    ^^^^ storage.type
+//         ^^^^^^^^^ storage.type
+//                   ^^ entity.name.function
+//                      ^ punctuation.terminator.statement
+//                        ^^ variable
+//                           ^^ keyword.operator.assignment
+//                              ^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+
+      Integer         i ;
+//    ^^^^^^^ storage.type
+//                    ^ variable
+//                      ^ punctuation.terminator.statement
+
+      i := 1 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+   End of class A ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   A CLASS B ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Text Procedure Tp ; Tp :- COPY (" B.Tp ") ;
+//    ^^^^ storage.type
+//         ^^^^^^^^^ storage.type
+//                   ^^ entity.name.function
+//                      ^ punctuation.terminator.statement
+//                        ^^ variable
+//                           ^^ keyword.operator.assignment
+//                              ^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+
+      Integer         i ;
+//    ^^^^^^^ storage.type
+//                    ^ variable
+//                      ^ punctuation.terminator.statement
+
+      i := 2 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+   End of class B ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   B CLASS C ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Text Procedure Tp ; Tp :- COPY (" C.Tp ") ;
+//    ^^^^ storage.type
+//         ^^^^^^^^^ storage.type
+//                   ^^ entity.name.function
+//                      ^ punctuation.terminator.statement
+//                        ^^ variable
+//                           ^^ keyword.operator.assignment
+//                              ^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+
+      Integer         i ;
+//    ^^^^^^^ storage.type
+//                    ^ variable
+//                      ^ punctuation.terminator.statement
+
+      i := 3 ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+   End of class C ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   Ref (A)            ra ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//                    ^^ variable
+//                       ^ punctuation.terminator.statement
+   Ref (B)            rb ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//                    ^^ variable
+//                       ^ punctuation.terminator.statement
+   Ref (C)            rc ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//                    ^^ variable
+//                       ^ punctuation.terminator.statement
+
+   Procedure Check (i, t, vi, vt, enr) ; value t, vt ;
+// ^^^^^^^^^ storage.type
+//           ^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable.parameter
+//                   ^ punctuation.separator
+//                     ^ variable.parameter
+//                      ^ punctuation.separator
+//                        ^^ variable.parameter
+//                          ^ punctuation.separator
+//                            ^^ variable.parameter
+//                              ^ punctuation.separator
+//                                ^^^ variable.parameter
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^ keyword.other.value
+//                                             ^ variable
+//                                              ^ punctuation.separator
+//                                                ^^ variable
+//                                                   ^ punctuation.terminator.statement
+      integer i, vi, enr ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.separator
+//               ^^ variable
+//                 ^ punctuation.separator
+//                   ^^^ variable
+//                       ^ punctuation.terminator.statement
+      text t, vt ;
+//    ^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      if i = vi and t = vt then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^^ variable
+//              ^^^ keyword.operator
+//                  ^ variable
+//                    ^ keyword.operator.comparison
+//                      ^^ variable
+//                         ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Qualification (") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outint (enr, if enr < 10 then 1 else 2) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^^ keyword.control.if
+//                       ^^^ variable
+//                           ^ keyword.operator.comparison
+//                             ^^ constant.numeric.decimal
+//                                ^^^^ keyword.control.then
+//                                     ^ constant.numeric.decimal
+//                                       ^^^^ keyword.control.else
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outtext (").") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values : ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("                   i = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+         Outint (i, 4) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("                   t = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+         Outtext (t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   Outtext ("--- START Simula a.s. TEST 48") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test of Qua.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                            ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   ra :- rb :- rc :- new C ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^ keyword.control.new
+//                       ^ entity.name.class
+//                         ^ punctuation.terminator.statement
+
+   Check (ra.i, ra.Tp, 1, " A.Tp ", 1) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^ variable
+//            ^ punctuation.separator
+//              ^^ variable
+//                ^ punctuation.accessor
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^^^^^^^ string.quoted.double
+//                                ^ punctuation.separator
+//                                  ^ constant.numeric.decimal
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+   Check (ra qua B.i, ra qua B.Tp, 2, " B.Tp ", 2) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ variable
+//                       ^^^ keyword.operator
+//                           ^ variable
+//                            ^ punctuation.accessor
+//                             ^^ variable
+//                               ^ punctuation.separator
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   Check (ra qua C.i, ra qua C.Tp, 3, " C.Tp ", 3) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ variable
+//                       ^^^ keyword.operator
+//                           ^ variable
+//                            ^ punctuation.accessor
+//                             ^^ variable
+//                               ^ punctuation.separator
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+
+   Check (rb qua A.i, rb qua A.Tp, 1, " A.Tp ", 4) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ variable
+//                       ^^^ keyword.operator
+//                           ^ variable
+//                            ^ punctuation.accessor
+//                             ^^ variable
+//                               ^ punctuation.separator
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   Check (rb.i, rb.Tp, 2, " B.Tp ", 5) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^ variable
+//            ^ punctuation.separator
+//              ^^ variable
+//                ^ punctuation.accessor
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^^^^^^^ string.quoted.double
+//                                ^ punctuation.separator
+//                                  ^ constant.numeric.decimal
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+   Check (rb qua C.i, rb qua C.Tp, 3, " C.Tp ", 6) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ variable
+//                       ^^^ keyword.operator
+//                           ^ variable
+//                            ^ punctuation.accessor
+//                             ^^ variable
+//                               ^ punctuation.separator
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+
+   Check (rc qua A.i, rb qua A.Tp, 1, " A.Tp ", 7) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ variable
+//                       ^^^ keyword.operator
+//                           ^ variable
+//                            ^ punctuation.accessor
+//                             ^^ variable
+//                               ^ punctuation.separator
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   Check (rc qua B.i, rc qua B.Tp, 2, " B.Tp ", 8) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ variable
+//                       ^^^ keyword.operator
+//                           ^ variable
+//                            ^ punctuation.accessor
+//                             ^^ variable
+//                               ^ punctuation.separator
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   Check (rc.i, rc.Tp, 3, " C.Tp ", 9) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^ variable
+//            ^ punctuation.separator
+//              ^^ variable
+//                ^ punctuation.accessor
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^^^^^^^^ string.quoted.double
+//                                ^ punctuation.separator
+//                                  ^ constant.numeric.decimal
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+
+   Check (ra qua B qua C qua B qua A.i, rb qua A qua C qua B.Tp,
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^ variable
+//                 ^^^ keyword.operator
+//                     ^ variable
+//                       ^^^ keyword.operator
+//                           ^ variable
+//                             ^^^ keyword.operator
+//                                 ^ variable
+//                                  ^ punctuation.accessor
+//                                   ^ variable
+//                                    ^ punctuation.separator
+//                                      ^^ variable
+//                                         ^^^ keyword.operator
+//                                             ^ variable
+//                                               ^^^ keyword.operator
+//                                                   ^ variable
+//                                                     ^^^ keyword.operator
+//                                                         ^ variable
+//                                                          ^ punctuation.accessor
+//                                                           ^^ variable
+//                                                             ^ punctuation.separator
+          1, " B.Tp ", 10) ;
+//        ^ constant.numeric.decimal
+//         ^ punctuation.separator
+//           ^^^^^^^^ string.quoted.double
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   Check (rc qua C.i, ra qua C qua A qua B qua A qua C.Tp, 3, " C.Tp ", 11) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//           ^^^ keyword.operator
+//               ^ variable
+//                ^ punctuation.accessor
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^^ variable
+//                       ^^^ keyword.operator
+//                           ^ variable
+//                             ^^^ keyword.operator
+//                                 ^ variable
+//                                   ^^^ keyword.operator
+//                                       ^ variable
+//                                         ^^^ keyword.operator
+//                                             ^ variable
+//                                               ^^^ keyword.operator
+//                                                   ^ variable
+//                                                    ^ punctuation.accessor
+//                                                     ^^ variable
+//                                                       ^ punctuation.separator
+//                                                         ^ constant.numeric.decimal
+//                                                          ^ punctuation.separator
+//                                                            ^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.separator
+//                                                                      ^^ constant.numeric.decimal
+//                                                                        ^ punctuation.section.parens
+//                                                                          ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   End ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 48") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ End
+// <~--- keyword.control.end

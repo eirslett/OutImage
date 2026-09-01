@@ -1,0 +1,241 @@
+// SYNTAX TEST "source.simula" "4-statements"
+begin
+// <----- keyword.control.begin
+    abc:
+//  ^^^ entity.name.label
+//     ^ punctuation.separator
+    def:
+//  ^^^ entity.name.label
+//     ^ punctuation.separator
+    fanfare:
+//  ^^^^^^^ entity.name.label
+//         ^ punctuation.separator
+    outtext("TADA");
+//  ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^ string.quoted.double
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+
+    ! Compound statement;
+//  ^^^^^^^^^^^^^^^^^^^^^ comment.block
+    MyClass begin
+//  ^^^^^^^ entity.name.class
+//          ^^^^^ keyword.control.begin
+        outtext("Hello");
+//      ^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+    end-with-endcomment;
+//  ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^^^ comment.block
+//                     ^ punctuation.terminator.statement
+
+    MyClass2(1, 2, 3) begin
+//  ^^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^^^^^ keyword.control.begin
+        outtext("Hello");
+//      ^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+    end-with-weekend;
+//  ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^ comment.block
+//                  ^ punctuation.terminator.statement
+
+    DoSomething:
+//  ^^^^^^^^^^^ entity.name.label
+//             ^ punctuation.separator
+    input.sub(7,3) := "Tom";
+//  ^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ constant.numeric.decimal
+//             ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^ string.quoted.double
+//                         ^ punctuation.terminator.statement
+
+    ! Conditional statement;
+//  ^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+    result := if true then "Yes" else "No";
+//  ^^^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^ keyword.control.if
+//               ^^^^ constant.language.bool
+//                    ^^^^ keyword.control.then
+//                         ^^^^^ string.quoted.double
+//                               ^^^^ keyword.control.else
+//                                    ^^^^ string.quoted.double
+//                                        ^ punctuation.terminator.statement
+
+    if false then begin
+//  ^^ keyword.control.if
+//     ^^^^^ constant.language.bool
+//           ^^^^ keyword.control.then
+//                ^^^^^ keyword.control.begin
+        outtext("No");
+//      ^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^ string.quoted.double
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+    end;
+//  ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+    if true then
+//  ^^ keyword.control.if
+//     ^^^^ constant.language.bool
+//          ^^^^ keyword.control.then
+        outtext("yes")
+//      ^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+    else
+//  ^^^^ keyword.control.else
+        outtext("nope")
+//      ^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+
+    if true then
+//  ^^ keyword.control.if
+//     ^^^^ constant.language.bool
+//          ^^^^ keyword.control.then
+    else
+//  ^^^^ keyword.control.else
+        outtext("nope")
+//      ^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+
+    ! While statement;
+//  ^^^^^^^^^^^^^^^^^^ comment.block
+    while false do begin outtext("will not run"); end;
+//  ^^^^^ keyword.control.while
+//        ^^^^^ constant.language.bool
+//              ^^ keyword.control.do
+//                 ^^^^^ keyword.control.begin
+//                       ^^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+//                                                ^^^ keyword.control.end
+//                                                   ^ punctuation.terminator.statement
+
+    ! For statement;
+//  ^^^^^^^^^^^^^^^^ comment.block
+    for a := 1 step 1 until 10 do outtext("yes");
+//  ^^^ keyword.control.for
+//      ^ variable
+//        ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//             ^^^^ keyword.control.step
+//                  ^ constant.numeric.decimal
+//                    ^^^^^ keyword.control.until
+//                          ^^ constant.numeric.decimal
+//                             ^^ keyword.control.do
+//                                ^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+
+    ! Goto statement;
+//  ^^^^^^^^^^^^^^^^^ comment.block
+    goto DoSomething;
+//  ^^^^ keyword.control.goto
+//       ^^^^^^^^^^^ entity.name.label
+//                  ^ punctuation.terminator.statement
+    go to DoSomething;
+//  ^^ keyword.control.goto
+//     ^^ keyword.control.goto
+//        ^^^^^^^^^^^ entity.name.label
+//                   ^ punctuation.terminator.statement
+
+    ! Procedure statements;
+//  ^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+    RunFunction;
+//  ^^^^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+    RunFunction2(1, 2, 3);
+//  ^^^^^^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+    a.b(1);
+//  ^ variable
+//   ^ punctuation.accessor
+//    ^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//        ^ punctuation.terminator.statement
+    A.someprocedure(1).getint;
+//  ^ variable
+//   ^ punctuation.accessor
+//    ^^^^^^^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.accessor
+//                     ^^^^^^ variable
+//                           ^ punctuation.terminator.statement
+    (t1).putchar ('3');
+//  ^ punctuation.section.parens
+//   ^^ variable
+//     ^ punctuation.section.parens
+//      ^ punctuation.accessor
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^ constant.character
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+
+    ! Connection statements;
+//  ^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+    inspect B
+//  ^^^^^^^ keyword.control.inspect
+//          ^ variable
+        when B2 do S2
+//      ^^^^ keyword.control.when
+//           ^^ entity.name.class
+//              ^^ keyword.control.do
+//                 ^^ variable
+        when B3 do S3
+//      ^^^^ keyword.control.when
+//           ^^ entity.name.class
+//              ^^ keyword.control.do
+//                 ^^ variable
+otherwise begin S4 end;
+// <--------- keyword.control.otherwise
+//        ^^^^^ keyword.control.begin
+//              ^^ variable
+//                 ^^^ keyword.control.end
+//                    ^ punctuation.terminator.statement
+end
+// <--- keyword.control.end

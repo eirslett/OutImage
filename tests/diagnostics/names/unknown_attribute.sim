@@ -1,0 +1,1 @@
+begin class C; begin end; ref(C) p; p :- new C; integer n; n := p.nope; end;

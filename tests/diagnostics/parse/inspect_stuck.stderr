@@ -1,0 +1,7 @@
+[E0101] Error: UNEXPECTED TOKEN: found `end` here
+   ╭─[ inspect_stuck.sim:1:22 ]
+   │
+ 1 │ begin inspect x when end;
+   │                      ─┬─  
+   │                       ╰─── unexpected token
+───╯

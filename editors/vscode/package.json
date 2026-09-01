@@ -1,0 +1,604 @@
+{
+  "name": "vscode-simula",
+  "displayName": "Simula",
+  "description": "Production Simula language support powered by the OutImage compiler (`sim`) and LSP",
+  "version": "0.1.0",
+  "publisher": "eirslett",
+  "license": "MIT",
+  "preview": true,
+  "icon": "icons/simula.png",
+  "galleryBanner": {
+    "color": "#1e2a3a",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eirslett/outimage.git",
+    "directory": "editors/vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/eirslett/outimage/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Formatters",
+    "Debuggers"
+  ],
+  "keywords": [
+    "simula",
+    "outimage",
+    "lsp",
+    "language server",
+    "debugger",
+    "dap"
+  ],
+  "activationEvents": [
+    "onLanguage:simula",
+    "onDebug"
+  ],
+  "main": "./out/extension.js",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "The Simula language server does not start until the workspace is trusted.",
+      "restrictedConfigurations": [
+        "simula.languageServerPath",
+        "simula.languageServerArgs"
+      ]
+    },
+    "virtualWorkspaces": {
+      "supported": "limited",
+      "description": "LSP features require a local sim binary and file:// documents."
+    }
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "simula",
+        "aliases": [
+          "Simula",
+          "simula"
+        ],
+        "extensions": [
+          ".sim"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "simula",
+        "scopeName": "source.simula",
+        "path": "./syntaxes/simula.tmLanguage.json"
+      }
+    ],
+    "semanticTokenTypes": [
+      {
+        "id": "label",
+        "superType": "variable",
+        "description": "Simula statement label"
+      },
+      {
+        "id": "boolean",
+        "superType": "keyword",
+        "description": "true / false"
+      },
+      {
+        "id": "null",
+        "superType": "keyword",
+        "description": "none / notext"
+      },
+      {
+        "id": "character",
+        "superType": "string",
+        "description": "Character literal"
+      },
+      {
+        "id": "commentDirective",
+        "superType": "comment",
+        "description": "% compiler directive"
+      },
+      {
+        "id": "parenthesis",
+        "superType": "operator",
+        "description": "Parentheses"
+      },
+      {
+        "id": "bracket",
+        "superType": "operator",
+        "description": "Square brackets"
+      },
+      {
+        "id": "punctuation",
+        "superType": "operator",
+        "description": "Comma, colon, dot, character quotes"
+      },
+      {
+        "id": "semicolon",
+        "superType": "operator",
+        "description": "Statement terminator"
+      }
+    ],
+    "semanticTokenScopes": [
+      {
+        "language": "simula",
+        "scopes": {
+          "comment": [
+            "comment.block"
+          ],
+          "commentDirective": [
+            "comment.directive"
+          ],
+          "keyword": [
+            "keyword.control",
+            "keyword.other"
+          ],
+          "operator": [
+            "keyword.operator"
+          ],
+          "type": [
+            "storage.type"
+          ],
+          "modifier": [
+            "storage.modifier"
+          ],
+          "boolean": [
+            "constant.language.bool"
+          ],
+          "null": [
+            "constant.language.null"
+          ],
+          "number": [
+            "constant.numeric"
+          ],
+          "character": [
+            "constant.character"
+          ],
+          "string": [
+            "string.quoted.double"
+          ],
+          "class": [
+            "entity.name.class"
+          ],
+          "function": [
+            "entity.name.function"
+          ],
+          "label": [
+            "entity.name.label"
+          ],
+          "namespace": [
+            "entity.name.other"
+          ],
+          "variable": [
+            "variable"
+          ],
+          "parameter": [
+            "variable.parameter"
+          ],
+          "parenthesis": [
+            "punctuation.section.parens"
+          ],
+          "bracket": [
+            "punctuation.section.brackets"
+          ],
+          "punctuation": [
+            "punctuation.separator",
+            "punctuation.accessor",
+            "punctuation.definition.character"
+          ],
+          "semicolon": [
+            "punctuation.terminator.statement"
+          ]
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "simula",
+        "path": "./snippets/simula.code-snippets"
+      }
+    ],
+    "commands": [
+      {
+        "command": "simula.restartLanguageServer",
+        "title": "Restart Language Server",
+        "category": "Simula",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "simula.showLanguageServerOutput",
+        "title": "Show Language Server Output",
+        "category": "Simula",
+        "icon": "$(output)"
+      },
+      {
+        "command": "simula.explainDiagnostic",
+        "title": "Explain Diagnostic at Cursor",
+        "category": "Simula",
+        "icon": "$(lightbulb)"
+      },
+      {
+        "command": "simula.openDocumentation",
+        "title": "Open Documentation",
+        "category": "Simula",
+        "icon": "$(book)"
+      },
+      {
+        "command": "simula.checkCurrentFile",
+        "title": "Check Current File",
+        "category": "Simula",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "simula.compileCurrentFile",
+        "title": "Compile Current File",
+        "category": "Simula",
+        "icon": "$(file-binary)"
+      },
+      {
+        "command": "simula.debugCurrentFile",
+        "title": "Debug Current File",
+        "category": "Simula",
+        "icon": "$(debug-alt)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "simula.explainDiagnostic",
+          "when": "editorLangId == simula && simula.hasDiagnosticAtCursor",
+          "group": "navigation@100"
+        },
+        {
+          "command": "simula.checkCurrentFile",
+          "when": "editorLangId == simula",
+          "group": "navigation@101"
+        },
+        {
+          "command": "simula.compileCurrentFile",
+          "when": "editorLangId == simula",
+          "group": "navigation@102"
+        },
+        {
+          "command": "simula.runCurrentFile",
+          "when": "editorLangId == simula",
+          "group": "navigation@103"
+        },
+        {
+          "command": "simula.debugCurrentFile",
+          "when": "editorLangId == simula",
+          "group": "navigation@104"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "simula.restartLanguageServer"
+        },
+        {
+          "command": "simula.showLanguageServerOutput"
+        },
+        {
+          "command": "simula.explainDiagnostic",
+          "when": "editorLangId == simula"
+        },
+        {
+          "command": "simula.openDocumentation"
+        },
+        {
+          "command": "simula.checkCurrentFile",
+          "when": "editorLangId == simula"
+        },
+        {
+          "command": "simula.compileCurrentFile",
+          "when": "editorLangId == simula"
+        },
+        {
+          "command": "simula.runCurrentFile",
+          "when": "editorLangId == simula"
+        },
+        {
+          "command": "simula.debugCurrentFile",
+          "when": "editorLangId == simula"
+        }
+      ],
+      "problems/context": [
+        {
+          "command": "simula.explainDiagnostic",
+          "when": "resourceLangId == simula",
+          "group": "navigation@100"
+        }
+      ]
+    },
+    "walkthroughs": [
+      {
+        "id": "simula.getStarted",
+        "title": "Get Started with Simula",
+        "description": "Set up the sim compiler and language server for Simula development.",
+        "steps": [
+          {
+            "id": "install",
+            "title": "Install sim",
+            "description": "Install `sim` on PATH, or set [simula.languageServerPath](command:workbench.action.openSettings?%22simula.languageServerPath%22).",
+            "media": {
+              "markdown": "Build the compiler so the extension can start `sim lsp`."
+            }
+          },
+          {
+            "id": "openSim",
+            "title": "Open a .sim file",
+            "description": "Open any `*.sim` file to activate syntax highlighting and the language server.",
+            "media": {
+              "markdown": "Try [test/fixtures/hello.sim](command:workbench.action.openGlobalSettings)."
+            },
+            "completionEvents": [
+              "onLanguage:simula"
+            ]
+          },
+          {
+            "id": "settings",
+            "title": "Configure paths",
+            "description": "Set [simula.languageServerPath](command:workbench.action.openSettings?%22simula.languageServerPath%22) if the compiler is not on your PATH. Use **Simula: Restart Language Server** after installing it.",
+            "media": {
+              "markdown": "The extension uses `simula.languageServerPath`. On first run it looks up `sim` on PATH and saves the result."
+            }
+          }
+        ]
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "sim",
+        "required": [
+          "command"
+        ],
+        "properties": {
+          "command": {
+            "type": "string",
+            "enum": [
+              "check",
+              "run",
+              "compile"
+            ],
+            "description": "sim subcommand"
+          },
+          "args": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Extra arguments (defaults to the active editor file)"
+          }
+        }
+      }
+    ],
+    "breakpoints": [
+      {
+        "language": "simula"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "simula",
+        "label": "Simula (interpreter)",
+        "languages": [
+          "simula"
+        ],
+        "program": "sim",
+        "runtime": "node",
+        "configurationAttributes": {
+          "launch": {
+            "required": [
+              "program"
+            ],
+            "properties": {
+              "program": {
+                "type": "string",
+                "description": "Absolute path to the .sim file to debug."
+              },
+              "stopOnEntry": {
+                "type": "boolean",
+                "description": "Automatically stop after launch.",
+                "default": true
+              },
+              "allowSquareBracketSubscripts": {
+                "type": "boolean",
+                "description": "Allow [ ] as array subscript delimiters.",
+                "default": true
+              },
+              "allowDoubleDashComments": {
+                "type": "boolean",
+                "description": "Treat `--` as a line comment through the end of the line. Disable to parse consecutive minuses as operators.",
+                "default": true
+              },
+              "backend": {
+                "type": "string",
+                "enum": [
+                  "interpreter",
+                  "native"
+                ],
+                "default": "interpreter",
+                "description": "interpreter = sim dap (recommended). native = rewrite to CodeLLDB using nativeProgram (requires vadimcn.vscode-lldb and a sim compile -g binary)."
+              },
+              "nativeProgram": {
+                "type": "string",
+                "description": "When backend is native: absolute path to the compiled binary (sim compile -g)."
+              }
+            }
+          }
+        },
+        "initialConfigurations": [
+          {
+            "type": "simula",
+            "request": "launch",
+            "name": "Debug Simula (interpreter)",
+            "program": "${file}",
+            "stopOnEntry": true
+          }
+        ],
+        "configurationSnippets": [
+          {
+            "label": "Simula: Debug current file (interpreter)",
+            "description": "Launch the Simula interpreter DAP (`sim dap`)",
+            "body": {
+              "type": "simula",
+              "request": "launch",
+              "name": "Debug Simula (interpreter)",
+              "program": "^\"\\${file}\"",
+              "stopOnEntry": true
+            }
+          },
+          {
+            "label": "Simula: Debug native binary (CodeLLDB)",
+            "description": "Launch a sim compile -g binary with CodeLLDB (requires vadimcn.vscode-lldb)",
+            "body": {
+              "type": "lldb",
+              "request": "launch",
+              "name": "Debug Simula (native / CodeLLDB)",
+              "program": "^\"\\${workspaceFolder}/prog\"",
+              "cwd": "^\"\\${workspaceFolder}\""
+            }
+          }
+        ]
+      }
+    ],
+    "problemMatchers": [
+      {
+        "name": "sim",
+        "owner": "sim",
+        "source": "sim",
+        "fileLocation": [
+          "autoDetect",
+          "${workspaceFolder}"
+        ],
+        "pattern": [
+          {
+            "regexp": "^Error: (.+)$",
+            "message": 1
+          },
+          {
+            "regexp": "^\\s*\u256d\u2500\\[(.+):(\\d+):(\\d+)\\]",
+            "file": 1,
+            "line": 2,
+            "column": 3
+          }
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "Simula",
+      "properties": {
+        "simula.languageServerPath": {
+          "type": "string",
+          "default": "sim",
+          "markdownDescription": "Path to the `sim` executable. Supports `${workspaceFolder}` and `${workspaceFolderBasename}`. On first run, if this path is not found, the extension searches `PATH` and saves the result here."
+        },
+        "simula.languageServerArgs": {
+          "type": "array",
+          "default": [
+            "lsp"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Arguments passed when starting the language server."
+        },
+        "simula.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces communication between VS Code and the sim language server."
+        },
+        "simula.allowSquareBracketSubscripts": {
+          "type": "boolean",
+          "default": true,
+          "description": "Forwarded to the language server as `initializationOptions.allowSquareBracketSubscripts` (also live via didChangeConfiguration)."
+        },
+        "simula.allowDoubleDashComments": {
+          "type": "boolean",
+          "default": true,
+          "description": "Forwarded to the language server as `initializationOptions.allowDoubleDashComments` (also live via didChangeConfiguration). When true, `--` starts a line comment."
+        },
+        "simula.checkOn": {
+          "type": "string",
+          "enum": [
+            "open",
+            "change",
+            "save"
+          ],
+          "default": "change",
+          "markdownDescription": "When to run diagnostics: on `open` only, on every `change` (debounced), or on `save`."
+        },
+        "simula.debounceMs": {
+          "type": "number",
+          "default": 200,
+          "minimum": 0,
+          "maximum": 10000,
+          "description": "Debounce delay in milliseconds before re-analyzing after textDocument/didChange (when checkOn is change)."
+        },
+        "simula.enableMirCheck": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "After a clean semantic pass, also run MIR lowering and surface codegen diagnostics in the editor."
+        },
+        "simula.enableUnusedLints": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Surface unused local variables as `W-unused` warnings (with Unnecessary tags) when the file is otherwise clean."
+        },
+        "simula.maxDocumentBytes": {
+          "type": "number",
+          "default": 2097152,
+          "minimum": 16384,
+          "maximum": 33554432,
+          "description": "Refuse to analyze open buffers larger than this many UTF-8 bytes (default 2 MiB)."
+        }
+      }
+    },
+    "configurationDefaults": {
+      "[simula]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        "editor.semanticHighlighting.enabled": true,
+        "files.eol": "\n"
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src",
+    "compile:grammar": "node generate-grammar.ts",
+    "generate:grammar-test": "cargo run --quiet --manifest-path ../../Cargo.toml -- grammar-test",
+    "test:grammar": "npm run compile:grammar && vscode-tmgrammar-test test/grammar/testbatch/*.sim",
+    "test": "npm run compile && node --test out/test/*.test.js",
+    "test:e2e": "npm run compile && node out/test/runTest.js",
+    "package": "vsce package --no-dependencies",
+    "vscode:prepublish": "npm run compile "
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.2.1",
+    "eslint": "^9.0.0",
+    "glob": "^11.0.0",
+    "mocha": "^11.0.0",
+    "typescript": "^5.5.0",
+    "vscode-tmgrammar-test": "^0.1.3"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  }
+}

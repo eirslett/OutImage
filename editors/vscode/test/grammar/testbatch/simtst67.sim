@@ -1,0 +1,470 @@
+// SYNTAX TEST "source.simula" "simtst67"
+% ======================================   Main   program =============
+// <----------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 67
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Simple test of detach, call and resume.
+// <------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   08/08-86
+// <------------------------------ comment.directive
+% =====================================================================
+// <----------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   integer array ia(1:10);
+// ^^^^^^^ storage.type
+//         ^^^^^ storage.type
+//               ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+   integer i, nri;
+// ^^^^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//            ^^^ variable
+//               ^ punctuation.terminator.statement
+
+   procedure savei(i);  integer i;
+// ^^^^^^^^^ storage.type
+//           ^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable.parameter
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+//                      ^^^^^^^ storage.type
+//                              ^ variable
+//                               ^ punctuation.terminator.statement
+   begin  nri := nri + 1;   ia(nri) := i  end;
+// ^^^^^ keyword.control.begin
+//        ^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^ variable
+//                   ^ keyword.operator.arithmetic
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.terminator.statement
+//                          ^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^ variable
+//                                ^ punctuation.section.parens
+//                                  ^^ keyword.operator.assignment
+//                                     ^ variable
+//                                        ^^^ keyword.control.end
+//                                           ^ punctuation.terminator.statement
+
+   Procedure Checki;
+// ^^^^^^^^^ storage.type
+//           ^^^^^^ entity.name.function
+//                 ^ punctuation.terminator.statement
+   Begin
+// ^^^^^ keyword.control.begin
+      if     ia(1) = 2
+//    ^^ keyword.control.if
+//           ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+         and ia(2) = 3
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+         and ia(3) = 5
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+         and ia(4) = 13
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^ constant.numeric.decimal
+         and ia(5) = 18
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^ constant.numeric.decimal
+         and ia(6) = 49
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^ constant.numeric.decimal
+         and nri    = 6  then
+//       ^^^ keyword.operator
+//           ^^^ variable
+//                  ^ keyword.operator.comparison
+//                    ^ constant.numeric.decimal
+//                       ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         integer j;
+//       ^^^^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.terminator.statement
+         Outtext("*** ERROR : Program sequencing.");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext("            Subsequent values of i : ");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         for j := 1 step 1 until nri do
+//       ^^^ keyword.control.for
+//           ^ variable
+//             ^^ keyword.operator.assignment
+//                ^ constant.numeric.decimal
+//                  ^^^^ keyword.control.step
+//                       ^ constant.numeric.decimal
+//                         ^^^^^ keyword.control.until
+//                               ^^^ variable
+//                                   ^^ keyword.control.do
+         begin
+//       ^^^^^ keyword.control.begin
+            Outtext("            ");
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+            Outint(j, 2);
+//          ^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+            Outtext(" : ");
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+            Outint(ia(j), 4);
+//          ^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+            Outimage;
+//          ^^^^^^^^ variable
+//                  ^ punctuation.terminator.statement
+         end;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+   end pros. checki;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^ comment.block
+//                 ^ punctuation.terminator.statement
+
+
+   Class A;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//        ^ punctuation.terminator.statement
+   begin Integer j;
+// ^^^^^ keyword.control.begin
+//       ^^^^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.terminator.statement
+         Ref(B) rb;
+//       ^^^ storage.modifier
+//          ^ punctuation.section.parens
+//           ^ entity.name.class
+//            ^ punctuation.section.parens
+//              ^^ variable
+//                ^ punctuation.terminator.statement
+
+         j := i := i+i;  savei(i);     !(1) *** i=2 ***;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^^ keyword.operator.assignment
+//                 ^ variable
+//                  ^ keyword.operator.arithmetic
+//                   ^ variable
+//                    ^ punctuation.terminator.statement
+//                       ^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^ comment.block
+      Detach;
+//    ^^^^^^ variable
+//          ^ punctuation.terminator.statement
+         j := i := j+i;  savei(i);     !(3) *** i=5 ***;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^^ keyword.operator.assignment
+//                 ^ variable
+//                  ^ keyword.operator.arithmetic
+//                   ^ variable
+//                    ^ punctuation.terminator.statement
+//                       ^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^ comment.block
+      Call(rb);
+//    ^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^ variable
+//           ^ punctuation.section.parens
+//            ^ punctuation.terminator.statement
+         j := i := j+i;  savei(i);     !(5) *** i=18 ***;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^^ keyword.operator.assignment
+//                 ^ variable
+//                  ^ keyword.operator.arithmetic
+//                   ^ variable
+//                    ^ punctuation.terminator.statement
+//                       ^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^^ comment.block
+   END of class A;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//               ^ punctuation.terminator.statement
+
+   Class B;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//        ^ punctuation.terminator.statement
+   begin Integer j;
+// ^^^^^ keyword.control.begin
+//       ^^^^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.terminator.statement
+
+         j := i := i+1;   savei(i);    !(2) *** i=3 ***;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^^ keyword.operator.assignment
+//                 ^ variable
+//                  ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.terminator.statement
+//                        ^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ variable
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^ comment.block
+      Detach;
+//    ^^^^^^ variable
+//          ^ punctuation.terminator.statement
+         j := i := j+2*i; savei(i);    !(4) *** i=13 ***;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^^ keyword.operator.assignment
+//                 ^ variable
+//                  ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+//                    ^ keyword.operator.arithmetic
+//                     ^ variable
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ variable
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^^ comment.block
+      Detach;
+//    ^^^^^^ variable
+//          ^ punctuation.terminator.statement
+         j := i := j+2*i; savei(i)     !(6) *** i=49 ***;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^^ keyword.operator.assignment
+//                 ^ variable
+//                  ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+//                    ^ keyword.operator.arithmetic
+//                     ^ variable
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ variable
+//                               ^ punctuation.section.parens
+//                                     ^^^^^^^^^^^^^^^^^^ comment.block
+   END of class B;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//               ^ punctuation.terminator.statement
+
+   Ref(A)            ua;
+// ^^^ storage.modifier
+//    ^ punctuation.section.parens
+//     ^ entity.name.class
+//      ^ punctuation.section.parens
+//                   ^^ variable
+//                     ^ punctuation.terminator.statement
+   integer            c;
+// ^^^^^^^ storage.type
+//                    ^ variable
+//                     ^ punctuation.terminator.statement
+
+   Outtext("--- START Simula a.s. TEST 67");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext("--- Simple test of detach, call and resume.");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+   Outimage; Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+   i := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   ua :- New A;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//            ^ punctuation.terminator.statement
+   c := c + 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ variable
+//        ^ keyword.operator.arithmetic
+//          ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+   ua.rb :- New B;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^ keyword.control.new
+//              ^ entity.name.class
+//               ^ punctuation.terminator.statement
+   Resume(ua);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//          ^ punctuation.section.parens
+//           ^ punctuation.terminator.statement
+   Resume(ua.rb);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^ variable
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+
+   Checki;
+// ^^^^^^ variable
+//       ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext("--- END Simula a.s. TEST 67");
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

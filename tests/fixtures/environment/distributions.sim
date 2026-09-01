@@ -1,0 +1,18 @@
+! Chapter 9 discrete histd bounds and antithetic streams;
+begin
+    integer U, U2, d, h;
+    real array A(0:2);
+    real array H(5:7);
+    boolean ok;
+    A(0) := 0.2; A(1) := 0.7; A(2) := 1.0;
+    H(5) := 1.0; H(6) := 1.0; H(7) := 1.0;
+    U := 1;
+    d := discrete(A, U);
+    h := histd(H, U);
+    U2 := -1;
+    ok := d >= 0 and d <= 3
+       and h >= 5 and h <= 7
+       and uniform(0.0, 1.0, U2) >= 0.0;
+    if ok then OutText("ok") else OutText("fail");
+    OutImage;
+end

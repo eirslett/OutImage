@@ -1,0 +1,9 @@
+[E0409] Error: HIDDEN: only a protected attribute may be specified `hidden`: `x` is not protected in class `C`
+   ╭─[ hidden_requires_protected.sim:1:16 ]
+   │
+ 1 │ begin class C; hidden x; begin integer x; end; end;
+   │                ────┬───  
+   │                    ╰───── this `hidden` specification
+   │ 
+   │ Help: write `protected hidden`, or protect the attribute in a prefix class
+───╯

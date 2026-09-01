@@ -1,0 +1,13 @@
+[E0201] Error: TYPE MISMATCH: this assignment needs integer, but the value is boolean
+   ╭─[ assign_boolean_to_integer.sim:1:23 ]
+   │
+ 1 │ begin integer x; x := true; end;
+   │                  ─────┬─┬──  
+   │                       ╰────── in this `:=` assignment (expects integer)
+   │                         │    
+   │                         ╰──── this is boolean
+   │ 
+   │ Help: change the expression, or declare the variable with a matching type
+   │ 
+   │ Note: destination expects integer
+───╯

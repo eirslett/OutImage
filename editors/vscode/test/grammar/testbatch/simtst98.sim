@@ -1,0 +1,2865 @@
+// SYNTAX TEST "source.simula" "simtst98"
+% =======================================   Main   program  ===========
+// <----------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 98
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:  Test attribute protection. Test visibility of labels.
+// <------------------------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  METHOD:   Define a class structure, with combinations of 'protected'
+// <----------------------------------------------------------------------- comment.directive
+%            and 'hidden' at same or different prefix levels. Test 
+// <------------------------------------------------------------------- comment.directive
+%            values of integer variable or constant at different levels.
+// <------------------------------------------------------------------------ comment.directive
+%            In addition, try to 'goto' an invisible (inspected) label.
+// <----------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  NOTE:     If constants are not implemented, change declarations
+// <------------------------------------------------------------------ comment.directive
+%            marked !C; to normal integer declarations.
+// <------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  Peter Jensen March 1987
+// <--------------------------------------- comment.directive
+% =====================================================================
+// <----------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+begin integer i,j,k,globali,globalj,globalk;
+// <----- keyword.control.begin
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.separator
+//              ^ variable
+//               ^ punctuation.separator
+//                ^ variable
+//                 ^ punctuation.separator
+//                  ^^^^^^^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^ variable
+//                                 ^ punctuation.separator
+//                                  ^^^^^^^ variable
+//                                         ^ punctuation.terminator.statement
+      boolean trace; !*** set TRUE if output is wanted ***;
+//    ^^^^^^^ storage.type
+//            ^^^^^ variable
+//                 ^ punctuation.terminator.statement
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      boolean errorFound;
+//    ^^^^^^^ storage.type
+//            ^^^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+      text programpoint;
+//    ^^^^ storage.type
+//         ^^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+      boolean ablock,bblock,cblock,dblock,eblock,fblock;
+//    ^^^^^^^ storage.type
+//            ^^^^^^ variable
+//                  ^ punctuation.separator
+//                   ^^^^^^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^ variable
+//                                ^ punctuation.separator
+//                                 ^^^^^^ variable
+//                                       ^ punctuation.separator
+//                                        ^^^^^^ variable
+//                                              ^ punctuation.separator
+//                                               ^^^^^^ variable
+//                                                     ^ punctuation.terminator.statement
+
+      procedure outattr(line,t,i,expected);
+//    ^^^^^^^^^ storage.type
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^ variable.parameter
+//                          ^ punctuation.separator
+//                           ^ variable.parameter
+//                            ^ punctuation.separator
+//                             ^ variable.parameter
+//                              ^ punctuation.separator
+//                               ^^^^^^^^ variable.parameter
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+      text t; integer line,i,expected;
+//    ^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^ storage.type
+//                    ^^^^ variable
+//                        ^ punctuation.separator
+//                         ^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^ variable
+//                                   ^ punctuation.terminator.statement
+      if i<>expected or trace then begin
+//    ^^ keyword.control.if
+//       ^ variable
+//        ^^ keyword.operator.comparison
+//          ^^^^^^^^ variable
+//                   ^^ keyword.operator
+//                      ^^^^^ variable
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^ keyword.control.begin
+            if i<>expected
+//          ^^ keyword.control.if
+//             ^ variable
+//              ^^ keyword.operator.comparison
+//                ^^^^^^^^ variable
+            then begin outtext(programpoint); outimage end;
+//          ^^^^ keyword.control.then
+//               ^^^^^ keyword.control.begin
+//                     ^^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^^^^^^^^^^ variable
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+//                                            ^^^^^^^^ variable
+//                                                     ^^^ keyword.control.end
+//                                                        ^ punctuation.terminator.statement
+            outtext("- l."); outint(line,4); outtext(": ");
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^^^ variable
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^ entity.name.function
+//                                                  ^ punctuation.section.parens
+//                                                   ^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+            outtext(t); outint(i,3);
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+//                      ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable
+//                              ^ punctuation.separator
+//                               ^ constant.numeric.decimal
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+            if i<>expected then begin errorFound:=true;
+//          ^^ keyword.control.if
+//             ^ variable
+//              ^^ keyword.operator.comparison
+//                ^^^^^^^^ variable
+//                         ^^^^ keyword.control.then
+//                              ^^^^^ keyword.control.begin
+//                                    ^^^^^^^^^^ variable
+//                                              ^^ keyword.operator.assignment
+//                                                ^^^^ constant.language.bool
+//                                                    ^ punctuation.terminator.statement
+               setpos(57); outtext(" WRONG! - should be:");
+//             ^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+               outint(expected,3) end;
+//             ^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^ variable
+//                            ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                                ^^^ keyword.control.end
+//                                   ^ punctuation.terminator.statement
+            outimage;
+//          ^^^^^^^^ variable
+//                  ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      procedure outim; if trace then outimage;
+//    ^^^^^^^^^ storage.type
+//              ^^^^^ entity.name.function
+//                   ^ punctuation.terminator.statement
+//                     ^^ keyword.control.if
+//                        ^^^^^ variable
+//                              ^^^^ keyword.control.then
+//                                   ^^^^^^^^ variable
+//                                           ^ punctuation.terminator.statement
+
+      procedure outline(head); text head;
+//    ^^^^^^^^^ storage.type
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^ variable.parameter
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^ storage.type
+//                                  ^^^^ variable
+//                                      ^ punctuation.terminator.statement
+      begin programpoint:-head;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^^^^^^ variable
+//                      ^^ keyword.operator.assignment
+//                        ^^^^ variable
+//                            ^ punctuation.terminator.statement
+            if trace then begin outimage; outtext(head); outimage; end;
+//          ^^ keyword.control.if
+//             ^^^^^ variable
+//                   ^^^^ keyword.control.then
+//                        ^^^^^ keyword.control.begin
+//                              ^^^^^^^^ variable
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^ entity.name.function
+//                                               ^ punctuation.section.parens
+//                                                ^^^^ variable
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^^^^^ variable
+//                                                               ^ punctuation.terminator.statement
+//                                                                 ^^^ keyword.control.end
+//                                                                    ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      procedure virtproc(line,t,where); integer line; text t,where;
+//    ^^^^^^^^^ storage.type
+//              ^^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^^^ variable.parameter
+//                           ^ punctuation.separator
+//                            ^ variable.parameter
+//                             ^ punctuation.separator
+//                              ^^^^^ variable.parameter
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                      ^^^^^^^ storage.type
+//                                              ^^^^ variable
+//                                                  ^ punctuation.terminator.statement
+//                                                    ^^^^ storage.type
+//                                                         ^ variable
+//                                                          ^ punctuation.separator
+//                                                           ^^^^^ variable
+//                                                                ^ punctuation.terminator.statement
+      if t<>"global" or trace then begin
+//    ^^ keyword.control.if
+//       ^ variable
+//        ^^ keyword.operator.comparison
+//          ^^^^^^^^ string.quoted.double
+//                   ^^ keyword.operator
+//                      ^^^^^ variable
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^ keyword.control.begin
+            if t<>"global" then begin errorFound:=true;
+//          ^^ keyword.control.if
+//             ^ variable
+//              ^^ keyword.operator.comparison
+//                ^^^^^^^^ string.quoted.double
+//                         ^^^^ keyword.control.then
+//                              ^^^^^ keyword.control.begin
+//                                    ^^^^^^^^^^ variable
+//                                              ^^ keyword.operator.assignment
+//                                                ^^^^ constant.language.bool
+//                                                    ^ punctuation.terminator.statement
+               outtext(programpoint);
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^^^ variable
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+               outtext("- ERROR in implementation of visibility (scope)"
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+                       " rules: "); outimage; 
+//                     ^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+//                                  ^^^^^^^^ variable
+//                                          ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+            outtext("- l."); outint(line,4);
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^^^ variable
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+            outtext(" - global procedure seen from within class");
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                              ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+            if t<>"global"
+//          ^^ keyword.control.if
+//             ^ variable
+//              ^^ keyword.operator.comparison
+//                ^^^^^^^^ string.quoted.double
+            then outtext(" should have been invis.");
+//          ^^^^ keyword.control.then
+//               ^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+            outimage;
+//          ^^^^^^^^ variable
+//                  ^ punctuation.terminator.statement
+            outtext("   Called from within "); outtext(where);
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+//                                             ^^^^^^^ entity.name.function
+//                                                    ^ punctuation.section.parens
+//                                                     ^^^^^ variable
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+            outimage;
+//          ^^^^^^^^ variable
+//                  ^ punctuation.terminator.statement
+            outtext("   with parameter "); outtext(t); outimage;
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^ variable
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+//                                                     ^^^^^^^^ variable
+//                                                             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      class a;
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      protected i,j;
+//    ^^^^^^^^^ keyword.other.protected
+//              ^ variable
+//               ^ punctuation.separator
+//                ^ variable
+//                 ^ punctuation.terminator.statement
+      protected virtproc;
+//    ^^^^^^^^^ keyword.other.protected
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+      virtual: procedure virtproc;
+//    ^^^^^^^ keyword.other.virtual
+//           ^ punctuation.separator
+//             ^^^^^^^^^ storage.type
+//                       ^^^^^^^^ entity.name.function
+//                               ^ punctuation.terminator.statement
+      begin integer i=12;    !C;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ storage.type
+//                  ^ variable
+//                   ^ keyword.operator.comparison
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.terminator.statement
+//                           ^^^ comment.block
+            integer j,ai,aj;
+//          ^^^^^^^ storage.type
+//                  ^ variable
+//                   ^ punctuation.separator
+//                    ^^ variable
+//                      ^ punctuation.separator
+//                       ^^ variable
+//                         ^ punctuation.terminator.statement
+            boolean goto_OK;
+//          ^^^^^^^ storage.type
+//                  ^^^^^^^ variable
+//                         ^ punctuation.terminator.statement
+            character ident;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^ variable
+//                         ^ punctuation.terminator.statement
+
+            procedure avirt(line,t,where); integer line; text t,where;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^^^ variable.parameter
+//                              ^ punctuation.separator
+//                               ^ variable.parameter
+//                                ^ punctuation.separator
+//                                 ^^^^^ variable.parameter
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^ storage.type
+//                                                 ^^^^ variable
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^ storage.type
+//                                                            ^ variable
+//                                                             ^ punctuation.separator
+//                                                              ^^^^^ variable
+//                                                                   ^ punctuation.terminator.statement
+               virtproc(line,t,where);
+//             ^^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^ variable
+//                          ^ punctuation.separator
+//                           ^ variable
+//                            ^ punctuation.separator
+//                             ^^^^^ variable
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+
+            procedure virtproc(line,t,wher); integer line; text t,wher;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^^ variable.parameter
+//                                 ^ punctuation.separator
+//                                  ^ variable.parameter
+//                                   ^ punctuation.separator
+//                                    ^^^^ variable.parameter
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^ storage.type
+//                                                   ^^^^ variable
+//                                                       ^ punctuation.terminator.statement
+//                                                         ^^^^ storage.type
+//                                                              ^ variable
+//                                                               ^ punctuation.separator
+//                                                                ^^^^ variable
+//                                                                    ^ punctuation.terminator.statement
+            if t<>"a.virtproc" or trace then begin
+//          ^^ keyword.control.if
+//             ^ variable
+//              ^^ keyword.operator.comparison
+//                ^^^^^^^^^^^^ string.quoted.double
+//                             ^^ keyword.operator
+//                                ^^^^^ variable
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^ keyword.control.begin
+               if t<>"a.virtproc" then begin errorFound:=true;
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^ keyword.control.begin
+//                                           ^^^^^^^^^^ variable
+//                                                     ^^ keyword.operator.assignment
+//                                                       ^^^^ constant.language.bool
+//                                                           ^ punctuation.terminator.statement
+                  outtext(programpoint); outimage end;
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^^^^ variable
+//                                                ^^^ keyword.control.end
+//                                                   ^ punctuation.terminator.statement
+               outtext("- l."); outint(line,4); outtext(": ");
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^ entity.name.function
+//                                                     ^ punctuation.section.parens
+//                                                      ^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+               outtext(wher); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+               if t<>"a.virtproc" then
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+                  outtext(" - WRONG match to A'virtproc, should be: ");
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+               outtext(t); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^^ variable
+//                                 ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+
+            procedure outa(l); integer l;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable.parameter
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^ storage.type
+//                                     ^ variable
+//                                      ^ punctuation.terminator.statement
+            begin outattr(l,"in a:  i=",i,ai);
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+                  outattr(l,"       j=",j,aj);
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+                  outattr(l,"       k=",k,globalk); outim;
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^ variable
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+//                                                  ^^^^^ variable
+//                                                       ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+
+            ai:=i; aj:=j:=13; ident:='a';     outa(sourceline);
+//          ^^ variable
+//            ^^ keyword.operator.assignment
+//              ^ variable
+//               ^ punctuation.terminator.statement
+//                 ^^ variable
+//                   ^^ keyword.operator.assignment
+//                     ^ variable
+//                      ^^ keyword.operator.assignment
+//                        ^^ constant.numeric.decimal
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^ variable
+//                                 ^^ keyword.operator.assignment
+//                                   ^^^ constant.character
+//                                      ^ punctuation.terminator.statement
+//                                            ^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^^^^^^^^^^ variable
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+            inner;
+//          ^^^^^ keyword.other.inner
+//               ^ punctuation.terminator.statement
+            if ident='a'
+//          ^^ keyword.control.if
+//             ^^^^^ variable
+//                  ^ keyword.operator.comparison
+//                   ^^^ constant.character
+            then avirt(sourceline,"a.virtproc","***AVIRT FROM a***")
+//          ^^^^ keyword.control.then
+//               ^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                ^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+//                                             ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+       else if ident='b' then avirt(sourceline,"b.virtproc",
+//     ^^^^ keyword.control.else
+//          ^^ keyword.control.if
+//             ^^^^^ variable
+//                  ^ keyword.operator.comparison
+//                   ^^^ constant.character
+//                       ^^^^ keyword.control.then
+//                            ^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^^^^^^^^^ variable
+//                                            ^ punctuation.separator
+//                                             ^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.separator
+                                    "***BVIRT FROM this a is b***")
+//                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+       else if ident='c' then avirt(sourceline,"b.virtproc",
+//     ^^^^ keyword.control.else
+//          ^^ keyword.control.if
+//             ^^^^^ variable
+//                  ^ keyword.operator.comparison
+//                   ^^^ constant.character
+//                       ^^^^ keyword.control.then
+//                            ^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^^^^^^^^^ variable
+//                                            ^ punctuation.separator
+//                                             ^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.separator
+                                    "***BVIRT FROM this a in c***");
+//                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+            detach;
+//          ^^^^^^ variable
+//                ^ punctuation.terminator.statement
+            goto_OK:=true; ! *** only here for prefixed blocks ***;
+//          ^^^^^^^ variable
+//                 ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+       L:   if trace or not goto_OK then begin
+//     ^ entity.name.label
+//      ^ punctuation.separator
+//          ^^ keyword.control.if
+//             ^^^^^ variable
+//                   ^^ keyword.operator
+//                      ^^^ keyword.operator
+//                          ^^^^^^^ variable
+//                                  ^^^^ keyword.control.then
+//                                       ^^^^^ keyword.control.begin
+               outtext(if goto_OK
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ keyword.control.if
+//                        ^^^^^^^ variable
+                       then "OK: detach is dummy for pref.block"
+//                     ^^^^ keyword.control.then
+//                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+                       else " !!! at L in xa (goto remote label)");
+//                     ^^^^ keyword.control.else
+//                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+               outimage;
+//             ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+               if not goto_OK then errorFound:=true;
+//             ^^ keyword.control.if
+//                ^^^ keyword.operator
+//                    ^^^^^^^ variable
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^^^^^^ variable
+//                                           ^^ keyword.operator.assignment
+//                                             ^^^^ constant.language.bool
+//                                                 ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+    a class b;
+//  ^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      hidden i;                 ! hide a'i;
+//    ^^^^^^ keyword.other.hidden
+//           ^ variable
+//            ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^ comment.block
+      hidden protected k;       ! hide local k;
+//    ^^^^^^ keyword.other.hidden
+//           ^^^^^^^^^ keyword.other.protected
+//                     ^ variable
+//                      ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^ comment.block
+      hidden virtproc;          ! no more matching;
+//    ^^^^^^ keyword.other.hidden
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^^^^^ comment.block
+      begin integer k,bi,bj,bk;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ storage.type
+//                  ^ variable
+//                   ^ punctuation.separator
+//                    ^^ variable
+//                      ^ punctuation.separator
+//                       ^^ variable
+//                         ^ punctuation.separator
+//                          ^^ variable
+//                            ^ punctuation.terminator.statement
+
+            procedure bvirt(line,t,where); integer line; text t,where;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^^^ variable.parameter
+//                              ^ punctuation.separator
+//                               ^ variable.parameter
+//                                ^ punctuation.separator
+//                                 ^^^^^ variable.parameter
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^ storage.type
+//                                                 ^^^^ variable
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^ storage.type
+//                                                            ^ variable
+//                                                             ^ punctuation.separator
+//                                                              ^^^^^ variable
+//                                                                   ^ punctuation.terminator.statement
+               virtproc(line,t,where);
+//             ^^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^ variable
+//                          ^ punctuation.separator
+//                           ^ variable
+//                            ^ punctuation.separator
+//                             ^^^^^ variable
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+
+            procedure virtproc(line,t,wher); integer line; text t,wher;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^^ variable.parameter
+//                                 ^ punctuation.separator
+//                                  ^ variable.parameter
+//                                   ^ punctuation.separator
+//                                    ^^^^ variable.parameter
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^ storage.type
+//                                                   ^^^^ variable
+//                                                       ^ punctuation.terminator.statement
+//                                                         ^^^^ storage.type
+//                                                              ^ variable
+//                                                               ^ punctuation.separator
+//                                                                ^^^^ variable
+//                                                                    ^ punctuation.terminator.statement
+            if t<>"b.virtproc" or trace then begin
+//          ^^ keyword.control.if
+//             ^ variable
+//              ^^ keyword.operator.comparison
+//                ^^^^^^^^^^^^ string.quoted.double
+//                             ^^ keyword.operator
+//                                ^^^^^ variable
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^ keyword.control.begin
+               if t<>"b.virtproc" then begin errorFound:=true;
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^ keyword.control.begin
+//                                           ^^^^^^^^^^ variable
+//                                                     ^^ keyword.operator.assignment
+//                                                       ^^^^ constant.language.bool
+//                                                           ^ punctuation.terminator.statement
+                  outtext(programpoint); outimage end;
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^^^^ variable
+//                                                ^^^ keyword.control.end
+//                                                   ^ punctuation.terminator.statement
+               outtext("- l."); outint(line,4); outtext(": ");
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^ entity.name.function
+//                                                     ^ punctuation.section.parens
+//                                                      ^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+               outtext(wher); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+               if t<>"b.virtproc" then
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+                  outtext(" - WRONG match to B'virtproc, should be: ");
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+               outtext(t); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^^ variable
+//                                 ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+
+            procedure outb(l); integer l;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable.parameter
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^ storage.type
+//                                     ^ variable
+//                                      ^ punctuation.terminator.statement
+            begin outattr(l,"in b:  i=",i,bi);
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+                  outattr(l,"       j=",j,bj);
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+                  outattr(l,"       k=",k,bk); outim;
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+//                                             ^^^^^ variable
+//                                                  ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+ 
+            bi:=ai; bj:=aj; bk:=k:=14; ident:='b'; outb(sourceline);
+//          ^^ variable
+//            ^^ keyword.operator.assignment
+//              ^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^ variable
+//                    ^^ keyword.operator.assignment
+//                      ^^ variable
+//                        ^ punctuation.terminator.statement
+//                          ^^ variable
+//                            ^^ keyword.operator.assignment
+//                              ^ variable
+//                               ^^ keyword.operator.assignment
+//                                 ^^ constant.numeric.decimal
+//                                   ^ punctuation.terminator.statement
+//                                     ^^^^^ variable
+//                                          ^^ keyword.operator.assignment
+//                                            ^^^ constant.character
+//                                               ^ punctuation.terminator.statement
+//                                                 ^^^^ entity.name.function
+//                                                     ^ punctuation.section.parens
+//                                                      ^^^^^^^^^^ variable
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+            inner;
+//          ^^^^^ keyword.other.inner
+//               ^ punctuation.terminator.statement
+            if this b is b
+//          ^^ keyword.control.if
+//             ^^^^ keyword.other.this
+//                  ^ variable
+//                    ^^ keyword.other.is
+//                       ^ variable
+            then virtproc(sourceline,"b.virtproc","***THIS B IS B*** ");
+//          ^^^^ keyword.control.then
+//               ^^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^ variable
+//                                  ^ punctuation.separator
+//                                   ^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.separator
+//                                                ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+            inspect this a do begin
+//          ^^^^^^^ keyword.control.inspect
+//                  ^^^^ keyword.other.this
+//                       ^ variable
+//                         ^^ keyword.control.do
+//                            ^^^^^ keyword.control.begin
+               virtproc(sourceline,"b.virtproc","***INSP THIS A*a*");
+//             ^^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^ variable
+//                                ^ punctuation.separator
+//                                 ^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.separator
+//                                              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+               outattr(sourceline,"in b: (insp. this a).k=",k,bk);
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.separator
+//                                                          ^ variable
+//                                                           ^ punctuation.separator
+//                                                            ^^ variable
+//                                                              ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+            avirt(sourceline,"b.virtproc","***AVIRT FROM a***");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+            bvirt(sourceline,"b.virtproc","***BVIRT FROM b***");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+ 
+    b class c;
+//  ^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      begin integer ci,cj,ck;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ storage.type
+//                  ^^ variable
+//                    ^ punctuation.separator
+//                     ^^ variable
+//                       ^ punctuation.separator
+//                        ^^ variable
+//                          ^ punctuation.terminator.statement
+
+            procedure cvirt(line,t,where); integer line; text t,where;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^^^ variable.parameter
+//                              ^ punctuation.separator
+//                               ^ variable.parameter
+//                                ^ punctuation.separator
+//                                 ^^^^^ variable.parameter
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^ storage.type
+//                                                 ^^^^ variable
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^ storage.type
+//                                                            ^ variable
+//                                                             ^ punctuation.separator
+//                                                              ^^^^^ variable
+//                                                                   ^ punctuation.terminator.statement
+               virtproc(line,t,where);
+//             ^^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^ variable
+//                          ^ punctuation.separator
+//                           ^ variable
+//                            ^ punctuation.separator
+//                             ^^^^^ variable
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+
+            procedure virtproc(line,t,wher); integer line; text t,wher;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^^ variable.parameter
+//                                 ^ punctuation.separator
+//                                  ^ variable.parameter
+//                                   ^ punctuation.separator
+//                                    ^^^^ variable.parameter
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^ storage.type
+//                                                   ^^^^ variable
+//                                                       ^ punctuation.terminator.statement
+//                                                         ^^^^ storage.type
+//                                                              ^ variable
+//                                                               ^ punctuation.separator
+//                                                                ^^^^ variable
+//                                                                    ^ punctuation.terminator.statement
+            if t<>"c.virtproc" or trace then begin
+//          ^^ keyword.control.if
+//             ^ variable
+//              ^^ keyword.operator.comparison
+//                ^^^^^^^^^^^^ string.quoted.double
+//                             ^^ keyword.operator
+//                                ^^^^^ variable
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^ keyword.control.begin
+               if t<>"c.virtproc" then begin errorFound:=true;
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^ keyword.control.begin
+//                                           ^^^^^^^^^^ variable
+//                                                     ^^ keyword.operator.assignment
+//                                                       ^^^^ constant.language.bool
+//                                                           ^ punctuation.terminator.statement
+                  outtext(programpoint); outimage end;
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^^^^ variable
+//                                                ^^^ keyword.control.end
+//                                                   ^ punctuation.terminator.statement
+               outtext("- l."); outint(line,4); outtext(": ");
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^ entity.name.function
+//                                                     ^ punctuation.section.parens
+//                                                      ^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+               outtext(wher); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+               if t<>"c.virtproc" then
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+                  outtext(" - WRONG match to C'virtproc, should be: ");
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+               outtext(t); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^^ variable
+//                                 ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+
+            procedure outc(l); integer l;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable.parameter
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^ storage.type
+//                                     ^ variable
+//                                      ^ punctuation.terminator.statement
+            begin outattr(l,"in c:  i=",i,ci);
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+                  outattr(l,"       j=",j,cj);
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+                  outattr(l,"       k=",k,ck); outim;
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+//                                             ^^^^^ variable
+//                                                  ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+ 
+            ci:=globali; cj:=bj; ck:=globalk; ident:='c';
+//          ^^ variable
+//            ^^ keyword.operator.assignment
+//              ^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+//                       ^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^ variable
+//                             ^ punctuation.terminator.statement
+//                               ^^ variable
+//                                 ^^ keyword.operator.assignment
+//                                   ^^^^^^^ variable
+//                                          ^ punctuation.terminator.statement
+//                                            ^^^^^ variable
+//                                                 ^^ keyword.operator.assignment
+//                                                   ^^^ constant.character
+//                                                      ^ punctuation.terminator.statement
+            outc(sourceline);
+//          ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+            inner;
+//          ^^^^^ keyword.other.inner
+//               ^ punctuation.terminator.statement
+            virtproc(sourceline,"c.virtproc","***VIRTPROC***");
+//          ^^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^ variable
+//                             ^ punctuation.separator
+//                              ^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.separator
+//                                           ^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+            inspect this a
+//          ^^^^^^^ keyword.control.inspect
+//                  ^^^^ keyword.other.this
+//                       ^ variable
+            do virtproc(sourceline,"c.virtproc","***INSP THIS A*c*");
+//          ^^ keyword.control.do
+//             ^^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^ variable
+//                                ^ punctuation.separator
+//                                 ^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.separator
+//                                              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+            avirt(sourceline,"b.virtproc","***AVIRT FROM c***");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+            bvirt(sourceline,"b.virtproc","***BVIRT FROM c***");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+    a class d;
+//  ^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      protected i;
+//    ^^^^^^^^^ keyword.other.protected
+//              ^ variable
+//               ^ punctuation.terminator.statement
+      begin integer i,di;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ storage.type
+//                  ^ variable
+//                   ^ punctuation.separator
+//                    ^^ variable
+//                      ^ punctuation.terminator.statement
+            procedure outd(l); integer l;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable.parameter
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^ storage.type
+//                                     ^ variable
+//                                      ^ punctuation.terminator.statement
+            begin outattr(l,"in d:  i=",i,di); outim end;
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+//                                             ^^^^^ variable
+//                                                   ^^^ keyword.control.end
+//                                                      ^ punctuation.terminator.statement
+ 
+            i:=di:=24; outd(sourceline);
+//          ^ variable
+//           ^^ keyword.operator.assignment
+//             ^^ variable
+//               ^^ keyword.operator.assignment
+//                 ^^ constant.numeric.decimal
+//                   ^ punctuation.terminator.statement
+//                     ^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^^^^^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+ 
+    d class e;
+//  ^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      hidden i;              ! hide d'i - making a'i visible;
+//    ^^^^^^ keyword.other.hidden
+//           ^ variable
+//            ^ punctuation.terminator.statement
+//                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      begin
+//    ^^^^^ keyword.control.begin
+            procedure oute(l); integer l;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable.parameter
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^ storage.type
+//                                     ^ variable
+//                                      ^ punctuation.terminator.statement
+            begin outattr(l,"in e:  i=",i,di); outim end;
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+//                                             ^^^^^ variable
+//                                                   ^^^ keyword.control.end
+//                                                      ^ punctuation.terminator.statement
+ 
+            oute(sourceline);
+//          ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+ 
+    e class f;
+//  ^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      hidden i;              ! hide a'i - making the global i visible;
+//    ^^^^^^ keyword.other.hidden
+//           ^ variable
+//            ^ punctuation.terminator.statement
+//                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      hidden virtproc;       ! hide a'virtproc => global;
+//    ^^^^^^ keyword.other.hidden
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+//                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      begin
+//    ^^^^^ keyword.control.begin
+            procedure outf(l); integer l;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable.parameter
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^ storage.type
+//                                     ^ variable
+//                                      ^ punctuation.terminator.statement
+            begin outattr(l,"in f:  i=",i,ai); outim end;
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+//                                             ^^^^^ variable
+//                                                   ^^^ keyword.control.end
+//                                                      ^ punctuation.terminator.statement
+ 
+            outf(sourceline);
+//          ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+ 
+    f class g;
+//  ^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      begin
+//    ^^^^^ keyword.control.begin
+            procedure outg(l); integer l;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable.parameter
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^ storage.type
+//                                     ^ variable
+//                                      ^ punctuation.terminator.statement
+            begin outattr(l,"in g:  i=",i,globali); outim end;
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ variable
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^ variable
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+//                                                  ^^^^^ variable
+//                                                        ^^^ keyword.control.end
+//                                                           ^ punctuation.terminator.statement
+ 
+            outg(sourceline);
+//          ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+ 
+    c class x;
+//  ^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      protected virtproc;
+//    ^^^^^^^^^ keyword.other.protected
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+      virtual: procedure virtproc;
+//    ^^^^^^^ keyword.other.virtual
+//           ^ punctuation.separator
+//             ^^^^^^^^^ storage.type
+//                       ^^^^^^^^ entity.name.function
+//                               ^ punctuation.terminator.statement
+
+      begin procedure xvirt(line,t,where); integer line; text t,where;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^^^ variable.parameter
+//                              ^ punctuation.separator
+//                               ^ variable.parameter
+//                                ^ punctuation.separator
+//                                 ^^^^^ variable.parameter
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^ storage.type
+//                                                 ^^^^ variable
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^ storage.type
+//                                                            ^ variable
+//                                                             ^ punctuation.separator
+//                                                              ^^^^^ variable
+//                                                                   ^ punctuation.terminator.statement
+               virtproc(line,t,where);
+//             ^^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^ variable
+//                          ^ punctuation.separator
+//                           ^ variable
+//                            ^ punctuation.separator
+//                             ^^^^^ variable
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+
+            procedure virtproc(line,t,wher); integer line; text t,wher;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^^ variable.parameter
+//                                 ^ punctuation.separator
+//                                  ^ variable.parameter
+//                                   ^ punctuation.separator
+//                                    ^^^^ variable.parameter
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^ storage.type
+//                                                   ^^^^ variable
+//                                                       ^ punctuation.terminator.statement
+//                                                         ^^^^ storage.type
+//                                                              ^ variable
+//                                                               ^ punctuation.separator
+//                                                                ^^^^ variable
+//                                                                    ^ punctuation.terminator.statement
+            if t<>"x.virtproc" or trace then begin
+//          ^^ keyword.control.if
+//             ^ variable
+//              ^^ keyword.operator.comparison
+//                ^^^^^^^^^^^^ string.quoted.double
+//                             ^^ keyword.operator
+//                                ^^^^^ variable
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^ keyword.control.begin
+               if t<>"x.virtproc" then begin errorFound:=true;
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^ keyword.control.begin
+//                                           ^^^^^^^^^^ variable
+//                                                     ^^ keyword.operator.assignment
+//                                                       ^^^^ constant.language.bool
+//                                                           ^ punctuation.terminator.statement
+                  outtext(programpoint); outimage end;
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^^^^ variable
+//                                                ^^^ keyword.control.end
+//                                                   ^ punctuation.terminator.statement
+               outtext("- l."); outint(line,4); outtext(": ");
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^ entity.name.function
+//                                                     ^ punctuation.section.parens
+//                                                      ^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+               outtext(wher); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+               if t<>"x.virtproc" then
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+                  outtext(" - WRONG match to X'virtproc, should be: ");
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+               outtext(t); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^^ variable
+//                                 ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+
+            if this x is x then xvirt(sourceline,"x.virtproc",
+//          ^^ keyword.control.if
+//             ^^^^ keyword.other.this
+//                  ^ variable
+//                    ^^ keyword.other.is
+//                       ^ variable
+//                         ^^^^ keyword.control.then
+//                              ^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^^^ variable
+//                                              ^ punctuation.separator
+//                                               ^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.separator
+                                      "***XVIRT FROM this x is x***")
+//                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+       else if this x is y then xvirt(sourceline,"y.virtproc",
+//     ^^^^ keyword.control.else
+//          ^^ keyword.control.if
+//             ^^^^ keyword.other.this
+//                  ^ variable
+//                    ^^ keyword.other.is
+//                       ^ variable
+//                         ^^^^ keyword.control.then
+//                              ^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^^^ variable
+//                                              ^ punctuation.separator
+//                                               ^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.separator
+                                      "***XVIRT FROM this x is y***")
+//                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+       else if this x in z then xvirt(sourceline,"y.virtproc",
+//     ^^^^ keyword.control.else
+//          ^^ keyword.control.if
+//             ^^^^ keyword.other.this
+//                  ^ variable
+//                    ^^ keyword.operator
+//                       ^ variable
+//                         ^^^^ keyword.control.then
+//                              ^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^^^ variable
+//                                              ^ punctuation.separator
+//                                               ^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.separator
+                                      "***XVIRT FROM this x in z***");
+//                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+            inner;
+//          ^^^^^ keyword.other.inner
+//               ^ punctuation.terminator.statement
+            detach;
+//          ^^^^^^ variable
+//                ^ punctuation.terminator.statement
+            goto_OK:=true; ! *** only here for prefixed blocks ***;
+//          ^^^^^^^ variable
+//                 ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+       L:   if trace or not goto_OK then begin
+//     ^ entity.name.label
+//      ^ punctuation.separator
+//          ^^ keyword.control.if
+//             ^^^^^ variable
+//                   ^^ keyword.operator
+//                      ^^^ keyword.operator
+//                          ^^^^^^^ variable
+//                                  ^^^^ keyword.control.then
+//                                       ^^^^^ keyword.control.begin
+               outtext(if goto_OK
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^ keyword.control.if
+//                        ^^^^^^^ variable
+                       then "OK: detach is dummy for X-pref.block"
+//                     ^^^^ keyword.control.then
+//                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+                       else " !!! at L in X (goto remote label)");
+//                     ^^^^ keyword.control.else
+//                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                              ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+               outimage;
+//             ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+               if not goto_OK then errorFound:=true;
+//             ^^ keyword.control.if
+//                ^^^ keyword.operator
+//                    ^^^^^^^ variable
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^^^^^^ variable
+//                                           ^^ keyword.operator.assignment
+//                                             ^^^^ constant.language.bool
+//                                                 ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+    x class y;
+//  ^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      hidden virtproc;          ! no more matching;
+//    ^^^^^^ keyword.other.hidden
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^^^^^ comment.block
+
+      begin procedure yvirt(line,t,where); integer line; text t,where;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^^^ variable.parameter
+//                              ^ punctuation.separator
+//                               ^ variable.parameter
+//                                ^ punctuation.separator
+//                                 ^^^^^ variable.parameter
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^ storage.type
+//                                                 ^^^^ variable
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^ storage.type
+//                                                            ^ variable
+//                                                             ^ punctuation.separator
+//                                                              ^^^^^ variable
+//                                                                   ^ punctuation.terminator.statement
+               virtproc(line,t,where);
+//             ^^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^ variable
+//                          ^ punctuation.separator
+//                           ^ variable
+//                            ^ punctuation.separator
+//                             ^^^^^ variable
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+
+            procedure virtproc(line,t,wher); integer line; text t,wher;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^^ variable.parameter
+//                                 ^ punctuation.separator
+//                                  ^ variable.parameter
+//                                   ^ punctuation.separator
+//                                    ^^^^ variable.parameter
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^ storage.type
+//                                                   ^^^^ variable
+//                                                       ^ punctuation.terminator.statement
+//                                                         ^^^^ storage.type
+//                                                              ^ variable
+//                                                               ^ punctuation.separator
+//                                                                ^^^^ variable
+//                                                                    ^ punctuation.terminator.statement
+            if t<>"y.virtproc" or trace then begin
+//          ^^ keyword.control.if
+//             ^ variable
+//              ^^ keyword.operator.comparison
+//                ^^^^^^^^^^^^ string.quoted.double
+//                             ^^ keyword.operator
+//                                ^^^^^ variable
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^ keyword.control.begin
+               if t<>"y.virtproc" then begin errorFound:=true;
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^ keyword.control.begin
+//                                           ^^^^^^^^^^ variable
+//                                                     ^^ keyword.operator.assignment
+//                                                       ^^^^ constant.language.bool
+//                                                           ^ punctuation.terminator.statement
+                  outtext(programpoint); outimage end;
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^^^^ variable
+//                                                ^^^ keyword.control.end
+//                                                   ^ punctuation.terminator.statement
+               outtext("- l."); outint(line,4); outtext(": ");
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^ entity.name.function
+//                                                     ^ punctuation.section.parens
+//                                                      ^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+               outtext(wher); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+               if t<>"y.virtproc" then
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+                  outtext(" - WRONG match to Y'virtproc, should be: ");
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+               outtext(t); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^^ variable
+//                                 ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+
+            if this y is y
+//          ^^ keyword.control.if
+//             ^^^^ keyword.other.this
+//                  ^ variable
+//                    ^^ keyword.other.is
+//                       ^ variable
+            then virtproc(sourceline,"y.virtproc","***THIS Y IS Y*** ");
+//          ^^^^ keyword.control.then
+//               ^^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^ variable
+//                                  ^ punctuation.separator
+//                                   ^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.separator
+//                                                ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+            inspect this a
+//          ^^^^^^^ keyword.control.inspect
+//                  ^^^^ keyword.other.this
+//                       ^ variable
+            do virtproc(sourceline,"y.virtproc","***INSP THIS A*y*");
+//          ^^ keyword.control.do
+//             ^^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^ variable
+//                                ^ punctuation.separator
+//                                 ^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.separator
+//                                              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+            avirt(sourceline,"b.virtproc","***AVIRT FROM y***");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+            bvirt(sourceline,"b.virtproc","***BVIRT FROM y***");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+ 
+    y class z;
+//  ^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+
+      begin procedure zvirt(line,t,where); integer line; text t,where;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^^^ variable.parameter
+//                              ^ punctuation.separator
+//                               ^ variable.parameter
+//                                ^ punctuation.separator
+//                                 ^^^^^ variable.parameter
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^ storage.type
+//                                                 ^^^^ variable
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^ storage.type
+//                                                            ^ variable
+//                                                             ^ punctuation.separator
+//                                                              ^^^^^ variable
+//                                                                   ^ punctuation.terminator.statement
+               virtproc(line,t,where);
+//             ^^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^ variable
+//                          ^ punctuation.separator
+//                           ^ variable
+//                            ^ punctuation.separator
+//                             ^^^^^ variable
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+
+            procedure virtproc(line,t,wher); integer line; text t,wher;
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^^ variable.parameter
+//                                 ^ punctuation.separator
+//                                  ^ variable.parameter
+//                                   ^ punctuation.separator
+//                                    ^^^^ variable.parameter
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^ storage.type
+//                                                   ^^^^ variable
+//                                                       ^ punctuation.terminator.statement
+//                                                         ^^^^ storage.type
+//                                                              ^ variable
+//                                                               ^ punctuation.separator
+//                                                                ^^^^ variable
+//                                                                    ^ punctuation.terminator.statement
+            if t<>"z.virtproc" or trace then begin
+//          ^^ keyword.control.if
+//             ^ variable
+//              ^^ keyword.operator.comparison
+//                ^^^^^^^^^^^^ string.quoted.double
+//                             ^^ keyword.operator
+//                                ^^^^^ variable
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^ keyword.control.begin
+               if t<>"z.virtproc" then begin errorFound:=true;
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^ keyword.control.begin
+//                                           ^^^^^^^^^^ variable
+//                                                     ^^ keyword.operator.assignment
+//                                                       ^^^^ constant.language.bool
+//                                                           ^ punctuation.terminator.statement
+                  outtext(programpoint); outimage end;
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^^^^ variable
+//                                                ^^^ keyword.control.end
+//                                                   ^ punctuation.terminator.statement
+               outtext("- l."); outint(line,4); outtext(": ");
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^ entity.name.function
+//                                                     ^ punctuation.section.parens
+//                                                      ^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+               outtext(wher); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+               if t<>"z.virtproc" then
+//             ^^ keyword.control.if
+//                ^ variable
+//                 ^^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^ string.quoted.double
+//                                ^^^^ keyword.control.then
+                 outtext(" - WRONG match to Z'virtproc, should be: ");
+//               ^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+               outtext(t); outimage;
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^^^^ variable
+//                                 ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+
+            virtproc(sourceline,"z.virtproc","***VIRTPROC***");
+//          ^^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^ variable
+//                             ^ punctuation.separator
+//                              ^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.separator
+//                                           ^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+            inspect this a
+//          ^^^^^^^ keyword.control.inspect
+//                  ^^^^ keyword.other.this
+//                       ^ variable
+            do virtproc(sourceline,"z.virtproc","***INSP THIS A*z*");
+//          ^^ keyword.control.do
+//             ^^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^ variable
+//                                ^ punctuation.separator
+//                                 ^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.separator
+//                                              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+            avirt(sourceline,"b.virtproc","***AVIRT FROM z***");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+            bvirt(sourceline,"b.virtproc","***BVIRT FROM z***");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+            cvirt(sourceline,"c.virtproc","***CVIRT FROM z***");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+            xvirt(sourceline,"y.virtproc","***XVIRT FROM z***");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+            yvirt(sourceline,"y.virtproc","***YVIRT FROM z***");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      ref(a)xa;  ref(b) xb;  ref(c)xc;  ref(d)xd;  ref(e)xe;  ref(f)xf;
+//    ^^^ storage.modifier
+//       ^ punctuation.section.parens
+//        ^ entity.name.class
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.terminator.statement
+//               ^^^ storage.modifier
+//                  ^ punctuation.section.parens
+//                   ^ entity.name.class
+//                    ^ punctuation.section.parens
+//                      ^^ variable
+//                        ^ punctuation.terminator.statement
+//                           ^^^ storage.modifier
+//                              ^ punctuation.section.parens
+//                               ^ entity.name.class
+//                                ^ punctuation.section.parens
+//                                 ^^ variable
+//                                   ^ punctuation.terminator.statement
+//                                      ^^^ storage.modifier
+//                                         ^ punctuation.section.parens
+//                                          ^ entity.name.class
+//                                           ^ punctuation.section.parens
+//                                            ^^ variable
+//                                              ^ punctuation.terminator.statement
+//                                                 ^^^ storage.modifier
+//                                                    ^ punctuation.section.parens
+//                                                     ^ entity.name.class
+//                                                      ^ punctuation.section.parens
+//                                                       ^^ variable
+//                                                         ^ punctuation.terminator.statement
+//                                                            ^^^ storage.modifier
+//                                                               ^ punctuation.section.parens
+//                                                                ^ entity.name.class
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^^ variable
+//                                                                    ^ punctuation.terminator.statement
+
+      procedure outerout;
+//    ^^^^^^^^^ storage.type
+//              ^^^^^^^^ entity.name.function
+//                      ^ punctuation.terminator.statement
+            begin outattr(sourceline,"outer: i=",i,globali);
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^ variable
+//                                  ^ punctuation.separator
+//                                   ^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.separator
+//                                               ^ variable
+//                                                ^ punctuation.separator
+//                                                 ^^^^^^^ variable
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+                  outattr(sourceline,"       j=",j,globalj);
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^ variable
+//                                  ^ punctuation.separator
+//                                   ^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.separator
+//                                               ^ variable
+//                                                ^ punctuation.separator
+//                                                 ^^^^^^^ variable
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+                  outattr(sourceline,"       k=",k,globalk); outim;
+//                ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^ variable
+//                                  ^ punctuation.separator
+//                                   ^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.separator
+//                                               ^ variable
+//                                                ^ punctuation.separator
+//                                                 ^^^^^^^ variable
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+//                                                           ^^^^^ variable
+//                                                                ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+%     ************   Initialisations   **************
+// <----------------------------------------------------- comment.directive
+
+      outtext(
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+         "--- START Simula a.s test 98 (attribute protection test)");
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+      outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      !*** for test purpose, insert this: ***     trace:=true;
+//    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      globali:=i:=2; globalj:=j:=3; globalk:=k:=4; outerout;
+//    ^^^^^^^ variable
+//           ^^ keyword.operator.assignment
+//             ^ variable
+//              ^^ keyword.operator.assignment
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+//                   ^^^^^^^ variable
+//                          ^^ keyword.operator.assignment
+//                            ^ variable
+//                             ^^ keyword.operator.assignment
+//                               ^ constant.numeric.decimal
+//                                ^ punctuation.terminator.statement
+//                                  ^^^^^^^ variable
+//                                         ^^ keyword.operator.assignment
+//                                           ^ variable
+//                                            ^^ keyword.operator.assignment
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.terminator.statement
+//                                                 ^^^^^^^^ variable
+//                                                         ^ punctuation.terminator.statement
+
+%     ************     Main program    **************
+// <----------------------------------------------------- comment.directive
+
+      outline("***   xa:-new z   ***");   xa:-new z;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                        ^^ variable
+//                                          ^^ keyword.operator.assignment
+//                                            ^^^ keyword.control.new
+//                                                ^ entity.name.class
+//                                                 ^ punctuation.terminator.statement
+      outline("***   xa:-new y   ***");   xa:-new y;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                        ^^ variable
+//                                          ^^ keyword.operator.assignment
+//                                            ^^^ keyword.control.new
+//                                                ^ entity.name.class
+//                                                 ^ punctuation.terminator.statement
+      outline("***   xa:-new x   ***");   xa:-new x;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                        ^^ variable
+//                                          ^^ keyword.operator.assignment
+//                                            ^^^ keyword.control.new
+//                                                ^ entity.name.class
+//                                                 ^ punctuation.terminator.statement
+      outline("***   xa:-new f   ***");   xa:-new f;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                        ^^ variable
+//                                          ^^ keyword.operator.assignment
+//                                            ^^^ keyword.control.new
+//                                                ^ entity.name.class
+//                                                 ^ punctuation.terminator.statement
+      outline("***   xa:-new e   ***");   xa:-new e;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                        ^^ variable
+//                                          ^^ keyword.operator.assignment
+//                                            ^^^ keyword.control.new
+//                                                ^ entity.name.class
+//                                                 ^ punctuation.terminator.statement
+      outline("***   xa:-new d   ***");   xa:-new d;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                        ^^ variable
+//                                          ^^ keyword.operator.assignment
+//                                            ^^^ keyword.control.new
+//                                                ^ entity.name.class
+//                                                 ^ punctuation.terminator.statement
+      outline("***   xa:-new a   ***");   xa:-new a;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                        ^^ variable
+//                                          ^^ keyword.operator.assignment
+//                                            ^^^ keyword.control.new
+//                                                ^ entity.name.class
+//                                                 ^ punctuation.terminator.statement
+      outline("***   xb:-new b   ***");   xb:-new b;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                        ^^ variable
+//                                          ^^ keyword.operator.assignment
+//                                            ^^^ keyword.control.new
+//                                                ^ entity.name.class
+//                                                 ^ punctuation.terminator.statement
+      outline("***   xc:-new c   ***");   xc:-new c;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                        ^^ variable
+//                                          ^^ keyword.operator.assignment
+//                                            ^^^ keyword.control.new
+//                                                ^ entity.name.class
+//                                                 ^ punctuation.terminator.statement
+
+      outline("***   inspect xa  ***");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+      inspect xa do begin
+//    ^^^^^^^ keyword.control.inspect
+//            ^^ variable
+//               ^^ keyword.control.do
+//                  ^^^^^ keyword.control.begin
+              virtproc(sourceline,"global","***INSP XA DO VP*** ");
+//            ^^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                ^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.separator
+//                                         ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+              outattr(sourceline,"inspect xa: prot. const 'i'=",
+//            ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^ variable
+//                              ^ punctuation.separator
+//                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.separator
+                                 i,globali);
+//                               ^ variable
+//                                ^ punctuation.separator
+//                                 ^^^^^^^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+              outattr(sourceline,"            prot. const 'j'=",
+//            ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^ variable
+//                              ^ punctuation.separator
+//                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.separator
+                                 j,globalj);
+//                               ^ variable
+//                                ^ punctuation.separator
+//                                 ^^^^^^^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+              outim;  goto L; !NOT to L in 'xa', but to L below;
+//            ^^^^^ variable
+//                 ^ punctuation.terminator.statement
+//                    ^^^^ keyword.control.goto
+//                         ^ entity.name.label
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+L:
+// <- entity.name.label
+// <~- punctuation.separator
+      outline("***   inspect xb  ***");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+      inspect xb do begin
+//    ^^^^^^^ keyword.control.inspect
+//            ^^ variable
+//               ^^ keyword.control.do
+//                  ^^^^^ keyword.control.begin
+              outattr(sourceline,"inspect xb: hid.prot. const 'i'=",
+//            ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^ variable
+//                              ^ punctuation.separator
+//                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.separator
+                                 i,globali);
+//                               ^ variable
+//                                ^ punctuation.separator
+//                                 ^^^^^^^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+              outattr(sourceline,"            hid.prot. attr. 'k'=",
+//            ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^ variable
+//                              ^ punctuation.separator
+//                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.separator
+                                 k,globalk);
+//                               ^ variable
+//                                ^ punctuation.separator
+//                                 ^^^^^^^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+              outim;
+//            ^^^^^ variable
+//                 ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      outline("***   block pref. with a   ***");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+    a begin ablock:=true;
+//  ^ entity.name.class
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                  ^^^^ constant.language.bool
+//                      ^ punctuation.terminator.statement
+            outattr(sourceline,"a BEGIN: i (protected const):",i,ai);
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^ variable
+//                            ^ punctuation.separator
+//                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.separator
+//                                                             ^ variable
+//                                                              ^ punctuation.separator
+//                                                               ^^ variable
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+            outattr(sourceline,"         j (protected attr): ",j,aj);
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^ variable
+//                            ^ punctuation.separator
+//                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.separator
+//                                                             ^ variable
+//                                                              ^ punctuation.separator
+//                                                               ^^ variable
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+            outim;
+//          ^^^^^ variable
+//               ^ punctuation.terminator.statement
+            ablock:=false;
+//          ^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                  ^^^^^ constant.language.bool
+//                       ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      outline("***   block pref. with d   ***");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+    d begin ablock:=dblock:=true;
+//  ^ entity.name.class
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                  ^^^^^^ variable
+//                        ^^ keyword.operator.assignment
+//                          ^^^^ constant.language.bool
+//                              ^ punctuation.terminator.statement
+            virtproc(sourceline,"a.virtproc","***D begin VP*** ");
+//          ^^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^ variable
+//                             ^ punctuation.separator
+//                              ^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.separator
+//                                           ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                              ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+            outattr(sourceline,"d BEGIN - i:",i,di);
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^ variable
+//                            ^ punctuation.separator
+//                             ^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.separator
+//                                            ^ variable
+//                                             ^ punctuation.separator
+//                                              ^^ variable
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+            outim;
+//          ^^^^^ variable
+//               ^ punctuation.terminator.statement
+            ablock:=dblock:=false;
+//          ^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                  ^^^^^^ variable
+//                        ^^ keyword.operator.assignment
+//                          ^^^^^ constant.language.bool
+//                               ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      outline("***   block pref. with e   ***");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+    e begin ablock:=dblock:=eblock:=true;
+//  ^ entity.name.class
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                  ^^^^^^ variable
+//                        ^^ keyword.operator.assignment
+//                          ^^^^^^ variable
+//                                ^^ keyword.operator.assignment
+//                                  ^^^^ constant.language.bool
+//                                      ^ punctuation.terminator.statement
+            outattr(sourceline,"e BEGIN - i:",i,ai);
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^ variable
+//                            ^ punctuation.separator
+//                             ^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.separator
+//                                            ^ variable
+//                                             ^ punctuation.separator
+//                                              ^^ variable
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+            outim;
+//          ^^^^^ variable
+//               ^ punctuation.terminator.statement
+            ablock:=dblock:=eblock:=false;
+//          ^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                  ^^^^^^ variable
+//                        ^^ keyword.operator.assignment
+//                          ^^^^^^ variable
+//                                ^^ keyword.operator.assignment
+//                                  ^^^^^ constant.language.bool
+//                                       ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      outline("***   block pref. with f   ***");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+    f begin ablock:=dblock:=eblock:=fblock:=true;
+//  ^ entity.name.class
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                  ^^^^^^ variable
+//                        ^^ keyword.operator.assignment
+//                          ^^^^^^ variable
+//                                ^^ keyword.operator.assignment
+//                                  ^^^^^^ variable
+//                                        ^^ keyword.operator.assignment
+//                                          ^^^^ constant.language.bool
+//                                              ^ punctuation.terminator.statement
+            virtproc(sourceline,"global","***F begin VP*** ");
+//          ^^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^ variable
+//                             ^ punctuation.separator
+//                              ^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.separator
+//                                       ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+            outattr(sourceline,"f BEGIN - i:",i,globali);
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^ variable
+//                            ^ punctuation.separator
+//                             ^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.separator
+//                                            ^ variable
+//                                             ^ punctuation.separator
+//                                              ^^^^^^^ variable
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+            outim;
+//          ^^^^^ variable
+//               ^ punctuation.terminator.statement
+            ablock:=dblock:=eblock:=fblock:=false;
+//          ^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                  ^^^^^^ variable
+//                        ^^ keyword.operator.assignment
+//                          ^^^^^^ variable
+//                                ^^ keyword.operator.assignment
+//                                  ^^^^^^ variable
+//                                        ^^ keyword.operator.assignment
+//                                          ^^^^^ constant.language.bool
+//                                               ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      outline("***   inspect new b   ***");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+      inspect new b do begin
+//    ^^^^^^^ keyword.control.inspect
+//            ^^^ keyword.control.new
+//                ^ entity.name.class
+//                  ^^ keyword.control.do
+//                     ^^^^^ keyword.control.begin
+              virtproc(sourceline,    "global",
+//            ^^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+                                  "***INSP NEW b ... virtproc***");
+//                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+                 bvirt(sourceline,"b.virtproc",
+//               ^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                ^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+                                  "***INSP NEW b ... bvirt***");
+//                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      outline("***   inspect new y   ***");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+      inspect new y do begin
+//    ^^^^^^^ keyword.control.inspect
+//            ^^^ keyword.control.new
+//                ^ entity.name.class
+//                  ^^ keyword.control.do
+//                     ^^^^^ keyword.control.begin
+              virtproc(sourceline,"c.virtproc",
+//            ^^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                ^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+                                  "***INSP NEW y ... virtproc***");
+//                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+                 yvirt(sourceline,"y.virtproc",
+//               ^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                ^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+                                  "***INSP NEW y ... yvirt***");
+//                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      outline("***   inspect new z   ***");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+      inspect new z do begin
+//    ^^^^^^^ keyword.control.inspect
+//            ^^^ keyword.control.new
+//                ^ entity.name.class
+//                  ^^ keyword.control.do
+//                     ^^^^^ keyword.control.begin
+              virtproc(sourceline,"z.virtproc",
+//            ^^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                ^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+                                  "***INSP NEW z ... virtproc***");
+//                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+                 xvirt(sourceline,"y.virtproc",
+//               ^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                ^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+                                  "***INSP NEW y ... xvirt***");
+//                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+                 yvirt(sourceline,"y.virtproc",
+//               ^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                ^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+                                  "***INSP NEW y ... yvirt***");
+//                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+                 zvirt(sourceline,"z.virtproc",
+//               ^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ variable
+//                               ^ punctuation.separator
+//                                ^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+                                  "***INSP NEW z ... zvirt***");
+//                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+%   outattr(sourceline,"xa.i (protected const):",xa.i,0); !source error;
+// <------------------------------------------------------------------------ comment.directive
+%   outattr(sourceline,"xa.j (protected attr.):",xa.j,0); !source error;
+// <------------------------------------------------------------------------ comment.directive
+%   outattr(sourceline,"xb.i (hid prot. const):",xb.i,0); !source error;
+// <------------------------------------------------------------------------ comment.directive
+%   outattr(sourceline,"xb.k (hid prot. attr.):",xb.k,0); !source error;
+// <------------------------------------------------------------------------ comment.directive
+%   new y.virtproc(sourceline,"global"," NEW y.virt");    !source error;
+// <------------------------------------------------------------------------ comment.directive
+%   goto xa.L;                                            !source error;
+// <------------------------------------------------------------------------ comment.directive
+
+      outtext("--- END Simula a.s TEST 98");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+      if not errorFound then outtext(" (NO ERRORS FOUND)");
+//    ^^ keyword.control.if
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^ variable
+//                      ^^^^ keyword.control.then
+//                           ^^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+      outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+end
+// <--- keyword.control.end

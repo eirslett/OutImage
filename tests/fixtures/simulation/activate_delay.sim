@@ -1,0 +1,17 @@
+! Ch.12 activate delay schedules without immediate switch.;
+Simulation
+begin
+    process class Worker;
+    begin
+        OutText("W"); OutImage;
+    end;
+
+    ref(Worker) w;
+    w :- new Worker;
+    activate w delay 2.0;
+    OutText("M1"); OutImage;
+    hold(1.0);
+    OutText("M2"); OutImage;
+    hold(2.0);
+    OutText("M3"); OutImage;
+end

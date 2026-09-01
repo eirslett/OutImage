@@ -1,0 +1,6 @@
+external C procedure csqrt = "libm:sqrt"
+   is real procedure csqrt(x); real x;
+begin
+   OutFix(csqrt(3.0 * 3.0 + 4.0 * 4.0), 1, 4);
+   OutImage;
+end;

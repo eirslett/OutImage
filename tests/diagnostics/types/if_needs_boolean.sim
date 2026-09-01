@@ -1,0 +1,1 @@
+begin integer x; x := 1; if x then x := 0; end;

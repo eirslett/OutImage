@@ -1,0 +1,13 @@
+! §5.7.5: default initialization for each simple type.;
+begin
+    class Point; begin end;
+    real r;
+    integer i;
+    boolean b;
+    character c;
+    text t;
+    ref(Point) p;
+    if r = 0.0 and i = 0 and not b and rank(c) = 0 and t = notext and p == none then
+        OutText("ok");
+    OutImage;
+end

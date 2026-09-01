@@ -1,0 +1,22 @@
+begin
+    character c, prev;
+    text t;
+    boolean ok;
+    ok := char(65) = 'A'
+       and rank('A') = 65
+       and digit('5')
+       and not digit('!')
+       and letter('z')
+       and not letter('9');
+    prev := lowten('X');
+    ok := ok and prev = '&';
+    prev := decimalmark(',');
+    ok := ok and prev = '.';
+    t :- copy("AbC");
+    upcase(t);
+    ok := ok and t = "ABC";
+    lowcase(t);
+    ok := ok and t = "abc";
+    if ok then OutText("ok") else OutText("fail");
+    OutImage;
+end

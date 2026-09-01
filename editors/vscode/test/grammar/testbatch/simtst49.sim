@@ -1,0 +1,482 @@
+// SYNTAX TEST "source.simula" "simtst49"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 49
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test For statements in connection blocks.
+// <--------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  REWRITTEN BY:  BEH   29/07-86
+// <-------------------------------- comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   text t ;
+// ^^^^ storage.type
+//      ^ variable
+//        ^ punctuation.terminator.statement
+
+   Class A ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Integer         i, j, k ;
+//    ^^^^^^^ storage.type
+//                    ^ variable
+//                     ^ punctuation.separator
+//                       ^ variable
+//                        ^ punctuation.separator
+//                          ^ variable
+//                            ^ punctuation.terminator.statement
+   END of class A ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   A Class B ; ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+//             ^ punctuation.terminator.statement
+
+   Ref (A)            ra ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//                    ^^ variable
+//                       ^ punctuation.terminator.statement
+   Integer            l ;
+// ^^^^^^^ storage.type
+//                    ^ variable
+//                      ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 49") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test For statement in connection block.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   ra :- New A ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+
+   Inspect ra Do
+// ^^^^^^^ keyword.control.inspect
+//         ^^ variable
+//            ^^ keyword.control.do
+      For i := l, l + 1, l + 2 Do Outint (i, 3) ;
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ variable
+//                  ^ keyword.operator.arithmetic
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                       ^ variable
+//                         ^ keyword.operator.arithmetic
+//                           ^ constant.numeric.decimal
+//                             ^^ keyword.control.do
+//                                ^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^ variable
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+
+   t :- copy (sysout.image.strip) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^ variable
+//                        ^ punctuation.accessor
+//                         ^^^^^ variable
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+   sysout.image.setpos (1) ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   sysout.image := notext ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^^^ constant.language.null
+//                        ^ punctuation.terminator.statement
+
+   if t = "  0  1  2" then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^^^^^^^^ string.quoted.double
+//                    ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : For-loop (1).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Outtext (t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Inspect ra Do
+// ^^^^^^^ keyword.control.inspect
+//         ^^ variable
+//            ^^ keyword.control.do
+      For i := i, i + 1, i + 2 Step -1 Until 0 Do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ variable
+//                  ^ keyword.operator.arithmetic
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                       ^ variable
+//                         ^ keyword.operator.arithmetic
+//                           ^ constant.numeric.decimal
+//                             ^^^^ keyword.control.step
+//                                  ^ keyword.operator.arithmetic
+//                                   ^ constant.numeric.decimal
+//                                     ^^^^^ keyword.control.until
+//                                           ^ constant.numeric.decimal
+//                                             ^^ keyword.control.do
+         For j := i, i + 1 Do Outint (i + j, 3) ;
+//       ^^^ keyword.control.for
+//           ^ variable
+//             ^^ keyword.operator.assignment
+//                ^ variable
+//                 ^ punctuation.separator
+//                   ^ variable
+//                     ^ keyword.operator.arithmetic
+//                       ^ constant.numeric.decimal
+//                         ^^ keyword.control.do
+//                            ^^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^ variable
+//                                      ^ keyword.operator.arithmetic
+//                                        ^ variable
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+
+   t :- copy (sysout.image.strip) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^ variable
+//                        ^ punctuation.accessor
+//                         ^^^^^ variable
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+   sysout.image.setpos (1) ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   sysout.image := notext ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^^^ constant.language.null
+//                        ^ punctuation.terminator.statement
+
+   if t = "  4  5  6  7 10 11  8  9  6  7  4  5  2  3  0  1"  then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : For-loop (2).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Outtext (t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   Inspect ra
+// ^^^^^^^ keyword.control.inspect
+//         ^^ variable
+   WHEN A Do
+// ^^^^ keyword.control.when
+//      ^ entity.name.class
+//        ^^ keyword.control.do
+      For k := k, k + 1 Do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ variable
+//                  ^ keyword.operator.arithmetic
+//                    ^ constant.numeric.decimal
+//                      ^^ keyword.control.do
+         For l := k Do Outint (k + l, 3)
+//       ^^^ keyword.control.for
+//           ^ variable
+//             ^^ keyword.operator.assignment
+//                ^ variable
+//                  ^^ keyword.control.do
+//                     ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ variable
+//                               ^ keyword.operator.arithmetic
+//                                 ^ variable
+//                                  ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+   WHEN B Do
+// ^^^^ keyword.control.when
+//      ^ entity.name.class
+//        ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Wrong statement selected (3).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end
+// ^^^ keyword.control.end
+   OTHERWISE
+// ^^^^^^^^^ keyword.control.otherwise
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Wrong statement selected (4).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   t :- copy (sysout.image.strip) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^ variable
+//                        ^ punctuation.accessor
+//                         ^^^^^ variable
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+   sysout.image.setpos (1) ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   sysout.image := notext ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^^^ constant.language.null
+//                        ^ punctuation.terminator.statement
+
+   if t = "  0  2" then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^^^^^ string.quoted.double
+//                 ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : For-loop (5).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Outtext (t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 49") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

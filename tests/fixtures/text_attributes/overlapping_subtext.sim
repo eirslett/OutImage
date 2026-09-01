@@ -1,0 +1,23 @@
+begin
+    boolean procedure overlapping(X, Y); text X, Y;
+    overlapping := X.main == Y.main and
+        (if X.start <= Y.start
+         then X.start + X.length > Y.start
+         else Y.start + Y.length > X.start);
+
+    boolean procedure subtext(X, Y); text X, Y;
+    subtext := X.main == Y.main
+        and X.start >= Y.start
+        and X.start + X.length <= Y.start + Y.length;
+
+    text t, a, b, c;
+    t :- "abcdef";
+    a :- t.sub(2, 3);
+    b :- t.sub(3, 3);
+    c :- t.sub(5, 2);
+    if overlapping(a, b) and not overlapping(a, c)
+       and subtext(a, t) and not subtext(t, a)
+       and a.start = 2 and a.main == t.main
+    then OutText("ok") else OutText("fail");
+    OutImage;
+end

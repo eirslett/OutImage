@@ -1,0 +1,1809 @@
+// SYNTAX TEST "source.simula" "simtst70"
+% ======================================   Main   program  ===========
+// <---------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST  NO 70
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:  To test the text attributes length, pos, main, setpos,
+// <------------------------------------------------------------------- comment.directive
+%            more, strip, getchar and putchar, and the reference
+// <---------------------------------------------------------------- comment.directive
+%            comparators == and =/=.
+// <------------------------------------ comment.directive
+%
+// <- comment.directive
+%  METHOD:   Create various texts and use the attributes.
+// <--------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  NOTE:     1. At line commented with NOTE 1 : The largest permitted
+// <--------------------------------------------------------------------- comment.directive
+%               text constant length on your implementation must be
+// <------------------------------------------------------------------- comment.directive
+%               filled in.
+// <-------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:   THE  03/11-83
+// <------------------------------ comment.directive
+% ====================================================================
+// <---------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+BOOLEAN         found_error;    ! Set to true when errors are ;
+// <------- storage.type
+//              ^^^^^^^^^^^ variable
+//                         ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                ! found.                      ;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+TEXT            txt1;           ! To have its attribu. tested.;
+// <---- storage.type
+//              ^^^^ variable
+//                  ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+TEXT            txt2;           ! To have its attribu. tested.;
+// <---- storage.type
+//              ^^^^ variable
+//                  ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+CHARACTER       cha;
+// <--------- storage.type
+//              ^^^ variable
+//                 ^ punctuation.terminator.statement
+
+INTEGER         maxtext;        ! To contain the max legal    ;
+// <------- storage.type
+//              ^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                ! text length on your         ;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                ! implementation.             ;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+outtext ("--- START Simula a.s. TEST 70") ;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+outimage ;
+// <-------- variable
+//       ^ punctuation.terminator.statement
+outtext ("--- Test the text attributes length, pos, main, setpos,") ;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+outimage ;
+// <-------- variable
+//       ^ punctuation.terminator.statement
+outtext ("--- more, getchar and putchar, and the reference ") ;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+outtext ("comparators");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+outimage ;
+// <-------- variable
+//       ^ punctuation.terminator.statement
+outtext ("--- == and =/=.") ;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+outimage ; outimage ;
+// <-------- variable
+//       ^ punctuation.terminator.statement
+//         ^^^^^^^^ variable
+//                  ^ punctuation.terminator.statement
+
+maxtext := 32000 ;              !********* NOTE 1 ************;
+// <------- variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^ constant.numeric.decimal
+//               ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                ! Fill in max length of text  ;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                ! constants.                  ;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+
+                                !*****************************;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                ! Test of constant, start,    ;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                ! pos, length and main.       ;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                !*****************************;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+if    not txt1.constant
+// <-- keyword.control.if
+//    ^^^ keyword.operator
+//        ^^^^ variable
+//            ^ punctuation.accessor
+//             ^^^^^^^^ variable
+   or txt1.start <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+   or txt1.length <> 0
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+   or txt1.pos <> 1    then
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : in text attributes (1).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            Erroneus values : ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext (if txt1.constant then "            true"
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ keyword.control.if
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^^^^^^ string.quoted.double
+                             else "            false");
+//                           ^^^^ keyword.control.else
+//                                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outint (txt1.start, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   outint (txt1.length, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   outint (txt1.pos, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   outimage ; outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end ;
+// <--- keyword.control.end
+//  ^ punctuation.terminator.statement
+
+
+txt2 :- copy ("123456789 ") ;
+// <---- variable
+//   ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+if    txt2.constant
+// <-- keyword.control.if
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^^ variable
+   or txt2.start <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+   or txt2.length <> 10
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^^ constant.numeric.decimal
+   or txt2.pos <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+   or txt2 <> "123456789 "
+// ^^ keyword.operator
+//    ^^^^ variable
+//         ^^ keyword.operator.comparison
+//            ^^^^^^^^^^^^ string.quoted.double
+   or txt2.main <> "123456789 " then
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^^^^^^^^^^ string.quoted.double
+//                              ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : in text attributes (2).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            Erroneus values : ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext (if txt2.constant then "            true"
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ keyword.control.if
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^^^^^^ string.quoted.double
+                             else "            false");
+//                           ^^^^ keyword.control.else
+//                                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outint (txt2.start, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   outint (txt2.length, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   outint (txt2.pos, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2.main) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ; outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end ;
+// <--- keyword.control.end
+//  ^ punctuation.terminator.statement
+
+
+txt2 := "abcdefg" ;
+// <---- variable
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^ string.quoted.double
+//                ^ punctuation.terminator.statement
+
+if    txt2.constant
+// <-- keyword.control.if
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^^ variable
+   or txt2.start <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+   or txt2.length <> 10
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^^ constant.numeric.decimal
+   or txt2.pos <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+   or txt2 <> "abcdefg   "
+// ^^ keyword.operator
+//    ^^^^ variable
+//         ^^ keyword.operator.comparison
+//            ^^^^^^^^^^^^ string.quoted.double
+   or txt2.main <> "abcdefg   " then
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^^^^^^^^^^ string.quoted.double
+//                              ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : in text attributes (3).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            Erroneus values : ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext (if txt2.constant then "            true"
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ keyword.control.if
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^^^^^^ string.quoted.double
+                             else "            false");
+//                           ^^^^ keyword.control.else
+//                                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outint (txt2.start, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   outint (txt2.length, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   outint (txt2.pos, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2.main) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ; outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end ;
+// <--- keyword.control.end
+//  ^ punctuation.terminator.statement
+
+
+txt1 :- "12345" ;
+// <---- variable
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^ string.quoted.double
+//              ^ punctuation.terminator.statement
+
+if not txt1.constant
+// <-- keyword.control.if
+// ^^^ keyword.operator
+//     ^^^^ variable
+//         ^ punctuation.accessor
+//          ^^^^^^^^ variable
+   or txt1.start <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+   or txt1.length <> 5
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+   or txt1.pos <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+   or txt1 <> "12345"
+// ^^ keyword.operator
+//    ^^^^ variable
+//         ^^ keyword.operator.comparison
+//            ^^^^^^^ string.quoted.double
+   or txt1.main <> "12345" then
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^^^^^ string.quoted.double
+//                         ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : in text attributes (4).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            Erroneus values : ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext (if txt1.constant then "            true"
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ keyword.control.if
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^^^^^^ string.quoted.double
+                             else "            false");
+//                           ^^^^ keyword.control.else
+//                                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outint (txt1.start, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   outint (txt1.length, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   outint (txt1.pos, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt1) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt1.main) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ; outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   found_error := true end ;
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+//                     ^^^ keyword.control.end
+//                         ^ punctuation.terminator.statement
+                                !*****************************;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                ! Test of setpos              ;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+txt2.setpos (5) ;               !*****************************;
+// <---- variable
+//  ^ punctuation.accessor
+//   ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+if    txt2.constant
+// <-- keyword.control.if
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^^ variable
+   or txt2.start <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+   or txt2.length <> 10
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^^ constant.numeric.decimal
+   or txt2.pos <> 5
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+   or txt2 <> "abcdefg   "
+// ^^ keyword.operator
+//    ^^^^ variable
+//         ^^ keyword.operator.comparison
+//            ^^^^^^^^^^^^ string.quoted.double
+   or txt2.main <> "abcdefg   " then
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^^^^^^^^^^ string.quoted.double
+//                              ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : in text attributes (5).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            Erroneus values : ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext (if txt2.constant then "            true"
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ keyword.control.if
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^^^^^^ string.quoted.double
+                             else "            false");
+//                           ^^^^ keyword.control.else
+//                                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outint (txt2.start, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   outint (txt2.length, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   outint (txt2.pos, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2.main) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ; outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end ;
+// <--- keyword.control.end
+//  ^ punctuation.terminator.statement
+
+
+txt2.setpos (txt2.pos - 3) ;
+// <---- variable
+//  ^ punctuation.accessor
+//   ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^ variable
+//               ^ punctuation.accessor
+//                ^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+if    txt2.constant
+// <-- keyword.control.if
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^^ variable
+   or txt2.start <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+   or txt2.length <> 10
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^^ constant.numeric.decimal
+   or txt2.pos <> 2
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+   or txt2 <> "abcdefg   "
+// ^^ keyword.operator
+//    ^^^^ variable
+//         ^^ keyword.operator.comparison
+//            ^^^^^^^^^^^^ string.quoted.double
+   or txt2.main <> "abcdefg   " then
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^^^^^^^^^^ string.quoted.double
+//                              ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : in text attributes (6).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            Erroneus values : ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext (if txt2.constant then "            true"
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ keyword.control.if
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^^^^^^ string.quoted.double
+                             else "            false");
+//                           ^^^^ keyword.control.else
+//                                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outint (txt2.start, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   outint (txt2.length, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   outint (txt2.pos, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2.main) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ; outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end ;
+// <--- keyword.control.end
+//  ^ punctuation.terminator.statement
+
+
+txt2.setpos (-2) ;
+// <---- variable
+//  ^ punctuation.accessor
+//   ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ keyword.operator.arithmetic
+//            ^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+
+if    txt2.constant
+// <-- keyword.control.if
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^^ variable
+   or txt2.start <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+   or txt2.length <> 10
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^^ constant.numeric.decimal
+   or txt2.pos <> 11
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^ variable
+//             ^^ keyword.operator.comparison
+//                ^^ constant.numeric.decimal
+   or txt2 <> "abcdefg   "
+// ^^ keyword.operator
+//    ^^^^ variable
+//         ^^ keyword.operator.comparison
+//            ^^^^^^^^^^^^ string.quoted.double
+   or txt2.main <> "abcdefg   " then
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^^^^^^^^^^ string.quoted.double
+//                              ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : in text attributes (7).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            Erroneus values : ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext (if txt2.constant then "            true"
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ keyword.control.if
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^^^^^^ string.quoted.double
+                             else "            false");
+//                           ^^^^ keyword.control.else
+//                                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outint (txt2.start, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   outint (txt2.length, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   outint (txt2.pos, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2.main) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ; outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end ;
+// <--- keyword.control.end
+//  ^ punctuation.terminator.statement
+
+
+
+txt2.setpos (12) ;
+// <---- variable
+//  ^ punctuation.accessor
+//   ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+
+if    txt2.constant
+// <-- keyword.control.if
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^^ variable
+   or txt2.start <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+   or txt2.length <> 10
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^^ constant.numeric.decimal
+   or txt2.pos <> 11
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^ variable
+//             ^^ keyword.operator.comparison
+//                ^^ constant.numeric.decimal
+   or txt2 <> "abcdefg   "
+// ^^ keyword.operator
+//    ^^^^ variable
+//         ^^ keyword.operator.comparison
+//            ^^^^^^^^^^^^ string.quoted.double
+   or txt2.main <> "abcdefg   " then
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^^^^^^^^^^ string.quoted.double
+//                              ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : in text attributes (8).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            Erroneus values : ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext (if txt2.constant then "            true"
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ keyword.control.if
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^^^^^^ string.quoted.double
+                             else "            false");
+//                           ^^^^ keyword.control.else
+//                                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outint (txt2.start, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   outint (txt2.length, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   outint (txt2.pos, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt2.main) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ; outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end ;
+// <--- keyword.control.end
+//  ^ punctuation.terminator.statement
+
+
+
+
+                                !*****************************;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+txt1 :- copy ("abcd") ;         ! Test of more and getchar    ;
+// <---- variable
+//   ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^ string.quoted.double
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                !*****************************;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+if    not txt1.more or txt1.pos <> 1
+// <-- keyword.control.if
+//    ^^^ keyword.operator
+//        ^^^^ variable
+//            ^ punctuation.accessor
+//             ^^^^ variable
+//                  ^^ keyword.operator
+//                     ^^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^ variable
+//                              ^^ keyword.operator.comparison
+//                                 ^ constant.numeric.decimal
+   or txt1.getchar <> 'a' or not txt1.more or txt1.pos <> 2
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^^ keyword.operator.comparison
+//                    ^^^ constant.character
+//                        ^^ keyword.operator
+//                           ^^^ keyword.operator
+//                               ^^^^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^^ variable
+//                                         ^^ keyword.operator
+//                                            ^^^^ variable
+//                                                ^ punctuation.accessor
+//                                                 ^^^ variable
+//                                                     ^^ keyword.operator.comparison
+//                                                        ^ constant.numeric.decimal
+   or txt1.getchar <> 'b' or not txt1.more or txt1.pos <> 3
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^^ keyword.operator.comparison
+//                    ^^^ constant.character
+//                        ^^ keyword.operator
+//                           ^^^ keyword.operator
+//                               ^^^^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^^ variable
+//                                         ^^ keyword.operator
+//                                            ^^^^ variable
+//                                                ^ punctuation.accessor
+//                                                 ^^^ variable
+//                                                     ^^ keyword.operator.comparison
+//                                                        ^ constant.numeric.decimal
+   or txt1.getchar <> 'c' or not txt1.more or txt1.pos <> 4
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^^ keyword.operator.comparison
+//                    ^^^ constant.character
+//                        ^^ keyword.operator
+//                           ^^^ keyword.operator
+//                               ^^^^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^^^ variable
+//                                         ^^ keyword.operator
+//                                            ^^^^ variable
+//                                                ^ punctuation.accessor
+//                                                 ^^^ variable
+//                                                     ^^ keyword.operator.comparison
+//                                                        ^ constant.numeric.decimal
+   or txt1.getchar <> 'd' or txt1.more
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^^ keyword.operator.comparison
+//                    ^^^ constant.character
+//                        ^^ keyword.operator
+//                           ^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^^ variable
+   or txt1.constant
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^^ variable
+   or txt1.start <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+   or txt1.length <> 4
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+   or txt1.pos <> 5
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+   or txt1 <> "abcd"
+// ^^ keyword.operator
+//    ^^^^ variable
+//         ^^ keyword.operator.comparison
+//            ^^^^^^ string.quoted.double
+   or txt1.main <> "abcd" then
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^^^^ string.quoted.double
+//                        ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : in text attributes (9).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            Erroneus values : ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext (if txt1.constant then "            true"
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ keyword.control.if
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^^^^^^ string.quoted.double
+                             else "            false");
+//                           ^^^^ keyword.control.else
+//                                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outint (txt1.start, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   outint (txt1.length, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   outint (txt1.pos, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt1) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt1.main) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ; outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   found_error := true
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end ;
+// <--- keyword.control.end
+//  ^ punctuation.terminator.statement
+
+                                !*****************************;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                ! Test of putchar             ;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+txt1 :- copy ("123456") ;       !*****************************;
+// <---- variable
+//   ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+txt1.setpos (3) ;
+// <---- variable
+//  ^ punctuation.accessor
+//   ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+txt1.putchar ('c') ;
+// <---- variable
+//  ^ punctuation.accessor
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^ constant.character
+//               ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+txt1.setpos (6) ;
+// <---- variable
+//  ^ punctuation.accessor
+//   ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+txt1.putchar ('f') ;
+// <---- variable
+//  ^ punctuation.accessor
+//   ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^ constant.character
+//               ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+
+if    txt1.constant
+// <-- keyword.control.if
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^^ variable
+   or txt1.start <> 1
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^ constant.numeric.decimal
+   or txt1.length <> 6
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+   or txt1.pos <> 7
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+   or txt1.more
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+   or txt1 <> "12c45f"
+// ^^ keyword.operator
+//    ^^^^ variable
+//         ^^ keyword.operator.comparison
+//            ^^^^^^^^ string.quoted.double
+   or txt1.main <> "12c45f" then
+// ^^ keyword.operator
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^^^^^^ string.quoted.double
+//                          ^^^^ keyword.control.then
+begin
+// <----- keyword.control.begin
+   outtext ("*** ERROR : in text attributes (10).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            Erroneus values : ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext (if txt1.constant then "            true"
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ keyword.control.if
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^^^^^^ string.quoted.double
+                             else "            false");
+//                           ^^^^ keyword.control.else
+//                                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outint (txt1.start, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   outint (txt1.length, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   outint (txt1.pos, 6) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt1) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("            ") ; outtext (txt1.main) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^ variable
+//                                         ^ punctuation.accessor
+//                                          ^^^^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ; outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   found_error := true  
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+end ;                           
+// <--- keyword.control.end
+//  ^ punctuation.terminator.statement
+                                !*****************************;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                ! Test of sub and strip       ;
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+txt1 :- "1234567890   " ;       !*****************************;
+// <---- variable
+//   ^^ keyword.operator.assignment
+//      ^^^^^^^^^^^^^^^ string.quoted.double
+//                      ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+if found_error then
+// <-- keyword.control.if
+// ^^^^^^^^^^^ variable
+//             ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+   outimage
+// ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+outtext ("--- END Simula a.s. TEST 70") ;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+outimage
+// <-------- variable
+
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

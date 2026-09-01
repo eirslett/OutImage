@@ -1,0 +1,5 @@
+begin
+    inspect B
+        when B1 do begin outimage; end
+        otherwise S3;
+end

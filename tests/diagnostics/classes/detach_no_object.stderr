@@ -1,0 +1,9 @@
+[E0411] Error: DETACH: `detach` requires object context
+   ╭─[ detach_no_object.sim:1:7 ]
+   │
+ 1 │ begin detach; end;
+   │       ───┬───  
+   │          ╰───── here
+   │ 
+   │ Help: call `detach` from a class body, or as a remote procedure on an object
+───╯

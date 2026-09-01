@@ -1,0 +1,9 @@
+[E0305] Error: UNDEFINED SWITCH: there is no switch `S` visible here
+   ╭─[ undefined_switch.sim:1:7 ]
+   │
+ 1 │ begin goto S(1); end;
+   │       ─────┬────  
+   │            ╰────── this switch
+   │ 
+   │ Help: declare `switch {name} := …` in an enclosing block
+───╯

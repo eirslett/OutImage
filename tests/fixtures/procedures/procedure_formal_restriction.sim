@@ -1,0 +1,10 @@
+! §4.6.6: procedure formal parameter restrictions.;
+begin
+    integer procedure twice(x); integer x; begin twice := 2 * x; end;
+    procedure apply(f, n); integer procedure f; integer n;
+    begin
+        OutInt(f(n), 0);
+        OutImage;
+    end;
+    apply(twice, 5);
+end

@@ -1,0 +1,12 @@
+! Ch.7: resume reactivates a detached object (outside Simulation use resume/call, not activate).;
+begin
+    class Worker;
+    begin
+        OutText("A"); OutImage;
+        detach;
+        OutText("B"); OutImage;
+    end;
+    ref(Worker) p;
+    p :- new Worker;
+    resume(p);
+end

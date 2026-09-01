@@ -1,0 +1,12 @@
+! §5.5.1.5: prefix class must be local to the declaring block level.;
+begin
+    class Outer;
+    begin
+        class Nested;
+        begin
+        end;
+        Outer class Bad;
+        begin
+        end;
+    end;
+end

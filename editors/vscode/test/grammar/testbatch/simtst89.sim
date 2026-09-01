@@ -1,0 +1,400 @@
+// SYNTAX TEST "source.simula" "simtst89"
+% ================================================   Main   program  ===========
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 89
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE: Test inbytefile and outbytefile.
+// <-------------------------------------------- comment.directive
+%           Inputfile must be defined.
+// <-------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:  Copy from one file to the other.
+// <-------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:
+// <-------------- comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+begin text src,dst; integer b,bb; boolean errorFound;
+// <----- keyword.control.begin
+//    ^^^^ storage.type
+//         ^^^ variable
+//            ^ punctuation.separator
+//             ^^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^^^^^^ storage.type
+//                          ^ variable
+//                           ^ punctuation.separator
+//                            ^^ variable
+//                              ^ punctuation.terminator.statement
+//                                ^^^^^^^ storage.type
+//                                        ^^^^^^^^^^ variable
+//                                                  ^ punctuation.terminator.statement
+      ref(inbytefile) inpt,inoupt; ref(outbytefile) oupt;
+//    ^^^ storage.modifier
+//       ^ punctuation.section.parens
+//        ^^^^^^^^^^ entity.name.class
+//                  ^ punctuation.section.parens
+//                    ^^^^ variable
+//                        ^ punctuation.separator
+//                         ^^^^^^ variable
+//                               ^ punctuation.terminator.statement
+//                                 ^^^ storage.modifier
+//                                    ^ punctuation.section.parens
+//                                     ^^^^^^^^^^^ entity.name.class
+//                                                ^ punctuation.section.parens
+//                                                  ^^^^ variable
+//                                                      ^ punctuation.terminator.statement
+
+      outtext("--- START Simula a.s. TEST 89"); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^^ variable
+//                                                      ^ punctuation.terminator.statement
+L1:   outtext("Input file: "); breakoutimage;
+// <-- entity.name.label
+//^ punctuation.separator
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^^^^^^^ variable
+//                                          ^ punctuation.terminator.statement
+      inimage; src:-copy(sysin.image.strip);
+//    ^^^^^^^ variable
+//           ^ punctuation.terminator.statement
+//             ^^^ variable
+//                ^^ keyword.operator.assignment
+//                  ^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^^^^ variable
+//                            ^ punctuation.accessor
+//                             ^^^^^ variable
+//                                  ^ punctuation.accessor
+//                                   ^^^^^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+      inpt:-new inbytefile(src); if not inpt.open then
+//    ^^^^ variable
+//        ^^ keyword.operator.assignment
+//          ^^^ keyword.control.new
+//              ^^^^^^^^^^ entity.name.class
+//                        ^ punctuation.section.parens
+//                         ^^^ variable
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+//                               ^^ keyword.control.if
+//                                  ^^^ keyword.operator
+//                                      ^^^^ variable
+//                                          ^ punctuation.accessor
+//                                           ^^^^ variable
+//                                                ^^^^ keyword.control.then
+      begin outtext("Can't open " & src); outimage; goto L1 end;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^ string.quoted.double
+//                                ^ keyword.operator.arithmetic
+//                                  ^^^ variable
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^^ variable
+//                                                ^ punctuation.terminator.statement
+//                                                  ^^^^ keyword.control.goto
+//                                                       ^^ entity.name.label
+//                                                          ^^^ keyword.control.end
+//                                                             ^ punctuation.terminator.statement
+
+L2:   outtext("Output file: "); breakoutimage;
+// <-- entity.name.label
+//^ punctuation.separator
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^^^^^^^^ variable
+//                                           ^ punctuation.terminator.statement
+      inimage; dst:-copy(sysin.image.strip);
+//    ^^^^^^^ variable
+//           ^ punctuation.terminator.statement
+//             ^^^ variable
+//                ^^ keyword.operator.assignment
+//                  ^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^^^^ variable
+//                            ^ punctuation.accessor
+//                             ^^^^^ variable
+//                                  ^ punctuation.accessor
+//                                   ^^^^^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+      oupt:-new outbytefile(dst); if not oupt.open then
+//    ^^^^ variable
+//        ^^ keyword.operator.assignment
+//          ^^^ keyword.control.new
+//              ^^^^^^^^^^^ entity.name.class
+//                         ^ punctuation.section.parens
+//                          ^^^ variable
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+//                                ^^ keyword.control.if
+//                                   ^^^ keyword.operator
+//                                       ^^^^ variable
+//                                           ^ punctuation.accessor
+//                                            ^^^^ variable
+//                                                 ^^^^ keyword.control.then
+      begin outtext("Can't open " & dst); outimage; goto L2 end;
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^ string.quoted.double
+//                                ^ keyword.operator.arithmetic
+//                                  ^^^ variable
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^^ variable
+//                                                ^ punctuation.terminator.statement
+//                                                  ^^^^ keyword.control.goto
+//                                                       ^^ entity.name.label
+//                                                          ^^^ keyword.control.end
+//                                                             ^ punctuation.terminator.statement
+
+      inpt.close; inpt.open;
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//              ^ punctuation.terminator.statement
+//                ^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^ variable
+//                         ^ punctuation.terminator.statement
+%     for b:=inpt.inbyte while b <> 26 do oupt.outbyte(b);
+// <---------------------------------------------------------- comment.directive
+      b:=inpt.inbyte;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^^^^ variable
+//           ^ punctuation.accessor
+//            ^^^^^^ variable
+//                  ^ punctuation.terminator.statement
+      while not inpt.endfile do begin
+//    ^^^^^ keyword.control.while
+//          ^^^ keyword.operator
+//              ^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^^^ variable
+//                           ^^ keyword.control.do
+//                              ^^^^^ keyword.control.begin
+            oupt.outbyte(b); b:=inpt.inbyte; end;
+//          ^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^ variable
+//                            ^^ keyword.operator.assignment
+//                              ^^^^ variable
+//                                  ^ punctuation.accessor
+//                                   ^^^^^^ variable
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^ keyword.control.end
+//                                              ^ punctuation.terminator.statement
+      inpt.close; oupt.close;
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//              ^ punctuation.terminator.statement
+//                ^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.terminator.statement
+      inoupt:-new inbytefile(oupt.filename); oupt:-none;
+//    ^^^^^^ variable
+//          ^^ keyword.operator.assignment
+//            ^^^ keyword.control.new
+//                ^^^^^^^^^^ entity.name.class
+//                          ^ punctuation.section.parens
+//                           ^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^^^^^^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^ variable
+//                                               ^^ keyword.operator.assignment
+//                                                 ^^^^ constant.language.null
+//                                                     ^ punctuation.terminator.statement
+      inpt.open; inoupt.open;
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^ variable
+//                          ^ punctuation.terminator.statement
+      b:=inpt.inbyte; bb:=inoupt.inbyte;
+//    ^ variable
+//     ^^ keyword.operator.assignment
+//       ^^^^ variable
+//           ^ punctuation.accessor
+//            ^^^^^^ variable
+//                  ^ punctuation.terminator.statement
+//                    ^^ variable
+//                      ^^ keyword.operator.assignment
+//                        ^^^^^^ variable
+//                              ^ punctuation.accessor
+//                               ^^^^^^ variable
+//                                     ^ punctuation.terminator.statement
+      while not inpt.endfile do begin
+//    ^^^^^ keyword.control.while
+//          ^^^ keyword.operator
+//              ^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^^^ variable
+//                           ^^ keyword.control.do
+//                              ^^^^^ keyword.control.begin
+            if not b=bb then begin errorFound:=true;
+//          ^^ keyword.control.if
+//             ^^^ keyword.operator
+//                 ^ variable
+//                  ^ keyword.operator.comparison
+//                   ^^ variable
+//                      ^^^^ keyword.control.then
+//                           ^^^^^ keyword.control.begin
+//                                 ^^^^^^^^^^ variable
+//                                           ^^ keyword.operator.assignment
+//                                             ^^^^ constant.language.bool
+//                                                 ^ punctuation.terminator.statement
+               sysout.outtext("    ERROR: The files differ");
+//             ^^^^^^ variable
+//                   ^ punctuation.accessor
+//                    ^^^^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+               goto CLOSEM;
+//             ^^^^ keyword.control.goto
+//                  ^^^^^^ entity.name.label
+//                        ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+            if inoupt.endfile then begin errorFound:=true;
+//          ^^ keyword.control.if
+//             ^^^^^^ variable
+//                   ^ punctuation.accessor
+//                    ^^^^^^^ variable
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^ keyword.control.begin
+//                                       ^^^^^^^^^^ variable
+//                                                 ^^ keyword.operator.assignment
+//                                                   ^^^^ constant.language.bool
+//                                                       ^ punctuation.terminator.statement
+               sysout.outtext("    ERROR: Output file is too short");
+//             ^^^^^^ variable
+//                   ^ punctuation.accessor
+//                    ^^^^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+               goto CLOSEM;
+//             ^^^^ keyword.control.goto
+//                  ^^^^^^ entity.name.label
+//                        ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+            b:=inpt.inbyte; bb:=inoupt.inbyte;
+//          ^ variable
+//           ^^ keyword.operator.assignment
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^^^ variable
+//                        ^ punctuation.terminator.statement
+//                          ^^ variable
+//                            ^^ keyword.operator.assignment
+//                              ^^^^^^ variable
+//                                    ^ punctuation.accessor
+//                                     ^^^^^^ variable
+//                                           ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+      if inoupt.endfile then !OK;
+//    ^^ keyword.control.if
+//       ^^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^^ variable
+//                      ^^^^ keyword.control.then
+//                           ^^^^ comment.block
+      else begin errorFound:=true;
+//    ^^^^ keyword.control.else
+//         ^^^^^ keyword.control.begin
+//               ^^^^^^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^^ constant.language.bool
+//                               ^ punctuation.terminator.statement
+         sysout.outtext("    ERROR: Output file is too long");
+//       ^^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+  CLOSEM: sysout.outimage;
+//^^^^^^ entity.name.label
+//      ^ punctuation.separator
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^^^^ variable
+//                       ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      inpt.close; inoupt.close;
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^ variable
+//              ^ punctuation.terminator.statement
+//                ^^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^^ variable
+//                            ^ punctuation.terminator.statement
+      
+      outtext("--- END Simula a.s. TEST 89");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+      if not errorFound then outtext(" (NO ERRORS FOUND)");
+//    ^^ keyword.control.if
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^ variable
+//                      ^^^^ keyword.control.then
+//                           ^^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+      outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement

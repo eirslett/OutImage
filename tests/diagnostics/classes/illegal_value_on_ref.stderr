@@ -1,0 +1,9 @@
+[E0501] Error: ILLEGAL MODE: class `C` parameter `p`: object reference parameters may not use call-by-value transmission
+   ╭─[ illegal_value_on_ref.sim:1:31 ]
+   │
+ 1 │ begin class Point; begin end; class C(p); value p; ref(Point) p; begin end; end;
+   │                               ──────────────────────┬──────────────────────  
+   │                                                     ╰──────────────────────── here
+   │ 
+   │ Note: class parameters cannot be transmitted by name; use `value` for arithmetic/boolean/character; object references, `text`, and arrays default to transmission by reference
+───╯

@@ -1,0 +1,6 @@
+begin
+    -- whole-line comment before the assignment
+    integer x;
+    x := 2;
+    OutText("ok"); OutImage;
+end

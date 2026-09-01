@@ -1,0 +1,9 @@
+[E0004] Error: DIRECTIVE PLACEMENT: a `%` directive must be the first character of the line
+   ╭─[ directive_mid_line.sim:1:7 ]
+   │
+ 1 │ begin %notcol0
+   │       ┬  
+   │       ╰── not at the start of the line
+   │ 
+   │ Help: move this `%` to column 0, or write a comment instead
+───╯

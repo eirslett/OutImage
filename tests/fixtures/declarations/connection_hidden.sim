@@ -1,0 +1,19 @@
+! §5.6.10: connection block does not inject attributes hidden from the qualification.;
+begin
+    class Base(x); integer x; protected hidden x;
+    begin
+    end;
+    Base class Sub;
+    begin
+    end;
+    ref(Sub) s;
+    integer saw;
+    s :- new Sub(7);
+    inspect s when Sub do
+        begin
+            ! x is hidden from Sub — must not be a visible connection attribute.;
+            saw := 1;
+        end;
+    if saw = 1 then OutText("ok");
+    OutImage;
+end

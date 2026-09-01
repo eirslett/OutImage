@@ -1,0 +1,6 @@
+begin
+    integer x;
+    -- skipped by the debugger front-end
+    x := 1; -- trailing
+    OutText("ok"); OutImage;
+end

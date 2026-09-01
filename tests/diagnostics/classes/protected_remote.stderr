@@ -1,0 +1,11 @@
+[E0401] Error: PROTECTED ATTRIBUTE: protected attribute `x` is not accessible from this context
+   ╭─[ protected_remote.sim:1:89 ]
+   │
+ 1 │ begin class C; protected x; begin integer x; end; ref(C) r; r :- new C; integer n; n := r.x; end;
+   │                ─────┬─────                                                              ─┬─  
+   │                     ╰──────────────────────────────────────────────────────────────────────── this `protected` specification
+   │                                                                                          │   
+   │                                                                                          ╰─── this access
+   │ 
+   │ Help: access it from the class body, a subclass, or an `inspect` of that class
+───╯

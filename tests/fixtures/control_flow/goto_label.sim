@@ -1,0 +1,7 @@
+begin
+  integer x;
+  x := 0;
+  goto done;
+  x := 99;
+  done: x := 42;
+end;

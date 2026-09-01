@@ -1,0 +1,1 @@
+begin procedure p(a, a); integer a; begin end; end;

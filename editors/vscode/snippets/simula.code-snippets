@@ -1,0 +1,81 @@
+{
+  "begin block": {
+    "prefix": "begin",
+    "body": ["begin", "\t$0", "end"],
+    "description": "begin … end block"
+  },
+  "procedure": {
+    "prefix": "procedure",
+    "body": [
+      "procedure ${1:name}(${2:});",
+      "${3:begin}",
+      "\t$0",
+      "end${4:;}"
+    ],
+    "description": "procedure declaration"
+  },
+  "class": {
+    "prefix": "class",
+    "body": [
+      "class ${1:Name};",
+      "begin",
+      "\t$0",
+      "end ${1:Name};"
+    ],
+    "description": "class declaration"
+  },
+  "if then": {
+    "prefix": "if",
+    "body": ["if ${1:condition} then ${2:statement}$0"],
+    "description": "if statement"
+  },
+  "while": {
+    "prefix": "while",
+    "body": ["while ${1:condition} do ${2:statement}$0"],
+    "description": "while loop"
+  },
+  "for": {
+    "prefix": "for",
+    "body": [
+      "for ${1:var} := ${2:start} step ${3:step} until ${4:limit} do ${5:statement}$0"
+    ],
+    "description": "for loop"
+  },
+  "inspect": {
+    "prefix": "inspect",
+    "body": [
+      "inspect ${1:object} do",
+      "\twhen ${2:Class} do",
+      "\t\t$0",
+      "end"
+    ],
+    "description": "inspect … when … end"
+  },
+  "integer declaration": {
+    "prefix": "integer",
+    "body": ["integer ${1:name};$0"],
+    "description": "integer variable"
+  },
+  "ref declaration": {
+    "prefix": "ref",
+    "body": ["ref(${1:Class}) ${2:name};$0"],
+    "description": "object reference variable"
+  },
+  "switch": {
+    "prefix": "switch",
+    "body": ["switch ${1:name};$0"],
+    "description": "switch declaration"
+  },
+  "external": {
+    "prefix": "external",
+    "body": [
+      "external ${1:procedure} ${2:name};$0"
+    ],
+    "description": "external declaration"
+  },
+  "object generator": {
+    "prefix": "object",
+    "body": ["${1:Class}(${2:});$0"],
+    "description": "object generator expression"
+  }
+}

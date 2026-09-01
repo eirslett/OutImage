@@ -1,0 +1,15 @@
+[E0201] Error: TYPE MISMATCH: this assignment needs ref(Car), but the value is ref(Student)
+   ╭─[ ref_unrelated_prefix.sim:5:6 ]
+   │
+ 5 │ c :- s;
+   │ ───┬─┬─  
+   │    ╰───── in this `:-` assignment (expects ref(Car))
+   │      │   
+   │      ╰─── this is ref(Student)
+   │ 
+   │ Help: change the expression, or declare the variable with a matching type
+   │ 
+   │ Note 1: destination expects ref(Car)
+   │ 
+   │ Note 2: `ref(Student)` is not a `ref(Car)`; they share no prefix. Closest common prefix: none.
+───╯

@@ -1,0 +1,22 @@
+! Debug acceptance: nested methods for step-into / stack frames;
+! Local nested procedures closing over enclosing locals are inlined in MIR;
+! Class methods outline and keep real call frames for DAP;
+begin
+    class Box;
+    begin
+        integer x;
+        procedure leaf;
+        begin
+            x := 2;
+        end;
+        procedure outer;
+        begin
+            x := 1;
+            leaf;
+            x := 3;
+        end;
+    end;
+    ref(Box) b;
+    b :- new Box;
+    b.outer;
+end

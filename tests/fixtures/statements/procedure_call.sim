@@ -1,0 +1,7 @@
+begin
+  integer procedure square(x) value;
+  begin square := x * x; end;
+  integer r;
+  square(5);
+  r := square(5);
+end;

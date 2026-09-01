@@ -1,0 +1,9 @@
+[E0209] Error: EMPTY SWITCH: switch `S` needs at least one designational expression
+   ╭─[ empty_switch.sim:1:7 ]
+   │
+ 1 │ begin switch S := ; end;
+   │       ──────┬──────  
+   │             ╰──────── here
+   │ 
+   │ Help: write `switch {name} := L1, L2, …`
+───╯

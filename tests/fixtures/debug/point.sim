@@ -1,0 +1,13 @@
+! Debug acceptance: expandable class attributes.;
+begin
+    class Point;
+    begin
+        integer x, y;
+        x := 10;
+        y := 20;
+    end;
+    ref(Point) p;
+    p :- new Point;
+    OutText("ok");
+    OutImage;
+end

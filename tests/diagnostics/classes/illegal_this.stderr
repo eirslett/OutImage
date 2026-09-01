@@ -1,0 +1,9 @@
+[E0407] Error: ILLEGAL THIS: `this` is illegal in a block prefix
+   ╭─[ illegal_this.sim:2:1 ]
+   │
+ 2 │ this Point begin end;
+   │ ─────┬────  
+   │      ╰────── here
+   │ 
+   │ Help: name the prefix class, or use `this` only inside a class body
+───╯

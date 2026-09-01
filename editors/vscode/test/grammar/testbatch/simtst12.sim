@@ -1,0 +1,543 @@
+// SYNTAX TEST "source.simula" "simtst12"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   SIMULA A/S - SIMULA TEST NO 12
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     To test text value and reference relations.
+// <----------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:      Take a look at some examples to see if we get the results
+// <------------------------------------------------------------------------- comment.directive
+%               which we expect.
+// <-------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   10/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   text t1, t2 ;
+// ^^^^ storage.type
+//      ^^ variable
+//        ^ punctuation.separator
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 12") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test the text value and reference relations.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+   Outimage; Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+                                                !******************************;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                ! Test of text value relations ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                !******************************;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+
+   if     t1 = notext
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^^^^^ constant.language.null
+      and t2 = ""
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^ string.quoted.double
+      and not t1 < t2
+//    ^^^ keyword.operator
+//        ^^^ keyword.operator
+//            ^^ variable
+//               ^ keyword.operator.comparison
+//                 ^^ variable
+      and t2 <= "abc"
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^^^^ string.quoted.double
+      and t1 >= t2
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+      and "123" > ""
+//    ^^^ keyword.operator
+//        ^^^^^ string.quoted.double
+//              ^ keyword.operator.comparison
+//                ^^ string.quoted.double
+      and not t1 <> t2 then
+//    ^^^ keyword.operator
+//        ^^^ keyword.operator
+//            ^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^^ variable
+//                     ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text value relation (1).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true ;
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+//                        ^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   t1 :- "abc" ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^ string.quoted.double
+//             ^ punctuation.terminator.statement
+
+   if     t1 = "abc"
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^^^^ string.quoted.double
+      and t2 < t1
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^ variable
+      and "" <= t1
+//    ^^^ keyword.operator
+//        ^^ string.quoted.double
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+      and t1 >= notext
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^^^^^ constant.language.null
+      and t1 > ""         then
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^ string.quoted.double
+//                        ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text value relation (2).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   t2 :- "abc" ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^ string.quoted.double
+//             ^ punctuation.terminator.statement
+
+   if     t1 = t2
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^ variable
+      and "" < t2
+//    ^^^ keyword.operator
+//        ^^ string.quoted.double
+//           ^ keyword.operator.comparison
+//             ^^ variable
+      and t2 <= t1
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+      and t2 >= t1
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+      and not t2 > "abc" then
+//    ^^^ keyword.operator
+//        ^^^ keyword.operator
+//            ^^ variable
+//               ^ keyword.operator.comparison
+//                 ^^^^^ string.quoted.double
+//                       ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text value relation (3).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   t2 :- "abc " ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^ string.quoted.double
+//              ^ punctuation.terminator.statement
+
+   if not t1 = t2
+// ^^ keyword.control.if
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^ variable
+      and t1 < t2
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^ variable
+      and "aaa" <= t2
+//    ^^^ keyword.operator
+//        ^^^^^ string.quoted.double
+//              ^^ keyword.operator.comparison
+//                 ^^ variable
+      and t2 >= "abbcd"
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^^^^^^ string.quoted.double
+      and t2 > notext then
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^^^^^ constant.language.null
+//                    ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text value relation (4).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+                                                !******************************;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                ! Test of text reference       ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                !******************************;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+   t1 :- notext ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^ constant.language.null
+//              ^ punctuation.terminator.statement
+   t2 :- notext ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^ constant.language.null
+//              ^ punctuation.terminator.statement
+
+   if     t1 == notext
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^^^^^ constant.language.null
+      and t2 == t1
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+      and t2.pos = 1
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^ variable
+//               ^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+      and t1.length = t2.length
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^ variable
+//                  ^ keyword.operator.comparison
+//                    ^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^^^ variable
+      and t1.start = t2.start
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                 ^ keyword.operator.comparison
+//                   ^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^^ variable
+      and t1.main == t2.main
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^ variable
+      and t2.main.length = t1.main.length
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^ variable
+//               ^ punctuation.accessor
+//                ^^^^^^ variable
+//                       ^ keyword.operator.comparison
+//                         ^^ variable
+//                           ^ punctuation.accessor
+//                            ^^^^ variable
+//                                ^ punctuation.accessor
+//                                 ^^^^^^ variable
+      and t1.start = 1 then
+//    ^^^ keyword.operator
+//        ^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text reference relation (5).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   t1 :- "abc" ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^ string.quoted.double
+//             ^ punctuation.terminator.statement
+
+   if     t1 =/= t2
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^^^ keyword.operator.comparison
+//               ^^ variable
+      and t1 == t1.main then
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^ variable
+//                      ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text reference relation (6).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   t2 :- "abc" ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^ string.quoted.double
+//             ^ punctuation.terminator.statement
+
+   if     t1 =/= t2
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^^^ keyword.operator.comparison
+//               ^^ variable
+      and not t1 == t2
+//    ^^^ keyword.operator
+//        ^^^ keyword.operator
+//            ^^ variable
+//               ^^ keyword.operator.comparison
+//                  ^^ variable
+      and t1 = t2 then
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^ variable
+//                ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text reference relation (7).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   t2 :- t1 ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^ variable
+//          ^ punctuation.terminator.statement
+
+   if     t1 == t2
+// ^^ keyword.control.if
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^ variable
+      and t1 = t2 then
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^ keyword.operator.comparison
+//             ^^ variable
+//                ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Text reference relation (8).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 12") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

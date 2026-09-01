@@ -1,0 +1,11 @@
+[E0206] Error: TYPE MISMATCH: the `then` branch is integer, but the `else` branch is boolean
+   ╭─[ incompatible_if_branches_unconstrained.sim:1:41 ]
+   │
+ 1 │ begin integer x; x := 1 + (if true then 1 else true); end;
+   │                                         ┬  
+   │                                         ╰── this branch
+   │ 
+   │ Help: change one branch, or split the `if` into statements
+   │ 
+   │ Note: both branches of a conditional expression must have a common type
+───╯

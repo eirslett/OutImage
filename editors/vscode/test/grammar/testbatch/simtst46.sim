@@ -1,0 +1,241 @@
+// SYNTAX TEST "source.simula" "simtst46"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 46
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test the qualification of a function designator.
+// <---------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   29/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Class A ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      integer procedure iP ;
+//    ^^^^^^^ storage.type
+//            ^^^^^^^^^ storage.type
+//                      ^^ entity.name.function
+//                         ^ punctuation.terminator.statement
+         iP := 65 ;
+//       ^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^ constant.numeric.decimal
+//                ^ punctuation.terminator.statement
+
+   end class A ;
+// ^^^ keyword.control.end
+//     ^^^^^^^ comment.block
+//             ^ punctuation.terminator.statement
+
+   A Class B ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      integer procedure iP ;
+//    ^^^^^^^ storage.type
+//            ^^^^^^^^^ storage.type
+//                      ^^ entity.name.function
+//                         ^ punctuation.terminator.statement
+         iP := 66 ;
+//       ^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^ constant.numeric.decimal
+//                ^ punctuation.terminator.statement
+   end class B ;
+// ^^^ keyword.control.end
+//     ^^^^^^^ comment.block
+//             ^ punctuation.terminator.statement
+
+   ref (B) rb ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+   integer ia, ib ;
+// ^^^^^^^ storage.type
+//         ^^ variable
+//           ^ punctuation.separator
+//             ^^ variable
+//                ^ punctuation.terminator.statement
+
+   ref (A) procedure rP (ra) ; ref (A) ra ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^^^^^^^^ storage.type
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ variable.parameter
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^ storage.modifier
+//                                 ^ punctuation.section.parens
+//                                  ^ entity.name.class
+//                                   ^ punctuation.section.parens
+//                                     ^^ variable
+//                                        ^ punctuation.terminator.statement
+      rP :- ra ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 46") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test qualification of function designators.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   rb :- new B ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+
+   ia := rP (new A).iP ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ keyword.control.new
+//               ^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^ punctuation.accessor
+//                  ^^ variable
+//                     ^ punctuation.terminator.statement
+   ib := rP (rb).iP ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ variable
+//             ^ punctuation.section.parens
+//              ^ punctuation.accessor
+//               ^^ variable
+//                  ^ punctuation.terminator.statement
+
+   if ia = ib then
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^ keyword.operator.comparison
+//         ^^ variable
+//            ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Wrong qualification of function procedure.") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values : ia = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      Outint (ia, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+      Outtext ("  ib = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      Outint (ib, 3) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 46") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

@@ -1,0 +1,3401 @@
+// SYNTAX TEST "source.simula" "simtst33"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 33
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test call by reference for object reference type, text, value
+// <----------------------------------------------------------------------------- comment.directive
+%               type array and reference type array.
+// <---------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  NOTE:    1 - In Boolean expression containing 'and then' then is set to a
+// <---------------------------------------------------------------------------- comment.directive
+%               comment (!then;) to test the program on ND-500. The !then;
+// <-------------------------------------------------------------------------- comment.directive
+%               should be replaced by 'then' if you have implemented 'and
+// <------------------------------------------------------------------------- comment.directive
+%               then'.
+// <---------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   22/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Boolean array        Ba1 (0:0), Ba3 (0:0,1:2,2:2) ;
+// ^^^^^^^ storage.type
+//         ^^^^^ storage.type
+//                      ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.separator
+//                                 ^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.separator
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+   character array      ca1 (0:0), ca3 (0:0,1:2,2:2) ;
+// ^^^^^^^^^ storage.type
+//           ^^^^^ storage.type
+//                      ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.separator
+//                                 ^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.separator
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+   integer array        ia1 (0:0), ia3 (0:0,1:2,2:2) ;
+// ^^^^^^^ storage.type
+//         ^^^^^ storage.type
+//                      ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.separator
+//                                 ^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.separator
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+   real array           ra1 (0:0), ra3 (0:0,1:2,2:2) ;
+// ^^^^ storage.type
+//      ^^^^^ storage.type
+//                      ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.separator
+//                                 ^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.separator
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+   text array           ta1 (0:0), ta3 (0:0,1:2,2:2) ;
+// ^^^^ storage.type
+//      ^^^^^ storage.type
+//                      ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.separator
+//                                 ^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.separator
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+   ref (D) array        Da1 (0:0), Da3 (0:0,1:2,2:2) ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^^^^ storage.type
+//                      ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.separator
+//                                 ^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.separator
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+   ref (E) array        Ea1 (0:0), Ea3 (0:0,1:2,2:2) ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^^^^ storage.type
+//                      ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.separator
+//                                 ^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.separator
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+
+   text t ;
+// ^^^^ storage.type
+//      ^ variable
+//        ^ punctuation.terminator.statement
+   ref (D) rD ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+   ref (E) rE ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+
+   Class D (t) ; value t ; text t ;;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.section.parens
+//          ^ variable.parameter
+//           ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+//               ^^^^^ keyword.other.value
+//                     ^ variable
+//                       ^ punctuation.terminator.statement
+//                         ^^^^ storage.type
+//                              ^ variable
+//                                ^^ punctuation.terminator.statement
+
+   D Class E ;;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^^ punctuation.terminator.statement
+
+   Procedure InitVariables ;
+// ^^^^^^^^^ storage.type
+//           ^^^^^^^^^^^^^ entity.name.function
+//                         ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      t :- copy ("abcde") ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      t.setpos (3) ;
+//    ^ variable
+//     ^ punctuation.accessor
+//      ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+
+      rD :- new D ("1") ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^ keyword.control.new
+//              ^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      rE :- new E ("2") ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^ keyword.control.new
+//              ^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+
+      Ba1 (0) := true ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^ constant.language.bool
+//                    ^ punctuation.terminator.statement
+      Ba3 (0,2,2) := true ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.separator
+//           ^ constant.numeric.decimal
+//            ^ punctuation.separator
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+//                        ^ punctuation.terminator.statement
+
+      ca1 (0) := 'a' ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^ constant.character
+//                   ^ punctuation.terminator.statement
+      ca3 (0,1,2) := 'b' ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.separator
+//           ^ constant.numeric.decimal
+//            ^ punctuation.separator
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^^ constant.character
+//                       ^ punctuation.terminator.statement
+
+      ia3 (0,1,2) := 12 ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.separator
+//           ^ constant.numeric.decimal
+//            ^ punctuation.separator
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^ constant.numeric.decimal
+//                      ^ punctuation.terminator.statement
+      ia3 (0,2,2) := 123 ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.separator
+//           ^ constant.numeric.decimal
+//            ^ punctuation.separator
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^^ constant.numeric.decimal
+//                       ^ punctuation.terminator.statement
+
+      ra1 (0) := 1 ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+      ra3 (0,2,2) := 2 ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.separator
+//           ^ constant.numeric.decimal
+//            ^ punctuation.separator
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^ constant.numeric.decimal
+//                     ^ punctuation.terminator.statement
+
+      ta1 (0) :- t ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^ variable
+//                 ^ punctuation.terminator.statement
+      ta3 (0,1,2) :- copy ("edcba") ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.separator
+//           ^ constant.numeric.decimal
+//            ^ punctuation.separator
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+
+      Da1 (0) :- new E ("3") ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^ keyword.control.new
+//                   ^ entity.name.class
+//                     ^ punctuation.section.parens
+//                      ^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+      Da3 (0,2,2) :- rD ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.separator
+//           ^ constant.numeric.decimal
+//            ^ punctuation.separator
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^ variable
+//                      ^ punctuation.terminator.statement
+
+      Ea3 (0,1,2) :- rE ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.separator
+//           ^ constant.numeric.decimal
+//            ^ punctuation.separator
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^ variable
+//                      ^ punctuation.terminator.statement
+      Ea3 (0,2,2) :- new E ("4") ;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.separator
+//           ^ constant.numeric.decimal
+//            ^ punctuation.separator
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^^ keyword.control.new
+//                       ^ entity.name.class
+//                         ^ punctuation.section.parens
+//                          ^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+   end pros. InitVariables ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^^^^^^ comment.block
+//                         ^ punctuation.terminator.statement
+
+
+   procedure P1 (tf, Df, Ef) ;
+// ^^^^^^^^^ storage.type
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable.parameter
+//                 ^ punctuation.separator
+//                   ^^ variable.parameter
+//                     ^ punctuation.separator
+//                       ^^ variable.parameter
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+      text tf ;
+//    ^^^^ storage.type
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+      ref (D) Df ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+      ref (E) Ef ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+                                      ! Test references ;
+//                                    ^^^^^^^^^^^^^^^^^^^ comment.block
+      if     tf == t and tf.pos = 3
+//    ^^ keyword.control.if
+//           ^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^ variable
+//                   ^^^ keyword.operator
+//                       ^^ variable
+//                         ^ punctuation.accessor
+//                          ^^^ variable
+//                              ^ keyword.operator.comparison
+//                                ^ constant.numeric.decimal
+         and Df == rD
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^ variable
+         and Ef == rE then
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^ variable
+//                    ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Wrong references (1).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("                tf = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext (if tf == notext then "notext" else tf) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^^^ constant.language.null
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^^^^ string.quoted.double
+//                                              ^^^^ keyword.control.else
+//                                                   ^^ variable
+//                                                     ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+         Outint (tf.pos, 4) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^ variable
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("               Df == ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext (if Df == none then "none" else Df.t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^ constant.language.null
+//                              ^^^^ keyword.control.then
+//                                   ^^^^^^ string.quoted.double
+//                                          ^^^^ keyword.control.else
+//                                               ^^ variable
+//                                                 ^ punctuation.accessor
+//                                                  ^ variable
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("               Ef == ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext (if Ef == none then "none" else Ef.t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^ constant.language.null
+//                              ^^^^ keyword.control.then
+//                                   ^^^^^^ string.quoted.double
+//                                          ^^^^ keyword.control.else
+//                                               ^^ variable
+//                                                 ^ punctuation.accessor
+//                                                  ^ variable
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+                                                ! Alter the values ;
+//                                              ^^^^^^^^^^^^^^^^^^^^ comment.block
+      tf := "abc" ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^ string.quoted.double
+//                ^ punctuation.terminator.statement
+      Df.t := "5" ;
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^ string.quoted.double
+//                ^ punctuation.terminator.statement
+      Ef.t :- copy ("6") ;
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+
+                                                ! Test the values of the ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      if     t = "abc  "                        ! global variables       ;
+//    ^^ keyword.control.if
+//           ^ variable
+//             ^ keyword.operator.comparison
+//               ^^^^^^^ string.quoted.double
+         and rD =/= none and !then; rD.t = "5"
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^^ keyword.operator.comparison
+//                  ^^^^ constant.language.null
+//                       ^^^ keyword.operator
+//                           ^^^^^^ comment.block
+//                                  ^^ variable
+//                                    ^ punctuation.accessor
+//                                     ^ variable
+//                                       ^ keyword.operator.comparison
+//                                         ^^^ string.quoted.double
+         and rE =/= none and !then; rE.t = "6" then
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^^ keyword.operator.comparison
+//                  ^^^^ constant.language.null
+//                       ^^^ keyword.operator
+//                           ^^^^^^ comment.block
+//                                  ^^ variable
+//                                    ^ punctuation.accessor
+//                                     ^ variable
+//                                       ^ keyword.operator.comparison
+//                                         ^^^ string.quoted.double
+//                                             ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Values of global variables (2).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("                t = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+         Outtext (if t == notext then "notext" else t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^ variable
+//                     ^^ keyword.operator.comparison
+//                        ^^^^^^ constant.language.null
+//                               ^^^^ keyword.control.then
+//                                    ^^^^^^^^ string.quoted.double
+//                                             ^^^^ keyword.control.else
+//                                                  ^ variable
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("               rD.t = ");
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext (if rD == none then "object none" else
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^ constant.language.null
+//                              ^^^^ keyword.control.then
+//                                   ^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^^^^ keyword.control.else
+                  if rD.t == notext then "notext" else rD.t) ;
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                     ^ punctuation.accessor
+//                      ^ variable
+//                        ^^ keyword.operator.comparison
+//                           ^^^^^^ constant.language.null
+//                                  ^^^^ keyword.control.then
+//                                       ^^^^^^^^ string.quoted.double
+//                                                ^^^^ keyword.control.else
+//                                                     ^^ variable
+//                                                       ^ punctuation.accessor
+//                                                        ^ variable
+//                                                         ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("               rE.t = ");
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext (if rE == none then "object none" else
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^ constant.language.null
+//                              ^^^^ keyword.control.then
+//                                   ^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^^^^ keyword.control.else
+                  if rE.t == notext then "notext" else rE.t) ;
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                     ^ punctuation.accessor
+//                      ^ variable
+//                        ^^ keyword.operator.comparison
+//                           ^^^^^^ constant.language.null
+//                                  ^^^^ keyword.control.then
+//                                       ^^^^^^^^ string.quoted.double
+//                                                ^^^^ keyword.control.else
+//                                                     ^^ variable
+//                                                       ^ punctuation.accessor
+//                                                        ^ variable
+//                                                         ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+                                                ! Alter the references ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      tf :- copy ("bcd") ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Df :- new E ("7") ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^ keyword.control.new
+//              ^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Ef :- Df ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   end pros. P1 ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^ comment.block
+//              ^ punctuation.terminator.statement
+
+
+   procedure P2 (tf, Df, Ef) ;
+// ^^^^^^^^^ storage.type
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable.parameter
+//                 ^ punctuation.separator
+//                   ^^ variable.parameter
+//                     ^ punctuation.separator
+//                       ^^ variable.parameter
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+      text tf ;
+//    ^^^^ storage.type
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+      ref (D) Df ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+      ref (E) Ef ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+                                      ! Test references ;
+//                                    ^^^^^^^^^^^^^^^^^^^ comment.block
+      if     tf == ta1 (0) and tf.pos = 3
+//    ^^ keyword.control.if
+//           ^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^^^ keyword.operator
+//                             ^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^ variable
+//                                    ^ keyword.operator.comparison
+//                                      ^ constant.numeric.decimal
+         and Df == Da3 (0,2,2)
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+         and Ef == Ea3 (0,1,2) then
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                             ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Wrong references (3).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("                tf = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext (if tf == notext then "notext" else tf) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^^^ constant.language.null
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^^^^ string.quoted.double
+//                                              ^^^^ keyword.control.else
+//                                                   ^^ variable
+//                                                     ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+         Outint (tf.pos, 4) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^ variable
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("               Df == ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext (if Df == none then "none" else Df.t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^ constant.language.null
+//                              ^^^^ keyword.control.then
+//                                   ^^^^^^ string.quoted.double
+//                                          ^^^^ keyword.control.else
+//                                               ^^ variable
+//                                                 ^ punctuation.accessor
+//                                                  ^ variable
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("               Ef == ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext (if Ef == none then "none" else Ef.t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^ constant.language.null
+//                              ^^^^ keyword.control.then
+//                                   ^^^^^^ string.quoted.double
+//                                          ^^^^ keyword.control.else
+//                                               ^^ variable
+//                                                 ^ punctuation.accessor
+//                                                  ^ variable
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+                                                ! Alter the values ;
+//                                              ^^^^^^^^^^^^^^^^^^^^ comment.block
+      tf := "def" ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^ string.quoted.double
+//                ^ punctuation.terminator.statement
+      Df.t := "8" ;
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^ string.quoted.double
+//                ^ punctuation.terminator.statement
+      Ef.t :- Df.t ;
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^ variable
+//                 ^ punctuation.terminator.statement
+
+                                                ! Test the values of the ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      if     ta1 (0) = "def  "                  ! global variables       ;
+//    ^^ keyword.control.if
+//           ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ keyword.operator.comparison
+//                     ^^^^^^^ string.quoted.double
+         and Da3 (0,2,2) =/= none and !then; Da3 (0,2,2).t = "8"
+//       ^^^ keyword.operator
+//           ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^^^ keyword.operator.comparison
+//                           ^^^^ constant.language.null
+//                                ^^^ keyword.operator
+//                                    ^^^^^^ comment.block
+//                                           ^^^ entity.name.function
+//                                               ^ punctuation.section.parens
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.separator
+//                                                  ^ constant.numeric.decimal
+//                                                   ^ punctuation.separator
+//                                                    ^ constant.numeric.decimal
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.accessor
+//                                                       ^ variable
+//                                                         ^ keyword.operator.comparison
+//                                                           ^^^ string.quoted.double
+         and Ea3 (0,1,2) =/= none and !then; Ea3 (0,1,2).t = "8" then
+//       ^^^ keyword.operator
+//           ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^^^ keyword.operator.comparison
+//                           ^^^^ constant.language.null
+//                                ^^^ keyword.operator
+//                                    ^^^^^^ comment.block
+//                                           ^^^ entity.name.function
+//                                               ^ punctuation.section.parens
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.separator
+//                                                  ^ constant.numeric.decimal
+//                                                   ^ punctuation.separator
+//                                                    ^ constant.numeric.decimal
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.accessor
+//                                                       ^ variable
+//                                                         ^ keyword.operator.comparison
+//                                                           ^^^ string.quoted.double
+//                                                               ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Values of global variables (4).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("                ta1 (0) = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+         Outtext (if ta1 (0) == notext then "notext" else ta1 (0)) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                           ^^ keyword.operator.comparison
+//                              ^^^^^^ constant.language.null
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^^^ string.quoted.double
+//                                                   ^^^^ keyword.control.else
+//                                                        ^^^ entity.name.function
+//                                                            ^ punctuation.section.parens
+//                                                             ^ constant.numeric.decimal
+//                                                              ^^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("               Da3 (0,2,2).t = ");
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+         Outtext (if Da3 (0,2,2) == none then "object none" else
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                               ^^ keyword.operator.comparison
+//                                  ^^^^ constant.language.null
+//                                       ^^^^ keyword.control.then
+//                                            ^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^^^^ keyword.control.else
+               if Da3 (0,2,2).t == notext then "notext" else Da3 (0,2,2).t) ;
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.accessor
+//                            ^ variable
+//                              ^^ keyword.operator.comparison
+//                                 ^^^^^^ constant.language.null
+//                                        ^^^^ keyword.control.then
+//                                             ^^^^^^^^ string.quoted.double
+//                                                      ^^^^ keyword.control.else
+//                                                           ^^^ entity.name.function
+//                                                               ^ punctuation.section.parens
+//                                                                ^ constant.numeric.decimal
+//                                                                 ^ punctuation.separator
+//                                                                  ^ constant.numeric.decimal
+//                                                                   ^ punctuation.separator
+//                                                                    ^ constant.numeric.decimal
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.accessor
+//                                                                       ^ variable
+//                                                                        ^ punctuation.section.parens
+//                                                                          ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("               Ea3 (0,1,2).t = ");
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+         Outtext (if Ea3 (0,1,2) == none then "object none" else
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                               ^^ keyword.operator.comparison
+//                                  ^^^^ constant.language.null
+//                                       ^^^^ keyword.control.then
+//                                            ^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^^^^ keyword.control.else
+               if Ea3 (0,1,2).t == notext then "notext" else Ea3 (0,1,2).t) ;
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.accessor
+//                            ^ variable
+//                              ^^ keyword.operator.comparison
+//                                 ^^^^^^ constant.language.null
+//                                        ^^^^ keyword.control.then
+//                                             ^^^^^^^^ string.quoted.double
+//                                                      ^^^^ keyword.control.else
+//                                                           ^^^ entity.name.function
+//                                                               ^ punctuation.section.parens
+//                                                                ^ constant.numeric.decimal
+//                                                                 ^ punctuation.separator
+//                                                                  ^ constant.numeric.decimal
+//                                                                   ^ punctuation.separator
+//                                                                    ^ constant.numeric.decimal
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.accessor
+//                                                                       ^ variable
+//                                                                        ^ punctuation.section.parens
+//                                                                          ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+                                                ! Alter the references ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      tf :- copy ("bcd") ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Df :- new E ("7") ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^ keyword.control.new
+//              ^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Ef :- Df ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   end pros. P2 ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^ comment.block
+//              ^ punctuation.terminator.statement
+
+
+   Procedure P3 (tf, Df, Ef) ;
+// ^^^^^^^^^ storage.type
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable.parameter
+//                 ^ punctuation.separator
+//                   ^^ variable.parameter
+//                     ^ punctuation.separator
+//                       ^^ variable.parameter
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+      text tf ;
+//    ^^^^ storage.type
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+      ref (D) Df ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+      ref (E) Ef ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+                                      ! Test parameters ;
+//                                    ^^^^^^^^^^^^^^^^^^^ comment.block
+      if     tf = "efg"
+//    ^^ keyword.control.if
+//           ^^ variable
+//              ^ keyword.operator.comparison
+//                ^^^^^ string.quoted.double
+         and Df == Ea3 (0,2,2)
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+         and Ef =/= none and !then; Ef.t = "9" then
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^^ keyword.operator.comparison
+//                  ^^^^ constant.language.null
+//                       ^^^ keyword.operator
+//                           ^^^^^^ comment.block
+//                                  ^^ variable
+//                                    ^ punctuation.accessor
+//                                     ^ variable
+//                                       ^ keyword.operator.comparison
+//                                         ^^^ string.quoted.double
+//                                             ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Wrong references (5).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("                tf = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext (if tf == notext then "notext" else tf) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^^^ constant.language.null
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^^^^ string.quoted.double
+//                                              ^^^^ keyword.control.else
+//                                                   ^^ variable
+//                                                     ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+         Outint (tf.pos, 4) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^ variable
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("               Df == ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext (if Df == none then "none" else Df.t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^ constant.language.null
+//                              ^^^^ keyword.control.then
+//                                   ^^^^^^ string.quoted.double
+//                                          ^^^^ keyword.control.else
+//                                               ^^ variable
+//                                                 ^ punctuation.accessor
+//                                                  ^ variable
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("               Ef == ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outtext (if Ef == none then "none" else Ef.t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ variable
+//                      ^^ keyword.operator.comparison
+//                         ^^^^ constant.language.null
+//                              ^^^^ keyword.control.then
+//                                   ^^^^^^ string.quoted.double
+//                                          ^^^^ keyword.control.else
+//                                               ^^ variable
+//                                                 ^ punctuation.accessor
+//                                                  ^ variable
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+                                                ! Alter the values ;
+//                                              ^^^^^^^^^^^^^^^^^^^^ comment.block
+      tf := "def" ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^ string.quoted.double
+//                ^ punctuation.terminator.statement
+      Df.t :- copy ("10") ;
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      Ef.t :- Df.t ;
+//    ^^ variable
+//      ^ punctuation.accessor
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^^ variable
+//              ^ punctuation.accessor
+//               ^ variable
+//                 ^ punctuation.terminator.statement
+
+                                                ! Alter the references ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      tf :- copy ("fgh") ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Df :- new E ("11") ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^ keyword.control.new
+//              ^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+      Ef :- Df ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   end pros. P3 ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^ comment.block
+//              ^ punctuation.terminator.statement
+
+
+   Procedure P4 (Bf, cf, jf, rf, tf, Df, Ef) ;
+// ^^^^^^^^^ storage.type
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable.parameter
+//                 ^ punctuation.separator
+//                   ^^ variable.parameter
+//                     ^ punctuation.separator
+//                       ^^ variable.parameter
+//                         ^ punctuation.separator
+//                           ^^ variable.parameter
+//                             ^ punctuation.separator
+//                               ^^ variable.parameter
+//                                 ^ punctuation.separator
+//                                   ^^ variable.parameter
+//                                     ^ punctuation.separator
+//                                       ^^ variable.parameter
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+      Boolean array       Bf ;
+//    ^^^^^^^ storage.type
+//            ^^^^^ storage.type
+//                        ^^ variable
+//                           ^ punctuation.terminator.statement
+      character array     cf ;
+//    ^^^^^^^^^ storage.type
+//              ^^^^^ storage.type
+//                        ^^ variable
+//                           ^ punctuation.terminator.statement
+      integer array       jf ;
+//    ^^^^^^^ storage.type
+//            ^^^^^ storage.type
+//                        ^^ variable
+//                           ^ punctuation.terminator.statement
+      real array          rf ;
+//    ^^^^ storage.type
+//         ^^^^^ storage.type
+//                        ^^ variable
+//                           ^ punctuation.terminator.statement
+      text array          tf ;
+//    ^^^^ storage.type
+//         ^^^^^ storage.type
+//                        ^^ variable
+//                           ^ punctuation.terminator.statement
+      ref (D) array       Df ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^^^^ storage.type
+//                        ^^ variable
+//                           ^ punctuation.terminator.statement
+      ref (E) array       Ef ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^^^^ storage.type
+//                        ^^ variable
+//                           ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+                                                ! Test parameters ;
+//                                              ^^^^^^^^^^^^^^^^^^^ comment.block
+      if     Bf (0,1,2) imp Bf (0,2,2)
+//    ^^ keyword.control.if
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^^^ keyword.operator
+//                          ^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.separator
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.separator
+//                                  ^ constant.numeric.decimal
+//                                   ^ punctuation.section.parens
+         and cf (0) = 'a'
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ keyword.operator.comparison
+//                    ^^^ constant.character
+         and jf (0) = 0
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ keyword.operator.comparison
+//                    ^ constant.numeric.decimal
+         and rf (0,1,2) = 1 and rf (0,2,2) = 1
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ keyword.operator.comparison
+//                        ^ constant.numeric.decimal
+//                          ^^^ keyword.operator
+//                              ^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^ constant.numeric.decimal
+//                                   ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^ punctuation.separator
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.section.parens
+//                                         ^ keyword.operator.comparison
+//                                           ^ constant.numeric.decimal
+         and tf (0,1,2) = "edcba" and tf (0,2,2) == notext
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ keyword.operator.comparison
+//                        ^^^^^^^ string.quoted.double
+//                                ^^^ keyword.operator
+//                                    ^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                               ^^ keyword.operator.comparison
+//                                                  ^^^^^^ constant.language.null
+         and Df (0) =/= none and !then; Df (0).t = "3"
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^^^ keyword.operator.comparison
+//                      ^^^^ constant.language.null
+//                           ^^^ keyword.operator
+//                               ^^^^^^ comment.block
+//                                      ^^ entity.name.function
+//                                         ^ punctuation.section.parens
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.accessor
+//                                             ^ variable
+//                                               ^ keyword.operator.comparison
+//                                                 ^^^ string.quoted.double
+         and Ef (0,1,2) =/= none and !then; Ef (0,1,2).t = "2"
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^^^ keyword.operator.comparison
+//                          ^^^^ constant.language.null
+//                               ^^^ keyword.operator
+//                                   ^^^^^^ comment.block
+//                                          ^^ entity.name.function
+//                                             ^ punctuation.section.parens
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.separator
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.separator
+//                                                  ^ constant.numeric.decimal
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.accessor
+//                                                     ^ variable
+//                                                       ^ keyword.operator.comparison
+//                                                         ^^^ string.quoted.double
+         and Ef (0,2,2) =/= none and !then; Ef (0,2,2).t = "12" then
+//       ^^^ keyword.operator
+//           ^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^^^ keyword.operator.comparison
+//                          ^^^^ constant.language.null
+//                               ^^^ keyword.operator
+//                                   ^^^^^^ comment.block
+//                                          ^^ entity.name.function
+//                                             ^ punctuation.section.parens
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.separator
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.separator
+//                                                  ^ constant.numeric.decimal
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.accessor
+//                                                     ^ variable
+//                                                       ^ keyword.operator.comparison
+//                                                         ^^^^ string.quoted.double
+//                                                              ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Values of parameters (6).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("              Bf (0,1,2) = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outtext (if Bf (0,1,2) then "true , Bf (0,2,2) = " else
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                              ^^^^ keyword.control.then
+//                                   ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^^^^ keyword.control.else
+                                     "false , Bf (0,2,2) = ") ;
+//                                   ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+         Outtext (if Bf (0,2,2) then "true" else "false") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                              ^^^^ keyword.control.then
+//                                   ^^^^^^ string.quoted.double
+//                                          ^^^^ keyword.control.else
+//                                               ^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("              cf (0)     = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outchar (cf (0)) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ constant.numeric.decimal
+//                     ^^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("              jf (0)     = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outint (jf (0), 5) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("              rf (0,1,2) = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outreal (rf (0,1,2), 4, 11) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                               ^^ constant.numeric.decimal
+//                                 ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+         Outtext (" ,  rf (0,2,2) = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+         Outreal (rf (0,2,2), 4, 11) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                               ^^ constant.numeric.decimal
+//                                 ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("              tf (0,1,2) = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outtext (if tf (0,1,2) == notext then "notext" else tf (0,1,2)) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                              ^^ keyword.operator.comparison
+//                                 ^^^^^^ constant.language.null
+//                                        ^^^^ keyword.control.then
+//                                             ^^^^^^^^ string.quoted.double
+//                                                      ^^^^ keyword.control.else
+//                                                           ^^ entity.name.function
+//                                                              ^ punctuation.section.parens
+//                                                               ^ constant.numeric.decimal
+//                                                                ^ punctuation.separator
+//                                                                 ^ constant.numeric.decimal
+//                                                                  ^ punctuation.separator
+//                                                                   ^ constant.numeric.decimal
+//                                                                    ^^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+         Outtext (" , tf (0,2,2) = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+         Outtext (if tf (0,2,2) == notext then "notext" else tf (0,2,2)) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                              ^^ keyword.operator.comparison
+//                                 ^^^^^^ constant.language.null
+//                                        ^^^^ keyword.control.then
+//                                             ^^^^^^^^ string.quoted.double
+//                                                      ^^^^ keyword.control.else
+//                                                           ^^ entity.name.function
+//                                                              ^ punctuation.section.parens
+//                                                               ^ constant.numeric.decimal
+//                                                                ^ punctuation.separator
+//                                                                 ^ constant.numeric.decimal
+//                                                                  ^ punctuation.separator
+//                                                                   ^ constant.numeric.decimal
+//                                                                    ^^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("              Df (0).t   = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outtext (if Df (0) == none then "object none" else
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                          ^^ keyword.operator.comparison
+//                             ^^^^ constant.language.null
+//                                  ^^^^ keyword.control.then
+//                                       ^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^^^^ keyword.control.else
+                  if Df (0).t == notext then "notext" else
+//                ^^ keyword.control.if
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.accessor
+//                          ^ variable
+//                            ^^ keyword.operator.comparison
+//                               ^^^^^^ constant.language.null
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^^^^ string.quoted.double
+//                                                    ^^^^ keyword.control.else
+                                         Df (0).t ) ;
+//                                       ^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.accessor
+//                                              ^ variable
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Ef (0,1,2).t = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outtext (if Ef (0,1,2) == none then "object none" else
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                              ^^ keyword.operator.comparison
+//                                 ^^^^ constant.language.null
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^^^^ keyword.control.else
+                  if Ef (0,1,2).t == notext then "notext" else
+//                ^^ keyword.control.if
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.accessor
+//                              ^ variable
+//                                ^^ keyword.operator.comparison
+//                                   ^^^^^^ constant.language.null
+//                                          ^^^^ keyword.control.then
+//                                               ^^^^^^^^ string.quoted.double
+//                                                        ^^^^ keyword.control.else
+                                   Ef (0,1,2).t ) ;
+//                                 ^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                         ^ constant.numeric.decimal
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.accessor
+//                                            ^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Ef (0,2,2).t = ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outtext (if Ef (0,2,2) == none then "object none" else
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ keyword.control.if
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                              ^^ keyword.operator.comparison
+//                                 ^^^^ constant.language.null
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^^^^ keyword.control.else
+                  if Ef (0,2,2).t == notext then "notext" else
+//                ^^ keyword.control.if
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.accessor
+//                              ^ variable
+//                                ^^ keyword.operator.comparison
+//                                   ^^^^^^ constant.language.null
+//                                          ^^^^ keyword.control.then
+//                                               ^^^^^^^^ string.quoted.double
+//                                                        ^^^^ keyword.control.else
+                                   Ef (0,2,2).t ) ;
+//                                 ^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                         ^ constant.numeric.decimal
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.accessor
+//                                            ^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+                                                ! Alter the values ;
+//                                              ^^^^^^^^^^^^^^^^^^^^ comment.block
+      Bf (0,1,2) := true ;
+//    ^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.separator
+//          ^ constant.numeric.decimal
+//           ^ punctuation.separator
+//            ^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//               ^^ keyword.operator.assignment
+//                  ^^^^ constant.language.bool
+//                       ^ punctuation.terminator.statement
+      cf (0) := 'c' ;
+//    ^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^ constant.character
+//                  ^ punctuation.terminator.statement
+      jf (0) := 1234 ;
+//    ^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^ constant.numeric.decimal
+//                   ^ punctuation.terminator.statement
+      rf (0,2,2) := 3 ;
+//    ^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.separator
+//          ^ constant.numeric.decimal
+//           ^ punctuation.separator
+//            ^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//               ^^ keyword.operator.assignment
+//                  ^ constant.numeric.decimal
+//                    ^ punctuation.terminator.statement
+      tf (0,1,2) :- copy ("ghi") ;
+//    ^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.separator
+//          ^ constant.numeric.decimal
+//           ^ punctuation.separator
+//            ^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//               ^^ keyword.operator.assignment
+//                  ^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      Df (0) :- new E ("12") ;
+//    ^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^ keyword.control.new
+//                  ^ entity.name.class
+//                    ^ punctuation.section.parens
+//                     ^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+      Ef (0,1,2) :- Df (0) ;
+//    ^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.separator
+//          ^ constant.numeric.decimal
+//           ^ punctuation.separator
+//            ^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//               ^^ keyword.operator.assignment
+//                  ^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+   end pros. P4 ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^ comment.block
+//              ^ punctuation.terminator.statement
+
+
+   Outtext ("--- START Simula a.s. TEST 33") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test call by reference for object reference type, text,") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                         ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- value type array and reference type array.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   InitVariables ;
+// ^^^^^^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+
+   P1 (t, rD, rE) ;
+// ^^ entity.name.function
+//    ^ punctuation.section.parens
+//     ^ variable
+//      ^ punctuation.separator
+//        ^^ variable
+//          ^ punctuation.separator
+//            ^^ variable
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+
+                                                ! Test the references of the ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                ! global variables           ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   if     t = "abc  " and t.pos = 3
+// ^^ keyword.control.if
+//        ^ variable
+//          ^ keyword.operator.comparison
+//            ^^^^^^^ string.quoted.double
+//                    ^^^ keyword.operator
+//                        ^ variable
+//                         ^ punctuation.accessor
+//                          ^^^ variable
+//                              ^ keyword.operator.comparison
+//                                ^ constant.numeric.decimal
+      and rD =/= none and !then; rD.t = "5"
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator.comparison
+//               ^^^^ constant.language.null
+//                    ^^^ keyword.operator
+//                        ^^^^^^ comment.block
+//                               ^^ variable
+//                                 ^ punctuation.accessor
+//                                  ^ variable
+//                                    ^ keyword.operator.comparison
+//                                      ^^^ string.quoted.double
+      and rE =/= none and !then; rE.t = "6" then
+//    ^^^ keyword.operator
+//        ^^ variable
+//           ^^^ keyword.operator.comparison
+//               ^^^^ constant.language.null
+//                    ^^^ keyword.operator
+//                        ^^^^^^ comment.block
+//                               ^^ variable
+//                                 ^ punctuation.accessor
+//                                  ^ variable
+//                                    ^ keyword.operator.comparison
+//                                      ^^^ string.quoted.double
+//                                          ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Wrong references (7).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                t = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+      Outtext (if t == notext then "notext" else t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^ variable
+//                  ^^ keyword.operator.comparison
+//                     ^^^^^^ constant.language.null
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^^^^ string.quoted.double
+//                                          ^^^^ keyword.control.else
+//                                               ^ variable
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+      Outint (t.pos, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.accessor
+//              ^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("               rD == ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+      Outtext (if rD == none then "none" else rD.t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.operator.comparison
+//                      ^^^^ constant.language.null
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^ string.quoted.double
+//                                       ^^^^ keyword.control.else
+//                                            ^^ variable
+//                                              ^ punctuation.accessor
+//                                               ^ variable
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("               rE == ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+      Outtext (if rE == none then "none" else rE.t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^ variable
+//                   ^^ keyword.operator.comparison
+//                      ^^^^ constant.language.null
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^ string.quoted.double
+//                                       ^^^^ keyword.control.else
+//                                            ^^ variable
+//                                              ^ punctuation.accessor
+//                                               ^ variable
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   P2 (ta1 (0), Da3 (0,2,2), Ea3 (0,1,2)) ;
+// ^^ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ constant.numeric.decimal
+//           ^ punctuation.section.parens
+//            ^ punctuation.separator
+//              ^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.separator
+//                           ^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.separator
+//                                  ^ constant.numeric.decimal
+//                                   ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+
+                                                ! Test the references of the ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                ! global variables           ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   if     ta1 (0) = "def  " and ta1 (0).pos = 3
+// ^^ keyword.control.if
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^^^^^ string.quoted.double
+//                          ^^^ keyword.operator
+//                              ^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.accessor
+//                                      ^^^ variable
+//                                          ^ keyword.operator.comparison
+//                                            ^ constant.numeric.decimal
+      and Da3 (0,2,2) =/= none and !then; Da3 (0,2,2).t = "8"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^^^ keyword.operator.comparison
+//                        ^^^^ constant.language.null
+//                             ^^^ keyword.operator
+//                                 ^^^^^^ comment.block
+//                                        ^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.separator
+//                                               ^ constant.numeric.decimal
+//                                                ^ punctuation.separator
+//                                                 ^ constant.numeric.decimal
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.accessor
+//                                                    ^ variable
+//                                                      ^ keyword.operator.comparison
+//                                                        ^^^ string.quoted.double
+      and Ea3 (0,1,2) =/= none and !then; Ea3 (0,1,2).t = "8" then
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^^^ keyword.operator.comparison
+//                        ^^^^ constant.language.null
+//                             ^^^ keyword.operator
+//                                 ^^^^^^ comment.block
+//                                        ^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.separator
+//                                               ^ constant.numeric.decimal
+//                                                ^ punctuation.separator
+//                                                 ^ constant.numeric.decimal
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.accessor
+//                                                    ^ variable
+//                                                      ^ keyword.operator.comparison
+//                                                        ^^^ string.quoted.double
+//                                                            ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Wrong references of globals (8).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                ta1 (0) = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+      Outtext (if ta1 (0) == notext then "notext" else ta1 (0)) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^^ keyword.operator.comparison
+//                           ^^^^^^ constant.language.null
+//                                  ^^^^ keyword.control.then
+//                                       ^^^^^^^^ string.quoted.double
+//                                                ^^^^ keyword.control.else
+//                                                     ^^^ entity.name.function
+//                                                         ^ punctuation.section.parens
+//                                                          ^ constant.numeric.decimal
+//                                                           ^^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+      Outint (ta1 (0).pos, 4) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.accessor
+//                    ^^^ variable
+//                       ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("               Da3 (0,2,2) == ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Outtext (if Da3 (0,2,2) == none then "none" else Da3 (0,2,2).t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^^ keyword.operator.comparison
+//                               ^^^^ constant.language.null
+//                                    ^^^^ keyword.control.then
+//                                         ^^^^^^ string.quoted.double
+//                                                ^^^^ keyword.control.else
+//                                                     ^^^ entity.name.function
+//                                                         ^ punctuation.section.parens
+//                                                          ^ constant.numeric.decimal
+//                                                           ^ punctuation.separator
+//                                                            ^ constant.numeric.decimal
+//                                                             ^ punctuation.separator
+//                                                              ^ constant.numeric.decimal
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.accessor
+//                                                                 ^ variable
+//                                                                  ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("               Ea3 (0,1,2) == ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Outtext (if Ea3 (0,1,2) == none then "none" else Ea3 (0,1,2).t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^^ keyword.operator.comparison
+//                               ^^^^ constant.language.null
+//                                    ^^^^ keyword.control.then
+//                                         ^^^^^^ string.quoted.double
+//                                                ^^^^ keyword.control.else
+//                                                     ^^^ entity.name.function
+//                                                         ^ punctuation.section.parens
+//                                                          ^ constant.numeric.decimal
+//                                                           ^ punctuation.separator
+//                                                            ^ constant.numeric.decimal
+//                                                             ^ punctuation.separator
+//                                                              ^ constant.numeric.decimal
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.accessor
+//                                                                 ^ variable
+//                                                                  ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   P3 (copy ("efg") , Ea3 (0,2,2), new E ("9") );
+// ^^ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^ string.quoted.double
+//                ^ punctuation.section.parens
+//                  ^ punctuation.separator
+//                    ^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.separator
+//                                 ^^^ keyword.control.new
+//                                     ^ entity.name.class
+//                                       ^ punctuation.section.parens
+//                                        ^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+
+                                                ! Test the values of the ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                ! significant global variables;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   if Ea3 (0,2,2) =/= none and !then; Ea3 (0,2,2).t = "10" then
+// ^^ keyword.control.if
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^ constant.numeric.decimal
+//          ^ punctuation.separator
+//           ^ constant.numeric.decimal
+//            ^ punctuation.separator
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^^ keyword.operator.comparison
+//                    ^^^^ constant.language.null
+//                         ^^^ keyword.operator
+//                             ^^^^^^ comment.block
+//                                    ^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^ constant.numeric.decimal
+//                                          ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.separator
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.accessor
+//                                                ^ variable
+//                                                  ^ keyword.operator.comparison
+//                                                    ^^^^ string.quoted.double
+//                                                         ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Values of global variables (9).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("               Ea3 (0,2,2).t = ");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Outtext (if Ea3 (0,2,2) == none then "object none" else
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^^ keyword.operator.comparison
+//                               ^^^^ constant.language.null
+//                                    ^^^^ keyword.control.then
+//                                         ^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^^^^ keyword.control.else
+            if Ea3 (0,2,2).t == notext then "notext" else Ea3 (0,2,2).t) ;
+//          ^^ keyword.control.if
+//             ^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.accessor
+//                         ^ variable
+//                           ^^ keyword.operator.comparison
+//                              ^^^^^^ constant.language.null
+//                                     ^^^^ keyword.control.then
+//                                          ^^^^^^^^ string.quoted.double
+//                                                   ^^^^ keyword.control.else
+//                                                        ^^^ entity.name.function
+//                                                            ^ punctuation.section.parens
+//                                                             ^ constant.numeric.decimal
+//                                                              ^ punctuation.separator
+//                                                               ^ constant.numeric.decimal
+//                                                                ^ punctuation.separator
+//                                                                 ^ constant.numeric.decimal
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.accessor
+//                                                                    ^ variable
+//                                                                     ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   P4 (Ba3, ca1, ia1, ra3, ta3, Da1, Ea3) ;
+// ^^ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ variable
+//        ^ punctuation.separator
+//          ^^^ variable
+//             ^ punctuation.separator
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^^^ variable
+//                       ^ punctuation.separator
+//                         ^^^ variable
+//                            ^ punctuation.separator
+//                              ^^^ variable
+//                                 ^ punctuation.separator
+//                                   ^^^ variable
+//                                      ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+
+                                                ! Test the values of the ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                ! globals                ;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   if     Ba3 (0,1,2) and Ba3 (0,2,2)
+// ^^ keyword.control.if
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^^^ keyword.operator
+//                        ^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.separator
+//                               ^ constant.numeric.decimal
+//                                ^ punctuation.separator
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.section.parens
+      and ca1 (0) = 'c'
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^ constant.character
+      and ia1 (0) = 1234
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^^ constant.numeric.decimal
+      and ra3 (0,1,2) = 0 and ra3 (0,2,2) = 3
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^ keyword.operator.comparison
+//                      ^ constant.numeric.decimal
+//                        ^^^ keyword.operator
+//                            ^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.separator
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.section.parens
+//                                        ^ keyword.operator.comparison
+//                                          ^ constant.numeric.decimal
+      and ta3 (0,1,2) = "ghi" and ta3 (0,2,2) == notext
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^ keyword.operator.comparison
+//                      ^^^^^ string.quoted.double
+//                            ^^^ keyword.operator
+//                                ^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                         ^ constant.numeric.decimal
+//                                          ^ punctuation.section.parens
+//                                            ^^ keyword.operator.comparison
+//                                               ^^^^^^ constant.language.null
+      and Da1 (0) =/= none and !then; Da1 (0).t = "12"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^^ keyword.operator.comparison
+//                    ^^^^ constant.language.null
+//                         ^^^ keyword.operator
+//                             ^^^^^^ comment.block
+//                                    ^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^ constant.numeric.decimal
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.accessor
+//                                            ^ variable
+//                                              ^ keyword.operator.comparison
+//                                                ^^^^ string.quoted.double
+      and Ea3 (0,1,2) =/= none and !then; Ea3 (0,1,2).t = "12"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^^^ keyword.operator.comparison
+//                        ^^^^ constant.language.null
+//                             ^^^ keyword.operator
+//                                 ^^^^^^ comment.block
+//                                        ^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.separator
+//                                               ^ constant.numeric.decimal
+//                                                ^ punctuation.separator
+//                                                 ^ constant.numeric.decimal
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.accessor
+//                                                    ^ variable
+//                                                      ^ keyword.operator.comparison
+//                                                        ^^^^ string.quoted.double
+      and Ea3 (0,2,2) =/= none and !then; Ea3 (0,2,2).t = "10" then
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^^^ keyword.operator.comparison
+//                        ^^^^ constant.language.null
+//                             ^^^ keyword.operator
+//                                 ^^^^^^ comment.block
+//                                        ^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.separator
+//                                               ^ constant.numeric.decimal
+//                                                ^ punctuation.separator
+//                                                 ^ constant.numeric.decimal
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.accessor
+//                                                    ^ variable
+//                                                      ^ keyword.operator.comparison
+//                                                        ^^^^ string.quoted.double
+//                                                             ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Values of parameters (10).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus values :") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("              Ba3 (0,1,2) = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outtext (if Ba3 (0,1,2) then "true , Ba3 (0,2,2) = " else
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^^^^ keyword.control.else
+                                  "false , Ba3 (0,2,2) = ") ;
+//                                ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outtext (if Ba3 (0,2,2) then "true" else "false") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^^^^ keyword.control.then
+//                                 ^^^^^^ string.quoted.double
+//                                        ^^^^ keyword.control.else
+//                                             ^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("              ca1 (0)     = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outchar (ca1 (0)) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("              ia1 (0)     = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outint (ia1 (0), 5) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("              ra3 (0,1,2) = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outreal (ra3 (0,1,2), 4, 11) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+      Outtext (" ,  ra3 (0,2,2) = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+      Outreal (ra3 (0,2,2), 4, 11) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("              ta3 (0,1,2) = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outtext (if ta3 (0,1,2) == notext then "notext" else ta3 (0,1,2)) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^^ keyword.operator.comparison
+//                               ^^^^^^ constant.language.null
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^^^^ string.quoted.double
+//                                                    ^^^^ keyword.control.else
+//                                                         ^^^ entity.name.function
+//                                                             ^ punctuation.section.parens
+//                                                              ^ constant.numeric.decimal
+//                                                               ^ punctuation.separator
+//                                                                ^ constant.numeric.decimal
+//                                                                 ^ punctuation.separator
+//                                                                  ^ constant.numeric.decimal
+//                                                                   ^^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+      Outtext (" , ta3 (0,2,2) = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+      Outtext (if ta3 (0,2,2) == notext then "notext" else ta3 (0,2,2)) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^^ keyword.operator.comparison
+//                               ^^^^^^ constant.language.null
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^^^^ string.quoted.double
+//                                                    ^^^^ keyword.control.else
+//                                                         ^^^ entity.name.function
+//                                                             ^ punctuation.section.parens
+//                                                              ^ constant.numeric.decimal
+//                                                               ^ punctuation.separator
+//                                                                ^ constant.numeric.decimal
+//                                                                 ^ punctuation.separator
+//                                                                  ^ constant.numeric.decimal
+//                                                                   ^^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("              Da1 (0).t   = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outtext (if Da1 (0) == none then "object none" else
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                        ^^ keyword.operator.comparison
+//                           ^^^^ constant.language.null
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^^^^ keyword.control.else
+               if Da1 (0).t == notext then "notext" else
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.accessor
+//                        ^ variable
+//                          ^^ keyword.operator.comparison
+//                             ^^^^^^ constant.language.null
+//                                    ^^^^ keyword.control.then
+//                                         ^^^^^^^^ string.quoted.double
+//                                                  ^^^^ keyword.control.else
+                                      Da1 (0).t ) ;
+//                                    ^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^ constant.numeric.decimal
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.accessor
+//                                            ^ variable
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Ea3 (0,1,2).t = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outtext (if Ea3 (0,1,2) == none then "object none" else
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^^ keyword.operator.comparison
+//                               ^^^^ constant.language.null
+//                                    ^^^^ keyword.control.then
+//                                         ^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^^^^ keyword.control.else
+               if Ea3 (0,1,2).t == notext then "notext" else
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.accessor
+//                            ^ variable
+//                              ^^ keyword.operator.comparison
+//                                 ^^^^^^ constant.language.null
+//                                        ^^^^ keyword.control.then
+//                                             ^^^^^^^^ string.quoted.double
+//                                                      ^^^^ keyword.control.else
+                                Ea3 (0,1,2).t ) ;
+//                              ^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.separator
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.accessor
+//                                          ^ variable
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Ea3 (0,2,2).t = ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outtext (if Ea3 (0,2,2) == none then "object none" else
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^^ keyword.operator.comparison
+//                               ^^^^ constant.language.null
+//                                    ^^^^ keyword.control.then
+//                                         ^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^^^^ keyword.control.else
+               if Ea3 (0,2,2).t == notext then "notext" else
+//             ^^ keyword.control.if
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.accessor
+//                            ^ variable
+//                              ^^ keyword.operator.comparison
+//                                 ^^^^^^ constant.language.null
+//                                        ^^^^ keyword.control.then
+//                                             ^^^^^^^^ string.quoted.double
+//                                                      ^^^^ keyword.control.else
+                                Ea3 (0,2,2).t ) ;
+//                              ^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.separator
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.accessor
+//                                          ^ variable
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 33") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

@@ -1,0 +1,9 @@
+[E0211] Error: CONSTANT: cannot assign to constant `k`
+   ╭─[ assign_to_constant.sim:1:22 ]
+   │
+ 1 │ begin integer k = 1; k := 2; end;
+   │                      ───┬───  
+   │                         ╰───── here
+   │ 
+   │ Help: assign to a variable, or change the declaration so it is not constant
+───╯

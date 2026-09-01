@@ -1,0 +1,7 @@
+begin
+    text t, u;
+    t :- blanks(5);
+    u :- copy(t);
+    if t.length = 5 and u = t and t.main =/= u.main then OutText("ok") else OutText("fail");
+    OutImage;
+end

@@ -1,0 +1,7 @@
+% External integer procedure pb for SIMULA TEST NO 40.
+% Not shipped in the TestBatch tree; original PB source.
+integer procedure pb(n);
+   integer n;
+   begin external integer procedure pa;
+      if n<10 then pb:= n+pa(n+1);
+   end;

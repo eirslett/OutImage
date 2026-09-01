@@ -1,0 +1,6 @@
+external C procedure add = "add"
+   is integer procedure add(a, b); integer a, b;
+begin
+   OutInt(add(40, 2), 0);
+   OutImage;
+end;

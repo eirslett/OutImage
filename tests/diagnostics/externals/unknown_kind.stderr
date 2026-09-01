@@ -1,0 +1,9 @@
+[E0601] Error: EXTERNAL KIND: unknown external kind `Fortran`; sim recognises C, JS, and Host
+   ╭─[ unknown_kind.sim:1:1 ]
+   │
+ 1 │ external Fortran procedure sin; begin end;
+   │ ───────────────┬──────────────  
+   │                ╰──────────────── here
+   │ 
+   │ Help: write `external C procedure`, `external JS procedure`, or `external Host procedure`
+───╯

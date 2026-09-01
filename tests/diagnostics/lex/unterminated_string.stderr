@@ -1,0 +1,11 @@
+[E0002] Error: UNTERMINATED STRING: this string never ended
+   ╭─[ unterminated_string.sim:1:15 ]
+   │
+ 1 │ begin OutText("hi); end;
+   │               ─────┬────  
+   │                    ╰────── string starts here
+   │ 
+   │ Help: add a closing `"` before the end of the line
+   │ 
+   │ Note: string literals cannot cross a newline (Standard §1.6)
+───╯

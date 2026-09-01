@@ -1,0 +1,9 @@
+[E0403] Error: PREFIX CYCLE: class `A` occurs in its own prefix sequence
+   ╭─[ prefix_cycle.sim:2:1 ]
+   │
+ 2 │ B class A; begin end;
+   │ ──────────┬──────────  
+   │           ╰──────────── here
+   │ 
+   │ Help: remove the cycle so each class prefixes a strictly outer class
+───╯

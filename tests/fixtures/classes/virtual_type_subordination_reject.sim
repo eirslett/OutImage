@@ -1,0 +1,9 @@
+! §5.5.3.7: virtual ref(Polar) must not match a weaker ref(Point).;
+begin
+    class Point; begin end;
+    Point class Polar; begin end;
+    class Base; virtual: ref(Polar) p;
+    begin
+        ref(Point) p;
+    end;
+end

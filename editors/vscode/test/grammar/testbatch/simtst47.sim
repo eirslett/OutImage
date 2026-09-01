@@ -1,0 +1,257 @@
+// SYNTAX TEST "source.simula" "simtst47"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 47
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test of this.
+// <----------------------------- comment.directive
+%
+// <- comment.directive
+%  REWRITTEN BY:  BEH   29/07-86
+// <-------------------------------- comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Ref(A) ra1, ra2, ra3 ;
+// ^^^ storage.modifier
+//    ^ punctuation.section.parens
+//     ^ entity.name.class
+//      ^ punctuation.section.parens
+//        ^^^ variable
+//           ^ punctuation.separator
+//             ^^^ variable
+//                ^ punctuation.separator
+//                  ^^^ variable
+//                      ^ punctuation.terminator.statement
+
+   Class A ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+
+      Ref (A) Procedure Z ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^^^^^^^^ storage.type
+//                      ^ entity.name.function
+//                        ^ punctuation.terminator.statement
+      begin
+//    ^^^^^ keyword.control.begin
+          ra2 :- This A;
+//        ^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ keyword.other.this
+//                    ^ variable
+//                     ^ punctuation.terminator.statement
+
+          begin
+//        ^^^^^ keyword.control.begin
+             integer i;
+//           ^^^^^^^ storage.type
+//                   ^ variable
+//                    ^ punctuation.terminator.statement
+             ra3 :- This A
+//           ^^^ variable
+//               ^^ keyword.operator.assignment
+//                  ^^^^ keyword.other.this
+//                       ^ variable
+          end ;
+//        ^^^ keyword.control.end
+//            ^ punctuation.terminator.statement
+          Z :- This A
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^^^^ keyword.other.this
+//                  ^ variable
+      END of procedure Z ;
+//    ^^^ keyword.control.end
+//        ^^^^^^^^^^^^^^ comment.block
+//                       ^ punctuation.terminator.statement
+
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 47") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test of this.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   ra1 :- new a ;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ keyword.control.new
+//            ^ entity.name.class
+//              ^ punctuation.terminator.statement
+   ra1 :- ra1.z ;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ variable
+//           ^ punctuation.accessor
+//            ^ variable
+//              ^ punctuation.terminator.statement
+
+   if ra1 == ra2 and ra2 == ra3 then
+// ^^ keyword.control.if
+//    ^^^ variable
+//        ^^ keyword.operator.comparison
+//           ^^^ variable
+//               ^^^ keyword.operator
+//                   ^^^ variable
+//                       ^^ keyword.operator.comparison
+//                          ^^^ variable
+//                              ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : This.") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus references : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                      ra1 == ra2 - ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      Outtext (if ra1 == ra2 then "true" else "false") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ variable
+//                    ^^ keyword.operator.comparison
+//                       ^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^ string.quoted.double
+//                                       ^^^^ keyword.control.else
+//                                            ^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                      ra1 == ra3 - ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      Outtext (if ra1 == ra3 then "true" else "false") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ variable
+//                    ^^ keyword.operator.comparison
+//                       ^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^ string.quoted.double
+//                                       ^^^^ keyword.control.else
+//                                            ^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("                      ra2 == ra3 - ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      Outtext (if ra2 == ra3 then "true" else "false") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ keyword.control.if
+//                ^^^ variable
+//                    ^^ keyword.operator.comparison
+//                       ^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^ string.quoted.double
+//                                       ^^^^ keyword.control.else
+//                                            ^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 47") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

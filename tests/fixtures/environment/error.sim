@@ -1,0 +1,6 @@
+! Chapter 9 error control stops with diagnostic;
+begin
+    error("boom");
+    OutText("unreachable");
+    OutImage;
+end

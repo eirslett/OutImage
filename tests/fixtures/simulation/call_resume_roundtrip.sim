@@ -1,0 +1,15 @@
+! Ch.7: call and resume on a detached object.;
+begin
+    class Worker;
+    begin
+        OutText("A"); OutImage;
+        detach;
+        OutText("B"); OutImage;
+        detach;
+        OutText("C"); OutImage;
+    end;
+    ref(Worker) w;
+    w :- new Worker;
+    call(w);
+    resume(w);
+end

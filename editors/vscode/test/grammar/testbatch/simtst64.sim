@@ -1,0 +1,2397 @@
+// SYNTAX TEST "source.simula" "simtst64"
+% =======================================   Main   program =============
+// <------------------------------------------------------------------------ comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 64
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test parameter transmission by value to classes.
+// <---------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   06/08-86
+// <------------------------------ comment.directive
+% ======================================================================
+// <------------------------------------------------------------------------ comment.directive
+Begin
+// <----- keyword.control.begin
+   Boolean found_error;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   text array lines, facit (1:20);
+// ^^^^ storage.type
+//      ^^^^^ storage.type
+//            ^^^^^ variable
+//                 ^ punctuation.separator
+//                   ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+   integer lnr;
+// ^^^^^^^ storage.type
+//         ^^^ variable
+//            ^ punctuation.terminator.statement
+
+   procedure SaveLine;
+// ^^^^^^^^^ storage.type
+//           ^^^^^^^^ entity.name.function
+//                   ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      lnr := lnr + 1;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^^ variable
+//               ^ keyword.operator.arithmetic
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.terminator.statement
+      lines (lnr) :- copy (sysout.image.strip);
+//    ^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^^^ variable
+//                                     ^ punctuation.accessor
+//                                      ^^^^^ variable
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+      sysout.image.setpos (1);
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+      sysout.image := notext
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^^ constant.language.null
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   procedure Checklines (n, enr);
+// ^^^^^^^^^ storage.type
+//           ^^^^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable.parameter
+//                        ^ punctuation.separator
+//                          ^^^ variable.parameter
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+      integer n, enr;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.separator
+//               ^^^ variable
+//                  ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      Boolean OK;
+//    ^^^^^^^ storage.type
+//            ^^ variable
+//              ^ punctuation.terminator.statement
+      integer i;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+
+      OK := true;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^ constant.language.bool
+//              ^ punctuation.terminator.statement
+
+      for i := 1 step 1 until n do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^ variable
+//                              ^^ keyword.control.do
+      if facit (i) <> lines (i) then OK := false;
+//    ^^ keyword.control.if
+//       ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.section.parens
+//                 ^^ keyword.operator.comparison
+//                    ^^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.section.parens
+//                              ^^^^ keyword.control.then
+//                                   ^^ variable
+//                                      ^^ keyword.operator.assignment
+//                                         ^^^^^ constant.language.bool
+//                                              ^ punctuation.terminator.statement
+
+      if not OK then
+//    ^^ keyword.control.if
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^^^ keyword.control.then
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Value of attributes (");
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+         Outint (enr, if enr < 10 then 1 else 2);
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^^ keyword.control.if
+//                       ^^^ variable
+//                           ^ keyword.operator.comparison
+//                             ^^ constant.numeric.decimal
+//                                ^^^^ keyword.control.then
+//                                     ^ constant.numeric.decimal
+//                                       ^^^^ keyword.control.else
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+         Outtext (").");
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values : ");
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         for i := 1 step 1 until n do
+//       ^^^ keyword.control.for
+//           ^ variable
+//             ^^ keyword.operator.assignment
+//                ^ constant.numeric.decimal
+//                  ^^^^ keyword.control.step
+//                       ^ constant.numeric.decimal
+//                         ^^^^^ keyword.control.until
+//                               ^ variable
+//                                 ^^ keyword.control.do
+         begin
+//       ^^^^^ keyword.control.begin
+            Outtext ("            ");
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+            Outchar ('"');
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^ constant.character
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+            Outtext (lines (i));
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ variable
+//                           ^^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+            Outchar ('"');
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^ constant.character
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+            Outimage;
+//          ^^^^^^^^ variable
+//                  ^ punctuation.terminator.statement
+         end;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+   end pros. checklines;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^^^ comment.block
+//                     ^ punctuation.terminator.statement
+
+   procedure ClearLines;
+// ^^^^^^^^^ storage.type
+//           ^^^^^^^^^^ entity.name.function
+//                     ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      integer i;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+
+      for i := 1 step 1 until 20 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^^ constant.numeric.decimal
+//                               ^^ keyword.control.do
+         facit (i) :- lines (i) :- notext;
+//       ^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ variable
+//               ^ punctuation.section.parens
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.section.parens
+//                              ^^ keyword.operator.assignment
+//                                 ^^^^^^ constant.language.null
+//                                       ^ punctuation.terminator.statement
+
+      lnr := 0;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//            ^ punctuation.terminator.statement
+   end  pros. clearlines;
+// ^^^ keyword.control.end
+//      ^^^^^^^^^^^^^^^^ comment.block
+//                      ^ punctuation.terminator.statement
+
+
+   Class A1 (b);  Boolean b;
+// ^^^^^ keyword.other.class
+//       ^^ entity.name.class
+//          ^ punctuation.section.parens
+//           ^ variable.parameter
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+//                ^^^^^^^ storage.type
+//                        ^ variable
+//                         ^ punctuation.terminator.statement
+   Begin
+// ^^^^^ keyword.control.begin
+      Character     c;
+//    ^^^^^^^^^ storage.type
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+      Integer       i;
+//    ^^^^^^^ storage.type
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+      Real          r;
+//    ^^^^ storage.type
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+      Text          t;
+//    ^^^^ storage.type
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+
+      Outtext ("  A1 before Inner");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+      SaveLine;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      b := true;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ constant.language.bool
+//             ^ punctuation.terminator.statement
+      i := 2;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+      r := 3;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+      c := '*';
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^ constant.character
+//            ^ punctuation.terminator.statement
+      t :- Copy ("t in A1");
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+      If b then Outtext ("  true  ") else Outtext ("  false ");
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                   ^^^^ keyword.control.else
+//                                        ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+      Outchar (c);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      Outint (i, 4);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+      Outreal (r, 5, 12);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outchar (' ');
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ constant.character
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+      Outtext (t);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      SaveLine;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+
+      Inner;
+//    ^^^^^ keyword.other.inner
+//         ^ punctuation.terminator.statement
+
+      Outtext ("  A1 after  Inner");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+      SaveLine;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+   End of class A1;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   A1 Class A12 (c, i, r, t);  VALUE         t;
+// ^^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^^^ entity.name.class
+//              ^ punctuation.section.parens
+//               ^ variable.parameter
+//                ^ punctuation.separator
+//                  ^ variable.parameter
+//                   ^ punctuation.separator
+//                     ^ variable.parameter
+//                      ^ punctuation.separator
+//                        ^ variable.parameter
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                             ^^^^^ keyword.other.value
+//                                           ^ variable
+//                                            ^ punctuation.terminator.statement
+                                Character     c;
+//                              ^^^^^^^^^ storage.type
+//                                            ^ variable
+//                                             ^ punctuation.terminator.statement
+                                Integer       i;
+//                              ^^^^^^^ storage.type
+//                                            ^ variable
+//                                             ^ punctuation.terminator.statement
+                                Real          r;
+//                              ^^^^ storage.type
+//                                            ^ variable
+//                                             ^ punctuation.terminator.statement
+                                Text          t;
+//                              ^^^^ storage.type
+//                                            ^ variable
+//                                             ^ punctuation.terminator.statement
+   Begin
+// ^^^^^ keyword.control.begin
+      Boolean b;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("  enter A12");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+      SaveLine;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+
+      If b then Outtext ("  true  ") else Outtext ("  false ");
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^^^^ keyword.control.then
+//              ^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                   ^^^^ keyword.control.else
+//                                        ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+      Outchar (c);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      Outint (i, 4);
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+      Outreal (r, 5, 12);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      Outchar (' ');
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^ constant.character
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+      Outtext (t);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      SaveLine;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+
+      Outtext ("  exit A12");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+      SaveLine;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+   End of class A12;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^ comment.block
+//                 ^ punctuation.terminator.statement
+
+   A1 Class A13 (bv, cv , iv, rv);  VALUE           bv, cv , iv, rv;
+// ^^ entity.name.class
+//    ^^^^^ keyword.other.class
+//          ^^^ entity.name.class
+//              ^ punctuation.section.parens
+//               ^^ variable.parameter
+//                 ^ punctuation.separator
+//                   ^^ variable.parameter
+//                      ^ punctuation.separator
+//                        ^^ variable.parameter
+//                          ^ punctuation.separator
+//                            ^^ variable.parameter
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+//                                  ^^^^^ keyword.other.value
+//                                                  ^^ variable
+//                                                    ^ punctuation.separator
+//                                                      ^^ variable
+//                                                         ^ punctuation.separator
+//                                                           ^^ variable
+//                                                             ^ punctuation.separator
+//                                                               ^^ variable
+//                                                                 ^ punctuation.terminator.statement
+                                     Boolean   ARRAY bv;
+//                                   ^^^^^^^ storage.type
+//                                             ^^^^^ storage.type
+//                                                   ^^ variable
+//                                                     ^ punctuation.terminator.statement
+                                     Character ARRAY cv ;
+//                                   ^^^^^^^^^ storage.type
+//                                             ^^^^^ storage.type
+//                                                   ^^ variable
+//                                                      ^ punctuation.terminator.statement
+                                     Integer   ARRAY iv;
+//                                   ^^^^^^^ storage.type
+//                                             ^^^^^ storage.type
+//                                                   ^^ variable
+//                                                     ^ punctuation.terminator.statement
+                                     Real      ARRAY rv;
+//                                   ^^^^ storage.type
+//                                             ^^^^^ storage.type
+//                                                   ^^ variable
+//                                                     ^ punctuation.terminator.statement
+   Begin
+// ^^^^^ keyword.control.begin
+      Integer    i;
+//    ^^^^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.terminator.statement
+
+      While  i <= 2  do
+//    ^^^^^ keyword.control.while
+//           ^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+//                   ^^ keyword.control.do
+      Begin
+//    ^^^^^ keyword.control.begin
+         If bv(i) then Outtext("  true  ") else Outtext("  false ");
+//       ^^ keyword.control.if
+//          ^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^^^^ keyword.control.then
+//                     ^^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^^^^ keyword.control.else
+//                                              ^^^^^^^ entity.name.function
+//                                                     ^ punctuation.section.parens
+//                                                      ^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+         Outchar (cv (i));
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+         Outint (iv (i), 4);
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ variable
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+         Outreal (rv (i), 5, 12);
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+         SaveLine;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+
+         i := i + 1
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^ keyword.operator.arithmetic
+//                ^ constant.numeric.decimal
+      End;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+   End of class A13;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^ comment.block
+//                 ^ punctuation.terminator.statement
+
+   Class A14 (bv, cv , iv, rv);   VALUE           bv, cv , iv, rv;
+// ^^^^^ keyword.other.class
+//       ^^^ entity.name.class
+//           ^ punctuation.section.parens
+//            ^^ variable.parameter
+//              ^ punctuation.separator
+//                ^^ variable.parameter
+//                   ^ punctuation.separator
+//                     ^^ variable.parameter
+//                       ^ punctuation.separator
+//                         ^^ variable.parameter
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                                ^^^^^ keyword.other.value
+//                                                ^^ variable
+//                                                  ^ punctuation.separator
+//                                                    ^^ variable
+//                                                       ^ punctuation.separator
+//                                                         ^^ variable
+//                                                           ^ punctuation.separator
+//                                                             ^^ variable
+//                                                               ^ punctuation.terminator.statement
+                                   Boolean   ARRAY bv;
+//                                 ^^^^^^^ storage.type
+//                                           ^^^^^ storage.type
+//                                                 ^^ variable
+//                                                   ^ punctuation.terminator.statement
+                                   Character ARRAY cv ;
+//                                 ^^^^^^^^^ storage.type
+//                                           ^^^^^ storage.type
+//                                                 ^^ variable
+//                                                    ^ punctuation.terminator.statement
+                                   Integer   ARRAY iv;
+//                                 ^^^^^^^ storage.type
+//                                           ^^^^^ storage.type
+//                                                 ^^ variable
+//                                                   ^ punctuation.terminator.statement
+                                   Real      ARRAY rv;
+//                                 ^^^^ storage.type
+//                                           ^^^^^ storage.type
+//                                                 ^^ variable
+//                                                   ^ punctuation.terminator.statement
+   Begin
+// ^^^^^ keyword.control.begin
+      Integer    i, j;
+//    ^^^^^^^ storage.type
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+
+      While  i <= 2  do
+//    ^^^^^ keyword.control.while
+//           ^ variable
+//             ^^ keyword.operator.comparison
+//                ^ constant.numeric.decimal
+//                   ^^ keyword.control.do
+      Begin
+//    ^^^^^ keyword.control.begin
+         j := 0;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+
+         While  j <= 3  do
+//       ^^^^^ keyword.control.while
+//              ^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                      ^^ keyword.control.do
+         Begin
+//       ^^^^^ keyword.control.begin
+            If bv (i,j) then Outtext("  true  ")
+//          ^^ keyword.control.if
+//             ^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.separator
+//                   ^ variable
+//                    ^ punctuation.section.parens
+//                      ^^^^ keyword.control.then
+//                           ^^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+            else Outtext("  false ");
+//          ^^^^ keyword.control.else
+//               ^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+            Outchar (cv (i, j));
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.separator
+//                          ^ variable
+//                           ^^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+            Outint (iv (i, j), 4);
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                         ^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+            Outreal (rv (i, j), 5, 12);
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.separator
+//                          ^ variable
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.separator
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.separator
+//                                 ^^ constant.numeric.decimal
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+            SaveLine;
+//          ^^^^^^^^ variable
+//                  ^ punctuation.terminator.statement
+
+            j := j + 1
+//          ^ variable
+//            ^^ keyword.operator.assignment
+//               ^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+         End;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+
+         i := i + 1;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//              ^ keyword.operator.arithmetic
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+      End
+//    ^^^ keyword.control.end
+
+   End of class A14;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^ comment.block
+//                 ^ punctuation.terminator.statement
+
+   Boolean         bv;
+// ^^^^^^^ storage.type
+//                 ^^ variable
+//                   ^ punctuation.terminator.statement
+   Character       cv;
+// ^^^^^^^^^ storage.type
+//                 ^^ variable
+//                   ^ punctuation.terminator.statement
+   Integer         iv, s1, s2, sum;
+// ^^^^^^^ storage.type
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                     ^^ variable
+//                       ^ punctuation.separator
+//                         ^^ variable
+//                           ^ punctuation.separator
+//                             ^^^ variable
+//                                ^ punctuation.terminator.statement
+   Real            rv;
+// ^^^^ storage.type
+//                 ^^ variable
+//                   ^ punctuation.terminator.statement
+   Text            tv, txt;
+// ^^^^ storage.type
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                     ^^^ variable
+//                        ^ punctuation.terminator.statement
+
+   Boolean   ARRAY bav1 (0:2), bav2 (0:2, 0:3);
+// ^^^^^^^ storage.type
+//           ^^^^^ storage.type
+//                 ^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.separator
+//                             ^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.separator
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   Character ARRAY cav1 (0:2), cav2 (0:2, 0:3);
+// ^^^^^^^^^ storage.type
+//           ^^^^^ storage.type
+//                 ^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.separator
+//                             ^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.separator
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   Integer   ARRAY iav1 (0:2), iav2 (0:2, 0:3);
+// ^^^^^^^ storage.type
+//           ^^^^^ storage.type
+//                 ^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.separator
+//                             ^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.separator
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   Real      ARRAY rav1 (0:2), rav2 (0:2, 0:3);
+// ^^^^ storage.type
+//           ^^^^^ storage.type
+//                 ^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.separator
+//                             ^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.separator
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+   Text      ARRAY tav1 (0:2), tav2 (0:2, 0:3);
+// ^^^^ storage.type
+//           ^^^^^ storage.type
+//                 ^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.separator
+//                             ^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.separator
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+
+   REF (A1)  ra1;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^^ entity.name.class
+//        ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.terminator.statement
+   REF (A12) ra12;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^^^ entity.name.class
+//         ^ punctuation.section.parens
+//           ^^^^ variable
+//               ^ punctuation.terminator.statement
+   REF (A13) ra13;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^^^ entity.name.class
+//         ^ punctuation.section.parens
+//           ^^^^ variable
+//               ^ punctuation.terminator.statement
+   REF (A14) ra14;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^^^ entity.name.class
+//         ^ punctuation.section.parens
+//           ^^^^ variable
+//               ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 64");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext ("--- Test parameter transmission by value to classes.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+   Outimage; Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+   ra1 :- New A1 (false);
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ keyword.control.new
+//            ^^ entity.name.class
+//               ^ punctuation.section.parens
+//                ^^^^^ constant.language.bool
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+
+   facit (1) :- "  A1 before Inner";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.terminator.statement
+   facit (2) :- "  true  *   2  3.0000&+00 t in A1";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.terminator.statement
+   facit (3) :- "  A1 after  Inner";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.terminator.statement
+
+   CheckLines (3, 1);
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   If ra1.B then Outtext ("  true  ") else Outtext ("  false  ");
+// ^^ keyword.control.if
+//    ^^^ variable
+//       ^ punctuation.accessor
+//        ^ variable
+//          ^^^^ keyword.control.then
+//               ^^^^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                    ^^^^ keyword.control.else
+//                                         ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+   Outchar (ra1.c);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.accessor
+//              ^ variable
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   Outint (ra1.i, 4);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ variable
+//            ^ punctuation.accessor
+//             ^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+   Outreal (ra1.r, 5, 12);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.accessor
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+   Outchar (' ');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   Outtext (ra1.t);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.accessor
+//              ^ variable
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   SaveLine;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   facit (4) :- facit (2);
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+
+   Checklines (4, 2);
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   ClearLines;
+// ^^^^^^^^^^ variable
+//           ^ punctuation.terminator.statement
+
+   ra12 :- New A12 (false, '+', 35.555, 12, "stringparm");
+// ^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^ keyword.control.new
+//             ^^^ entity.name.class
+//                 ^ punctuation.section.parens
+//                  ^^^^^ constant.language.bool
+//                       ^ punctuation.separator
+//                         ^^^ constant.character
+//                            ^ punctuation.separator
+//                              ^^^^^^ constant.numeric.decimal
+//                                    ^ punctuation.separator
+//                                      ^^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                          ^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+
+   facit (1) :- "  A1 before Inner";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.terminator.statement
+   facit (2) :- "  true  *   2  3.0000&+00 t in A1";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.terminator.statement
+   facit (3) :- "  enter A12";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.terminator.statement
+   facit (4) :- "  false +  36  1.2000&+01 stringparm";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.terminator.statement
+   facit (5) :- "  exit A12";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.terminator.statement
+   facit (6) :- "  A1 after  Inner";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.terminator.statement
+
+   CheckLines (6, 3);
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   ClearLines;
+// ^^^^^^^^^^ variable
+//           ^ punctuation.terminator.statement
+
+   bv := true;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^ constant.language.bool
+//           ^ punctuation.terminator.statement
+   cv  := '=';
+// ^^ variable
+//     ^^ keyword.operator.assignment
+//        ^^^ constant.character
+//           ^ punctuation.terminator.statement
+   iv := 2;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+   rv := 22;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^ constant.numeric.decimal
+//         ^ punctuation.terminator.statement
+   tv :- Copy ("OK");
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^ string.quoted.double
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   ra12 :- new A12 (bv, cv, iv, rv, tv);
+// ^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^ keyword.control.new
+//             ^^^ entity.name.class
+//                 ^ punctuation.section.parens
+//                  ^^ variable
+//                    ^ punctuation.separator
+//                      ^^ variable
+//                        ^ punctuation.separator
+//                          ^^ variable
+//                            ^ punctuation.separator
+//                              ^^ variable
+//                                ^ punctuation.separator
+//                                  ^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+
+   facit (1) :- "  A1 before Inner";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.terminator.statement
+   facit (2) :- "  true  *   2  3.0000&+00 t in A1";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.terminator.statement
+   facit (3) :- "  enter A12";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.terminator.statement
+   facit (4) :- "  false =   2  2.2000&+01 OK";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.terminator.statement
+   facit (5) :- "  exit A12";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.terminator.statement
+   facit (6) :- "  A1 after  Inner";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.terminator.statement
+
+   Checklines (6, 4);
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   if ra12.b then Outtext ("  true  ") else Outtext ("  false ");
+// ^^ keyword.control.if
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^ variable
+//           ^^^^ keyword.control.then
+//                ^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                     ^^^^ keyword.control.else
+//                                          ^^^^^^^ entity.name.function
+//                                                  ^ punctuation.section.parens
+//                                                   ^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+   Outchar (ra12.c);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ variable
+//              ^ punctuation.accessor
+//               ^ variable
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+   Outint (ra12.i, 4);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^ variable
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+   Outreal (ra12.r, 5, 12);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ variable
+//              ^ punctuation.accessor
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   Outchar (' ');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   Outtext (ra12.t);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ variable
+//              ^ punctuation.accessor
+//               ^ variable
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+   SaveLine;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   facit (7) :- facit (4);
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+
+   Checklines (7, 5);
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   Clearlines;
+// ^^^^^^^^^^ variable
+//           ^ punctuation.terminator.statement
+
+   ra12 :- New A12 (iv + 2.222 NE rv**iv,
+// ^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^ keyword.control.new
+//             ^^^ entity.name.class
+//                 ^ punctuation.section.parens
+//                  ^^ variable
+//                     ^ keyword.operator.arithmetic
+//                       ^^^^^ constant.numeric.decimal
+//                             ^^ keyword.operator
+//                                ^^ variable
+//                                  ^^ keyword.operator.arithmetic
+//                                    ^^ variable
+//                                      ^ punctuation.separator
+                 If ra1.b then ra12.c else  ('N'),
+//               ^^ keyword.control.if
+//                  ^^^ variable
+//                     ^ punctuation.accessor
+//                      ^ variable
+//                        ^^^^ keyword.control.then
+//                             ^^^^ variable
+//                                 ^ punctuation.accessor
+//                                  ^ variable
+//                                    ^^^^ keyword.control.else
+//                                          ^ punctuation.section.parens
+//                                           ^^^ constant.character
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.separator
+                 - (ra12.i + (1 + (ra12.r - (1 - (ra12.r - ra12.i))))),
+//               ^ keyword.operator.arithmetic
+//                 ^ punctuation.section.parens
+//                  ^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^ variable
+//                         ^ keyword.operator.arithmetic
+//                           ^ punctuation.section.parens
+//                            ^ constant.numeric.decimal
+//                              ^ keyword.operator.arithmetic
+//                                ^ punctuation.section.parens
+//                                 ^^^^ variable
+//                                     ^ punctuation.accessor
+//                                      ^ variable
+//                                        ^ keyword.operator.arithmetic
+//                                          ^ punctuation.section.parens
+//                                           ^ constant.numeric.decimal
+//                                             ^ keyword.operator.arithmetic
+//                                               ^ punctuation.section.parens
+//                                                ^^^^ variable
+//                                                    ^ punctuation.accessor
+//                                                     ^ variable
+//                                                       ^ keyword.operator.arithmetic
+//                                                         ^^^^ variable
+//                                                             ^ punctuation.accessor
+//                                                              ^ variable
+//                                                               ^^^^^ punctuation.section.parens
+//                                                                    ^ punctuation.separator
+                 (ra1.i*(ra1.r*(ra1.r + 1.0))),
+//               ^ punctuation.section.parens
+//                ^^^ variable
+//                   ^ punctuation.accessor
+//                    ^ variable
+//                     ^ keyword.operator.arithmetic
+//                      ^ punctuation.section.parens
+//                       ^^^ variable
+//                          ^ punctuation.accessor
+//                           ^ variable
+//                            ^ keyword.operator.arithmetic
+//                             ^ punctuation.section.parens
+//                              ^^^ variable
+//                                 ^ punctuation.accessor
+//                                  ^ variable
+//                                    ^ keyword.operator.arithmetic
+//                                      ^^^ constant.numeric.decimal
+//                                         ^^^ punctuation.section.parens
+//                                            ^ punctuation.separator
+                 If ra1.b EQV ra12.b then ra1.t else tv);
+//               ^^ keyword.control.if
+//                  ^^^ variable
+//                     ^ punctuation.accessor
+//                      ^ variable
+//                        ^^^ keyword.operator
+//                            ^^^^ variable
+//                                ^ punctuation.accessor
+//                                 ^ variable
+//                                   ^^^^ keyword.control.then
+//                                        ^^^ variable
+//                                           ^ punctuation.accessor
+//                                            ^ variable
+//                                              ^^^^ keyword.control.else
+//                                                   ^^ variable
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+
+   facit (1) :- "  A1 before Inner";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.terminator.statement
+   facit (2) :- "  true  *   2  3.0000&+00 t in A1";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.terminator.statement
+   facit (3) :- "  enter A12";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.terminator.statement
+   facit (4) :- "  false = -44  2.4000&+01 OK";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.terminator.statement
+   facit (5) :- "  exit A12";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.terminator.statement
+   facit (6) :- "  A1 after  Inner";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.terminator.statement
+
+   Checklines (6, 6);
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   Clearlines;
+// ^^^^^^^^^^ variable
+//           ^ punctuation.terminator.statement
+
+   While  s1 <= 2  do
+// ^^^^^ keyword.control.while
+//        ^^ variable
+//           ^^ keyword.operator.comparison
+//              ^ constant.numeric.decimal
+//                 ^^ keyword.control.do
+   Begin
+// ^^^^^ keyword.control.begin
+      bav1 (s1) := (s1//2)*2=s1;
+//    ^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^ punctuation.section.parens
+//                  ^^ variable
+//                    ^^ keyword.operator.arithmetic
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ keyword.operator.arithmetic
+//                         ^ constant.numeric.decimal
+//                          ^ keyword.operator.comparison
+//                           ^^ variable
+//                             ^ punctuation.terminator.statement
+      cav1 (s1) := '1';
+//    ^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^^^ constant.character
+//                    ^ punctuation.terminator.statement
+      iav1 (s1) := s1;
+//    ^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^^ variable
+//                   ^ punctuation.terminator.statement
+      rav1 (s1) := s1;
+//    ^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^^ variable
+//                   ^ punctuation.terminator.statement
+      txt :- Copy (" ( )");
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+      txt.SUB (1, 1).PUTinT (s1);
+//    ^^^ variable
+//       ^ punctuation.accessor
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.accessor
+//                   ^^^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^ variable
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+      tav1 (s1) :- txt;
+//    ^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^^^ variable
+//                    ^ punctuation.terminator.statement
+      s2 := 0;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+
+      While  s2 <= 3  do
+//    ^^^^^ keyword.control.while
+//           ^^ variable
+//              ^^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+//                    ^^ keyword.control.do
+      Begin
+//    ^^^^^ keyword.control.begin
+         sum := s1 + s2;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^^ variable
+//                     ^ punctuation.terminator.statement
+         bav2 (s1, s2) := (sum//2)*2 = sum;
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.separator
+//                 ^^ variable
+//                   ^ punctuation.section.parens
+//                     ^^ keyword.operator.assignment
+//                        ^ punctuation.section.parens
+//                         ^^^ variable
+//                            ^^ keyword.operator.arithmetic
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^ keyword.operator.arithmetic
+//                                 ^ constant.numeric.decimal
+//                                   ^ keyword.operator.comparison
+//                                     ^^^ variable
+//                                        ^ punctuation.terminator.statement
+         cav2 (s1, s2) := '2';
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.separator
+//                 ^^ variable
+//                   ^ punctuation.section.parens
+//                     ^^ keyword.operator.assignment
+//                        ^^^ constant.character
+//                           ^ punctuation.terminator.statement
+         iav2 (s1, s2) := sum;
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.separator
+//                 ^^ variable
+//                   ^ punctuation.section.parens
+//                     ^^ keyword.operator.assignment
+//                        ^^^ variable
+//                           ^ punctuation.terminator.statement
+         rav2 (s1, s2) := sum;
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.separator
+//                 ^^ variable
+//                   ^ punctuation.section.parens
+//                     ^^ keyword.operator.assignment
+//                        ^^^ variable
+//                           ^ punctuation.terminator.statement
+         txt :- Copy (" ( ,  )");
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+         txt.SUB (1, 1).PUTinT (s1);
+//       ^^^ variable
+//          ^ punctuation.accessor
+//           ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.accessor
+//                      ^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^ variable
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+         txt.SUB (3, 1).PUTinT (s2);
+//       ^^^ variable
+//          ^ punctuation.accessor
+//           ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.accessor
+//                      ^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^ variable
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+         tav2 (s1, s2) :- txt;
+//       ^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ variable
+//               ^ punctuation.separator
+//                 ^^ variable
+//                   ^ punctuation.section.parens
+//                     ^^ keyword.operator.assignment
+//                        ^^^ variable
+//                           ^ punctuation.terminator.statement
+         s2 := s2 + 1
+//       ^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^ variable
+//                ^ keyword.operator.arithmetic
+//                  ^ constant.numeric.decimal
+      End;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      s1 := s1 + 1
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^ variable
+//             ^ keyword.operator.arithmetic
+//               ^ constant.numeric.decimal
+   End;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   ra13 :- New A13 (false, bav1, cav1, iav1, rav1);
+// ^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^ keyword.control.new
+//             ^^^ entity.name.class
+//                 ^ punctuation.section.parens
+//                  ^^^^^ constant.language.bool
+//                       ^ punctuation.separator
+//                         ^^^^ variable
+//                             ^ punctuation.separator
+//                               ^^^^ variable
+//                                   ^ punctuation.separator
+//                                     ^^^^ variable
+//                                         ^ punctuation.separator
+//                                           ^^^^ variable
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+
+   facit (1) :- "  A1 before Inner";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.terminator.statement
+   facit (2) :- "  true  *   2  3.0000&+00 t in A1";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.terminator.statement
+   facit (3) :- "  true  1   0  0.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.terminator.statement
+   facit (4) :- "  false 1   1  1.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.terminator.statement
+   facit (5) :- "  true  1   2  2.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.terminator.statement
+   facit (6) :- "  A1 after  Inner";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.terminator.statement
+
+   Checklines (6, 7);
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   If ra13.bv (0) then Outtext ("  true  ") else Outtext ("  false ");
+// ^^ keyword.control.if
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^^^^ keyword.control.then
+//                     ^^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                          ^^^^ keyword.control.else
+//                                               ^^^^^^^ entity.name.function
+//                                                       ^ punctuation.section.parens
+//                                                        ^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+   Outchar (ra13.cv (2));
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ variable
+//              ^ punctuation.accessor
+//               ^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   Outint (ra13.iv (ra13.iv (0)*ra13.rv (ra13.iv (2))), 4);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ keyword.operator.arithmetic
+//                              ^^^^ variable
+//                                  ^ punctuation.accessor
+//                                   ^^ entity.name.function
+//                                      ^ punctuation.section.parens
+//                                       ^^^^ variable
+//                                           ^ punctuation.accessor
+//                                            ^^ entity.name.function
+//                                               ^ punctuation.section.parens
+//                                                ^ constant.numeric.decimal
+//                                                 ^^^ punctuation.section.parens
+//                                                    ^ punctuation.separator
+//                                                      ^ constant.numeric.decimal
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+   Outreal (ra13.rv (1), 5, 12);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ variable
+//              ^ punctuation.accessor
+//               ^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                          ^^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+   SaveLine;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   facit (7) :- "  true  1   0  1.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+//              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.terminator.statement
+
+   Checklines (7, 8);
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+   Clearlines;
+// ^^^^^^^^^^ variable
+//           ^ punctuation.terminator.statement
+
+   ra14 :- New A14 (bav2, cav2, iav2, rav2);
+// ^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^ keyword.control.new
+//             ^^^ entity.name.class
+//                 ^ punctuation.section.parens
+//                  ^^^^ variable
+//                      ^ punctuation.separator
+//                        ^^^^ variable
+//                            ^ punctuation.separator
+//                              ^^^^ variable
+//                                  ^ punctuation.separator
+//                                    ^^^^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+
+   facit (1)  :- "  true  2   0  0.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+   facit (2)  :- "  false 2   1  1.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+   facit (3)  :- "  true  2   2  2.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+   facit (4)  :- "  false 2   3  3.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+   facit (5)  :- "  false 2   1  1.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+   facit (6)  :- "  true  2   2  2.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+   facit (7)  :- "  false 2   3  3.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+   facit (8)  :- "  true  2   4  4.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+   facit (9)  :- "  true  2   2  2.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+   facit (10) :- "  false 2   3  3.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+   facit (11) :- "  true  2   4  4.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+   facit (12) :- "  false 2   5  5.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                          ^ punctuation.terminator.statement
+
+   Checklines (12, 9);
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+   if ra14.bv (0, 2)  then Outtext ("  true  ")
+// ^^ keyword.control.if
+//    ^^^^ variable
+//        ^ punctuation.accessor
+//         ^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                    ^^^^ keyword.control.then
+//                         ^^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+   else Outtext ("  false ");
+// ^^^^ keyword.control.else
+//      ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+   Outchar (ra14.cv (ra14.rv (ra14.iv (0, 2), 0), ra14.iv (2, 0)));
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ variable
+//              ^ punctuation.accessor
+//               ^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^ variable
+//                       ^ punctuation.accessor
+//                        ^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^ variable
+//                                ^ punctuation.accessor
+//                                 ^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.separator
+//                                                ^^^^ variable
+//                                                    ^ punctuation.accessor
+//                                                     ^^ entity.name.function
+//                                                        ^ punctuation.section.parens
+//                                                         ^ constant.numeric.decimal
+//                                                          ^ punctuation.separator
+//                                                            ^ constant.numeric.decimal
+//                                                             ^^^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+   Outint ((if ra14.bv (ra14.iv (0, ra14.iv (0, 1)), 0)
+// ^^^^^^ entity.name.function
+//        ^^ punctuation.section.parens
+//          ^^ keyword.control.if
+//             ^^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ constant.numeric.decimal
+//                                ^ punctuation.separator
+//                                  ^^^^ variable
+//                                      ^ punctuation.accessor
+//                                       ^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^^ punctuation.section.parens
+//                                                 ^ punctuation.separator
+//                                                   ^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+        then
+//      ^^^^ keyword.control.then
+           ra14.iv (2, 2)
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+        else
+//      ^^^^ keyword.control.else
+           ra14.rv (0, 3)), 4);
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^^ punctuation.section.parens
+//                        ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+
+   Outint (ra14.iv(ra14.iv(0,1)+(ra14.iv(0,1)-(ra14.iv(1,0)-
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.accessor
+//              ^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.section.parens
+//                             ^ keyword.operator.arithmetic
+//                              ^ punctuation.section.parens
+//                               ^^^^ variable
+//                                   ^ punctuation.accessor
+//                                    ^^ entity.name.function
+//                                      ^ punctuation.section.parens
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                         ^ constant.numeric.decimal
+//                                          ^ punctuation.section.parens
+//                                           ^ keyword.operator.arithmetic
+//                                            ^ punctuation.section.parens
+//                                             ^^^^ variable
+//                                                 ^ punctuation.accessor
+//                                                  ^^ entity.name.function
+//                                                    ^ punctuation.section.parens
+//                                                     ^ constant.numeric.decimal
+//                                                      ^ punctuation.separator
+//                                                       ^ constant.numeric.decimal
+//                                                        ^ punctuation.section.parens
+//                                                         ^ keyword.operator.arithmetic
+           (ra14.iv(1,0)))),3),4);
+//         ^ punctuation.section.parens
+//          ^^^^ variable
+//              ^ punctuation.accessor
+//               ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^^^^ punctuation.section.parens
+//                         ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+   Outreal (ra14.iv(1,3),ra14.iv(2,3),ra14.rv(2,3) +
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ variable
+//              ^ punctuation.accessor
+//               ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.separator
+//                       ^^^^ variable
+//                           ^ punctuation.accessor
+//                            ^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ constant.numeric.decimal
+//                                ^ punctuation.separator
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.separator
+//                                    ^^^^ variable
+//                                        ^ punctuation.accessor
+//                                         ^^ entity.name.function
+//                                           ^ punctuation.section.parens
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.section.parens
+//                                                 ^ keyword.operator.arithmetic
+            ra14.iv(2,3) + ra14.rv(2,0));
+//          ^^^^ variable
+//              ^ punctuation.accessor
+//               ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ keyword.operator.arithmetic
+//                         ^^^^ variable
+//                             ^ punctuation.accessor
+//                              ^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                   ^ constant.numeric.decimal
+//                                    ^^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+   Outreal (ra14.rv(If ra14.bv(0,3) then 0.0 else 1.0,2)**ra14.iv(1,1),
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ variable
+//              ^ punctuation.accessor
+//               ^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^ keyword.control.if
+//                     ^^^^ variable
+//                         ^ punctuation.accessor
+//                          ^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.separator
+//                               ^ constant.numeric.decimal
+//                                ^ punctuation.section.parens
+//                                  ^^^^ keyword.control.then
+//                                       ^^^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.else
+//                                                ^^^ constant.numeric.decimal
+//                                                   ^ punctuation.separator
+//                                                    ^ constant.numeric.decimal
+//                                                     ^ punctuation.section.parens
+//                                                      ^^ keyword.operator.arithmetic
+//                                                        ^^^^ variable
+//                                                            ^ punctuation.accessor
+//                                                             ^^ entity.name.function
+//                                                               ^ punctuation.section.parens
+//                                                                ^ constant.numeric.decimal
+//                                                                 ^ punctuation.separator
+//                                                                  ^ constant.numeric.decimal
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.separator
+            5,12);
+//          ^ constant.numeric.decimal
+//           ^ punctuation.separator
+//            ^^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   SaveLine;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   facit (13) :- "  true  2   3   5  4.0000&+00  9.0000&+00";
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//            ^^ keyword.operator.assignment
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                          ^ punctuation.terminator.statement
+
+   Checklines (13, 10);
+// ^^^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.separator
+//                 ^^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+
+   If found_error then
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   Begin
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   End;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 64");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ End
+// <~--- keyword.control.end

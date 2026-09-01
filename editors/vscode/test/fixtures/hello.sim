@@ -1,0 +1,5 @@
+begin
+  integer hello;
+  hello := 42;
+  outint(hello, 0);
+end

@@ -1,0 +1,4 @@
+begin
+  fanfare:
+  OutText("TADA");
+end;

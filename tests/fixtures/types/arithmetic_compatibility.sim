@@ -1,0 +1,8 @@
+begin
+    integer i;
+    short integer si;
+    i := si;
+    real r;
+    long real lr;
+    r := lr;
+end;

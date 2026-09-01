@@ -1,0 +1,13 @@
+[E0204] Error: TYPE MISMATCH: `+` adds numbers; to concatenate text, use `&`
+   ╭─[ text_plus.sim:1:20 ]
+   │
+ 1 │ begin text t; t := "a" + "b"; end;
+   │                    ────┬────  
+   │                        ╰────── try `"a" & "b"`
+   │ 
+   │ Help 1: write `"a" & "b"`
+   │ 
+   │ Help 2: suggestion: replace `+` with `&`
+   │ 
+   │ Note: text concatenation is `&` (Standard §3.5)
+───╯

@@ -1,0 +1,424 @@
+// SYNTAX TEST "source.simula" "simtst57"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 57
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test virtual procedure - different number of parameters in
+// <-------------------------------------------------------------------------- comment.directive
+%               the matching procedures in two subclasses (not fo each other)
+// <----------------------------------------------------------------------------- comment.directive
+%               of the prefix class which contains the virtual part.
+// <-------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   01/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Text t ;
+// ^^^^ storage.type
+//      ^ variable
+//        ^ punctuation.terminator.statement
+
+
+   Class A ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+      Virtual: Procedure Emit ;
+//    ^^^^^^^ keyword.other.virtual
+//           ^ punctuation.separator
+//             ^^^^^^^^^ storage.type
+//                       ^^^^ entity.name.function
+//                            ^ punctuation.terminator.statement
+               Procedure Dump ;
+//             ^^^^^^^^^ storage.type
+//                       ^^^^ entity.name.function
+//                            ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("in A.*") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   A Class AA ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^^ entity.name.class
+//            ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Procedure Emit ;
+//    ^^^^^^^^^ storage.type
+//              ^^^^ entity.name.function
+//                   ^ punctuation.terminator.statement
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         Outtext ("in AA Emit.*") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+      END ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      Procedure Dump (rf) ;
+//    ^^^^^^^^^ storage.type
+//              ^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^ variable.parameter
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Ref (A) rf ;
+//       ^^^ storage.modifier
+//           ^ punctuation.section.parens
+//            ^ entity.name.class
+//             ^ punctuation.section.parens
+//               ^^ variable
+//                  ^ punctuation.terminator.statement
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         Outtext ("in AA Dump.*") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+      END ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      Outtext ("in AA.*") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   A Class AB ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^^ entity.name.class
+//            ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Procedure Emit ;
+//    ^^^^^^^^^ storage.type
+//              ^^^^ entity.name.function
+//                   ^ punctuation.terminator.statement
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         Outtext ("in AB Emit.*") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+      END ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      Procedure Dump ;
+//    ^^^^^^^^^ storage.type
+//              ^^^^ entity.name.function
+//                   ^ punctuation.terminator.statement
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         Outtext ("in AB Dump.*") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+      END ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      Outtext ("in AB.*") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Ref (A) rA ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 57") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test virtual procedure - different number of parameters") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                         ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- in the matching procedures in two subclasses (not of each") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                         ^ punctuation.section.parens
+//                                                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- other) of the prefix class which contains the virtual part.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                           ^ punctuation.section.parens
+//                                                                            ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   rA :- New AA ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^^ entity.name.class
+//              ^ punctuation.terminator.statement
+   rA.Emit ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^^^ variable
+//         ^ punctuation.terminator.statement
+   rA.Dump (rA) ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^ variable
+//            ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+
+   t :- copy (sysout.image.strip) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^ variable
+//                        ^ punctuation.accessor
+//                         ^^^^^ variable
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+   sysout.image.setpos (1) ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   sysout.image := notext  ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^^^ constant.language.null
+//                         ^ punctuation.terminator.statement
+
+   if t = "in A.*in AA.*in AA Emit.*in AA Dump.*" then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Wrong program execution (1).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+      Outtext (t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   rA :- New AB ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^^ entity.name.class
+//              ^ punctuation.terminator.statement
+   rA.Emit ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^^^ variable
+//         ^ punctuation.terminator.statement
+   rA.Dump ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   t :- copy (sysout.image.strip) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^ variable
+//                        ^ punctuation.accessor
+//                         ^^^^^ variable
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+   sysout.image.setpos (1) ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+   sysout.image := notext  ;
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^^^ constant.language.null
+//                         ^ punctuation.terminator.statement
+
+   if t = "in A.*in AB.*in AB Emit.*in AB Dump.*" then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : Wrong program execution (2).") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+      Outtext (t) ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 57") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+END
+// <--- keyword.control.end

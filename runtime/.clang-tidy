@@ -1,0 +1,13 @@
+Checks: >
+  -*,
+  clang-analyzer-core.*,
+  clang-analyzer-unix.*,
+  clang-analyzer-deadcode.DeadStores,
+  bugprone-sizeof-expression,
+  bugprone-not-null-terminated-result,
+  bugprone-posix-return,
+  bugprone-macro-parentheses,
+  cert-err34-c
+WarningsAsErrors: ''
+HeaderFilterRegex: 'runtime/.*'
+FormatStyle: none

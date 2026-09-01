@@ -1,0 +1,5 @@
+begin
+    procedure Have_weekend;
+    begin
+    end Have_weekend;
+  end;

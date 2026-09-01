@@ -1,0 +1,146 @@
+name: CI
+
+on: [push, workflow_dispatch]
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+          components: rustfmt, clippy
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: runner.os == 'Windows'
+      - name: Add LLVM to PATH
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $llvm = "C:\Program Files\LLVM\bin"
+          if (Test-Path $llvm) {
+            echo $llvm >> $env:GITHUB_PATH
+          }
+      - name: Format
+        if: matrix.os == 'ubuntu-latest'
+        run: cargo fmt --all -- --check
+      - name: Clippy
+        if: matrix.os == 'ubuntu-latest'
+        run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+      - name: Build
+        run: cargo build --all-targets
+      - name: Test
+        run: cargo test
+        env:
+          CC: ${{ runner.os == 'Windows' && 'clang' || 'cc' }}
+        # Includes the GC stress suite: tests/gc_stress.rs,
+        # tests/memory_gc.rs, tests/runtime_gc.rs. C fixtures compile with
+        # ASan+UBSan on Unix. TestBatch stays the 100/100 correctness gate.
+      - name: cargo deny
+        if: matrix.os == 'ubuntu-latest'
+        uses: EmbarkStudios/cargo-deny-action@v2
+        with:
+          command: check
+
+  # Branch-protection / overall-success gate: the matrix is green only when
+  # every OS passed. fail-fast is off so Linux, macOS, and Windows all run.
+  all-platforms:
+    name: linux, macos, windows
+    if: always()
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every OS in the test matrix
+        run: test "${{ needs.test.result }}" = "success"
+
+  runtime-sanitize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: clang-tidy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-tidy clang
+          clang-tidy --config-file=runtime/.clang-tidy runtime/*.c -- -Iruntime
+      - name: clang --analyze
+        run: clang --analyze -I runtime runtime/*.c
+      - name: Native AOT under ASan/UBSan
+        env:
+          SIM_RT_SANITIZE: "1"
+        run: cargo test --test runtime_gc --test runtime_coro --test memory_gc --test gc_stress
+
+  playground:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+      - name: Interpreter wasm32 lib
+        run: cargo build -p outimage --target wasm32-unknown-unknown --no-default-features
+      - name: Browser interpreter wasm
+        run: cargo browser-interp
+      - name: Playground site
+        working-directory: website
+        run: |
+          npm ci
+          npm run build
+
+  vscode-extension:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: editors/vscode/package-lock.json
+      - name: Compile and test VS Code extension
+        working-directory: editors/vscode
+        run: |
+          npm ci
+          npm test
+          npm run lint
+      - name: E2E smoke
+        working-directory: editors/vscode
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          xvfb-run -a npm run test:e2e
+      - name: Package VSIX
+        if: startsWith(github.ref, 'refs/tags/')
+        working-directory: editors/vscode
+        run: npm run package
+      - name: Upload VSIX
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-artifact@v4
+        with:
+          name: vscode-simula-vsix
+          path: editors/vscode/*.vsix
+
+  # Unit/compile smoke only — no xvfb e2e.
+  vscode-extension-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: editors/vscode/package-lock.json
+      - name: Compile and test VS Code extension
+        working-directory: editors/vscode
+        run: |
+          npm ci
+          npm test
+          npm run lint

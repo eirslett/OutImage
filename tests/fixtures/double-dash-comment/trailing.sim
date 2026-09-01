@@ -1,0 +1,5 @@
+begin
+    integer x;
+    x := 1; -- trailing line comment
+    OutText("ok"); OutImage;
+end

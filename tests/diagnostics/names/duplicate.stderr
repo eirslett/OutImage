@@ -1,0 +1,11 @@
+[E0306] Error: DUPLICATE DECLARATION: `i` is already declared in this block
+   ╭─[ duplicate.sim:1:18 ]
+   │
+ 1 │ begin integer i; integer i; end;
+   │       ─────┬──── ─────┬────  
+   │            ╰───────────────── first declared here
+   │                       │      
+   │                       ╰────── second declaration
+   │ 
+   │ Help: rename one of the declarations, or move one into a nested block
+───╯

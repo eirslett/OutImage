@@ -1,0 +1,3 @@
+begin
+  text str = "comment test;";
+end

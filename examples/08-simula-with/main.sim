@@ -1,0 +1,5 @@
+external integer procedure helper = "utils";
+begin
+   OutInt(helper, 0);
+   OutImage;
+end;

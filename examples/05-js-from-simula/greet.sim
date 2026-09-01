@@ -1,0 +1,5 @@
+external JS procedure greet = "console.log"
+   is procedure greet(msg); value msg; text msg;
+begin
+   greet("hello from Simula");
+end;

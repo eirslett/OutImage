@@ -1,0 +1,10 @@
+% External procedure p41 for SIMULA TEST NO 41.
+% Not shipped in the upstream DosTestBatch tree; reconstructed from simtst41:
+% name-parameter `x` is evaluated once into `k`, then A(k) is set so that
+% odd indices get k+1 and even indices get 0.
+procedure p41(arr, x); name x; integer x; integer array arr;
+begin
+   integer k;
+   k := x;
+   arr(k) := if mod(k, 2) <> 0 then k + 1 else 0;
+end;

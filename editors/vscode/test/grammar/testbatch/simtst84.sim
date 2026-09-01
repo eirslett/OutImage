@@ -1,0 +1,668 @@
+// SYNTAX TEST "source.simula" "simtst84"
+% ====================================   Main   program  ===========
+// <-------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 84
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE: Test Printfile. (PW 24)
+// <----------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:
+// <---------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:
+// <-------------- comment.directive
+% ====================================================================
+// <---------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+REF (PRINTFILE)   myfile;
+// <--- storage.modifier
+//  ^ punctuation.section.parens
+//   ^^^^^^^^^ entity.name.class
+//            ^ punctuation.section.parens
+//                ^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+BOOLEAN           save;
+// <------- storage.type
+//                ^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+PROCEDURE Check (b1, b2);   BOOLEAN b1, b2;
+// <--------- storage.type
+//        ^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ variable.parameter
+//                 ^ punctuation.separator
+//                   ^^ variable.parameter
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                          ^^^^^^^ storage.type
+//                                  ^^ variable
+//                                    ^ punctuation.separator
+//                                      ^^ variable
+//                                        ^ punctuation.terminator.statement
+%  BEGIN
+// <-------- comment.directive
+%  IF b1 EQV b2 THEN myfile.OUTTEXT("OK ") ELSE myfile.OUTTEXT("ERROR");
+// <------------------------------------------------------------------------ comment.directive
+%  myfile.OUTIMAGE
+// <------------------ comment.directive
+%  END of procedure Check;
+// <-------------------------- comment.directive
+   BEGIN
+// ^^^^^ keyword.control.begin
+   IF b1 EQV b2 THEN OUTTEXT ("OK ") ELSE OUTTEXT ("ERROR");
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator
+//           ^^ variable
+//              ^^^^ keyword.control.then
+//                   ^^^^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                   ^^^^ keyword.control.else
+//                                        ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   OUTIMAGE
+// ^^^^^^^^ variable
+   END of procedure Check;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^^^^^ comment.block
+//                       ^ punctuation.terminator.statement
+
+outtext("--- START Simula a.s. TEST 84 (test PRINTFILE)"); outimage;
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+//                                                         ^^^^^^^^ variable
+//                                                                 ^ punctuation.terminator.statement
+outtext("    The program prints on ""new printfile(print84)"",");
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+outtext("    compare that output to program source after exec.");
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+outtext("    In addition, ""OK"" is printed 5 times on sysout.");
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+outimage; Outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+myfile:-NEW PRINTFILE ("print84");
+// <------ variable
+//    ^^ keyword.operator.assignment
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^ entity.name.class
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+save:= myfile.LINE=0;
+// <---- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ variable
+//           ^ punctuation.accessor
+//            ^^^^ variable
+//                ^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.terminator.statement
+Check (save, TRUE);
+// <----- entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^^ variable
+//         ^ punctuation.separator
+//           ^^^^ constant.language.bool
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+myfile.OPEN (BLANKS (132));
+// <------ variable
+//    ^ punctuation.accessor
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^ constant.numeric.decimal
+//                      ^^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+Check (myfile.LINE=1, TRUE);
+// <----- entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^^^^ variable
+//           ^ punctuation.accessor
+//            ^^^^ variable
+//                ^ keyword.operator.comparison
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                    ^^^^ constant.language.bool
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+INSPECT myfile DO
+// <------- keyword.control.inspect
+//      ^^^^^^ variable
+//             ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+   LINESPERPAGE (4);
+// ^^^^^^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+   OUTTEXT ("LINESPERPAGE:=4    LINE 1."); OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^^ variable
+//                                                 ^ punctuation.terminator.statement
+   OUTTEXT ("      LINE 2."); OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+   OUTTEXT ("      LINE 3."); OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+   OUTTEXT ("      LINE 4."); OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+   OUTTEXT ("      LINE 5."); OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+   SPACING (0);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ constant.numeric.decimal
+//           ^ punctuation.section.parens
+//            ^ punctuation.terminator.statement
+   OUTTEXT ("SPACING:=0  LINE 1");   OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+//                                   ^^^^^^^^ variable
+//                                           ^ punctuation.terminator.statement
+   OUTTEXT ("            LINE  2");  OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+//                                   ^^^^^^^^ variable
+//                                           ^ punctuation.terminator.statement
+   OUTTEXT ("            LINE   3"); OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+//                                   ^^^^^^^^ variable
+//                                           ^ punctuation.terminator.statement
+   SPACING (1);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ constant.numeric.decimal
+//           ^ punctuation.section.parens
+//            ^ punctuation.terminator.statement
+   EJECT (3);
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   OUTTEXT ("EJECT (3)"); OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^^^^ variable
+//                                ^ punctuation.terminator.statement
+   EJECT (2);
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   OUTTEXT ("EJECT (2)"); OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^^^^ variable
+//                                ^ punctuation.terminator.statement
+   LINESPERPAGE (60);
+// ^^^^^^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+   SPACING (2);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ constant.numeric.decimal
+//           ^ punctuation.section.parens
+//            ^ punctuation.terminator.statement
+   OUTTEXT ("LINESPERPAGE:=60,  SPACING:=2"); OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+//                                            ^^^^^^^^ variable
+//                                                    ^ punctuation.terminator.statement
+   EJECT (80);
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//           ^ punctuation.terminator.statement
+   OUTTEXT ("EJECT (80),  EQUIV TO EJECT (1)"); OUTIMAGE;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^^ variable
+//                                                      ^ punctuation.terminator.statement
+   Check (POS=1, TRUE);
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^ variable
+//           ^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+//             ^ punctuation.separator
+//               ^^^^ constant.language.bool
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+   Check (IMAGE=BLANKS (132), TRUE);
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^ variable
+//             ^ keyword.operator.comparison
+//              ^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.separator
+//                            ^^^^ constant.language.bool
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+   Check (LENGTH=132, TRUE);
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ keyword.operator.comparison
+//               ^^^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                    ^^^^ constant.language.bool
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+                                       ! CHECK OUTFILE ATTRIBUTES   ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   OUTINT (123, 3);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   OUTFIX (456.7, 1, 6);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+   OUTREAL (8.9&-02, 2, 9);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   OUTFRAC (1234.5, 1, 9);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+   OUTTEXT ("TEXT ");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^ string.quoted.double
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+   OUTIMAGE;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+                                       ! FORCE OUTIMAGE AFTER OUTPUT;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! OF ITEM                    ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   SETPOS (130);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTINT (123, 3);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   OUTCHAR ('*');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   SETPOS (127);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTFIX (456.7, 1, 6);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+   OUTCHAR ('*');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   SETPOS (124);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTREAL (8.9&-02, 2, 9);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   OUTCHAR ('*');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   SETPOS (124);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTFRAC (1234.5, 1, 9);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+   OUTCHAR ('*');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   SETPOS (129);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTTEXT ("TEXT");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^ string.quoted.double
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+   OUTCHAR ('*');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+                                       ! FORCE OUTPUT BEFORE OUTPUT ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! OF ITEM                    ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   SETPOS (131);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTINT (123, 3);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   SETPOS (129);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTFIX (456.7, 1, 6);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+   SETPOS (127);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTREAL (8.9&-02, 2, 9);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+   SETPOS (127);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTFRAC (1234.5, 1, 9);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^ constant.numeric.decimal
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+   SETPOS (130);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTTEXT ("TEXT");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^ string.quoted.double
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+   SETPOS (132);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTCHAR ('X');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   OUTCHAR ('Y');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   SETPOS (199);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTCHAR ('Z');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   SETPOS (120);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   OUTCHAR ('A');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   SETPOS (81);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^ constant.numeric.decimal
+//           ^ punctuation.section.parens
+//            ^ punctuation.terminator.statement
+   OUTCHAR ('B');
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ constant.character
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   OUTIMAGE;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   OUTTEXT ("LAST LINE OF OUTPUT.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+   CLOSE;
+// ^^^^^ variable
+//      ^ punctuation.terminator.statement
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outimage; outtext("--- END Simula a.s. TEST 84"); outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+//           ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+//                                                   ^^^^^^^^ variable
+//                                                           ^ punctuation.terminator.statement
+
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

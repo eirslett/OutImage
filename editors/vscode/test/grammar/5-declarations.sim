@@ -1,0 +1,179 @@
+// SYNTAX TEST "source.simula" "5-declarations"
+BEGIN
+// <----- keyword.control.begin
+    ! variables;
+//  ^^^^^^^^^^^^ comment.block
+    BOOLEAN a;
+//  ^^^^^^^ storage.type
+//          ^ variable
+//           ^ punctuation.terminator.statement
+    short integer b, c;
+//  ^^^^^ storage.type
+//        ^^^^^^^ storage.type
+//                ^ variable
+//                 ^ punctuation.separator
+//                   ^ variable
+//                    ^ punctuation.terminator.statement
+    short comment test; integer d;
+//  ^^^^^ storage.type
+//        ^^^^^^^^^^^^^ comment.block
+//                      ^^^^^^^ storage.type
+//                              ^ variable
+//                               ^ punctuation.terminator.statement
+    real e;
+//  ^^^^ storage.type
+//       ^ variable
+//        ^ punctuation.terminator.statement
+    long real f;
+//  ^^^^ storage.type
+//       ^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+    text g;
+//  ^^^^ storage.type
+//       ^ variable
+//        ^ punctuation.terminator.statement
+    ref(MyClass) h, i, j;
+//  ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^^^^^^^ entity.name.class
+//             ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ variable
+//                      ^ punctuation.terminator.statement
+
+    ! arrays;
+//  ^^^^^^^^^ comment.block
+    integer array a(2:20);
+//  ^^^^^^^ storage.type
+//          ^^^^^ storage.type
+//                ^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+
+    ! switch;
+//  ^^^^^^^^^ comment.block
+    switch s := s1,s2,q(m);
+//  ^^^^^^ keyword.control.switch
+//         ^ variable
+//           ^^ keyword.operator.assignment
+//              ^^ variable
+//                ^ punctuation.separator
+//                 ^^ variable
+//                   ^ punctuation.separator
+//                    ^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+
+    ! procedures;
+//  ^^^^^^^^^^^^^ comment.block
+    procedure hello;
+//  ^^^^^^^^^ storage.type
+//            ^^^^^ entity.name.function
+//                 ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+        OutText("Hello, world!");
+//      ^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^^^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+    end;
+//  ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+    integer procedure hello2(a, b);
+//  ^^^^^^^ storage.type
+//          ^^^^^^^^^ storage.type
+//                    ^^^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ variable.parameter
+//                            ^ punctuation.separator
+//                              ^ variable.parameter
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+    integer a, b;
+//  ^^^^^^^ storage.type
+//          ^ variable
+//           ^ punctuation.separator
+//             ^ variable
+//              ^ punctuation.terminator.statement
+    begin
+//  ^^^^^ keyword.control.begin
+        hello2 := a + b + 1;
+//      ^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^ variable
+//                  ^ keyword.operator.arithmetic
+//                    ^ variable
+//                      ^ keyword.operator.arithmetic
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.terminator.statement
+    end;
+//  ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+    ! classes;
+//  ^^^^^^^^^^ comment.block
+    class MyClass(A);
+//  ^^^^^ keyword.other.class
+//        ^^^^^^^ entity.name.class
+//               ^ punctuation.section.parens
+//                ^ variable.parameter
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+    integer A;
+//  ^^^^^^^ storage.type
+//          ^ variable
+//           ^ punctuation.terminator.statement
+    begin outint(A, 4); end;
+//  ^^^^^ keyword.control.begin
+//        ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+//                      ^^^ keyword.control.end
+//                         ^ punctuation.terminator.statement
+
+    ! externals;
+//  ^^^^^^^^^^^^ comment.block
+    external class b, c;
+//  ^^^^^^^^ keyword.other.external
+//           ^^^^^ keyword.other.class
+//                 ^ entity.name.class
+//                  ^ punctuation.separator
+//                    ^ entity.name.class
+//                     ^ punctuation.terminator.statement
+    external procedure c, d;
+//  ^^^^^^^^ keyword.other.external
+//           ^^^^^^^^^ storage.type
+//                     ^ entity.name.function
+//                      ^ punctuation.separator
+//                        ^ entity.name.function
+//                         ^ punctuation.terminator.statement
+    external PHP procedure hello="uhmwhat" is procedure hello;;
+//  ^^^^^^^^ keyword.other.external
+//           ^^^ entity.name.other
+//               ^^^^^^^^^ storage.type
+//                         ^^^^^ entity.name.function
+//                              ^ keyword.operator.comparison
+//                               ^^^^^^^^^ string
+//                                         ^^ keyword.control.is
+//                                            ^^^^^^^^^ storage.type
+//                                                      ^^^^^ entity.name.function
+//                                                           ^^ punctuation.terminator.statement
+END
+// <--- keyword.control.end

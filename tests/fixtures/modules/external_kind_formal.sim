@@ -1,0 +1,9 @@
+! §6.3.5: non-Simula (`kind`) procedures as formal procedure parameters.;
+begin
+    external C procedure sin = "sin"
+       is real procedure sin(x); real x;
+    procedure use(f); procedure f;
+    begin
+    end;
+    use(sin);
+end

@@ -1,0 +1,11 @@
+begin
+    text t;
+    boolean c;
+    integer s, l;
+    t :- "hello";
+    c := t.constant;
+    s := t.start;
+    l := t.length;
+    if c and s = 1 and l = 5 then OutText("ok") else OutText("fail");
+    OutImage;
+end

@@ -1,0 +1,8 @@
+out/
+**/target/
+*.o
+*.wasm
+wasm_host.mjs
+model.html
+model.js
+

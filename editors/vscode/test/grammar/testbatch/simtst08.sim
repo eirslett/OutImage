@@ -1,0 +1,707 @@
+// SYNTAX TEST "source.simula" "simtst08"
+% =====================================   Main   program  ===========
+// <--------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 8
+// <------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  PURPOSE:  To test scope of variables.
+// <---------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:  Try and fail.
+// <------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  THE  27/10-83
+// <----------------------------- comment.directive
+% ====================================================================
+// <---------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+BOOLEAN            found_error;        ! Set to true when errors are ;
+// <------- storage.type
+//                 ^^^^^^^^^^^ variable
+//                            ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! found.                      ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+INTEGER            isum;               ! To contain control sum.     ;
+// <------- storage.type
+//                 ^^^^ variable
+//                     ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+REAL               rsum;               ! To contain control sum.     ;
+// <---- storage.type
+//                 ^^^^ variable
+//                     ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+TEXT               txt;                ! Used in controlling real    ;
+// <---- storage.type
+//                 ^^^ variable
+//                    ^ punctuation.terminator.statement
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                       ! controll sum.               ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+Outtext ("--- START Simula a.s. TEST 8");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+Outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+Outtext ("--- Simple scope test");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+Outimage; Outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+
+   BEGIN
+// ^^^^^ keyword.control.begin
+   INTEGER            int;
+// ^^^^^^^ storage.type
+//                    ^^^ variable
+//                       ^ punctuation.terminator.statement
+   REAL               rea;
+// ^^^^ storage.type
+//                    ^^^ variable
+//                       ^ punctuation.terminator.statement
+
+   int := 1;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^ constant.numeric.decimal
+//         ^ punctuation.terminator.statement
+   rea := 1;
+// ^^^ variable
+//     ^^ keyword.operator.assignment
+//        ^ constant.numeric.decimal
+//         ^ punctuation.terminator.statement
+
+      BEGIN
+//    ^^^^^ keyword.control.begin
+      INTEGER            int;
+//    ^^^^^^^ storage.type
+//                       ^^^ variable
+//                          ^ punctuation.terminator.statement
+      REAL               rea;
+//    ^^^^ storage.type
+//                       ^^^ variable
+//                          ^ punctuation.terminator.statement
+
+      int := 10;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+      rea := 10;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+
+         BEGIN
+//       ^^^^^ keyword.control.begin
+         INTEGER            int;
+//       ^^^^^^^ storage.type
+//                          ^^^ variable
+//                             ^ punctuation.terminator.statement
+         REAL               rea;
+//       ^^^^ storage.type
+//                          ^^^ variable
+//                             ^ punctuation.terminator.statement
+
+         int := 100;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+         rea := 100;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+
+            BEGIN
+//          ^^^^^ keyword.control.begin
+            INTEGER            int;
+//          ^^^^^^^ storage.type
+//                             ^^^ variable
+//                                ^ punctuation.terminator.statement
+            REAL               rea;
+//          ^^^^ storage.type
+//                             ^^^ variable
+//                                ^ punctuation.terminator.statement
+
+            int := 1000;
+//          ^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^ constant.numeric.decimal
+//                     ^ punctuation.terminator.statement
+            rea := 1000;
+//          ^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^ constant.numeric.decimal
+//                     ^ punctuation.terminator.statement
+
+            isum := isum + int;
+//          ^^^^ variable
+//               ^^ keyword.operator.assignment
+//                  ^^^^ variable
+//                       ^ keyword.operator.arithmetic
+//                         ^^^ variable
+//                            ^ punctuation.terminator.statement
+            rsum := rsum + rea
+//          ^^^^ variable
+//               ^^ keyword.operator.assignment
+//                  ^^^^ variable
+//                       ^ keyword.operator.arithmetic
+//                         ^^^ variable
+            END;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+
+         isum := isum + int;
+//       ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ variable
+//                         ^ punctuation.terminator.statement
+         rsum := rsum + rea
+//       ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ variable
+         END;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+
+         BEGIN
+//       ^^^^^ keyword.control.begin
+         INTEGER            int;
+//       ^^^^^^^ storage.type
+//                          ^^^ variable
+//                             ^ punctuation.terminator.statement
+         REAL               rea;
+//       ^^^^ storage.type
+//                          ^^^ variable
+//                             ^ punctuation.terminator.statement
+
+         int := 200;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+         rea := 200;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+
+         isum := isum + int;
+//       ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ variable
+//                         ^ punctuation.terminator.statement
+         rsum := rsum + rea
+//       ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ variable
+         END;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+
+      isum := isum + int;
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                      ^ punctuation.terminator.statement
+      rsum := rsum + rea
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^^^ variable
+      END;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      BEGIN
+//    ^^^^^ keyword.control.begin
+      INTEGER            int;
+//    ^^^^^^^ storage.type
+//                       ^^^ variable
+//                          ^ punctuation.terminator.statement
+      REAL               rea;
+//    ^^^^ storage.type
+//                       ^^^ variable
+//                          ^ punctuation.terminator.statement
+
+      int := 20;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+      rea := 20;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+
+      isum := isum + int;
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                      ^ punctuation.terminator.statement
+      rsum := rsum + rea
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^^^ variable
+      END;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      BEGIN
+//    ^^^^^ keyword.control.begin
+      INTEGER            int;
+//    ^^^^^^^ storage.type
+//                       ^^^ variable
+//                          ^ punctuation.terminator.statement
+      REAL               rea;
+//    ^^^^ storage.type
+//                       ^^^ variable
+//                          ^ punctuation.terminator.statement
+
+      int := 30;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+      rea := 30;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+
+         BEGIN
+//       ^^^^^ keyword.control.begin
+         INTEGER            int;
+//       ^^^^^^^ storage.type
+//                          ^^^ variable
+//                             ^ punctuation.terminator.statement
+         REAL               rea;
+//       ^^^^ storage.type
+//                          ^^^ variable
+//                             ^ punctuation.terminator.statement
+
+         int := 300;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+         rea := 300;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+
+            BEGIN
+//          ^^^^^ keyword.control.begin
+            INTEGER            int;
+//          ^^^^^^^ storage.type
+//                             ^^^ variable
+//                                ^ punctuation.terminator.statement
+            REAL               rea;
+//          ^^^^ storage.type
+//                             ^^^ variable
+//                                ^ punctuation.terminator.statement
+
+            int := 2000;
+//          ^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^ constant.numeric.decimal
+//                     ^ punctuation.terminator.statement
+            rea := 2000;
+//          ^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^ constant.numeric.decimal
+//                     ^ punctuation.terminator.statement
+
+               BEGIN
+//             ^^^^^ keyword.control.begin
+               INTEGER            int;
+//             ^^^^^^^ storage.type
+//                                ^^^ variable
+//                                   ^ punctuation.terminator.statement
+               REAL               rea;
+//             ^^^^ storage.type
+//                                ^^^ variable
+//                                   ^ punctuation.terminator.statement
+
+               int := 10000;
+//             ^^^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^ constant.numeric.decimal
+//                         ^ punctuation.terminator.statement
+               rea := 10000;
+//             ^^^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^ constant.numeric.decimal
+//                         ^ punctuation.terminator.statement
+
+               isum := isum + int;
+//             ^^^^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^^^^ variable
+//                          ^ keyword.operator.arithmetic
+//                            ^^^ variable
+//                               ^ punctuation.terminator.statement
+               rsum := rsum + rea
+//             ^^^^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^^^^ variable
+//                          ^ keyword.operator.arithmetic
+//                            ^^^ variable
+               END;
+//             ^^^ keyword.control.end
+//                ^ punctuation.terminator.statement
+
+               BEGIN
+//             ^^^^^ keyword.control.begin
+               INTEGER            int;
+//             ^^^^^^^ storage.type
+//                                ^^^ variable
+//                                   ^ punctuation.terminator.statement
+               REAL               rea;
+//             ^^^^ storage.type
+//                                ^^^ variable
+//                                   ^ punctuation.terminator.statement
+
+               int := 20000;
+//             ^^^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^ constant.numeric.decimal
+//                         ^ punctuation.terminator.statement
+               rea := 20000;
+//             ^^^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^ constant.numeric.decimal
+//                         ^ punctuation.terminator.statement
+
+               isum := isum + int;
+//             ^^^^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^^^^ variable
+//                          ^ keyword.operator.arithmetic
+//                            ^^^ variable
+//                               ^ punctuation.terminator.statement
+               rsum := rsum + rea
+//             ^^^^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^^^^ variable
+//                          ^ keyword.operator.arithmetic
+//                            ^^^ variable
+               END;
+//             ^^^ keyword.control.end
+//                ^ punctuation.terminator.statement
+
+            isum := isum + int;
+//          ^^^^ variable
+//               ^^ keyword.operator.assignment
+//                  ^^^^ variable
+//                       ^ keyword.operator.arithmetic
+//                         ^^^ variable
+//                            ^ punctuation.terminator.statement
+            rsum := rsum + rea;
+//          ^^^^ variable
+//               ^^ keyword.operator.assignment
+//                  ^^^^ variable
+//                       ^ keyword.operator.arithmetic
+//                         ^^^ variable
+//                            ^ punctuation.terminator.statement
+            END;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+
+         isum := isum + int;
+//       ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ variable
+//                         ^ punctuation.terminator.statement
+         rsum := rsum + rea;
+//       ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ variable
+//                         ^ punctuation.terminator.statement
+         END;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+
+      isum := isum + int;
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                      ^ punctuation.terminator.statement
+      rsum := rsum + rea;
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                      ^ punctuation.terminator.statement
+      END;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      BEGIN
+//    ^^^^^ keyword.control.begin
+      INTEGER            int;
+//    ^^^^^^^ storage.type
+//                       ^^^ variable
+//                          ^ punctuation.terminator.statement
+      REAL               rea;
+//    ^^^^ storage.type
+//                       ^^^ variable
+//                          ^ punctuation.terminator.statement
+
+      int := 50;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+      rea := 50;
+//    ^^^ variable
+//        ^^ keyword.operator.assignment
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+
+         BEGIN
+//       ^^^^^ keyword.control.begin
+         INTEGER            int;
+//       ^^^^^^^ storage.type
+//                          ^^^ variable
+//                             ^ punctuation.terminator.statement
+         REAL               rea;
+//       ^^^^ storage.type
+//                          ^^^ variable
+//                             ^ punctuation.terminator.statement
+
+         int := 500;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+         rea := 500;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+
+         isum := isum + int;
+//       ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ variable
+//                         ^ punctuation.terminator.statement
+         rsum := rsum + rea
+//       ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ variable
+         END;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+
+         BEGIN
+//       ^^^^^ keyword.control.begin
+         INTEGER            int;
+//       ^^^^^^^ storage.type
+//                          ^^^ variable
+//                             ^ punctuation.terminator.statement
+         REAL               rea;
+//       ^^^^ storage.type
+//                          ^^^ variable
+//                             ^ punctuation.terminator.statement
+
+         int := 700;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+         rea := 700;
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+
+         isum := isum + int;
+//       ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ variable
+//                         ^ punctuation.terminator.statement
+         rsum := rsum + rea
+//       ^^^^ variable
+//            ^^ keyword.operator.assignment
+//               ^^^^ variable
+//                    ^ keyword.operator.arithmetic
+//                      ^^^ variable
+         END;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+
+      isum := isum + int;
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^^^ variable
+//                      ^ punctuation.terminator.statement
+      rsum := rsum + rea
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^^^ variable
+      END;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+   isum := isum + int;
+// ^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ variable
+//              ^ keyword.operator.arithmetic
+//                ^^^ variable
+//                   ^ punctuation.terminator.statement
+   rsum := rsum + rea
+// ^^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ variable
+//              ^ keyword.operator.arithmetic
+//                ^^^ variable
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+txt :- blanks (6);
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+txt.putfix (rsum, 0);
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+found_error := isum <> 34911 or txt <> " 34911";
+// <----------- variable
+//          ^^ keyword.operator.assignment
+//             ^^^^ variable
+//                  ^^ keyword.operator.comparison
+//                     ^^^^^ constant.numeric.decimal
+//                           ^^ keyword.operator
+//                              ^^^ variable
+//                                  ^^ keyword.operator.comparison
+//                                     ^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.terminator.statement
+
+IF found_error THEN
+// <-- keyword.control.if
+// ^^^^^^^^^^^ variable
+//             ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In variable scope. Result sums was : ");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+   outtext (txt);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+   outint (isum, 8);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+   outimage
+// ^^^^^^^^ variable
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+if not found_error then
+// <-- keyword.control.if
+// ^^^ keyword.operator
+//     ^^^^^^^^^^^ variable
+//                 ^^^^ keyword.control.then
+   begin Outtext("--- NO ERRORS FOUND IN THIS TEST"); Outimage; end;
+// ^^^^^ keyword.control.begin
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+//                                                    ^^^^^^^^ variable
+//                                                            ^ punctuation.terminator.statement
+//                                                              ^^^ keyword.control.end
+//                                                                 ^ punctuation.terminator.statement
+outtext ("--- END Simula a.s. TEST 8");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

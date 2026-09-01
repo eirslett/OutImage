@@ -1,0 +1,10 @@
+! §5.5.4.9: prefixed block may access protected attributes of the prefix class.;
+begin
+    class Point(x); integer x; protected x;
+    begin
+    end;
+    Point(7) begin
+        OutInt(x, 0);
+        OutImage;
+    end;
+end

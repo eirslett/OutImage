@@ -1,0 +1,666 @@
+// SYNTAX TEST "source.simula" "simtst62"
+% ==================================   Main   program =============
+// <------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 62
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test complex use of detach and resume.
+// <------------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:
+// <-------------- comment.directive
+% =================================================================
+// <------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                    ^ punctuation.terminator.statement
+
+   text array seq (1:30);
+// ^^^^ storage.type
+//      ^^^^^ storage.type
+//            ^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                   ^^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   integer seqi;
+// ^^^^^^^ storage.type
+//         ^^^^ variable
+//             ^ punctuation.terminator.statement
+
+   procedure trace(t); value t; text t; begin
+// ^^^^^^^^^ storage.type
+//           ^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable.parameter
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+//                     ^^^^^ keyword.other.value
+//                           ^ variable
+//                            ^ punctuation.terminator.statement
+//                              ^^^^ storage.type
+//                                   ^ variable
+//                                    ^ punctuation.terminator.statement
+//                                      ^^^^^ keyword.control.begin
+      seqi := seqi + 1;
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^^^ variable
+//                 ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.terminator.statement
+      seq (seqi) :- t;
+//    ^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^ variable
+//             ^ punctuation.section.parens
+//               ^^ keyword.operator.assignment
+//                  ^ variable
+//                   ^ punctuation.terminator.statement
+   end trace;
+// ^^^ keyword.control.end
+//     ^^^^^ comment.block
+//          ^ punctuation.terminator.statement
+
+
+   ref(Y) yy;  ref(X) xx;
+// ^^^ storage.modifier
+//    ^ punctuation.section.parens
+//     ^ entity.name.class
+//      ^ punctuation.section.parens
+//        ^^ variable
+//          ^ punctuation.terminator.statement
+//             ^^^ storage.modifier
+//                ^ punctuation.section.parens
+//                 ^ entity.name.class
+//                  ^ punctuation.section.parens
+//                    ^^ variable
+//                      ^ punctuation.terminator.statement
+
+   class Y; begin
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//        ^ punctuation.terminator.statement
+//          ^^^^^ keyword.control.begin
+      trace("new Y");        detach;
+//    ^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^ string.quoted.double
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+//                           ^^^^^^ variable
+//                                 ^ punctuation.terminator.statement
+      trace("resume Y");     resume(xx);
+//    ^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^ variable
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+      trace("terminate Y");  end Y;
+//    ^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+//                           ^^^ keyword.control.end
+//                               ^ comment.block
+//                                ^ punctuation.terminator.statement
+
+   class X; begin
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//        ^ punctuation.terminator.statement
+//          ^^^^^ keyword.control.begin
+      class A;;
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^^ punctuation.terminator.statement
+      trace("new X");        detach;
+//    ^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^ string.quoted.double
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+//                           ^^^^^^ variable
+//                                 ^ punctuation.terminator.statement
+      trace("resume X");
+//    ^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+
+      A begin
+//    ^ entity.name.class
+//      ^^^^^ keyword.control.begin
+         procedure B(E);  procedure E; begin
+//       ^^^^^^^^^ storage.type
+//                 ^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ variable.parameter
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                        ^^^^^^^^^ storage.type
+//                                  ^ entity.name.function
+//                                   ^ punctuation.terminator.statement
+//                                     ^^^^^ keyword.control.begin
+            real pi;
+//          ^^^^ storage.type
+//               ^^ variable
+//                 ^ punctuation.terminator.statement
+            trace("enter B");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+            begin
+//          ^^^^^ keyword.control.begin
+               ref (C) cc;
+//             ^^^ storage.modifier
+//                 ^ punctuation.section.parens
+//                  ^ entity.name.class
+//                   ^ punctuation.section.parens
+//                     ^^ variable
+//                       ^ punctuation.terminator.statement
+               class C; begin
+//             ^^^^^ keyword.other.class
+//                   ^ entity.name.class
+//                    ^ punctuation.terminator.statement
+//                      ^^^^^ keyword.control.begin
+                  trace("new C");         detach;
+//                ^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^ string.quoted.double
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+//                                        ^^^^^^ variable
+//                                              ^ punctuation.terminator.statement
+                  trace("resume C");      E;
+//                ^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+//                                        ^ variable
+//                                         ^ punctuation.terminator.statement
+%                 outreal(pi,1,5);  outimage;
+// <--------------------------------------------- comment.directive
+                  trace("terminate C");  end C;
+//                ^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                       ^^^ keyword.control.end
+//                                           ^ comment.block
+//                                            ^ punctuation.terminator.statement
+               pi := 3.14;
+//             ^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.numeric.decimal
+//                       ^ punctuation.terminator.statement
+               cc :- new C;
+//             ^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^ keyword.control.new
+//                       ^ entity.name.class
+//                        ^ punctuation.terminator.statement
+               resume(cc);
+//             ^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+               pi := 2.71;
+//             ^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.numeric.decimal
+//                       ^ punctuation.terminator.statement
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+            trace("exit B");  end B;
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                            ^^^ keyword.control.end
+//                                ^ comment.block
+//                                 ^ punctuation.terminator.statement
+         class D;;
+//       ^^^^^ keyword.other.class
+//             ^ entity.name.class
+//              ^^ punctuation.terminator.statement
+         trace("enter A-block");
+//       ^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^ string.quoted.double
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+         D begin
+//       ^ entity.name.class
+//         ^^^^^ keyword.control.begin
+            procedure E; begin
+//          ^^^^^^^^^ storage.type
+//                    ^ entity.name.function
+//                     ^ punctuation.terminator.statement
+//                       ^^^^^ keyword.control.begin
+               integer i;
+//             ^^^^^^^ storage.type
+//                     ^ variable
+//                      ^ punctuation.terminator.statement
+               trace("enter E");
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^ string.quoted.double
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+               begin
+//             ^^^^^ keyword.control.begin
+                  ref(F) ff;
+//                ^^^ storage.modifier
+//                   ^ punctuation.section.parens
+//                    ^ entity.name.class
+//                     ^ punctuation.section.parens
+//                       ^^ variable
+//                         ^ punctuation.terminator.statement
+                  class F; begin
+//                ^^^^^ keyword.other.class
+//                      ^ entity.name.class
+//                       ^ punctuation.terminator.statement
+//                         ^^^^^ keyword.control.begin
+                     trace("new F");     detach;
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+//                                       ^^^^^^ variable
+//                                             ^ punctuation.terminator.statement
+                     trace("resume and exit F");  end F;
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+//                                                ^^^ keyword.control.end
+//                                                    ^ comment.block
+//                                                     ^ punctuation.terminator.statement
+                  ff :- new F;
+//                ^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^ keyword.control.new
+//                          ^ entity.name.class
+//                           ^ punctuation.terminator.statement
+                  resume(ff);
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+               end;
+//             ^^^ keyword.control.end
+//                ^ punctuation.terminator.statement
+               trace("exit E");  end E;
+//             ^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                               ^^^ keyword.control.end
+//                                   ^ comment.block
+//                                    ^ punctuation.terminator.statement
+            trace("enter D-block");
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+            B(E);
+//          ^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+            resume(yy);
+//          ^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+            trace("terminate D-block");  end D;
+//          ^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                       ^^^ keyword.control.end
+//                                           ^ comment.block
+//                                            ^ punctuation.terminator.statement
+
+         trace("terminate A-block"); end A;
+//       ^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+//                                   ^^^ keyword.control.end
+//                                       ^ comment.block
+//                                        ^ punctuation.terminator.statement
+
+      trace("terminate X");  end X;
+//    ^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+//                           ^^^ keyword.control.end
+//                               ^ comment.block
+//                                ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 62");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   Outtext ("--- Test complex use of detach and resume.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+   Outimage; Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+   yy :- new Y;   xx :- new X;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//            ^ punctuation.terminator.statement
+//                ^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^ keyword.control.new
+//                          ^ entity.name.class
+//                           ^ punctuation.terminator.statement
+
+   trace("resume(xx)"); resume(xx);
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+//                      ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^ variable
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+
+   if     seq (1) = "new Y"
+// ^^ keyword.control.if
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^^^^^ string.quoted.double
+      and seq (2) = "new X"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^^^^^ string.quoted.double
+      and seq (3) = "resume(xx)"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^^^^^^^^^^ string.quoted.double
+      and seq (4) = "resume X"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^^^^^^^^ string.quoted.double
+      and seq (5) = "enter A-block"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^^^^^^^^^^^^^ string.quoted.double
+      and seq (6) = "enter D-block"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^^^^^^^^^^^^^ string.quoted.double
+      and seq (7) = "enter B"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^^^^^^^ string.quoted.double
+      and seq (8) = "new C"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^^^^^ string.quoted.double
+      and seq (9) = "resume C"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^^^^^^^^ string.quoted.double
+      and seq (10) = "enter E"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^^^^^^^^ string.quoted.double
+      and seq (11) = "new F"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^^^^^^ string.quoted.double
+      and seq (12) = "resume and exit F"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+      and seq (13) = "exit E"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^^^^^^^ string.quoted.double
+      and seq (14) = "terminate C"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^^ string.quoted.double
+      and seq (15) = "exit B"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^^^^^^^ string.quoted.double
+      and seq (16) = "resume Y"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^^^^^^^^^ string.quoted.double
+      and seq (17) = "terminate D-block"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+      and seq (18) = "terminate A-block"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+      and seq (19) = "terminate X"
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ keyword.operator.comparison
+//                   ^^^^^^^^^^^^^ string.quoted.double
+      and seq (20) == notext and seqi = 19 then
+//    ^^^ keyword.operator
+//        ^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^^ keyword.operator.comparison
+//                    ^^^^^^ constant.language.null
+//                           ^^^ keyword.operator
+//                               ^^^^ variable
+//                                    ^ keyword.operator.comparison
+//                                      ^^ constant.numeric.decimal
+//                                         ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END else
+// ^^^ keyword.control.end
+//     ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      integer i;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("*** ERROR : Program sequence.");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      for i := 1 step 1 until seqi do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^^^^ variable
+//                                 ^^ keyword.control.do
+      begin
+//    ^^^^^ keyword.control.begin
+         Outint (i, 15);
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outtext (" : ");
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+         Outtext (seq (i));
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+         Outimage;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 62");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

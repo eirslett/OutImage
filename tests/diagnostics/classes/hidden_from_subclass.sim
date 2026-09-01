@@ -1,0 +1,14 @@
+begin
+class a;
+protected i;
+begin integer i; end;
+a class b;
+hidden i;
+begin end;
+b class c;
+begin
+ref(b) r;
+r :- new b;
+OutInt(r.i, 2);
+end;
+end;

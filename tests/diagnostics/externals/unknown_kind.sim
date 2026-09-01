@@ -1,0 +1,1 @@
+external Fortran procedure sin; begin end;

@@ -1,0 +1,15 @@
+! Chapter 9 datetime / timing shape checks;
+begin
+    text t;
+    real cpu, clock;
+    boolean ok;
+    t :- datetime;
+    cpu := cputime;
+    clock := clocktime;
+    ok := t.length >= 19
+       and cpu >= 0.0
+       and clock >= 0.0
+       and clock < 86400.0;
+    if ok then OutText("ok") else OutText("fail");
+    OutImage;
+end

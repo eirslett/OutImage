@@ -1,0 +1,9 @@
+[E0204] Error: TYPE MISMATCH: `+` needs arithmetic operands, but this expression is boolean
+   ╭─[ arithmetic_boolean.sim:1:23 ]
+   │
+ 1 │ begin integer x; x := 1 + true; end;
+   │                       ┬  
+   │                       ╰── this is boolean
+   │ 
+   │ Help: use an integer or real expression
+───╯

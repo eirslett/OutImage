@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OutImage playground</title>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>OutImage playground</h1>
+        <p class="lede">
+          MIR interpreter compiled to WebAssembly — not a native compile.
+          No disk files; same language the CLI accepts.
+        </p>
+        <div class="toolbar">
+          <button type="button" id="run" disabled>Run</button>
+          <button type="button" id="cancel" disabled>Cancel</button>
+          <button type="button" id="eof" disabled>EOF</button>
+          <label>
+            Example
+            <select id="example"></select>
+          </label>
+          <span id="status">Loading wasm…</span>
+        </div>
+      </header>
+      <main>
+        <section class="pane">
+          <h2>Source</h2>
+          <div id="editor"></div>
+        </section>
+        <section class="pane">
+          <h2>Terminal</h2>
+          <div id="terminal"></div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

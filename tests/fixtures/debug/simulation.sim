@@ -1,0 +1,21 @@
+! Debug acceptance: Simulation SQS visible while paused.;
+Simulation
+begin
+    process class Worker;
+    begin
+        OutText("A");
+        OutImage;
+        hold(1.0);
+        OutText("B");
+        OutImage;
+    end;
+
+    ref(Worker) w;
+    w :- new Worker;
+    activate w;
+    OutText("C");
+    OutImage;
+    hold(2.0);
+    OutText("D");
+    OutImage;
+end

@@ -1,0 +1,937 @@
+// SYNTAX TEST "source.simula" "simtst21"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   SIMULA A/S - SIMULA TEST NO 21
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test arrays of simple types and text.
+// <----------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:
+// <---------- comment.directive
+%
+// <- comment.directive
+%  NOTE:    1 - Lines in block marked with "NOTE 1" are prefixed with a %
+// <------------------------------------------------------------------------- comment.directive
+%               because the ND-500 Simula do not manage so many dimentions.
+// <--------------------------------------------------------------------------- comment.directive
+%               Testing a Simula implementation which is supposed to handle
+// <--------------------------------------------------------------------------- comment.directive
+%               this, the %'s shall be removed.
+// <----------------------------------------------- comment.directive
+%           2 - Lines after "NOTE 2" are marked with a %.  When testing a
+// <------------------------------------------------------------------------- comment.directive
+%               Simula compiler which has implemented Integer Procedures
+// <------------------------------------------------------------------------ comment.directive
+%               Lowerbound and Upperbound, these marks shall be removed.
+// <------------------------------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  REWRITTEN BY:  BEH   17/07-86
+// <-------------------------------- comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   integer i, j ;
+// ^^^^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//            ^ variable
+//              ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 21") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test arrays of simple types and text.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   begin
+// ^^^^^ keyword.control.begin
+      integer array A, B (i-3:j+3) ;
+//    ^^^^^^^ storage.type
+//            ^^^^^ storage.type
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ variable
+//                         ^ keyword.operator.arithmetic
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^ variable
+//                             ^ keyword.operator.arithmetic
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+
+      for i := 3 step -1 until -3 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ keyword.operator.arithmetic
+//                     ^ constant.numeric.decimal
+//                       ^^^^^ keyword.control.until
+//                             ^ keyword.operator.arithmetic
+//                              ^ constant.numeric.decimal
+//                                ^^ keyword.control.do
+         A (-i) := B (i) := i ;
+//       ^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ keyword.operator.arithmetic
+//           ^ variable
+//            ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                 ^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.section.parens
+//                       ^^ keyword.operator.assignment
+//                          ^ variable
+//                            ^ punctuation.terminator.statement
+
+      if A (-2) + B (-2) = 0 then
+//    ^^ keyword.control.if
+//       ^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ keyword.operator.arithmetic
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//              ^ keyword.operator.arithmetic
+//                ^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ keyword.operator.arithmetic
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                       ^ keyword.operator.comparison
+//                         ^ constant.numeric.decimal
+//                           ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Integer Array (1).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values : ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         for i := -3 step 1 until 3 do
+//       ^^^ keyword.control.for
+//           ^ variable
+//             ^^ keyword.operator.assignment
+//                ^ keyword.operator.arithmetic
+//                 ^ constant.numeric.decimal
+//                   ^^^^ keyword.control.step
+//                        ^ constant.numeric.decimal
+//                          ^^^^^ keyword.control.until
+//                                ^ constant.numeric.decimal
+//                                  ^^ keyword.control.do
+         begin
+//       ^^^^^ keyword.control.begin
+            Outint (i, 13) ;
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+            Outint (A (i), 4) ;
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+            Outint (B (i), 4) ;
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+            Outimage ;
+//          ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+         end ;
+//       ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+
+         found_error := true ;
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+//                           ^ punctuation.terminator.statement
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+
+      for i := 0 step 3 until 18 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^^ constant.numeric.decimal
+//                               ^^ keyword.control.do
+      begin
+//    ^^^^^ keyword.control.begin
+         j := A (i/3-3) + B (i/3-3) ;
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ keyword.operator.arithmetic
+//                 ^ constant.numeric.decimal
+//                  ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ keyword.operator.arithmetic
+//                        ^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ keyword.operator.arithmetic
+//                             ^ constant.numeric.decimal
+//                              ^ keyword.operator.arithmetic
+//                               ^ constant.numeric.decimal
+//                                ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+
+         if j = 0 then
+//       ^^ keyword.control.if
+//          ^ variable
+//            ^ keyword.operator.comparison
+//              ^ constant.numeric.decimal
+//                ^^^^ keyword.control.then
+         else
+//       ^^^^ keyword.control.else
+         begin
+//       ^^^^^ keyword.control.begin
+            Outtext ("*** ERROR : Integer Array (2).") ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+            Outimage ;
+//          ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+            Outtext ("            Erroneus values : ") ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+            Outimage ;
+//          ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+            Outint (i/3-3, 13) ;
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ keyword.operator.arithmetic
+//                    ^ constant.numeric.decimal
+//                     ^ keyword.operator.arithmetic
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                         ^^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+            Outint (A (i/3-3), 4) ;
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ keyword.operator.arithmetic
+//                       ^ constant.numeric.decimal
+//                        ^ keyword.operator.arithmetic
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+            Outint (B (i/3-3), 4) ;
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ variable
+//                      ^ keyword.operator.arithmetic
+//                       ^ constant.numeric.decimal
+//                        ^ keyword.operator.arithmetic
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+            Outimage ;
+//          ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+            found_error := true
+//          ^^^^^^^^^^^ variable
+//                      ^^ keyword.operator.assignment
+//                         ^^^^ constant.language.bool
+         end
+//       ^^^ keyword.control.end
+      end
+//    ^^^ keyword.control.end
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   i := 10 ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^ constant.numeric.decimal
+//         ^ punctuation.terminator.statement
+
+%  begin                                        !**************  NOTE  1  *****;
+// <-------------------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%     Boolean array B (1:2, 2:3, 3:4, 4:5, 5:6, 6:7, 7:8, 8:9, 9:i, 0:1) ;
+// <-------------------------------------------------------------------------- comment.directive
+%     Boolean a ;
+// <----------------- comment.directive
+%     integer i1, i2, i3, i4, i5, i6, i7, i8, i9, i0;
+// <----------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%     B (2, 3, 3, 5, 5, 7, 8, 8, 10, 1) := true ;
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%     for i1 := 1, 2 do
+// <----------------------- comment.directive
+%     for i2 := 2, 3 do
+// <----------------------- comment.directive
+%     for i3 := 3, 4 do
+// <----------------------- comment.directive
+%     for i4 := 4, 5 do
+// <----------------------- comment.directive
+%     for i5 := 5, 6 do
+// <----------------------- comment.directive
+%     for i6 := 6, 7 do
+// <----------------------- comment.directive
+%     for i7 := 7, 8 do
+// <----------------------- comment.directive
+%     for i8 := 8, 9 do
+// <----------------------- comment.directive
+%     for i9 := 9, 10 do
+// <------------------------ comment.directive
+%     for i0 := 0, 1 do
+// <----------------------- comment.directive
+%        a := a or B (i1, i2, i3, i4, i5, i6, i7, i8, i9, i0) ;
+// <--------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%     if a then
+// <--------------- comment.directive
+%     else
+// <---------- comment.directive
+%     begin
+// <----------- comment.directive
+%        Outtext ("*** ERROR : Multidimetional Boolean Array (3).") ;
+// <--------------------------------------------------------------------- comment.directive
+%        Outimage ;
+// <------------------- comment.directive
+%        found_error := true
+// <---------------------------- comment.directive
+%     end
+// <--------- comment.directive
+%  end ;
+// <-------- comment.directive
+
+   begin
+// ^^^^^ keyword.control.begin
+      character array C (2:3, 4:5, 6:7), D (8:9, 1:2) ;
+//    ^^^^^^^^^ storage.type
+//              ^^^^^ storage.type
+//                    ^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.separator
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.separator
+//                                       ^ entity.name.function
+//                                         ^ punctuation.section.parens
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.separator
+//                                               ^ constant.numeric.decimal
+//                                                ^ punctuation.separator
+//                                                 ^ constant.numeric.decimal
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+
+      integer n ;
+//    ^^^^^^^ storage.type
+//            ^ variable
+//              ^ punctuation.terminator.statement
+
+                                                !*************  NOTE 2 ********;
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+%      i := lowerbound (C, 2) ;
+// <------------------------------- comment.directive
+%      j := upperbound (D, 2) ;
+// <------------------------------- comment.directive
+%
+// <- comment.directive
+%      if i = 5 and j = 2 then
+// <------------------------------ comment.directive
+%      else
+// <----------- comment.directive
+%      begin
+// <------------ comment.directive
+%         Outtext ("*** ERROR : Function lowerbound or upperbound (4).") ;
+// <-------------------------------------------------------------------------- comment.directive
+%         Outimage ;
+// <-------------------- comment.directive
+%         Outtext ("            Erroneus values : ") ;
+// <------------------------------------------------------ comment.directive
+%         Outint (i, 4) ; Outint (j, 4) ;
+// <----------------------------------------- comment.directive
+%         Outimage ;
+// <-------------------- comment.directive
+%         found_error := true
+// <----------------------------- comment.directive
+%      end ;
+// <------------ comment.directive
+
+      for i := 8, 9 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                  ^^ keyword.control.do
+      for j := 1, 2 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                  ^^ keyword.control.do
+      begin
+//    ^^^^^ keyword.control.begin
+         D (i, j) := char (n+65) ;
+//       ^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//           ^ punctuation.separator
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable
+//                          ^ keyword.operator.arithmetic
+//                           ^^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+         n := n+1
+//       ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ variable
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      if D (8, 1) = 'A' and D (8, 2) = 'B'
+//    ^^ keyword.control.if
+//       ^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ constant.numeric.decimal
+//           ^ punctuation.separator
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ keyword.operator.comparison
+//                  ^^^ constant.character
+//                      ^^^ keyword.operator
+//                          ^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.separator
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.section.parens
+//                                   ^ keyword.operator.comparison
+//                                     ^^^ constant.character
+         and D (9, 1) = 'C' and D (9, 2) = 'D' THEN
+//       ^^^ keyword.operator
+//           ^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.separator
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^ keyword.operator.comparison
+//                      ^^^ constant.character
+//                          ^^^ keyword.operator
+//                              ^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+//                                       ^ keyword.operator.comparison
+//                                         ^^^ constant.character
+//                                             ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Value of character array (5).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values : ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         for i := 8, 9 do
+//       ^^^ keyword.control.for
+//           ^ variable
+//             ^^ keyword.operator.assignment
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+         for j := 1, 2 do
+//       ^^^ keyword.control.for
+//           ^ variable
+//             ^^ keyword.operator.assignment
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+         begin
+//       ^^^^^ keyword.control.begin
+            Outint (i, 13) ; Outint (j, 3) ;
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ variable
+//                                    ^ punctuation.separator
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+            Outchar (D (i, j)) ;
+//          ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.separator
+//                         ^ variable
+//                          ^^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+            Outimage ;
+//          ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+         end ;
+//       ^^^ keyword.control.end
+//           ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end
+//    ^^^ keyword.control.end
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   begin
+// ^^^^^ keyword.control.begin
+      text array T (1:4, 1:2) ;
+//    ^^^^ storage.type
+//         ^^^^^ storage.type
+//               ^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+
+      text t1 ;
+//    ^^^^ storage.type
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+
+      t1 :- blanks (16) ;
+//    ^^ variable
+//       ^^ keyword.operator.assignment
+//          ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+
+      for i := 1, 2, 3, 4 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                        ^^ keyword.control.do
+      for j := 1, 2 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                  ^^ keyword.control.do
+      begin
+//    ^^^^^ keyword.control.begin
+         T (i, j) :- t1.sub (4*(i-1)+2*j-1,2) ;
+//       ^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//           ^ punctuation.separator
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^^ keyword.operator.assignment
+//                   ^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ constant.numeric.decimal
+//                            ^ keyword.operator.arithmetic
+//                             ^ punctuation.section.parens
+//                              ^ variable
+//                               ^ keyword.operator.arithmetic
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.section.parens
+//                                  ^ keyword.operator.arithmetic
+//                                   ^ constant.numeric.decimal
+//                                    ^ keyword.operator.arithmetic
+//                                     ^ variable
+//                                      ^ keyword.operator.arithmetic
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.separator
+//                                         ^ constant.numeric.decimal
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+         T (i, j).sub (1,1).putint (i) ;
+//       ^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//           ^ punctuation.separator
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.accessor
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.accessor
+//                          ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^ variable
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+         T (i, j).sub (2,1).putint (j)
+//       ^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//           ^ punctuation.separator
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.accessor
+//                ^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.accessor
+//                          ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^ variable
+//                                   ^ punctuation.section.parens
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      if t1 = "1112212231324142" then
+//    ^^ keyword.control.if
+//       ^^ variable
+//          ^ keyword.operator.comparison
+//            ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Text array (6).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus value : ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+         Outtext (t1) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ variable
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+
+      for i := 10, 20, 30, 40 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.separator
+//                 ^^ constant.numeric.decimal
+//                   ^ punctuation.separator
+//                     ^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                         ^^ constant.numeric.decimal
+//                            ^^ keyword.control.do
+      for j := 1, 2 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                  ^^ keyword.control.do
+      if T (i/10, j).getint = i+j then
+//    ^^ keyword.control.if
+//       ^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//           ^ keyword.operator.arithmetic
+//            ^^ constant.numeric.decimal
+//              ^ punctuation.separator
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.accessor
+//                   ^^^^^^ variable
+//                          ^ keyword.operator.comparison
+//                            ^ variable
+//                             ^ keyword.operator.arithmetic
+//                              ^ variable
+//                                ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Text array (7).") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus values : ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+         Outint (i, 4) ; Outint (j, 3) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                       ^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ variable
+//                                ^ punctuation.separator
+//                                  ^ constant.numeric.decimal
+//                                   ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+         Outtext ("  ") ; Outtext (T (4*(i/10-1)+2*j-1, 2)) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^ constant.numeric.decimal
+//                                     ^ keyword.operator.arithmetic
+//                                      ^ punctuation.section.parens
+//                                       ^ variable
+//                                        ^ keyword.operator.arithmetic
+//                                         ^^ constant.numeric.decimal
+//                                           ^ keyword.operator.arithmetic
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                              ^ keyword.operator.arithmetic
+//                                               ^ constant.numeric.decimal
+//                                                ^ keyword.operator.arithmetic
+//                                                 ^ variable
+//                                                  ^ keyword.operator.arithmetic
+//                                                   ^ constant.numeric.decimal
+//                                                    ^ punctuation.separator
+//                                                      ^ constant.numeric.decimal
+//                                                       ^^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end
+//    ^^^ keyword.control.end
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 21") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

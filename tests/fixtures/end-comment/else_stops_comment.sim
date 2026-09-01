@@ -1,0 +1,8 @@
+begin
+    if true then
+    begin
+        outtext("true");
+    end
+    else
+        outtext("false");
+end

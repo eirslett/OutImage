@@ -1,0 +1,359 @@
+// SYNTAX TEST "source.simula" "simtst01"
+% ======================================   Main   program  ===========
+// <---------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 1
+// <------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  PURPOSE:  Test path selection in conditional statements, using only
+// <---------------------------------------------------------------------- comment.directive
+%            simple Boolean expressions(true / false).
+// <------------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  METHOD:  Try and fail.
+// <------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  THE  16/09-83
+// <----------------------------- comment.directive
+% ====================================================================
+// <---------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+BOOLEAN            found_error;       ! Set to true if error in test;
+// <------- storage.type
+//                 ^^^^^^^^^^^ variable
+//                            ^ punctuation.terminator.statement
+//                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+outtext("--- START Simula a.s. TEST 1 ");
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+Outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+outtext("--- Simple test of conditional statements");
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+Outimage; Outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+
+IF TRUE THEN
+// <-- keyword.control.if
+// ^^^^ constant.language.bool
+//      ^^^^ keyword.control.then
+ELSE begin
+// <---- keyword.control.else
+//   ^^^^^ keyword.control.begin
+     outtext("*** ERROR: (1)"); outimage; found_error := TRUE end;
+//   ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^^^ variable
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^^^^^ variable
+//                                                    ^^ keyword.operator.assignment
+//                                                       ^^^^ constant.language.bool
+//                                                            ^^^ keyword.control.end
+//                                                               ^ punctuation.terminator.statement
+
+IF FALSE THEN begin
+// <-- keyword.control.if
+// ^^^^^ constant.language.bool
+//       ^^^^ keyword.control.then
+//            ^^^^^ keyword.control.begin
+     outtext("*** ERROR: (2)"); outimage; found_error := TRUE end;
+//   ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^^^ variable
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^^^^^ variable
+//                                                    ^^ keyword.operator.assignment
+//                                                       ^^^^ constant.language.bool
+//                                                            ^^^ keyword.control.end
+//                                                               ^ punctuation.terminator.statement
+
+IF FALSE THEN begin
+// <-- keyword.control.if
+// ^^^^^ constant.language.bool
+//       ^^^^ keyword.control.then
+//            ^^^^^ keyword.control.begin
+     outtext("*** ERROR: (3)"); outimage; found_error := TRUE end
+//   ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^^^ variable
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^^^^^ variable
+//                                                    ^^ keyword.operator.assignment
+//                                                       ^^^^ constant.language.bool
+//                                                            ^^^ keyword.control.end
+ELSE;
+// <---- keyword.control.else
+//  ^ punctuation.terminator.statement
+
+IF TRUE THEN begin
+// <-- keyword.control.if
+// ^^^^ constant.language.bool
+//      ^^^^ keyword.control.then
+//           ^^^^^ keyword.control.begin
+   IF TRUE THEN begin
+// ^^ keyword.control.if
+//    ^^^^ constant.language.bool
+//         ^^^^ keyword.control.then
+//              ^^^^^ keyword.control.begin
+      IF TRUE THEN begin
+//    ^^ keyword.control.if
+//       ^^^^ constant.language.bool
+//            ^^^^ keyword.control.then
+//                 ^^^^^ keyword.control.begin
+         IF FALSE THEN begin
+//       ^^ keyword.control.if
+//          ^^^^^ constant.language.bool
+//                ^^^^ keyword.control.then
+//                     ^^^^^ keyword.control.begin
+            outtext("*** ERROR: (4)"); outimage; found_error := TRUE end
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+//                                     ^^^^^^^^ variable
+//                                             ^ punctuation.terminator.statement
+//                                               ^^^^^^^^^^^ variable
+//                                                           ^^ keyword.operator.assignment
+//                                                              ^^^^ constant.language.bool
+//                                                                   ^^^ keyword.control.end
+      END
+//    ^^^ keyword.control.end
+      ELSE begin
+//    ^^^^ keyword.control.else
+//         ^^^^^ keyword.control.begin
+         outtext("*** ERROR: (5)"); outimage; found_error := TRUE end
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+//                                  ^^^^^^^^ variable
+//                                          ^ punctuation.terminator.statement
+//                                            ^^^^^^^^^^^ variable
+//                                                        ^^ keyword.operator.assignment
+//                                                           ^^^^ constant.language.bool
+//                                                                ^^^ keyword.control.end
+   END
+// ^^^ keyword.control.end
+   ELSE begin
+// ^^^^ keyword.control.else
+//      ^^^^^ keyword.control.begin
+      outtext("*** ERROR: (6)"); outimage; found_error := TRUE end
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^ string.quoted.double
+//                            ^ punctuation.section.parens
+//                             ^ punctuation.terminator.statement
+//                               ^^^^^^^^ variable
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^^^^^ variable
+//                                                     ^^ keyword.operator.assignment
+//                                                        ^^^^ constant.language.bool
+//                                                             ^^^ keyword.control.end
+END
+// <--- keyword.control.end
+ELSE begin
+// <---- keyword.control.else
+//   ^^^^^ keyword.control.begin
+   outtext("*** ERROR: (7)"); outimage; found_error := TRUE end
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^ string.quoted.double
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^^ variable
+//                                    ^ punctuation.terminator.statement
+//                                      ^^^^^^^^^^^ variable
+//                                                  ^^ keyword.operator.assignment
+//                                                     ^^^^ constant.language.bool
+//                                                          ^^^ keyword.control.end
+;
+// <- punctuation.terminator.statement
+
+     IF FALSE THEN begin
+//   ^^ keyword.control.if
+//      ^^^^^ constant.language.bool
+//            ^^^^ keyword.control.then
+//                 ^^^^^ keyword.control.begin
+        outtext("*** ERROR: (8)"); outimage; found_error := TRUE end
+//      ^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^^^^^^^^^^ string.quoted.double
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+//                                 ^^^^^^^^ variable
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^^^^^ variable
+//                                                       ^^ keyword.operator.assignment
+//                                                          ^^^^ constant.language.bool
+//                                                               ^^^ keyword.control.end
+ELSE IF TRUE THEN begin
+// <---- keyword.control.else
+//   ^^ keyword.control.if
+//      ^^^^ constant.language.bool
+//           ^^^^ keyword.control.then
+//                ^^^^^ keyword.control.begin
+        IF FALSE THEN begin
+//      ^^ keyword.control.if
+//         ^^^^^ constant.language.bool
+//               ^^^^ keyword.control.then
+//                    ^^^^^ keyword.control.begin
+           outtext("*** ERROR: (9)"); outimage; found_error := TRUE end
+//         ^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+//                                    ^^^^^^^^ variable
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^^^^^ variable
+//                                                          ^^ keyword.operator.assignment
+//                                                             ^^^^ constant.language.bool
+//                                                                  ^^^ keyword.control.end
+     END
+//   ^^^ keyword.control.end
+ELSE begin
+// <---- keyword.control.else
+//   ^^^^^ keyword.control.begin
+        outtext("*** ERROR: (10)"); outimage; found_error := TRUE end
+//      ^^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+//                                  ^^^^^^^^ variable
+//                                          ^ punctuation.terminator.statement
+//                                            ^^^^^^^^^^^ variable
+//                                                        ^^ keyword.operator.assignment
+//                                                           ^^^^ constant.language.bool
+//                                                                ^^^ keyword.control.end
+;
+// <- punctuation.terminator.statement
+
+IF IF IF TRUE THEN FALSE ELSE TRUE THEN TRUE ELSE FALSE THEN begin
+// <-- keyword.control.if
+// ^^ keyword.control.if
+//    ^^ keyword.control.if
+//       ^^^^ constant.language.bool
+//            ^^^^ keyword.control.then
+//                 ^^^^^ constant.language.bool
+//                       ^^^^ keyword.control.else
+//                            ^^^^ constant.language.bool
+//                                 ^^^^ keyword.control.then
+//                                      ^^^^ constant.language.bool
+//                                           ^^^^ keyword.control.else
+//                                                ^^^^^ constant.language.bool
+//                                                      ^^^^ keyword.control.then
+//                                                           ^^^^^ keyword.control.begin
+   outtext("*** ERROR: (11)"); outimage; found_error := TRUE end
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^^ variable
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^^^^^^^ variable
+//                                                   ^^ keyword.operator.assignment
+//                                                      ^^^^ constant.language.bool
+//                                                           ^^^ keyword.control.end
+;
+// <- punctuation.terminator.statement
+
+IF IF TRUE THEN
+// <-- keyword.control.if
+// ^^ keyword.control.if
+//    ^^^^ constant.language.bool
+//         ^^^^ keyword.control.then
+     (IF TRUE THEN TRUE ELSE FALSE)
+//   ^ punctuation.section.parens
+//    ^^ keyword.control.if
+//       ^^^^ constant.language.bool
+//            ^^^^ keyword.control.then
+//                 ^^^^ constant.language.bool
+//                      ^^^^ keyword.control.else
+//                           ^^^^^ constant.language.bool
+//                                ^ punctuation.section.parens
+   ELSE
+// ^^^^ keyword.control.else
+      IF FALSE THEN TRUE ELSE FALSE
+//    ^^ keyword.control.if
+//       ^^^^^ constant.language.bool
+//             ^^^^ keyword.control.then
+//                  ^^^^ constant.language.bool
+//                       ^^^^ keyword.control.else
+//                            ^^^^^ constant.language.bool
+THEN
+// <---- keyword.control.then
+ELSE begin
+// <---- keyword.control.else
+//   ^^^^^ keyword.control.begin
+   outtext("*** ERROR: (12)"); outimage; found_error := TRUE end
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^^ variable
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^^^^^^^ variable
+//                                                   ^^ keyword.operator.assignment
+//                                                      ^^^^ constant.language.bool
+//                                                           ^^^ keyword.control.end
+;
+// <- punctuation.terminator.statement
+
+
+IF found_error THEN  ELSE
+// <-- keyword.control.if
+// ^^^^^^^^^^^ variable
+//             ^^^^ keyword.control.then
+//                   ^^^^ keyword.control.else
+   begin Outtext("--- NO ERRORS FOUND IN THIS TEST"); Outimage; end;
+// ^^^^^ keyword.control.begin
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+//                                                    ^^^^^^^^ variable
+//                                                            ^ punctuation.terminator.statement
+//                                                              ^^^ keyword.control.end
+//                                                                 ^ punctuation.terminator.statement
+outtext("--- END Simula a.s. TEST 1");
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+outimage
+// <-------- variable
+
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

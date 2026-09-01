@@ -1,0 +1,159 @@
+// SYNTAX TEST "source.simula" "1-basics"
+% This is a directive (shown as a comment)
+// <------------------------------------------ comment.directive
+! This is a comment;
+// <-------------------- comment.block
+comment This is a comment;
+// <-------------------------- comment.block
+-- double-dash line comment
+// <--------------------------- comment.block
+begin
+// <----- keyword.control.begin
+    integer a;
+//  ^^^^^^^ storage.type
+//          ^ variable
+//           ^ punctuation.terminator.statement
+    boolean b;
+//  ^^^^^^^ storage.type
+//          ^ variable
+//           ^ punctuation.terminator.statement
+    text str;
+//  ^^^^ storage.type
+//       ^^^ variable
+//          ^ punctuation.terminator.statement
+    character c;
+//  ^^^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+    ref(BaseClass) something;
+//  ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^ entity.name.class
+//               ^ punctuation.section.parens
+//                 ^^^^^^^^^ variable
+//                          ^ punctuation.terminator.statement
+    ! numbers;
+//  ^^^^^^^^^^ comment.block
+    a := 0;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+    a := -1;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^ keyword.operator.arithmetic
+//        ^ constant.numeric.decimal
+//         ^ punctuation.terminator.statement
+    a := 2&1;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+    a := 2.0&+1;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+    a := .2&2;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+    a := 20.0;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^ constant.numeric.decimal
+//           ^ punctuation.terminator.statement
+    a := 200&-1;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^ constant.numeric.decimal
+//             ^ punctuation.terminator.statement
+    a := 2.345_678&&0;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^^^^^^^ constant.numeric.decimal
+//                   ^ punctuation.terminator.statement
+    a := 2R1010;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^ constant.numeric.radix
+//             ^ punctuation.terminator.statement
+    a := 16RFFFE;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^^ constant.numeric.radix
+//              ^ punctuation.terminator.statement
+    a := 8r76501;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^^ constant.numeric.radix
+//              ^ punctuation.terminator.statement
+    a := 16R000a;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^^ constant.numeric.radix
+//              ^ punctuation.terminator.statement
+
+    ! booleans;
+//  ^^^^^^^^^^^ comment.block
+    b := true;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^ constant.language.bool
+//           ^ punctuation.terminator.statement
+    b := false;
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^ constant.language.bool
+//            ^ punctuation.terminator.statement
+
+    ! strings;
+//  ^^^^^^^^^^ comment.block
+    str :- "hello";
+//  ^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^^ string.quoted.double
+//                ^ punctuation.terminator.statement
+    str :- "!test;";
+//  ^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^^^ string.quoted.double
+//                 ^ punctuation.terminator.statement
+    str :- "Hello" " " "World";
+//  ^^^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^^ string.quoted.double
+//                 ^^^ string.quoted.double
+//                     ^^^^^^^ string.quoted.double
+//                            ^ punctuation.terminator.statement
+    outtext(str);
+//  ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+
+    ! characters;
+//  ^^^^^^^^^^^^^ comment.block
+    c := 'H';
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ constant.character
+//          ^ punctuation.terminator.statement
+    C := '!111!';
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^^^^^ constant.character
+//              ^ punctuation.terminator.statement
+    C := '''; !edge-case (single quote);
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ constant.character
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+end-this is a comment;
+// <--- keyword.control.end
+// ^^^^^^^^^^^^^^^^^^ comment.block
+//                   ^ punctuation.terminator.statement

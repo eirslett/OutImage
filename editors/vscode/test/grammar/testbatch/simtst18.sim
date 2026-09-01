@@ -1,0 +1,2402 @@
+// SYNTAX TEST "source.simula" "simtst18"
+% ================================================   Main   program  ===========
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  SIMULA A/S - SIMULA TEST  NO 18
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:  To test the put- and get-procedures for texts.
+// <----------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:  Use the procedures on various texts and with various parameters.
+// <---------------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  NOTE:  1. At lines commented with NOTE 1 : The expected result of the putreal
+// <-------------------------------------------------------------------------------- comment.directive
+%            operation must be edited into the text constant since this is
+// <-------------------------------------------------------------------------- comment.directive
+%            implementation dependent.
+// <-------------------------------------- comment.directive
+%         2. At line commented with NOTE 2 : The largest legal textconstant
+// <--------------------------------------------------------------------------- comment.directive
+%            length on your implementation must be filled in.
+// <------------------------------------------------------------- comment.directive
+%         3. Lines commented with NOTE 3 are prefixed with % because of an
+// <-------------------------------------------------------------------------- comment.directive
+%            error in the ND-500 RTS.
+// <------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  THE  17/10-83
+// <----------------------------- comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+BOOLEAN            found_error ;                 ! Set to true when errors are ;
+// <------- storage.type
+//                 ^^^^^^^^^^^ variable
+//                             ^ punctuation.terminator.statement
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! found.                      ;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+TEXT               txt ;                         ! To use the put- and get-    ;
+// <---- storage.type
+//                 ^^^ variable
+//                     ^ punctuation.terminator.statement
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! procedures on.              ;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+INTEGER            int ;                         ! To be used in the put- and  ;
+// <------- storage.type
+//                 ^^^ variable
+//                     ^ punctuation.terminator.statement
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+SHORT INTEGER      sho ;                         ! get-procedures.             ;
+// <----- storage.type
+//    ^^^^^^^ storage.type
+//                 ^^^ variable
+//                     ^ punctuation.terminator.statement
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+REAL               rea ;                         !         -"-                 ;
+// <---- storage.type
+//                 ^^^ variable
+//                     ^ punctuation.terminator.statement
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+LONG REAL          lon ;                         !         -"-                 ;
+// <---- storage.type
+//   ^^^^ storage.type
+//                 ^^^ variable
+//                     ^ punctuation.terminator.statement
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+INTEGER            maxtext ;                     ! To contain max legal text   ;
+// <------- storage.type
+//                 ^^^^^^^ variable
+//                         ^ punctuation.terminator.statement
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! length.                     ;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+outtext ("--- START Simula a.s. TEST 18") ;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+outimage ;
+// <-------- variable
+//       ^ punctuation.terminator.statement
+outtext ("--- Test the put- and get-procedures of text") ;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+outimage ;
+// <-------- variable
+//       ^ punctuation.terminator.statement
+
+maxtext := 32000 ;                               !********* NOTE 2 ************;
+// <------- variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^ constant.numeric.decimal
+//               ^ punctuation.terminator.statement
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+
+                                                 !*****************************;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! Test that put overflow is   ;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! handeled correct.           ;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 !*****************************;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+txt :- blanks (1) ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+sho := 10 ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+txt.putint (sho) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+
+IF txt <> "*" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^ string.quoted.double
+//            ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (1).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- blanks (5) ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+int := 123456 ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ constant.numeric.decimal
+//            ^ punctuation.terminator.statement
+txt.putint (int) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+
+IF txt <> "*****" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^ string.quoted.double
+//                ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (2).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- blanks (1) ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+rea := 12.4 ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+txt.putfix (rea, 0) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+IF txt <> "*" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^ string.quoted.double
+//            ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (3).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- blanks (10) ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+lon := 1 ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+txt.putfix (lon, 10) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.separator
+//               ^^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "**********" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^ string.quoted.double
+//                     ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (4).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+rea := 3.14 ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+txt.putreal (rea, 8) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "**********" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^ string.quoted.double
+//                     ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (5).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- blanks (4) ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+int := 1000 ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+txt.putfrac (int, 2) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "****" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^ string.quoted.double
+//               ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (6).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+                                                 !*****************************;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! Test procedures on texts    ;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! that are just big enough to ;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! contain the result.         ;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 !*****************************;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+txt :- blanks (4) ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+int := 1234 ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ constant.numeric.decimal
+//          ^ punctuation.terminator.statement
+txt.putint (int) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+
+IF txt <> "1234" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^ string.quoted.double
+//               ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (7).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+int := txt.getint ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^ punctuation.terminator.statement
+
+IF int <> 1234 THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^ constant.numeric.decimal
+//             ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In get operation (8).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outint (int, 10) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ variable
+//            ^ punctuation.separator
+//              ^^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- blanks (2) ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+sho := 99 ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^ constant.numeric.decimal
+//        ^ punctuation.terminator.statement
+txt.putint (sho) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+
+IF txt <> "99" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^ string.quoted.double
+//             ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (9).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+sho := txt.getint ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^ punctuation.terminator.statement
+
+IF sho <> 99 THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In get operation (10).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outint (sho, 10) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ variable
+//            ^ punctuation.separator
+//              ^^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("1000") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^ string.quoted.double
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+rea := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putfix (rea, 0) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+IF txt <> "1000" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^ string.quoted.double
+//               ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (11).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("2.22") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^ string.quoted.double
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+lon := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putfix (lon, 2) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+IF txt <> "2.22" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^ string.quoted.double
+//               ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (12).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("0000000") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+rea := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putreal (rea, 2) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "0.0&+00" THEN                         !********* NOTE 1 ************;
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^ string.quoted.double
+//                  ^^^^ keyword.control.then
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (13).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("1000.00") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+rea := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putreal (rea, 2) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "1.0&+03" THEN                         !********* NOTE 1 ************;
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^ string.quoted.double
+//                  ^^^^ keyword.control.then
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (14).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy (".0005670") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+lon := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putreal (lon, 2) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "5.7&-004" THEN                       !********* NOTE 1 ************;
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^ string.quoted.double
+//                   ^^^^ keyword.control.then
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (15).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("-.88&-01") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+rea := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putreal (rea, 2) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "-8.8&-02" THEN                      !********* NOTE 1 ************;
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^ string.quoted.double
+//                   ^^^^ keyword.control.then
+//                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (16).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("12.34&20 ") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+lon := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putreal (lon, 3) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "1.23&+021" THEN                      !********* NOTE 1 ************;
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^ string.quoted.double
+//                    ^^^^ keyword.control.then
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (17).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("100 0 00") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+int := txt.getfrac ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF int <> 100000 THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^ constant.numeric.decimal
+//               ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In get operation (18).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outint (int, 10) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ variable
+//            ^ punctuation.separator
+//              ^^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt.putfrac (int, 2) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "1 000.00" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^ string.quoted.double
+//                   ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (19).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("-1 23456") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^ string.quoted.double
+//                     ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+int := txt.getfrac ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF int <> -123456 THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^ keyword.operator.arithmetic
+//         ^^^^^^ constant.numeric.decimal
+//                ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In get operation (20).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt.putfrac (int, 0) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "-123 456" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^ string.quoted.double
+//                   ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (21).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+                                                 !*****************************;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! Test the procedures on texts;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! that are more than long     ;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! enough.                     ;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 !*****************************;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+txt :- blanks (5) ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+txt.putint (1234) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+
+IF txt <> " 1234" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^ string.quoted.double
+//                ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (22).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+int := txt.getint ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^ punctuation.terminator.statement
+
+IF int <> 1234 THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^ constant.numeric.decimal
+//             ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In get operation (23).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outint (int, 10) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ variable
+//            ^ punctuation.separator
+//              ^^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- blanks (20) ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+sho := - 1 ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^ keyword.operator.arithmetic
+//       ^ constant.numeric.decimal
+//         ^ punctuation.terminator.statement
+txt.putint (sho) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+
+IF txt <> "                  -1" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (24).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+sho := txt.getint ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^ punctuation.terminator.statement
+
+IF sho <> -1 THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^ keyword.operator.arithmetic
+//         ^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In get operation (25).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outint (sho, 10) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ variable
+//            ^ punctuation.separator
+//              ^^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+                                     !**********  NOTE 3  **********;
+//                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+% txt :- blanks (maxtext) ;
+// <--------------------------- comment.directive
+% txt.putint (999) ;
+// <-------------------- comment.directive
+% txt.setpos (1) ;
+// <------------------ comment.directive
+% int := txt.getint ;
+// <--------------------- comment.directive
+
+% IF int <> 999 THEN
+// <-------------------- comment.directive
+%    BEGIN
+// <---------- comment.directive
+%    outtext ("*** ERROR : In put/get operation (26).") ;
+// <--------------------------------------------------------- comment.directive
+%    outimage ;
+// <--------------- comment.directive
+%    outtext ("    The following result was not expected: ") ;
+// <-------------------------------------------------------------- comment.directive
+%    outint (int, 10) ;
+// <----------------------- comment.directive
+%    outimage ;
+// <--------------- comment.directive
+%    found_error := TRUE
+// <------------------------ comment.directive
+%    END ;
+// <---------- comment.directive
+
+txt :- copy ("123      ") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^ string.quoted.double
+//                      ^ punctuation.section.parens
+//                        ^ punctuation.terminator.statement
+rea := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putfix (rea, 0) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+IF txt <> "      123" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^ string.quoted.double
+//                    ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (27).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("   -  12.34&-10                   ") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+lon := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putfix (lon, 11) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.separator
+//               ^^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "                    -0.00000000123" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (28).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("1 abcdefgh") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+rea := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putreal (rea, 1) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "     1&+00" THEN                      !********* NOTE 1 ************;
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^ string.quoted.double
+//                     ^^^^ keyword.control.then
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (29).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("     33.3z") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+rea := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putfix (rea, 1) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+IF txt <> "      33.3" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^ string.quoted.double
+//                     ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (30).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("      -23.11111111111111&+02") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+lon := txt.getreal ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+txt.putreal (lon, 10) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+
+IF txt <> "           -2.311111111&+003" THEN   !********* NOTE 1 ************;
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^^^^ keyword.control.then
+//                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (31).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- blanks (15) ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+txt.putfix (copy ("  -0&11  a'++ ").getreal, 1) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^ string.quoted.double
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.accessor
+//                                  ^^^^^^^ variable
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+
+IF txt <> "            0.0" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                          ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (32).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("   2 10 0 0  sa") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                            ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+int := txt.getfrac ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+
+IF int <> 21000 THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^ constant.numeric.decimal
+//              ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In get operation (33).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outint (int, 10) ;
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ variable
+//            ^ punctuation.separator
+//              ^^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt.putfrac (int, 5) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^ variable
+//              ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+IF txt <> "       0.210 00" and
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                          ^^^ keyword.operator
+   txt <> "        .210 00" THEN
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                          ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (34).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt.putfrac (copy ("1 234 5").getfrac, -800) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.accessor
+//                            ^^^^^^^ variable
+//                                   ^ punctuation.separator
+//                                     ^ keyword.operator.arithmetic
+//                                      ^^^ constant.numeric.decimal
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+
+IF txt <> "         12 345" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                          ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (35).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+                                                 !*****************************;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 ! Try some convertion.        ;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+                                                 !*****************************;
+//                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+txt :- blanks (10) ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+txt.putint (2.67) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+
+IF txt <> "         3" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^ string.quoted.double
+//                     ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put operation (36).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+txt :- copy ("   1.23456") ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^ string.quoted.double
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+int := txt.getint ;
+// <--- variable
+//  ^^ keyword.operator.assignment
+//     ^^^ variable
+//        ^ punctuation.accessor
+//         ^^^^^^ variable
+//                ^ punctuation.terminator.statement
+txt.putfix (int, 2) ;
+// <--- variable
+// ^ punctuation.accessor
+//  ^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+
+IF txt <> "      1.00" THEN
+// <-- keyword.control.if
+// ^^^ variable
+//     ^^ keyword.operator.comparison
+//        ^^^^^^^^^^^^ string.quoted.double
+//                     ^^^^ keyword.control.then
+   BEGIN
+// ^^^^^ keyword.control.begin
+   outtext ("*** ERROR : In put/get operation (37).") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   outtext ("    The following result was not expected: ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+   outtext (txt) ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^ variable
+//             ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+   outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   found_error := TRUE
+// ^^^^^^^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^ constant.language.bool
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+
+IF found_error THEN
+// <-- keyword.control.if
+// ^^^^^^^^^^^ variable
+//             ^^^^ keyword.control.then
+ELSE
+// <---- keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+   Outtext ("--- NO ERRORS FOUND IN THIS TEST") ; Outimage;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+//                                                ^^^^^^^^ variable
+//                                                        ^ punctuation.terminator.statement
+   Outtext ("--- Six text edit overflows should be signaled.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+   Outimage;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+outtext ("--- END Simula a.s. TEST 18") ;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+outimage
+// <-------- variable
+
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

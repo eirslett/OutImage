@@ -1,0 +1,11 @@
+[package]
+name = "simula-rust-host"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+# Standalone example; not a member of the OutImage workspace.
+[workspace]
+
+[dependencies]
+outimage = { path = "../..", default-features = false }

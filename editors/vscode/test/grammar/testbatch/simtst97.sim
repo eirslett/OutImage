@@ -1,0 +1,3607 @@
+// SYNTAX TEST "source.simula" "simtst97"
+% ================================================   Main   program  ===========
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 97
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE: Test Process, activation statements, idle, terminated, time.
+// <------------------------------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY: PW (21).
+// <----------------------- comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+Simulation
+// <---------- entity.name.class
+begin
+// <----- keyword.control.begin
+
+Boolean found_error;
+// <------- storage.type
+//      ^^^^^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+
+text array ut, answer(1:250);
+// <---- storage.type
+//   ^^^^^ storage.type
+//         ^^ variable
+//           ^ punctuation.separator
+//             ^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                      ^^^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+integer utno;
+// <------- storage.type
+//      ^^^^ variable
+//          ^ punctuation.terminator.statement
+
+procedure outimage;
+// <--------- storage.type
+//        ^^^^^^^^ entity.name.function
+//                ^ punctuation.terminator.statement
+begin utno:=utno+1; ut(utno):-copy(sysout.image.strip);
+// <----- keyword.control.begin
+//    ^^^^ variable
+//        ^^ keyword.operator.assignment
+//          ^^^^ variable
+//              ^ keyword.operator.arithmetic
+//               ^ constant.numeric.decimal
+//                ^ punctuation.terminator.statement
+//                  ^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^^ keyword.operator.assignment
+//                            ^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^^^^^^ variable
+//                                       ^ punctuation.accessor
+//                                        ^^^^^ variable
+//                                             ^ punctuation.accessor
+//                                              ^^^^^ variable
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+      sysout.image:=notext;
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                  ^^^^^^ constant.language.null
+//                        ^ punctuation.terminator.statement
+      sysout.setpos(1);
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+process class p(i); integer i;
+// <------- entity.name.class
+//      ^^^^^ keyword.other.class
+//            ^ entity.name.class
+//             ^ punctuation.section.parens
+//              ^ variable.parameter
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+//                  ^^^^^^^ storage.type
+//                          ^ variable
+//                           ^ punctuation.terminator.statement
+begin outtext("p("); outint (i,2);
+// <----- keyword.control.begin
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^ string.quoted.double
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+//                   ^^^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.separator
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+      outtext(") activated at time = "); outfix(time,3,8); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^^ entity.name.function
+//                                             ^ punctuation.section.parens
+//                                              ^^^^ variable
+//                                                  ^ punctuation.separator
+//                                                   ^ constant.numeric.decimal
+//                                                    ^ punctuation.separator
+//                                                     ^ constant.numeric.decimal
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+//                                                         ^^^^^^^^ variable
+//                                                                 ^ punctuation.terminator.statement
+      passive(i):=false; terminatd(i):=false; active(i):=true;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.section.parens
+//              ^^ keyword.operator.assignment
+//                ^^^^^ constant.language.bool
+//                     ^ punctuation.terminator.statement
+//                       ^^^^^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^ variable
+//                                  ^ punctuation.section.parens
+//                                   ^^ keyword.operator.assignment
+//                                     ^^^^^ constant.language.bool
+//                                          ^ punctuation.terminator.statement
+//                                            ^^^^^^ entity.name.function
+//                                                  ^ punctuation.section.parens
+//                                                   ^ variable
+//                                                    ^ punctuation.section.parens
+//                                                     ^^ keyword.operator.assignment
+//                                                       ^^^^ constant.language.bool
+//                                                           ^ punctuation.terminator.statement
+      outstate(i);
+//    ^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      active(i):=false; terminatd(i):=true; passive(i):=false;
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.section.parens
+//             ^^ keyword.operator.assignment
+//               ^^^^^ constant.language.bool
+//                    ^ punctuation.terminator.statement
+//                      ^^^^^^^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^ variable
+//                                 ^ punctuation.section.parens
+//                                  ^^ keyword.operator.assignment
+//                                    ^^^^ constant.language.bool
+//                                        ^ punctuation.terminator.statement
+//                                          ^^^^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^ variable
+//                                                   ^ punctuation.section.parens
+//                                                    ^^ keyword.operator.assignment
+//                                                      ^^^^^ constant.language.bool
+//                                                           ^ punctuation.terminator.statement
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+procedure startup;
+// <--------- storage.type
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.terminator.statement
+begin outstate(0); reactivate main at time+20.0; end;
+// <----- keyword.control.begin
+//    ^^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ constant.numeric.decimal
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+//                 ^^^^^^^^^^ keyword.control.reactivate
+//                            ^^^^ variable
+//                                 ^^ keyword.control.at
+//                                    ^^^^ variable
+//                                        ^ keyword.operator.arithmetic
+//                                         ^^^^ constant.numeric.decimal
+//                                             ^ punctuation.terminator.statement
+//                                               ^^^ keyword.control.end
+//                                                  ^ punctuation.terminator.statement
+
+procedure outstate(c); integer c;
+// <--------- storage.type
+//        ^^^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable.parameter
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+//                     ^^^^^^^ storage.type
+//                             ^ variable
+//                              ^ punctuation.terminator.statement
+begin integer i; real r;
+// <----- keyword.control.begin
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^^ storage.type
+//                    ^ variable
+//                     ^ punctuation.terminator.statement
+      comment output state of process objects and sqs;
+//    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+      Outtext("State("); Outint(testno,1); Outchar(','); Outint(c,2);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                       ^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^^^^^ variable
+//                                    ^ punctuation.separator
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^^^ constant.character
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^^^ entity.name.function
+//                                                             ^ punctuation.section.parens
+//                                                              ^ variable
+//                                                               ^ punctuation.separator
+//                                                                ^ constant.numeric.decimal
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+      Outtext("): ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^ string.quoted.double
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      for i:=1 step 1 until 10 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//             ^^^^ keyword.control.step
+//                  ^ constant.numeric.decimal
+//                    ^^^^^ keyword.control.until
+//                          ^^ constant.numeric.decimal
+//                             ^^ keyword.control.do
+      begin if active(i) then outtext(" a    ")else
+//    ^^^^^ keyword.control.begin
+//          ^^ keyword.control.if
+//             ^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.section.parens
+//                       ^^^^ keyword.control.then
+//                            ^^^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                             ^^^^ keyword.control.else
+            if terminatd(i)  then outtext(" t    ") else
+//          ^^ keyword.control.if
+//             ^^^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^^^^ keyword.control.else
+            outtext("p/s   ");
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^ string.quoted.double
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+      outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      outtext("SQS:      ");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^ string.quoted.double
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+      for i:=1 step 1 until 10 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//             ^^^^ keyword.control.step
+//                  ^ constant.numeric.decimal
+//                    ^^^^^ keyword.control.until
+//                          ^^ constant.numeric.decimal
+//                             ^^ keyword.control.do
+      begin if pa(i).idle then
+//    ^^^^^ keyword.control.begin
+//          ^^ keyword.control.if
+//             ^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.accessor
+//                   ^^^^ variable
+//                        ^^^^ keyword.control.then
+            begin if pa(i).terminated then outtext("    t ")
+//          ^^^^^ keyword.control.begin
+//                ^^ keyword.control.if
+//                   ^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ variable
+//                       ^ punctuation.section.parens
+//                        ^ punctuation.accessor
+//                         ^^^^^^^^^^ variable
+//                                    ^^^^ keyword.control.then
+//                                         ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+                                      else outtext("    p ");
+//                                    ^^^^ keyword.control.else
+//                                         ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+            end else
+//          ^^^ keyword.control.end
+//              ^^^^ keyword.control.else
+            if current==pa(i) then         outtext("    a ")
+//          ^^ keyword.control.if
+//             ^^^^^^^ variable
+//                    ^^ keyword.operator.comparison
+//                      ^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable
+//                          ^ punctuation.section.parens
+//                            ^^^^ keyword.control.then
+//                                         ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+            else                           outtext("    s ");
+//          ^^^^ keyword.control.else
+//                                         ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+      outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+      outfix(time,2,6); outtext(" :   ");
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^ variable
+//               ^ punctuation.separator
+//                ^ constant.numeric.decimal
+//                 ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+//                      ^^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^^^^^^ string.quoted.double
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+      for i:= 1 step 1 until 10 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//            ^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                   ^ constant.numeric.decimal
+//                     ^^^^^ keyword.control.until
+//                           ^^ constant.numeric.decimal
+//                              ^^ keyword.control.do
+      begin if pa(i).idle then outtext("  idle") else
+//    ^^^^^ keyword.control.begin
+//          ^^ keyword.control.if
+//             ^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                  ^ punctuation.accessor
+//                   ^^^^ variable
+//                        ^^^^ keyword.control.then
+//                             ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^^^^ keyword.control.else
+            if pa(i)=/=current then outfix(pa(i).evtime,2,6)
+//          ^^ keyword.control.if
+//             ^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                  ^^^ keyword.operator.comparison
+//                     ^^^^^^^ variable
+//                             ^^^^ keyword.control.then
+//                                  ^^^^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^^ entity.name.function
+//                                           ^ punctuation.section.parens
+//                                            ^ variable
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.accessor
+//                                               ^^^^^^ variable
+//                                                     ^ punctuation.separator
+//                                                      ^ constant.numeric.decimal
+//                                                       ^ punctuation.separator
+//                                                        ^ constant.numeric.decimal
+//                                                         ^ punctuation.section.parens
+            else
+//          ^^^^ keyword.control.else
+            begin r:=time;
+//          ^^^^^ keyword.control.begin
+//                ^ variable
+//                 ^^ keyword.operator.assignment
+//                   ^^^^ variable
+//                       ^ punctuation.terminator.statement
+                  if abs(pa(i).evtime-time)>0.001 then
+//                ^^ keyword.control.if
+//                   ^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ variable
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.accessor
+//                             ^^^^^^ variable
+//                                   ^ keyword.operator.arithmetic
+//                                    ^^^^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ keyword.operator.comparison
+//                                          ^^^^^ constant.numeric.decimal
+//                                                ^^^^ keyword.control.then
+                  begin outfix(pa(i).evtime,2,5); outchar('*') end
+//                ^^^^^ keyword.control.begin
+//                      ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^ variable
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.accessor
+//                                   ^^^^^^ variable
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+//                                                ^^^^^^^ entity.name.function
+//                                                       ^ punctuation.section.parens
+//                                                        ^^^ constant.character
+//                                                           ^ punctuation.section.parens
+//                                                             ^^^ keyword.control.end
+                  else  outfix(pa(i).evtime,2,6);
+//                ^^^^ keyword.control.else
+//                      ^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^ variable
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.accessor
+//                                   ^^^^^^ variable
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+            end
+//          ^^^ keyword.control.end
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+      outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+end of outstate;
+// <--- keyword.control.end
+//  ^^^^^^^^^^^ comment.block
+//             ^ punctuation.terminator.statement
+
+procedure createobjects;
+// <--------- storage.type
+//        ^^^^^^^^^^^^^ entity.name.function
+//                     ^ punctuation.terminator.statement
+begin integer i;
+// <----- keyword.control.begin
+//    ^^^^^^^ storage.type
+//            ^ variable
+//             ^ punctuation.terminator.statement
+      for i:=1 step 1 until 10 do
+//    ^^^ keyword.control.for
+//        ^ variable
+//         ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//             ^^^^ keyword.control.step
+//                  ^ constant.numeric.decimal
+//                    ^^^^^ keyword.control.until
+//                          ^^ constant.numeric.decimal
+//                             ^^ keyword.control.do
+      begin pa(i):-new p(i);
+//    ^^^^^ keyword.control.begin
+//          ^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^^ keyword.operator.assignment
+//                 ^^^ keyword.control.new
+//                     ^ entity.name.class
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+            terminatd(i):=false; active(i):=false; passive(i):= true
+//          ^^^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ variable
+//                     ^ punctuation.section.parens
+//                      ^^ keyword.operator.assignment
+//                        ^^^^^ constant.language.bool
+//                             ^ punctuation.terminator.statement
+//                               ^^^^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ variable
+//                                       ^ punctuation.section.parens
+//                                        ^^ keyword.operator.assignment
+//                                          ^^^^^ constant.language.bool
+//                                               ^ punctuation.terminator.statement
+//                                                 ^^^^^^^ entity.name.function
+//                                                        ^ punctuation.section.parens
+//                                                         ^ variable
+//                                                          ^ punctuation.section.parens
+//                                                           ^^ keyword.operator.assignment
+//                                                              ^^^^ constant.language.bool
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+      testno:=testno+1
+//    ^^^^^^ variable
+//          ^^ keyword.operator.assignment
+//            ^^^^^^ variable
+//                  ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+real procedure getime;
+// <---- storage.type
+//   ^^^^^^^^^ storage.type
+//             ^^^^^^ entity.name.function
+//                   ^ punctuation.terminator.statement
+begin getime:=actime.getreal;
+// <----- keyword.control.begin
+//    ^^^^^^ variable
+//          ^^ keyword.operator.assignment
+//            ^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^^^ variable
+//                          ^ punctuation.terminator.statement
+      actime:-actime.sub(actime.pos,actime.length-actime.pos+1);
+//    ^^^^^^ variable
+//          ^^ keyword.operator.assignment
+//            ^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^^^^^ variable
+//                             ^ punctuation.accessor
+//                              ^^^ variable
+//                                 ^ punctuation.separator
+//                                  ^^^^^^ variable
+//                                        ^ punctuation.accessor
+//                                         ^^^^^^ variable
+//                                               ^ keyword.operator.arithmetic
+//                                                ^^^^^^ variable
+//                                                      ^ punctuation.accessor
+//                                                       ^^^ variable
+//                                                          ^ keyword.operator.arithmetic
+//                                                           ^ constant.numeric.decimal
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+ref(p) array pa(1:10);
+// <--- storage.modifier
+// ^ punctuation.section.parens
+//  ^ entity.name.class
+//   ^ punctuation.section.parens
+//     ^^^^^ storage.type
+//           ^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.separator
+//                ^^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+boolean array active,passive,terminatd(1:10);
+// <------- storage.type
+//      ^^^^^ storage.type
+//            ^^^^^^ variable
+//                  ^ punctuation.separator
+//                   ^^^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.separator
+//                                       ^^ constant.numeric.decimal
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+integer i, testno;
+// <------- storage.type
+//      ^ variable
+//       ^ punctuation.separator
+//         ^^^^^^ variable
+//               ^ punctuation.terminator.statement
+text activationtimes,delaytimes, actime;
+// <---- storage.type
+//   ^^^^^^^^^^^^^^^ variable
+//                  ^ punctuation.separator
+//                   ^^^^^^^^^^ variable
+//                             ^ punctuation.separator
+//                               ^^^^^^ variable
+//                                     ^ punctuation.terminator.statement
+
+outtext("--- START Simula a.s. - TEST No. 97      ---"); sysout.outimage;
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^^^^ variable
+//                                                             ^ punctuation.accessor
+//                                                              ^^^^^^^^ variable
+//                                                                      ^ punctuation.terminator.statement
+outtext("--- Tests Process, activation statements, ---"); sysout.outimage;
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+//                                                        ^^^^^^ variable
+//                                                              ^ punctuation.accessor
+//                                                               ^^^^^^^^ variable
+//                                                                       ^ punctuation.terminator.statement
+outtext("--- idle, terminated, time.               ---"); sysout.outimage;
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+//                                                        ^^^^^^ variable
+//                                                              ^ punctuation.accessor
+//                                                               ^^^^^^^^ variable
+//                                                                       ^ punctuation.terminator.statement
+
+
+answer(  1):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p(10) activated at time =    0.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(  2):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(1,10): p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s    a");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(  3):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          p     p     p     p     p     p     p     p     p     a");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(  4):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  0.00 :     idle  idle  idle  idle  idle  idle  idle  idle  idle  0.00");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(  5):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 9) activated at time =    0.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(  6):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(1, 9): p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s    a     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(  7):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          p     p     p     p     p     p     p     p     a     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(  8):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  0.00 :     idle  idle  idle  idle  idle  idle  idle  idle  0.00  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(  9):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 8) activated at time =    0.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 10):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(1, 8): p/s   p/s   p/s   p/s   p/s   p/s   p/s    a     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 11):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          p     p     p     p     p     p     p     a     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 12):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  0.00 :     idle  idle  idle  idle  idle  idle  idle  0.00  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 13):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 7) activated at time =    0.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 14):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(1, 7): p/s   p/s   p/s   p/s   p/s   p/s    a     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 15):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          p     p     p     p     p     p     a     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 16):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  0.00 :     idle  idle  idle  idle  idle  idle  0.00  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 17):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 6) activated at time =    0.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 18):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(1, 6): p/s   p/s   p/s   p/s   p/s    a     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 19):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          p     p     p     p     p     a     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 20):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  0.00 :     idle  idle  idle  idle  idle  0.00  idle  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 21):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 5) activated at time =    0.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 22):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(1, 5): p/s   p/s   p/s   p/s    a     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 23):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          p     p     p     p     a     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 24):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  0.00 :     idle  idle  idle  idle  0.00  idle  idle  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 25):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 4) activated at time =    0.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 26):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(1, 4): p/s   p/s   p/s    a     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 27):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          p     p     p     a     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 28):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  0.00 :     idle  idle  idle  0.00  idle  idle  idle  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 29):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 3) activated at time =    0.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 30):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(1, 3): p/s   p/s    a     t     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 31):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          p     p     a     t     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 32):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  0.00 :     idle  idle  0.00  idle  idle  idle  idle  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 33):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 2) activated at time =    0.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 34):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(1, 2): p/s    a     t     t     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 35):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          p     a     t     t     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 36):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  0.00 :     idle  0.00  idle  idle  idle  idle  idle  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 37):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 1) activated at time =    0.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 38):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(1, 1):  a     t     t     t     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 39):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          a     t     t     t     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 40):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  0.00 :     0.00  idle  idle  idle  idle  idle  idle  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 41):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(2, 0): p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer( 42):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          s     s     s     s     s     s     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 43):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  0.00 :     1.53  7.60  2.00  4.19  2.01  1.84  2.00  8.00  9.25  5.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 44):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 1) activated at time =    1.530");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 45):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(2, 1):  a    p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer( 46):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          a     s     s     s     s     s     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 47):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  1.53 :     1.53  7.60  2.00  4.19  2.01  1.84  2.00  8.00  9.25  5.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 48):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 6) activated at time =    1.840");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 49):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(2, 6):  t    p/s   p/s   p/s   p/s    a    p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer( 50):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     s     s     s     a     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 51):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  1.84 :     idle  7.60  2.00  4.19  2.01  1.84  2.00  8.00  9.25  5.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 52):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 3) activated at time =    2.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 53):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(2, 3):  t    p/s    a    p/s   p/s    t    p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer( 54):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     a     s     s     t     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 55):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  2.00 :     idle  7.60  2.00  4.19  2.01  idle  2.00  8.00  9.25  5.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 56):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 7) activated at time =    2.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 57):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(2, 7):  t    p/s    t    p/s   p/s    t     a    p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer( 58):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     t     s     s     t     a     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 59):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  2.00 :     idle  7.60  idle  4.19  2.01  idle  2.00  8.00  9.25  5.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 60):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 5) activated at time =    2.010");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 61):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(2, 5):  t    p/s    t    p/s    a     t     t    p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer( 62):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     t     s     a     t     t     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 63):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  2.01 :     idle  7.60  idle  4.19  2.01  idle  idle  8.00  9.25  5.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 64):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 4) activated at time =    4.190");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 65):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(2, 4):  t    p/s    t     a     t     t     t    p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer( 66):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     t     a     t     t     t     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 67):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  4.19 :     idle  7.60  idle  4.19  idle  idle  idle  8.00  9.25  5.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 68):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p(10) activated at time =    5.400");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 69):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(2,10):  t    p/s    t     t     t     t     t    p/s   p/s    a");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 70):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     t     t     t     t     t     s     s     a");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 71):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  5.40 :     idle  7.60  idle  idle  idle  idle  idle  8.00  9.25  5.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 72):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 2) activated at time =    7.600");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 73):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(2, 2):  t     a     t     t     t     t     t    p/s   p/s    t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 74):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     a     t     t     t     t     t     s     s     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 75):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  7.60 :     idle  7.60  idle  idle  idle  idle  idle  8.00  9.25  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 76):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 8) activated at time =    8.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 77):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(2, 8):  t     t     t     t     t     t     t     a    p/s    t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 78):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     t     t     t     t     t     a     s     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 79):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  8.00 :     idle  idle  idle  idle  idle  idle  idle  8.00  9.25  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 80):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 9) activated at time =    9.250");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 81):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(2, 9):  t     t     t     t     t     t     t     t     a     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 82):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     t     t     t     t     t     t     a     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 83):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"  9.25 :     idle  idle  idle  idle  idle  idle  idle  idle  9.25  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 84):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(3, 0): p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer( 85):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          s     s     s     s     s     s     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 86):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 20.00 :    21.53 27.60 22.00 24.19 22.01 21.84 22.00 28.00 29.25 25.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 87):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 1) activated at time =   21.530");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 88):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(3, 1):  a    p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer( 89):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          a     s     s     s     s     s     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 90):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 21.53 :    21.53 27.60 22.00 24.19 22.01 21.84 22.00 28.00 29.25 25.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 91):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 6) activated at time =   21.840");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 92):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(3, 6):  t    p/s   p/s   p/s   p/s    a    p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer( 93):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     s     s     s     a     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 94):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 21.84 :     idle 27.60 22.00 24.19 22.01 21.84 22.00 28.00 29.25 25.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 95):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 7) activated at time =   22.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer( 96):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(3, 7):  t    p/s   p/s   p/s   p/s    t     a    p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer( 97):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     s     s     s     t     a     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer( 98):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 22.00 :     idle 27.60 22.00 24.19 22.01  idle 22.00 28.00 29.25 25.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer( 99):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//      ^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 3) activated at time =   22.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(100):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(3, 3):  t    p/s    a    p/s   p/s    t     t    p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(101):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     a     s     s     t     t     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(102):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 22.00 :     idle 27.60 22.00 24.19 22.01  idle  idle 28.00 29.25 25.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(103):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 5) activated at time =   22.010");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(104):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(3, 5):  t    p/s    t    p/s    a     t     t    p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(105):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     t     s     a     t     t     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(106):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 22.01 :     idle 27.60  idle 24.19 22.01  idle  idle 28.00 29.25 25.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(107):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 4) activated at time =   24.190");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(108):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(3, 4):  t    p/s    t     a     t     t     t    p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(109):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     t     a     t     t     t     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(110):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 24.19 :     idle 27.60  idle 24.19  idle  idle  idle 28.00 29.25 25.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(111):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p(10) activated at time =   25.400");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(112):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(3,10):  t    p/s    t     t     t     t     t    p/s   p/s    a");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(113):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     s     t     t     t     t     t     s     s     a");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(114):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 25.40 :     idle 27.60  idle  idle  idle  idle  idle 28.00 29.25 25.40");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(115):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 2) activated at time =   27.600");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(116):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(3, 2):  t     a     t     t     t     t     t    p/s   p/s    t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(117):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     a     t     t     t     t     t     s     s     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(118):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 27.60 :     idle 27.60  idle  idle  idle  idle  idle 28.00 29.25  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(119):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 8) activated at time =   28.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(120):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(3, 8):  t     t     t     t     t     t     t     a    p/s    t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(121):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     t     t     t     t     t     a     s     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(122):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 28.00 :     idle  idle  idle  idle  idle  idle  idle 28.00 29.25  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(123):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 9) activated at time =   29.250");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(124):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(3, 9):  t     t     t     t     t     t     t     t     a     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(125):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     t     t     t     t     t     t     a     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(126):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 29.25 :     idle  idle  idle  idle  idle  idle  idle  idle 29.25  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(127):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(4, 0): p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(128):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          s     s     s     s     s     s     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(129):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 40.00 :    41.53 41.53 47.60 47.60 42.00 42.00 44.19 44.19 42.01 42.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(130):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 2) activated at time =   41.530");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(131):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(4, 2): p/s    a    p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(132):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          s     a     s     s     s     s     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(133):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 41.53 :    41.53 41.53 47.60 47.60 42.00 42.00 44.19 44.19 42.01 42.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(134):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 1) activated at time =   41.530");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(135):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(4, 1):  a     t    p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(136):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          a     t     s     s     s     s     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(137):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 41.53 :    41.53  idle 47.60 47.60 42.00 42.00 44.19 44.19 42.01 42.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(138):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 6) activated at time =   42.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(139):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(4, 6):  t     t    p/s   p/s   p/s    a    p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(140):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     s     a     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(141):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 42.00 :     idle  idle 47.60 47.60 42.00 42.00 44.19 44.19 42.01 42.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(142):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 5) activated at time =   42.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(143):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(4, 5):  t     t    p/s   p/s    a     t    p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(144):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     a     t     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(145):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 42.00 :     idle  idle 47.60 47.60 42.00  idle 44.19 44.19 42.01 42.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(146):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p(10) activated at time =   42.010");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(147):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(4,10):  t     t    p/s   p/s    t     t    p/s   p/s   p/s    a");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(148):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     t     t     s     s     s     a");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(149):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 42.01 :     idle  idle 47.60 47.60  idle  idle 44.19 44.19 42.01 42.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(150):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 9) activated at time =   42.010");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(151):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(4, 9):  t     t    p/s   p/s    t     t    p/s   p/s    a     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(152):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     t     t     s     s     a     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(153):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 42.01 :     idle  idle 47.60 47.60  idle  idle 44.19 44.19 42.01  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(154):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 8) activated at time =   44.190");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(155):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(4, 8):  t     t    p/s   p/s    t     t    p/s    a     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(156):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     t     t     s     a     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(157):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 44.19 :     idle  idle 47.60 47.60  idle  idle 44.19 44.19  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(158):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 7) activated at time =   44.190");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(159):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(4, 7):  t     t    p/s   p/s    t     t     a     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(160):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     t     t     a     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(161):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 44.19 :     idle  idle 47.60 47.60  idle  idle 44.19  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(162):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 4) activated at time =   47.600");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(163):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(4, 4):  t     t    p/s    a     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(164):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     a     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(165):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 47.60 :     idle  idle 47.60 47.60  idle  idle  idle  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(166):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 3) activated at time =   47.600");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(167):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(4, 3):  t     t     a     t     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(168):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     a     t     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(169):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 47.60 :     idle  idle 47.60  idle  idle  idle  idle  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(170):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(5, 0): p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(171):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          s     s     s     s     s     s     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(172):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 60.00 :    61.53 61.53 67.60 67.60 62.00 62.00 64.19 64.19 62.01 62.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(173):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 1) activated at time =   61.530");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(174):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(5, 1):  a    p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(175):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          a     s     s     s     s     s     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(176):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 61.53 :    61.53 61.53 67.60 67.60 62.00 62.00 64.19 64.19 62.01 62.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(177):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 2) activated at time =   61.530");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(178):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(5, 2):  t     a    p/s   p/s   p/s   p/s   p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(179):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     a     s     s     s     s     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(180):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 61.53 :     idle 61.53 67.60 67.60 62.00 62.00 64.19 64.19 62.01 62.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(181):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 5) activated at time =   62.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(182):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(5, 5):  t     t    p/s   p/s    a    p/s   p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(183):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     a     s     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(184):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 62.00 :     idle  idle 67.60 67.60 62.00 62.00 64.19 64.19 62.01 62.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(185):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 6) activated at time =   62.000");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(186):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(5, 6):  t     t    p/s   p/s    t     a    p/s   p/s   p/s   p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(187):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     t     a     s     s     s     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(188):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 62.00 :     idle  idle 67.60 67.60  idle 62.00 64.19 64.19 62.01 62.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(189):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 9) activated at time =   62.010");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(190):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(5, 9):  t     t    p/s   p/s    t     t    p/s   p/s    a    p/s");
+// <------------------------------------------------------------------------ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+answer(191):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     t     t     s     s     a     s");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(192):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 62.01 :     idle  idle 67.60 67.60  idle  idle 64.19 64.19 62.01 62.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(193):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p(10) activated at time =   62.010");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(194):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(5,10):  t     t    p/s   p/s    t     t    p/s   p/s    t     a");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(195):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     t     t     s     s     t     a");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(196):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 62.01 :     idle  idle 67.60 67.60  idle  idle 64.19 64.19  idle 62.01");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(197):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 7) activated at time =   64.190");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(198):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(5, 7):  t     t    p/s   p/s    t     t     a    p/s    t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(199):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     t     t     a     s     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(200):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 64.19 :     idle  idle 67.60 67.60  idle  idle 64.19 64.19  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(201):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 8) activated at time =   64.190");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(202):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(5, 8):  t     t    p/s   p/s    t     t     t     a     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(203):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     s     s     t     t     t     a     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(204):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 64.19 :     idle  idle 67.60 67.60  idle  idle  idle 64.19  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(205):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 3) activated at time =   67.600");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(206):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(5, 3):  t     t     a    p/s    t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(207):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     a     s     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(208):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 67.60 :     idle  idle 67.60 67.60  idle  idle  idle  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+answer(209):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"p( 4) activated at time =   67.600");
+// <------------------------------------ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+answer(210):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"State(5, 4):  t     t     t     a     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(211):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+"SQS:          t     t     t     a     t     t     t     t     t     t");
+// <----------------------------------------------------------------------- string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+answer(212):-copy(
+// <------ entity.name.function
+//    ^ punctuation.section.parens
+//     ^^^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//           ^^^^ entity.name.function
+//               ^ punctuation.section.parens
+" 67.60 :     idle  idle  idle 67.60  idle  idle  idle  idle  idle  idle");
+// <------------------------------------------------------------------------- string.quoted.double
+//                                                                       ^ punctuation.section.parens
+//                                                                        ^ punctuation.terminator.statement
+
+activationtimes:-copy("1.53 7.6 2 4.19 2.01 1.84 2 8.0 9.25 5.4");
+// <--------------- variable
+//             ^^ keyword.operator.assignment
+//               ^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                              ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+delaytimes:-copy(".01 .02 .05 .03 .08 .09 .04 .06 .06 .07");
+// <---------- variable
+//        ^^ keyword.operator.assignment
+//          ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+
+createobjects;
+// <------------- variable
+//           ^ punctuation.terminator.statement
+for i:=10 step -1 until 1 do activate pa(i);
+// <--- keyword.control.for
+//  ^ variable
+//   ^^ keyword.operator.assignment
+//     ^^ constant.numeric.decimal
+//        ^^^^ keyword.control.step
+//             ^ keyword.operator.arithmetic
+//              ^ constant.numeric.decimal
+//                ^^^^^ keyword.control.until
+//                      ^ constant.numeric.decimal
+//                        ^^ keyword.control.do
+//                           ^^^^^^^^ keyword.control.activate
+//                                    ^^ entity.name.function
+//                                      ^ punctuation.section.parens
+//                                       ^ variable
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+
+createobjects;
+// <------------- variable
+//           ^ punctuation.terminator.statement
+actime:-copy(activationtimes);
+// <------ variable
+//    ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+for i:=1 step 1 until 10 do activate pa(i) at time+getime;
+// <--- keyword.control.for
+//  ^ variable
+//   ^^ keyword.operator.assignment
+//     ^ constant.numeric.decimal
+//       ^^^^ keyword.control.step
+//            ^ constant.numeric.decimal
+//              ^^^^^ keyword.control.until
+//                    ^^ constant.numeric.decimal
+//                       ^^ keyword.control.do
+//                          ^^^^^^^^ keyword.control.activate
+//                                   ^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ variable
+//                                       ^ punctuation.section.parens
+//                                         ^^ keyword.control.at
+//                                            ^^^^ variable
+//                                                ^ keyword.operator.arithmetic
+//                                                 ^^^^^^ variable
+//                                                       ^ punctuation.terminator.statement
+startup;
+// <------- variable
+//     ^ punctuation.terminator.statement
+
+createobjects;
+// <------------- variable
+//           ^ punctuation.terminator.statement
+actime:-copy(activationtimes);
+// <------ variable
+//    ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+for i:=1 step 1 until 10 do activate pa(i) at time+getime prior;
+// <--- keyword.control.for
+//  ^ variable
+//   ^^ keyword.operator.assignment
+//     ^ constant.numeric.decimal
+//       ^^^^ keyword.control.step
+//            ^ constant.numeric.decimal
+//              ^^^^^ keyword.control.until
+//                    ^^ constant.numeric.decimal
+//                       ^^ keyword.control.do
+//                          ^^^^^^^^ keyword.control.activate
+//                                   ^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ variable
+//                                       ^ punctuation.section.parens
+//                                         ^^ keyword.control.at
+//                                            ^^^^ variable
+//                                                ^ keyword.operator.arithmetic
+//                                                 ^^^^^^ variable
+//                                                        ^^^^^ keyword.control.prior
+//                                                             ^ punctuation.terminator.statement
+startup;
+// <------- variable
+//     ^ punctuation.terminator.statement
+
+createobjects;
+// <------------- variable
+//           ^ punctuation.terminator.statement
+actime:-copy(activationtimes);
+// <------ variable
+//    ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+for i:=1 step 2 until 9 do  activate pa(i) at time+getime;
+// <--- keyword.control.for
+//  ^ variable
+//   ^^ keyword.operator.assignment
+//     ^ constant.numeric.decimal
+//       ^^^^ keyword.control.step
+//            ^ constant.numeric.decimal
+//              ^^^^^ keyword.control.until
+//                    ^ constant.numeric.decimal
+//                      ^^ keyword.control.do
+//                          ^^^^^^^^ keyword.control.activate
+//                                   ^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ variable
+//                                       ^ punctuation.section.parens
+//                                         ^^ keyword.control.at
+//                                            ^^^^ variable
+//                                                ^ keyword.operator.arithmetic
+//                                                 ^^^^^^ variable
+//                                                       ^ punctuation.terminator.statement
+for i:=2 step 2 until 10 do activate pa(i) before pa(i-1);
+// <--- keyword.control.for
+//  ^ variable
+//   ^^ keyword.operator.assignment
+//     ^ constant.numeric.decimal
+//       ^^^^ keyword.control.step
+//            ^ constant.numeric.decimal
+//              ^^^^^ keyword.control.until
+//                    ^^ constant.numeric.decimal
+//                       ^^ keyword.control.do
+//                          ^^^^^^^^ keyword.control.activate
+//                                   ^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ variable
+//                                       ^ punctuation.section.parens
+//                                         ^^^^^^ keyword.control.before
+//                                                ^^ entity.name.function
+//                                                  ^ punctuation.section.parens
+//                                                   ^ variable
+//                                                    ^ keyword.operator.arithmetic
+//                                                     ^ constant.numeric.decimal
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+startup;
+// <------- variable
+//     ^ punctuation.terminator.statement
+
+createobjects;
+// <------------- variable
+//           ^ punctuation.terminator.statement
+actime:-copy(activationtimes);
+// <------ variable
+//    ^^ keyword.operator.assignment
+//      ^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^^^^^^^^ variable
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+for i:=1 step 2 until 9 do  activate pa(i) at time+getime;
+// <--- keyword.control.for
+//  ^ variable
+//   ^^ keyword.operator.assignment
+//     ^ constant.numeric.decimal
+//       ^^^^ keyword.control.step
+//            ^ constant.numeric.decimal
+//              ^^^^^ keyword.control.until
+//                    ^ constant.numeric.decimal
+//                      ^^ keyword.control.do
+//                          ^^^^^^^^ keyword.control.activate
+//                                   ^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ variable
+//                                       ^ punctuation.section.parens
+//                                         ^^ keyword.control.at
+//                                            ^^^^ variable
+//                                                ^ keyword.operator.arithmetic
+//                                                 ^^^^^^ variable
+//                                                       ^ punctuation.terminator.statement
+for i:=2 step 2 until 10 do activate pa(i) after pa(i-1);
+// <--- keyword.control.for
+//  ^ variable
+//   ^^ keyword.operator.assignment
+//     ^ constant.numeric.decimal
+//       ^^^^ keyword.control.step
+//            ^ constant.numeric.decimal
+//              ^^^^^ keyword.control.until
+//                    ^^ constant.numeric.decimal
+//                       ^^ keyword.control.do
+//                          ^^^^^^^^ keyword.control.activate
+//                                   ^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ variable
+//                                       ^ punctuation.section.parens
+//                                         ^^^^^ keyword.control.after
+//                                               ^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^ variable
+//                                                   ^ keyword.operator.arithmetic
+//                                                    ^ constant.numeric.decimal
+//                                                     ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+startup;
+// <------- variable
+//     ^ punctuation.terminator.statement
+
+   for i:=1 step 1 until utno do
+// ^^^ keyword.control.for
+//     ^ variable
+//      ^^ keyword.operator.assignment
+//        ^ constant.numeric.decimal
+//          ^^^^ keyword.control.step
+//               ^ constant.numeric.decimal
+//                 ^^^^^ keyword.control.until
+//                       ^^^^ variable
+//                            ^^ keyword.control.do
+   if ut(i)<>answer(i) then found_error:=true;
+// ^^ keyword.control.if
+//    ^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^ variable
+//        ^ punctuation.section.parens
+//         ^^ keyword.operator.comparison
+//           ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                     ^^^^ keyword.control.then
+//                          ^^^^^^^^^^^ variable
+//                                     ^^ keyword.operator.assignment
+//                                       ^^^^ constant.language.bool
+//                                           ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   Begin Outtext("*** ERROR : Output"); sysout.Outimage;
+// ^^^^^ keyword.control.begin
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+//                                      ^^^^^^ variable
+//                                            ^ punctuation.accessor
+//                                             ^^^^^^^^ variable
+//                                                     ^ punctuation.terminator.statement
+         Outtext("            Outputlines which did not match:");
+//       ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+         sysout.outimage;
+//       ^^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+         for i:=1 step 1 until utno do
+//       ^^^ keyword.control.for
+//           ^ variable
+//            ^^ keyword.operator.assignment
+//              ^ constant.numeric.decimal
+//                ^^^^ keyword.control.step
+//                     ^ constant.numeric.decimal
+//                       ^^^^^ keyword.control.until
+//                             ^^^^ variable
+//                                  ^^ keyword.control.do
+         if answer(i) <> ut(i) then
+//       ^^ keyword.control.if
+//          ^^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ variable
+//                  ^ punctuation.section.parens
+//                    ^^ keyword.operator.comparison
+//                       ^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ variable
+//                           ^ punctuation.section.parens
+//                             ^^^^ keyword.control.then
+         begin outchar('*'); outtext(ut(i)); sysout.outimage;
+//       ^^^^^ keyword.control.begin
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^ constant.character
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ variable
+//                                       ^^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^ variable
+//                                                 ^ punctuation.accessor
+//                                                  ^^^^^^^^ variable
+//                                                          ^ punctuation.terminator.statement
+               outchar('-'); outtext(answer(i)); sysout.outimage
+//             ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^ constant.character
+//                        ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^^^^^ entity.name.function
+//                                         ^ punctuation.section.parens
+//                                          ^ variable
+//                                           ^^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+//                                               ^^^^^^ variable
+//                                                     ^ punctuation.accessor
+//                                                      ^^^^^^^^ variable
+         end
+//       ^^^ keyword.control.end
+   end
+// ^^^ keyword.control.end
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      sysout.Outimage
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END OF Simula a.s - SIMULA TEST NO 97 ") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+   sysout.Outimage
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^^ variable
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement

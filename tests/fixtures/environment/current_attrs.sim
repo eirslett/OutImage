@@ -1,0 +1,17 @@
+! Chapter 9 bare CURRENTLOWTEN / CURRENTDECIMALMARK identifiers.;
+begin
+    character prev;
+    boolean ok;
+    ok := CURRENTLOWTEN = '&' and CURRENTDECIMALMARK = '.';
+    prev := lowten('&');
+    CURRENTLOWTEN := 'E';
+    ok := ok and CURRENTLOWTEN = 'E' and prev = '&';
+    prev := decimalmark('.');
+    CURRENTDECIMALMARK := ',';
+    ok := ok and CURRENTDECIMALMARK = ',' and prev = '.';
+    ! Restore defaults for later de-edit.;
+    CURRENTLOWTEN := '&';
+    CURRENTDECIMALMARK := '.';
+    if ok then OutText("ok") else OutText("fail");
+    OutImage;
+end

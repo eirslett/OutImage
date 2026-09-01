@@ -1,0 +1,120 @@
+// SYNTAX TEST "source.simula" "simtst53"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 53
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Check that no syntax error occures when the virtual part on a
+// <----------------------------------------------------------------------------- comment.directive
+%               prefix level contains an identifier which is defined on a lower
+// <------------------------------------------------------------------------------- comment.directive
+%               prefix level, but not in a virtual part (see ERRTEST-35).
+// <------------------------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   31/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Class A ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+      Virtual : procedure P1 ;
+//    ^^^^^^^ keyword.other.virtual
+//            ^ punctuation.separator
+//              ^^^^^^^^^ storage.type
+//                        ^^ entity.name.function
+//                           ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      Procedure P ;;
+//    ^^^^^^^^^ storage.type
+//              ^ entity.name.function
+//                ^^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   A Class B ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      Procedure P1 ;;
+//    ^^^^^^^^^ storage.type
+//              ^^ entity.name.function
+//                 ^^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   B Class C ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      Virtual : Procedure P ;
+//    ^^^^^^^ keyword.other.virtual
+//            ^ punctuation.separator
+//              ^^^^^^^^^ storage.type
+//                        ^ entity.name.function
+//                          ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      Procedure P ;;
+//    ^^^^^^^^^ storage.type
+//              ^ entity.name.function
+//                ^^ punctuation.terminator.statement
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   outtext("--- START Simula a.s. TEST 53"); Outimage;
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^^ variable
+//                                                   ^ punctuation.terminator.statement
+   outtext("--- Test simple virtual"); Outimage; Outimage;
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+//                                     ^^^^^^^^ variable
+//                                             ^ punctuation.terminator.statement
+//                                               ^^^^^^^^ variable
+//                                                       ^ punctuation.terminator.statement
+   C begin P1; end;
+// ^ entity.name.class
+//   ^^^^^ keyword.control.begin
+//         ^^ variable
+//           ^ punctuation.terminator.statement
+//             ^^^ keyword.control.end
+//                ^ punctuation.terminator.statement
+   outtext("--- NO ERRORS FOUND IN THIS TEST"); Outimage;
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^^ variable
+//                                                      ^ punctuation.terminator.statement
+   outtext("--- END Simula a.s. TEST 53"); Outimage;
+// ^^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.terminator.statement
+//                                         ^^^^^^^^ variable
+//                                                 ^ punctuation.terminator.statement
+END
+// <--- keyword.control.end

@@ -1,0 +1,4 @@
+begin
+B class A; begin end;
+A class B; begin end;
+end;

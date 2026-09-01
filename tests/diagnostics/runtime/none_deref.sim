@@ -1,0 +1,7 @@
+begin
+class C; integer x; begin end;
+ref(C) p;
+p :- none;
+OutInt(p.x, 1);
+OutImage;
+end;

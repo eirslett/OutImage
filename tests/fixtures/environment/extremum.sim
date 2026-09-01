@@ -1,0 +1,9 @@
+begin
+    boolean ok;
+    ok := max(3, 7) = 7
+       and min(3, 7) = 3
+       and max("zebra", "apple") = "zebra"
+       and min("zebra", "apple") = "apple";
+    if ok then OutText("ok") else OutText("fail");
+    OutImage;
+end

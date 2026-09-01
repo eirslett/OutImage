@@ -1,0 +1,9 @@
+[E0902] Error: NONE REFERENCE: remote access through none reference
+   ╭─[ none_deref.sim:5:8 ]
+   │
+ 5 │ OutInt(p.x, 1);
+   │        ─┬─  
+   │         ╰─── here
+   │ 
+   │ Help: `none` has no attributes; test `x =/= none` before a remote access
+───╯

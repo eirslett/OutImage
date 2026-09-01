@@ -1,0 +1,160 @@
+// SYNTAX TEST "source.simula" "simtst40"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 40
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test separate compilation of procedures.
+// <-------------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:      Use two external procedures which call each other.
+// <------------------------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  EXTERNAL PROCEDURES:  pb0, pb, pa.
+// <------------------------------------- comment.directive
+%
+// <- comment.directive
+%  NOTE:    1 - Procedure for testing:
+// <-------------------------------------- comment.directive
+%                   compile sourcefile pb0 into objectfile pb
+// <------------------------------------------------------------- comment.directive
+%                   compile pa
+// <------------------------------ comment.directive
+%                   recompile sourcefile pb into objectfile pb
+// <-------------------------------------------------------------- comment.directive
+%                   compile simtest-40
+// <-------------------------------------- comment.directive
+%                   execute simtest-40
+// <-------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   23/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   external integer procedure pa, pb ;
+// ^^^^^^^^ keyword.other.external
+//          ^^^^^^^ storage.type
+//                  ^^^^^^^^^ storage.type
+//                            ^^ entity.name.function
+//                              ^ punctuation.separator
+//                                ^^ entity.name.function
+//                                   ^ punctuation.terminator.statement
+
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+   integer i ;
+// ^^^^^^^ storage.type
+//         ^ variable
+//           ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 40") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test use of external procedures.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   i := pa (0) ;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ constant.numeric.decimal
+//           ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+   if i = 45 then
+// ^^ keyword.control.if
+//    ^ variable
+//      ^ keyword.operator.comparison
+//        ^^ constant.numeric.decimal
+//           ^^^^ keyword.control.then
+   else
+// ^^^^ keyword.control.else
+   begin
+// ^^^^^ keyword.control.begin
+      Outtext ("*** ERROR : PA returned with wrong value.") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      Outtext ("            Erroneus value : ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Outint (i, 5) ;
+//    ^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^ variable
+//             ^ punctuation.separator
+//               ^ constant.numeric.decimal
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      Outimage ;
+//    ^^^^^^^^ variable
+//             ^ punctuation.terminator.statement
+      found_error := true
+//    ^^^^^^^^^^^ variable
+//                ^^ keyword.operator.assignment
+//                   ^^^^ constant.language.bool
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 40") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

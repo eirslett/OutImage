@@ -1,0 +1,9 @@
+[E0501] Error: ILLEGAL MODE: class `C` parameter `x`: call-by-name is not permitted for class parameters
+   ╭─[ name_parameter.sim:1:19 ]
+   │
+ 1 │ begin class C(x); name x; integer x; begin end; end;
+   │                   ───┬──  
+   │                      ╰──── here
+   │ 
+   │ Note: class parameters cannot be transmitted by name; use `value` for arithmetic/boolean/character; object references, `text`, and arrays default to transmission by reference
+───╯

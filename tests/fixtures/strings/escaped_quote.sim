@@ -1,0 +1,3 @@
+begin
+  text str = "Hello with escaped"" quote";
+end

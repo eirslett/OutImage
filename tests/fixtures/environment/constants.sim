@@ -1,0 +1,21 @@
+! Chapter 9 ENVIRONMENT constants (§9.6).;
+begin
+    integer hi, lo, mr;
+    boolean ok;
+    hi := maxint;
+    lo := minint;
+    mr := maxrank;
+    ok := hi > 0
+       and lo < 0
+       and mr > 0
+       and maxint = hi
+       and minint = lo
+       and maxrank = mr
+       and maxreal > 0.0
+       and minreal > 0.0
+       and maxlongreal > 0.0
+       and minlongreal > 0.0
+       and simulaid.length > 0;
+    if ok then OutText("ok") else OutText("fail");
+    OutImage;
+end

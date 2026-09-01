@@ -1,0 +1,18 @@
+! Standard library module: filesystem
+!
+! Simula-facing API for file and directory operations. Procedures marked
+! `external` are implemented by the OutImage runtime (Rust).;
+
+class File;
+    text procedure name;
+    boolean procedure is_open;
+begin
+end File;
+
+ref(File) procedure open(text path, text mode); external;
+text procedure read(ref(File) file); external;
+procedure write(ref(File) file, text content); external;
+procedure close(ref(File) file); external;
+
+boolean procedure exists(text path); external;
+text array procedure list_dir(text path); external;

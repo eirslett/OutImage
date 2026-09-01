@@ -1,0 +1,1 @@
+begin class C; hidden x; begin integer x; end; end;

@@ -1,0 +1,9 @@
+[E0602] Error: EXTERNAL SPEC: external C procedure `add` requires a specification (`is procedure …`)
+   ╭─[ missing_spec.sim:1:1 ]
+   │
+ 1 │ external C procedure add; begin end;
+   │ ────────────┬───────────  
+   │             ╰───────────── here
+   │ 
+   │ Help: add `is procedure …;` with an empty body
+───╯

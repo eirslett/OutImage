@@ -1,0 +1,10 @@
+begin
+    text t;
+    character c1, c2;
+    t :- "ab";
+    t.setpos(1);
+    c1 := t.getchar;
+    c2 := t.getchar;
+    if c1 = 'a' and c2 = 'b' and not t.more then OutText("ok") else OutText("fail");
+    OutImage;
+end

@@ -1,0 +1,3 @@
+begin
+  text str = "Hello with !111! escaped !222! codes";
+end

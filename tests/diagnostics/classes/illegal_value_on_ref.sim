@@ -1,0 +1,1 @@
+begin class Point; begin end; class C(p); value p; ref(Point) p; begin end; end;

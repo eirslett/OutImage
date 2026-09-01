@@ -1,0 +1,1 @@
+begin class P; begin end; ref(P) p; p := none; end;

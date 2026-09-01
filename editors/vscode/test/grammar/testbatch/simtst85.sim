@@ -1,0 +1,1517 @@
+// SYNTAX TEST "source.simula" "simtst85"
+% =================================   Main   program  ===========
+// <----------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 85
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE: Test Directfile. First set up a directfile with five records
+// <------------------------------------------------------------------------ comment.directive
+%           each of 12 characters, in edited format.
+// <---------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:
+// <---------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:
+// <-------------- comment.directive
+% ==========================================================
+// <------------------------------------------------------------ comment.directive
+BEGIN BOOLEAN  errorfound;
+// <----- keyword.control.begin
+//    ^^^^^^^ storage.type
+//             ^^^^^^^^^^ variable
+//                       ^ punctuation.terminator.statement
+
+outtext("--- START Simula a.s. TEST 85 (test DIRECTFILE)"); outimage;
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+//                                                          ^^^^^^^^ variable
+//                                                                  ^ punctuation.terminator.statement
+outtext("    - does 'new directfile(""direct85"")'.open(blanks(12)");
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                 ^ punctuation.section.parens
+//                                                                  ^ punctuation.terminator.statement
+outimage; outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+
+INSPECT NEW DIRECTFILE("direct85") DO BEGIN
+// <------- keyword.control.inspect
+//      ^^^ keyword.control.new
+//          ^^^^^^^^^^ entity.name.class
+//                    ^ punctuation.section.parens
+//                     ^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.section.parens
+//                                 ^^ keyword.control.do
+//                                    ^^^^^ keyword.control.begin
+
+   INTEGER  i, j;
+// ^^^^^^^ storage.type
+//          ^ variable
+//           ^ punctuation.separator
+//             ^ variable
+//              ^ punctuation.terminator.statement
+
+   PROCEDURE check(txt,title,lngth); TEXT txt, title; INTEGER lngth;
+// ^^^^^^^^^ storage.type
+//           ^^^^^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^^^ variable.parameter
+//                    ^ punctuation.separator
+//                     ^^^^^ variable.parameter
+//                          ^ punctuation.separator
+//                           ^^^^^ variable.parameter
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+//                                   ^^^^ storage.type
+//                                        ^^^ variable
+//                                           ^ punctuation.separator
+//                                             ^^^^^ variable
+//                                                  ^ punctuation.terminator.statement
+//                                                    ^^^^^^^ storage.type
+//                                                            ^^^^^ variable
+//                                                                 ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      IF SYSOUT.IMAGE.SUB(1,lngth) <> txt THEN
+//    ^^ keyword.control.if
+//       ^^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^ variable
+//                   ^ punctuation.accessor
+//                    ^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                          ^^^^^ variable
+//                               ^ punctuation.section.parens
+//                                 ^^ keyword.operator.comparison
+//                                    ^^^ variable
+//                                        ^^^^ keyword.control.then
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         SYSOUT.OUTTEXT(" <-- was result"); SYSOUT.OUTIMAGE;
+//       ^^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+//                                          ^^^^^^ variable
+//                                                ^ punctuation.accessor
+//                                                 ^^^^^^^^ variable
+//                                                         ^ punctuation.terminator.statement
+         SYSOUT.OUTTEXT(txt);
+//       ^^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+         SYSOUT.OUTTEXT(" <-- was expected"); SYSOUT.OUTIMAGE;
+//       ^^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+//                                            ^^^^^^ variable
+//                                                  ^ punctuation.accessor
+//                                                   ^^^^^^^^ variable
+//                                                           ^ punctuation.terminator.statement
+         SYSOUT.OUTTEXT("*** Error in test of: ");
+//       ^^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         SYSOUT.OUTTEXT(title); SYSOUT.OUTIMAGE; SYSOUT.OUTIMAGE;
+//       ^^^^^^ variable
+//             ^ punctuation.accessor
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^ variable
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^ variable
+//                                    ^ punctuation.accessor
+//                                     ^^^^^^^^ variable
+//                                             ^ punctuation.terminator.statement
+//                                               ^^^^^^ variable
+//                                                     ^ punctuation.accessor
+//                                                      ^^^^^^^^ variable
+//                                                              ^ punctuation.terminator.statement
+         errorfound := TRUE;
+//       ^^^^^^^^^^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^^^^ constant.language.bool
+//                         ^ punctuation.terminator.statement
+      END;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+      SYSOUT.IMAGE := NOTEXT; SYSOUT.IMAGE.SETPOS(1);
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^^ constant.language.null
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^ variable
+//                                  ^ punctuation.accessor
+//                                   ^^^^^ variable
+//                                        ^ punctuation.accessor
+//                                         ^^^^^^ entity.name.function
+//                                               ^ punctuation.section.parens
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+      IMAGE := NOTEXT;               IMAGE.SETPOS(1);
+//    ^^^^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^^^^^ constant.language.null
+//                   ^ punctuation.terminator.statement
+//                                   ^^^^^ variable
+//                                        ^ punctuation.accessor
+//                                         ^^^^^^ entity.name.function
+//                                               ^ punctuation.section.parens
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+   END of procedure check;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^^^^^^^^ comment.block
+//                       ^ punctuation.terminator.statement
+
+   SETACCESS("CREATE");
+// ^^^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+   OPEN(BLANKS(12));
+// ^^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^ constant.numeric.decimal
+//               ^^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+
+   SYSOUT.OUTINT(IMAGE.LENGTH,3);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^^ variable
+//                           ^ punctuation.separator
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+   SYSOUT.OUTINT(IMAGE.POS,3);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^ variable
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+   SYSOUT.OUTINT(LOCATION,3);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+
+   check(" 12  1  1","IMAGE.LENGTH, IMAGE.POS and LOCATION after OPEN",9);
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^ string.quoted.double
+//                  ^ punctuation.separator
+//                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.separator
+//                                                                     ^ constant.numeric.decimal
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+
+   FOR i := 1 STEP 1 UNTIL 5 DO
+// ^^^ keyword.control.for
+//     ^ variable
+//       ^^ keyword.operator.assignment
+//          ^ constant.numeric.decimal
+//            ^^^^ keyword.control.step
+//                 ^ constant.numeric.decimal
+//                   ^^^^^ keyword.control.until
+//                         ^ constant.numeric.decimal
+//                           ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      LOCATE(6 - i);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//             ^ keyword.operator.arithmetic
+//               ^ variable
+//                ^ punctuation.section.parens
+//                 ^ punctuation.terminator.statement
+      SETPOS(9);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+      OUTINT(i, 4);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      OUTIMAGE
+//    ^^^^^^^^ variable
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   LOCATE(2);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   SYSOUT.OUTINT(LOCATION,3);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTINT(ININT,3);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^ variable
+//                    ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+   LOCATE(5);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   SYSOUT.OUTINT(LOCATION,3);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTINT(ININT,3);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^ variable
+//                    ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+   LOCATE(3);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   SYSOUT.OUTINT(LOCATION,3);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^^^^ variable
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTINT(ININT,3);
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^ variable
+//                    ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.section.parens
+//                       ^ punctuation.terminator.statement
+
+   check("  2  4  5  1  3  3","LOCATE, LOCATION and ININT",18);
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.separator
+//                                                         ^^ constant.numeric.decimal
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.terminator.statement
+
+                                       ! SCAN FILE SEQUENTIALLY     ;
+//                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.block
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   SETPOS(13);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^ constant.numeric.decimal
+//          ^ punctuation.section.parens
+//           ^ punctuation.terminator.statement
+   i := 1;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^ constant.numeric.decimal
+//       ^ punctuation.terminator.statement
+   WHILE i <= 5 DO
+// ^^^^^ keyword.control.while
+//       ^ variable
+//         ^^ keyword.operator.comparison
+//            ^ constant.numeric.decimal
+//              ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      SYSOUT.OUTINT(ININT, 5);
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^ variable
+//                       ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+      i := i + 1
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^ variable
+//           ^ keyword.operator.arithmetic
+//             ^ constant.numeric.decimal
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   check("    5    4    3    2    1",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.separator
+         "Sequential ININT without INIMAGE",25);
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.separator
+//                                          ^^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   WHILE  NOT LASTITEM  DO SYSOUT.OUTREAL(INREAL, 1, 7);
+// ^^^^^ keyword.control.while
+//        ^^^ keyword.operator
+//            ^^^^^^^^ variable
+//                      ^^ keyword.control.do
+//                         ^^^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^^^^^^ variable
+//                                              ^ punctuation.separator
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.separator
+//                                                   ^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+
+   check(" 5&+000 4&+000 3&+000 2&+000 1&+000", "INREAL and LASTITEM",35);
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.separator
+//                                              ^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.separator
+//                                                                    ^^ constant.numeric.decimal
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   WHILE  NOT LASTITEM  DO SYSOUT.OUTINT(INFRAC, 10);
+// ^^^^^ keyword.control.while
+//        ^^^ keyword.operator
+//            ^^^^^^^^ variable
+//                      ^^ keyword.control.do
+//                         ^^^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^^^^ entity.name.function
+//                                      ^ punctuation.section.parens
+//                                       ^^^^^^ variable
+//                                             ^ punctuation.separator
+//                                               ^^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+
+   check("         5         4         3         2         1",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                           ^ punctuation.separator
+         "INFRAC and LASTITEM",50);
+//       ^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                            ^ punctuation.separator
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   WHILE  NOT LASTITEM  DO SYSOUT.OUTCHAR(INCHAR);
+// ^^^^^ keyword.control.while
+//        ^^^ keyword.operator
+//            ^^^^^^^^ variable
+//                      ^^ keyword.control.do
+//                         ^^^^^^ variable
+//                               ^ punctuation.accessor
+//                                ^^^^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^^^^^^ variable
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+
+   check("54321", "INCHAR and LASTITEM",5);
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^ string.quoted.double
+//              ^ punctuation.separator
+//                ^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   WHILE NOT ENDFILE DO
+// ^^^^^ keyword.control.while
+//       ^^^ keyword.operator
+//           ^^^^^^^ variable
+//                   ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      SYSOUT.OUTTEXT(INTEXT(12));
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^ constant.numeric.decimal
+//                            ^^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+      INIMAGE;
+//    ^^^^^^^ variable
+//           ^ punctuation.terminator.statement
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   check("           5           4           3           2           1",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "INTEXT and ENDFILE",60);
+//       ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.separator
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+
+   BEGIN
+// ^^^^^ keyword.control.begin
+      TEXT ARRAY t(1:5);
+//    ^^^^ storage.type
+//         ^^^^^ storage.type
+//               ^ entity.name.function
+//                ^ punctuation.section.parens
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      t(1)  :- "1A1B1C1D1E1F";
+//    ^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.terminator.statement
+      t(2)  :- "2A2B2C2D2E2F";
+//    ^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.terminator.statement
+      t(3)  :- "3A3B3C3D3E3F";
+//    ^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.terminator.statement
+      t(4)  :- "4A4B4C4D4E4F";
+//    ^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.terminator.statement
+      t(5)  :- "5A5B5C5D5E5F";
+//    ^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+//             ^^^^^^^^^^^^^^ string.quoted.double
+//                           ^ punctuation.terminator.statement
+
+      LOCATE(1);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+      FOR i := 1 STEP 1 UNTIL 5 DO
+//    ^^^ keyword.control.for
+//        ^ variable
+//          ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//               ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                      ^^^^^ keyword.control.until
+//                            ^ constant.numeric.decimal
+//                              ^^ keyword.control.do
+      BEGIN
+//    ^^^^^ keyword.control.begin
+         IMAGE := t(i);
+//       ^^^^^ variable
+//             ^^ keyword.operator.assignment
+//                ^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+         OUTIMAGE;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+      END;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      LOCATE(1);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+      INIMAGE;
+//    ^^^^^^^ variable
+//           ^ punctuation.terminator.statement
+      SYSOUT.OUTTEXT(INTEXT(60));
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^^ entity.name.function
+//                  ^ punctuation.section.parens
+//                   ^^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^ constant.numeric.decimal
+//                            ^^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+
+      check("1A1B1C1D1E1F2A2B2C2D2E2F3A3B3C3D3E3F4A4B4C4D4E4F5A5B5C5D5E5F",
+//    ^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                        ^ punctuation.separator
+            "OUTIMAGE and INTEXT",60);
+//          ^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                               ^ punctuation.separator
+//                                ^^ constant.numeric.decimal
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   IMAGE.SETPOS(1);
+// ^^^^^ variable
+//      ^ punctuation.accessor
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   WHILE  LOCATION <= 5  DO  OUTINT(LOCATION, 3);
+// ^^^^^ keyword.control.while
+//        ^^^^^^^^ variable
+//                 ^^ keyword.operator.comparison
+//                    ^ constant.numeric.decimal
+//                       ^^ keyword.control.do
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^^^^^^^ variable
+//                                          ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTTEXT(INTEXT(60));
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   check("  1  1  1  1  1  2  2  2  2  3  3  3  3  4  4  4  4  5  5  5",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "OUTINT and LOCATION",60);
+//       ^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                            ^ punctuation.separator
+//                             ^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   IMAGE.SETPOS(1);
+// ^^^^^ variable
+//      ^ punctuation.accessor
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   WHILE LOCATION <= 5 DO OUTREAL(LOCATION, 1, 6);
+// ^^^^^ keyword.control.while
+//       ^^^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+//                        ^^^^^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^^^^^^^^ variable
+//                                        ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTTEXT(INTEXT(60));
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   check(" 1&+00 1&+00 1&+00 2&+00 2&+00 3&+00 3&+00 4&+00 4&+00 5&+00",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "OUTREAL",60);
+//       ^^^^^^^^^ string.quoted.double
+//                ^ punctuation.separator
+//                 ^^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   IMAGE.SETPOS(1);
+// ^^^^^ variable
+//      ^ punctuation.accessor
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   WHILE LOCATION <= 5 DO OUTFIX(LOCATION, 3, 6);
+// ^^^^^ keyword.control.while
+//       ^^^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+//                        ^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^^^^^^^ variable
+//                                       ^ punctuation.separator
+//                                         ^ constant.numeric.decimal
+//                                          ^ punctuation.separator
+//                                            ^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTTEXT(INTEXT(60));
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   check(" 1.000 1.000 1.000 2.000 2.000 3.000 3.000 4.000 4.000 5.000",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "OUTFIX",60);
+//       ^^^^^^^^ string.quoted.double
+//               ^ punctuation.separator
+//                ^^ constant.numeric.decimal
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   IMAGE.SETPOS(1);
+// ^^^^^ variable
+//      ^ punctuation.accessor
+//       ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   WHILE LOCATION <= 5 DO OUTFRAC(LOCATION, 4, 12);
+// ^^^^^ keyword.control.while
+//       ^^^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+//                        ^^^^^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^^^^^^^^ variable
+//                                        ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.separator
+//                                             ^^ constant.numeric.decimal
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTTEXT(INTEXT(60));
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   check("      .000 1      .000 1      .000 2      .000 3      .000 4",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "OUTFRAC",60);
+//       ^^^^^^^^^ string.quoted.double
+//                ^ punctuation.separator
+//                 ^^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   WHILE LOCATION <= 5 DO
+// ^^^^^ keyword.control.while
+//       ^^^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      SETPOS(LOCATION);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^ variable
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+      OUTCHAR('+');
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^ constant.character
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+      OUTIMAGE;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTTEXT(INTEXT(60));
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   check("+            +            +            +            +       ",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "OUTCHAR",60);
+//       ^^^^^^^^^ string.quoted.double
+//                ^ punctuation.separator
+//                 ^^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   WHILE LOCATION <= 4 DO
+// ^^^^^ keyword.control.while
+//       ^^^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      SETPOS(9);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+      OUTINT(LOCATION,5);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^ variable
+//                   ^ punctuation.separator
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+   OUTIMAGE;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTTEXT(INTEXT(60));
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   check("                1           2           3           4       ",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "OUTINT with forced OUTIMAGE",60);
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.separator
+//                                     ^^ constant.numeric.decimal
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   WHILE LOCATION <= 4 DO
+// ^^^^^ keyword.control.while
+//       ^^^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      SETPOS(8);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+      OUTREAL(LOCATION, 1, 6);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+   OUTIMAGE;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTTEXT(INTEXT(60));
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   check("             1&+00       2&+00       3&+00       4&+00      ",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "OUTREAL with forced OUTIMAGE",60);
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^^ constant.numeric.decimal
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   WHILE LOCATION <= 4 DO
+// ^^^^^ keyword.control.while
+//       ^^^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      SETPOS(8);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+      OUTFIX(LOCATION, 3, 6);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^^ variable
+//                   ^ punctuation.separator
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+   OUTIMAGE;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTTEXT(INTEXT(60));
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   check("             1.000       2.000       3.000       4.000      ",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "OUTFIX with forced OUTIMAGE",60);
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.separator
+//                                     ^^ constant.numeric.decimal
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   WHILE LOCATION <= 4 DO
+// ^^^^^ keyword.control.while
+//       ^^^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      SETPOS(6);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^ constant.numeric.decimal
+//            ^ punctuation.section.parens
+//             ^ punctuation.terminator.statement
+      OUTFRAC(LOCATION, 4, 8);
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+   OUTIMAGE;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTTEXT(INTEXT(60));
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   check("              .000 1      .000 2      .000 3      .000 4    ",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "OUTFRAC with forced OUTIMAGE",60);
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^^ constant.numeric.decimal
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   WHILE LOCATION <= 4 DO
+// ^^^^^ keyword.control.while
+//       ^^^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      SETPOS(13);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+      OUTCHAR('+');
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^ constant.character
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+   OUTIMAGE;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTTEXT(INTEXT(60));
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   check("            +           +           +           +           ",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "OUTCHAR with forced OUTIMAGE",60);
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^^ constant.numeric.decimal
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   WHILE LOCATION <= 4 DO
+// ^^^^^ keyword.control.while
+//       ^^^^^^^^ variable
+//                ^^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^ keyword.control.do
+   BEGIN
+// ^^^^^ keyword.control.begin
+      SETPOS(10);
+//    ^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^ constant.numeric.decimal
+//             ^ punctuation.section.parens
+//              ^ punctuation.terminator.statement
+      OUTTEXT("THIS")
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^ string.quoted.double
+//                  ^ punctuation.section.parens
+   END;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+   OUTIMAGE;
+// ^^^^^^^^ variable
+//         ^ punctuation.terminator.statement
+
+   LOCATE(1);
+// ^^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//          ^ punctuation.terminator.statement
+   INIMAGE;
+// ^^^^^^^ variable
+//        ^ punctuation.terminator.statement
+   SYSOUT.OUTTEXT(INTEXT(60));
+// ^^^^^^ variable
+//       ^ punctuation.accessor
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ constant.numeric.decimal
+//                         ^^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+   check("            THIS        THIS        THIS        THIS        ",
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.separator
+         "OUTTEXT with forced OUTIMAGE",60);
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                      ^^ constant.numeric.decimal
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+
+   SETACCESS("PURGE");
+// ^^^^^^^^^ entity.name.function
+//          ^ punctuation.section.parens
+//           ^^^^^^^ string.quoted.double
+//                  ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+   CLOSE;
+// ^^^^^ variable
+//      ^ punctuation.terminator.statement
+
+   IF IMAGE == NOTEXT  THEN SYSOUT.OUTTEXT("TRUE")
+// ^^ keyword.control.if
+//    ^^^^^ variable
+//          ^^ keyword.operator.comparison
+//             ^^^^^^ constant.language.null
+//                     ^^^^ keyword.control.then
+//                          ^^^^^^ variable
+//                                ^ punctuation.accessor
+//                                 ^^^^^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+                       ELSE SYSOUT.OUTTEXT("FALSE");
+//                     ^^^^ keyword.control.else
+//                          ^^^^^^ variable
+//                                ^ punctuation.accessor
+//                                 ^^^^^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+
+   check("TRUE","IMAGE after CLOSE",4);
+// ^^^^^ entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^ string.quoted.double
+//             ^ punctuation.separator
+//              ^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                 ^ punctuation.separator
+//                                  ^ constant.numeric.decimal
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+
+
+END of INSPECT DIRECTFILE;
+// <--- keyword.control.end
+//  ^^^^^^^^^^^^^^^^^^^^^ comment.block
+//                       ^ punctuation.terminator.statement
+outtext("--- END Simula a.s. TEST 85");
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+IF NOT errorfound THEN Outtext(" (NO ERRORS FOUND)");
+// <-- keyword.control.if
+// ^^^ keyword.operator
+//     ^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+//                     ^^^^^^^ entity.name.function
+//                            ^ punctuation.section.parens
+//                             ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+
+END of program;
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block
+//            ^ punctuation.terminator.statement

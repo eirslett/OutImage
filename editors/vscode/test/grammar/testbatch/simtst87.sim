@@ -1,0 +1,639 @@
+// SYNTAX TEST "source.simula" "simtst87"
+% ====================================   Main   program  ===========
+// <-------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 87
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE: Test SIMULATION, simple example.
+// <-------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  METHOD:
+// <---------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:
+// <-------------- comment.directive
+% ==================================================================
+// <-------------------------------------------------------------------- comment.directive
+begin integer kunder,servm,servs,U1,U2; 
+// <----- keyword.control.begin
+//    ^^^^^^^ storage.type
+//            ^^^^^^ variable
+//                  ^ punctuation.separator
+//                   ^^^^^ variable
+//                        ^ punctuation.separator
+//                         ^^^^^ variable
+//                              ^ punctuation.separator
+//                               ^^ variable
+//                                 ^ punctuation.separator
+//                                  ^^ variable
+//                                    ^ punctuation.terminator.statement
+      real ankomst; Boolean grund;
+//    ^^^^ storage.type
+//         ^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^^^^^^ storage.type
+//                          ^^^^^ variable
+//                               ^ punctuation.terminator.statement
+
+      outtext("--- START Simula a.s. TEST 87"); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^^ variable
+//                                                      ^ punctuation.terminator.statement
+      outtext("--- Test Simulation, simple example");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+      Outimage; Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+
+      ankomst:=1/30; servm:=90; servs:=30;
+//    ^^^^^^^ variable
+//           ^^ keyword.operator.assignment
+//             ^ constant.numeric.decimal
+//              ^ keyword.operator.arithmetic
+//               ^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+//                   ^^^^^ variable
+//                        ^^ keyword.operator.assignment
+//                          ^^ constant.numeric.decimal
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^ variable
+//                                   ^^ keyword.operator.assignment
+//                                     ^^ constant.numeric.decimal
+//                                       ^ punctuation.terminator.statement
+      kunder:=20; U1:=99999; U2:=12345;
+//    ^^^^^^ variable
+//          ^^ keyword.operator.assignment
+//            ^^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+//                ^^ variable
+//                  ^^ keyword.operator.assignment
+//                    ^^^^^ constant.numeric.decimal
+//                         ^ punctuation.terminator.statement
+//                           ^^ variable
+//                             ^^ keyword.operator.assignment
+//                               ^^^^^ constant.numeric.decimal
+//                                    ^ punctuation.terminator.statement
+      outtext("Konfiguration medel  total"); outimage;
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^^^^ variable
+//                                                   ^ punctuation.terminator.statement
+
+      for grund := true,false do
+//    ^^^ keyword.control.for
+//        ^^^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^ constant.language.bool
+//                     ^ punctuation.separator
+//                      ^^^^^ constant.language.bool
+//                            ^^ keyword.control.do
+      begin outtext(if grund then " grund      " else " alternativ ");
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^ keyword.control.if
+//                     ^^^^^ variable
+//                           ^^^^ keyword.control.then
+//                                ^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^^^^ keyword.control.else
+//                                                    ^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+
+            SIMULATION
+//          ^^^^^^^^^^ entity.name.class
+            begin integer i,klara; real tid,slut;
+//          ^^^^^ keyword.control.begin
+//                ^^^^^^^ storage.type
+//                        ^ variable
+//                         ^ punctuation.separator
+//                          ^^^^^ variable
+//                               ^ punctuation.terminator.statement
+//                                 ^^^^ storage.type
+//                                      ^^^ variable
+//                                         ^ punctuation.separator
+//                                          ^^^^ variable
+//                                              ^ punctuation.terminator.statement
+                  ref(head) array kundq(1:4),statq(1:2);
+//                ^^^ storage.modifier
+//                   ^ punctuation.section.parens
+//                    ^^^^ entity.name.class
+//                        ^ punctuation.section.parens
+//                          ^^^^^ storage.type
+//                                ^^^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.separator
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.section.parens
+//                                          ^ punctuation.separator
+//                                           ^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^ constant.numeric.decimal
+//                                                  ^ punctuation.separator
+//                                                   ^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+                  ref(station) array stat(3:4);
+//                ^^^ storage.modifier
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^ entity.name.class
+//                           ^ punctuation.section.parens
+//                             ^^^^^ storage.type
+//                                   ^^^^ entity.name.function
+//                                       ^ punctuation.section.parens
+//                                        ^ constant.numeric.decimal
+//                                         ^ punctuation.separator
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+
+                  process class kund;
+//                ^^^^^^^ entity.name.class
+//                        ^^^^^ keyword.other.class
+//                              ^^^^ entity.name.class
+//                                  ^ punctuation.terminator.statement
+                  begin integer efter; real intid; array servtid(1:2);
+//                ^^^^^ keyword.control.begin
+//                      ^^^^^^^ storage.type
+//                              ^^^^^ variable
+//                                   ^ punctuation.terminator.statement
+//                                     ^^^^ storage.type
+//                                          ^^^^^ variable
+//                                               ^ punctuation.terminator.statement
+//                                                 ^^^^^ storage.type
+//                                                       ^^^^^^^ entity.name.function
+//                                                              ^ punctuation.section.parens
+//                                                               ^ constant.numeric.decimal
+//                                                                ^ punctuation.separator
+//                                                                 ^ constant.numeric.decimal
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+                        servtid(1):=normal(servs,servm,U2);
+//                      ^^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^^ keyword.operator.assignment
+//                                  ^^^^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^^^^^ variable
+//                                              ^ punctuation.separator
+//                                               ^^^^^ variable
+//                                                    ^ punctuation.separator
+//                                                     ^^ variable
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+                        servtid(2):=normal(servs,servm,U2);
+//                      ^^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^^ keyword.operator.assignment
+//                                  ^^^^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^^^^^ variable
+//                                              ^ punctuation.separator
+//                                               ^^^^^ variable
+//                                                    ^ punctuation.separator
+//                                                     ^^ variable
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+                        intid:=time;
+//                      ^^^^^ variable
+//                           ^^ keyword.operator.assignment
+//                             ^^^^ variable
+//                                 ^ punctuation.terminator.statement
+                        activate statq(1).first delay 0;
+//                      ^^^^^^^^ keyword.control.activate
+//                               ^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.section.parens
+//                                       ^ punctuation.accessor
+//                                        ^^^^^ variable
+//                                              ^^^^^ keyword.control.delay
+//                                                    ^ constant.numeric.decimal
+//                                                     ^ punctuation.terminator.statement
+                        wait(kundq(1));
+//                      ^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^ constant.numeric.decimal
+//                                  ^^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+                        activate if grund then stat(efter)
+//                      ^^^^^^^^ keyword.control.activate
+//                               ^^ keyword.control.if
+//                                  ^^^^^ variable
+//                                        ^^^^ keyword.control.then
+//                                             ^^^^ entity.name.function
+//                                                 ^ punctuation.section.parens
+//                                                  ^^^^^ variable
+//                                                       ^ punctuation.section.parens
+                                          else statq(2).first delay 0;
+//                                        ^^^^ keyword.control.else
+//                                             ^^^^^ entity.name.function
+//                                                  ^ punctuation.section.parens
+//                                                   ^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.accessor
+//                                                      ^^^^^ variable
+//                                                            ^^^^^ keyword.control.delay
+//                                                                  ^ constant.numeric.decimal
+//                                                                   ^ punctuation.terminator.statement
+                        wait(kundq(efter));
+//                      ^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^^^^^ variable
+//                                      ^^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+                        tid:=tid+time-intid; klara:=klara+1;
+//                      ^^^ variable
+//                         ^^ keyword.operator.assignment
+//                           ^^^ variable
+//                              ^ keyword.operator.arithmetic
+//                               ^^^^ variable
+//                                   ^ keyword.operator.arithmetic
+//                                    ^^^^^ variable
+//                                         ^ punctuation.terminator.statement
+//                                           ^^^^^ variable
+//                                                ^^ keyword.operator.assignment
+//                                                  ^^^^^ variable
+//                                                       ^ keyword.operator.arithmetic
+//                                                        ^ constant.numeric.decimal
+//                                                         ^ punctuation.terminator.statement
+                        if klara=kunder then activate main;
+//                      ^^ keyword.control.if
+//                         ^^^^^ variable
+//                              ^ keyword.operator.comparison
+//                               ^^^^^^ variable
+//                                      ^^^^ keyword.control.then
+//                                           ^^^^^^^^ keyword.control.activate
+//                                                    ^^^^ variable
+//                                                        ^ punctuation.terminator.statement
+                  end;
+//                ^^^ keyword.control.end
+//                   ^ punctuation.terminator.statement
+
+                  process class station(nr,position);
+//                ^^^^^^^ entity.name.class
+//                        ^^^^^ keyword.other.class
+//                              ^^^^^^^ entity.name.class
+//                                     ^ punctuation.section.parens
+//                                      ^^ variable.parameter
+//                                        ^ punctuation.separator
+//                                         ^^^^^^^^ variable.parameter
+//                                                 ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+                  integer nr,position;
+//                ^^^^^^^ storage.type
+//                        ^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^ variable
+//                                   ^ punctuation.terminator.statement
+                  while true do inspect kundq(nr).first when kund do
+//                ^^^^^ keyword.control.while
+//                      ^^^^ constant.language.bool
+//                           ^^ keyword.control.do
+//                              ^^^^^^^ keyword.control.inspect
+//                                      ^^^^^ entity.name.function
+//                                           ^ punctuation.section.parens
+//                                            ^^ variable
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.accessor
+//                                                ^^^^^ variable
+//                                                      ^^^^ keyword.control.when
+//                                                           ^^^^ entity.name.class
+//                                                                ^^ keyword.control.do
+                  begin out; efter:=nr+2;
+//                ^^^^^ keyword.control.begin
+//                      ^^^ variable
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^ variable
+//                                ^^ keyword.operator.assignment
+//                                  ^^ variable
+//                                    ^ keyword.operator.arithmetic
+//                                     ^ constant.numeric.decimal
+//                                      ^ punctuation.terminator.statement
+                        hold(servtid(position));
+//                      ^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^^^^^^^ variable
+//                                           ^^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+                        activate this kund delay 0;
+//                      ^^^^^^^^ keyword.control.activate
+//                               ^^^^ keyword.other.this
+//                                    ^^^^ variable
+//                                         ^^^^^ keyword.control.delay
+//                                               ^ constant.numeric.decimal
+//                                                ^ punctuation.terminator.statement
+                  end
+//                ^^^ keyword.control.end
+                  otherwise begin wait(statq(position)); out end;
+//                ^^^^^^^^^ keyword.control.otherwise
+//                          ^^^^^ keyword.control.begin
+//                                ^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^^^^^^^^ variable
+//                                                   ^^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+//                                                       ^^^ variable
+//                                                           ^^^ keyword.control.end
+//                                                              ^ punctuation.terminator.statement
+
+                  kundq(1):-kundq(2):-new head;
+//                ^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^^ keyword.operator.assignment
+//                          ^^^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.section.parens
+//                                  ^^ keyword.operator.assignment
+//                                    ^^^ keyword.control.new
+//                                        ^^^^ entity.name.class
+//                                            ^ punctuation.terminator.statement
+                  if kundq(1)==none then 
+//                ^^ keyword.control.if
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^^ keyword.operator.comparison
+//                             ^^^^ constant.language.null
+//                                  ^^^^ keyword.control.then
+                  begin outtext("error-1");outimage; end;
+//                ^^^^^ keyword.control.begin
+//                      ^^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+//                                         ^^^^^^^^ variable
+//                                                 ^ punctuation.terminator.statement
+//                                                   ^^^ keyword.control.end
+//                                                      ^ punctuation.terminator.statement
+                  if kundq(2)==none then 
+//                ^^ keyword.control.if
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^^ keyword.operator.comparison
+//                             ^^^^ constant.language.null
+//                                  ^^^^ keyword.control.then
+                  begin outtext("error-2");outimage; end;
+//                ^^^^^ keyword.control.begin
+//                      ^^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+//                                         ^^^^^^^^ variable
+//                                                 ^ punctuation.terminator.statement
+//                                                   ^^^ keyword.control.end
+//                                                      ^ punctuation.terminator.statement
+                  kundq(3):-new head;
+//                ^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^^ keyword.operator.assignment
+//                          ^^^ keyword.control.new
+//                              ^^^^ entity.name.class
+//                                  ^ punctuation.terminator.statement
+                  if kundq(3)==none then 
+//                ^^ keyword.control.if
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^^ keyword.operator.comparison
+//                             ^^^^ constant.language.null
+//                                  ^^^^ keyword.control.then
+                  begin outtext("error-3");outimage; end;
+//                ^^^^^ keyword.control.begin
+//                      ^^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+//                                         ^^^^^^^^ variable
+//                                                 ^ punctuation.terminator.statement
+//                                                   ^^^ keyword.control.end
+//                                                      ^ punctuation.terminator.statement
+
+                  kundq(4):-if grund then new head else kundq(3);
+//                ^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                        ^^ keyword.operator.assignment
+//                          ^^ keyword.control.if
+//                             ^^^^^ variable
+//                                   ^^^^ keyword.control.then
+//                                        ^^^ keyword.control.new
+//                                            ^^^^ entity.name.class
+//                                                 ^^^^ keyword.control.else
+//                                                      ^^^^^ entity.name.function
+//                                                           ^ punctuation.section.parens
+//                                                            ^ constant.numeric.decimal
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+                  if kundq(4)==none then 
+//                ^^ keyword.control.if
+//                   ^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^^ keyword.operator.comparison
+//                             ^^^^ constant.language.null
+//                                  ^^^^ keyword.control.then
+                  begin outtext("error-4");outimage; end;
+//                ^^^^^ keyword.control.begin
+//                      ^^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                        ^ punctuation.terminator.statement
+//                                         ^^^^^^^^ variable
+//                                                 ^ punctuation.terminator.statement
+//                                                   ^^^ keyword.control.end
+//                                                      ^ punctuation.terminator.statement
+
+                  for i:=1,2 do
+//                ^^^ keyword.control.for
+//                    ^ variable
+//                     ^^ keyword.operator.assignment
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                           ^^ keyword.control.do
+                  begin statq(i):-new head;
+//                ^^^^^ keyword.control.begin
+//                      ^^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^ variable
+//                             ^ punctuation.section.parens
+//                              ^^ keyword.operator.assignment
+//                                ^^^ keyword.control.new
+//                                    ^^^^ entity.name.class
+//                                        ^ punctuation.terminator.statement
+                        activate new station(i,1) delay 0;
+//                      ^^^^^^^^ keyword.control.activate
+//                               ^^^ keyword.control.new
+//                                   ^^^^^^^ entity.name.class
+//                                          ^ punctuation.section.parens
+//                                           ^ variable
+//                                            ^ punctuation.separator
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.section.parens
+//                                                ^^^^^ keyword.control.delay
+//                                                      ^ constant.numeric.decimal
+//                                                       ^ punctuation.terminator.statement
+                  end;
+//                ^^^ keyword.control.end
+//                   ^ punctuation.terminator.statement
+
+                  for i:=3,4 do
+//                ^^^ keyword.control.for
+//                    ^ variable
+//                     ^^ keyword.operator.assignment
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                           ^^ keyword.control.do
+                  begin stat(i):-new station(I,2);
+//                ^^^^^ keyword.control.begin
+//                      ^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.section.parens
+//                             ^^ keyword.operator.assignment
+//                               ^^^ keyword.control.new
+//                                   ^^^^^^^ entity.name.class
+//                                          ^ punctuation.section.parens
+//                                           ^ variable
+//                                            ^ punctuation.separator
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+                        activate stat(i) delay 0;
+//                      ^^^^^^^^ keyword.control.activate
+//                               ^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^ variable
+//                                     ^ punctuation.section.parens
+//                                       ^^^^^ keyword.control.delay
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.terminator.statement
+                  end;
+//                ^^^ keyword.control.end
+//                   ^ punctuation.terminator.statement
+
+                  for i:=1 step 1 until kunder do
+//                ^^^ keyword.control.for
+//                    ^ variable
+//                     ^^ keyword.operator.assignment
+//                       ^ constant.numeric.decimal
+//                         ^^^^ keyword.control.step
+//                              ^ constant.numeric.decimal
+//                                ^^^^^ keyword.control.until
+//                                      ^^^^^^ variable
+//                                             ^^ keyword.control.do
+                  begin hold(negexp(ankomst,U1));
+//                ^^^^^ keyword.control.begin
+//                      ^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^^^^^ entity.name.function
+//                                 ^ punctuation.section.parens
+//                                  ^^^^^^^ variable
+//                                         ^ punctuation.separator
+//                                          ^^ variable
+//                                            ^^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+                        activate new kund delay 0;
+//                      ^^^^^^^^ keyword.control.activate
+//                               ^^^ keyword.control.new
+//                                   ^^^^ entity.name.class
+//                                        ^^^^^ keyword.control.delay
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.terminator.statement
+                  end;
+//                ^^^ keyword.control.end
+//                   ^ punctuation.terminator.statement
+
+                  passivate;
+//                ^^^^^^^^^ variable
+//                         ^ punctuation.terminator.statement
+
+                  outfix(tid/kunder,1,8); outfix(time,1,8); outimage;
+//                ^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^^ variable
+//                          ^ keyword.operator.arithmetic
+//                           ^^^^^^ variable
+//                                 ^ punctuation.separator
+//                                  ^ constant.numeric.decimal
+//                                   ^ punctuation.separator
+//                                    ^ constant.numeric.decimal
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^ entity.name.function
+//                                              ^ punctuation.section.parens
+//                                               ^^^^ variable
+//                                                   ^ punctuation.separator
+//                                                    ^ constant.numeric.decimal
+//                                                     ^ punctuation.separator
+//                                                      ^ constant.numeric.decimal
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+//                                                          ^^^^^^^^ variable
+//                                                                  ^ punctuation.terminator.statement
+
+            end;
+//          ^^^ keyword.control.end
+//             ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+      Outimage; Outtext("--- END Simula a.s. TEST 87"); outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^ entity.name.function
+//                     ^ punctuation.section.parens
+//                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+//                                                      ^^^^^^^^ variable
+//                                                              ^ punctuation.terminator.statement
+end; 
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement

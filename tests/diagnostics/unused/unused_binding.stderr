@@ -1,0 +1,9 @@
+[W0001] Warning: UNUSED: unused variable `x`
+   ╭─[ unused_binding.sim:1:15 ]
+   │
+ 1 │ begin integer x; integer y; y := 1; end;
+   │               ┬  
+   │               ╰── never referenced
+   │ 
+   │ Help: remove it, or use it
+───╯

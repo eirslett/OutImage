@@ -1,0 +1,9 @@
+[E0205] Error: WRONG NUMBER OF ARGUMENTS: `OutInt` expects 2 arguments, but this call has 1
+   ╭─[ outint_arity.sim:1:7 ]
+   │
+ 1 │ begin OutInt(1); end;
+   │       ─────┬────  
+   │            ╰────── this call
+   │ 
+   │ Help: pass exactly 2 arguments
+───╯

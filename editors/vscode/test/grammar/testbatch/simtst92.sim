@@ -1,0 +1,226 @@
+// SYNTAX TEST "source.simula" "simtst92"
+% =====================================   Main   program =============
+// <---------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s - SIMULA TEST NO 92
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:   Test virtual labels and procedures.
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%
+// <- comment.directive
+%  COMPILED SUCCESSFULLY: YES
+// <----------------------------- comment.directive
+%
+// <- comment.directive
+%  REWRITTEN BY:  BEH   05/01-87
+// <-------------------------------- comment.directive
+%
+// <- comment.directive
+% ====================================================================
+// <---------------------------------------------------------------------- comment.directive
+BEGIN Boolean found_error;
+// <----- keyword.control.begin
+//    ^^^^^^^ storage.type
+//            ^^^^^^^^^^^ variable
+//                       ^ punctuation.terminator.statement
+
+      class C;
+//    ^^^^^ keyword.other.class
+//          ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      virtual: procedure P1,P2;
+//    ^^^^^^^ keyword.other.virtual
+//           ^ punctuation.separator
+//             ^^^^^^^^^ storage.type
+//                       ^^ entity.name.function
+//                         ^ punctuation.separator
+//                          ^^ entity.name.function
+//                            ^ punctuation.terminator.statement
+               label EOP;
+//             ^^^^^ keyword.other.label
+//                   ^^^ variable
+//                      ^ punctuation.terminator.statement
+               text procedure Q1,Q2;
+//             ^^^^ storage.type
+//                  ^^^^^^^^^ storage.type
+//                            ^^ entity.name.function
+//                              ^ punctuation.separator
+//                               ^^ entity.name.function
+//                                 ^ punctuation.terminator.statement
+      begin  procedure P2;
+//    ^^^^^ keyword.control.begin
+//           ^^^^^^^^^ storage.type
+//                     ^^ entity.name.function
+//                       ^ punctuation.terminator.statement
+             begin found_error:=true; Outtext("*** ERROR (1).");
+//           ^^^^^ keyword.control.begin
+//                 ^^^^^^^^^^^ variable
+//                            ^^ keyword.operator.assignment
+//                              ^^^^ constant.language.bool
+//                                  ^ punctuation.terminator.statement
+//                                    ^^^^^^^ entity.name.function
+//                                           ^ punctuation.section.parens
+//                                            ^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+                   outimage end;
+//                 ^^^^^^^^ variable
+//                          ^^^ keyword.control.end
+//                             ^ punctuation.terminator.statement
+
+             text procedure Q2;
+//           ^^^^ storage.type
+//                ^^^^^^^^^ storage.type
+//                          ^^ entity.name.function
+//                            ^ punctuation.terminator.statement
+             begin found_error:=true; Q2:-copy("*** ERROR (2).") end;
+//           ^^^^^ keyword.control.begin
+//                 ^^^^^^^^^^^ variable
+//                            ^^ keyword.operator.assignment
+//                              ^^^^ constant.language.bool
+//                                  ^ punctuation.terminator.statement
+//                                    ^^ variable
+//                                      ^^ keyword.operator.assignment
+//                                        ^^^^ entity.name.function
+//                                            ^ punctuation.section.parens
+//                                             ^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                             ^ punctuation.section.parens
+//                                                               ^^^ keyword.control.end
+//                                                                  ^ punctuation.terminator.statement
+
+             P2; outtext(Q2);
+//           ^^ variable
+//             ^ punctuation.terminator.statement
+//               ^^^^^^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^^ variable
+//                         ^ punctuation.section.parens
+//                          ^ punctuation.terminator.statement
+             if sysout.image.strip<>"P2Q2" then begin
+//           ^^ keyword.control.if
+//              ^^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^^ variable
+//                                ^^ keyword.operator.comparison
+//                                  ^^^^^^ string.quoted.double
+//                                         ^^^^ keyword.control.then
+//                                              ^^^^^ keyword.control.begin
+                outimage; found_error:=true end
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^^^^^^^ variable
+//                                   ^^ keyword.operator.assignment
+//                                     ^^^^ constant.language.bool
+//                                          ^^^ keyword.control.end
+             else sysout.setpos(1);
+//           ^^^^ keyword.control.else
+//                ^^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^^^ entity.name.function
+//                             ^ punctuation.section.parens
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+             goto EOP;
+//           ^^^^ keyword.control.goto
+//                ^^^ entity.name.label
+//                   ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      Outtext ("--- START Simula a.s TEST 92"); Outimage;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+//                                              ^^^^^^^^ variable
+//                                                      ^ punctuation.terminator.statement
+      Outtext ("--- Test of virtual labels and procedures");
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                        ^ punctuation.section.parens
+//                                                         ^ punctuation.terminator.statement
+      Outimage; Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+//              ^^^^^^^^ variable
+//                      ^ punctuation.terminator.statement
+
+    C begin procedure P2;outtext("P2");
+//  ^ entity.name.class
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^^^ storage.type
+//                    ^^ entity.name.function
+//                      ^ punctuation.terminator.statement
+//                       ^^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^^^^ string.quoted.double
+//                                   ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+            text procedure Q2;Q2:-"Q2";
+//          ^^^^ storage.type
+//               ^^^^^^^^^ storage.type
+//                         ^^ entity.name.function
+//                           ^ punctuation.terminator.statement
+//                            ^^ variable
+//                              ^^ keyword.operator.assignment
+//                                ^^^^ string.quoted.double
+//                                    ^ punctuation.terminator.statement
+            found_error:=true;
+//          ^^^^^^^^^^^ variable
+//                     ^^ keyword.operator.assignment
+//                       ^^^^ constant.language.bool
+//                           ^ punctuation.terminator.statement
+            Outtext("*** ERROR (3)."); Outimage;
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+//                                     ^^^^^^^^ variable
+//                                             ^ punctuation.terminator.statement
+      EOP:
+//    ^^^ entity.name.label
+//       ^ punctuation.separator
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+
+      if not found_error then
+//    ^^ keyword.control.if
+//       ^^^ keyword.operator
+//           ^^^^^^^^^^^ variable
+//                       ^^^^ keyword.control.then
+      begin Outtext("--- NO ERRORS FOUND IN THIS TEST");
+//    ^^^^^ keyword.control.begin
+//          ^^^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                    ^ punctuation.section.parens
+//                                                     ^ punctuation.terminator.statement
+            Outimage;
+//          ^^^^^^^^ variable
+//                  ^ punctuation.terminator.statement
+      end;
+//    ^^^ keyword.control.end
+//       ^ punctuation.terminator.statement
+      Outtext("--- END Simula a.s TEST 92");
+//    ^^^^^^^ entity.name.function
+//           ^ punctuation.section.parens
+//            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+      Outimage;
+//    ^^^^^^^^ variable
+//            ^ punctuation.terminator.statement
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement

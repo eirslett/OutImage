@@ -1,0 +1,34 @@
+! Chapter 9 random drawing procedures.;
+begin
+    integer U, r, p;
+    boolean d;
+    real u, n, e;
+    text t;
+    U := 1;
+    d := draw(0.5, U);
+    r := randint(1, 6, U);
+    u := uniform(0.0, 10.0, U);
+    n := normal(0.0, 1.0, U);
+    e := negexp(1.0, U);
+    p := poisson(1.5, U);
+    if d then OutText("T") else OutText("F");
+    OutText(" ");
+    t :- blanks(4);
+    t.putint(r);
+    OutText(t.strip);
+    OutText(" ");
+    t :- blanks(8);
+    t.putfix(u, 3);
+    OutText(t.strip);
+    OutText(" ");
+    t :- blanks(8);
+    t.putfix(n, 3);
+    OutText(t.strip);
+    OutText(" ");
+    t :- blanks(8);
+    t.putfix(e, 3);
+    OutText(t.strip);
+    OutText(" ");
+    OutInt(p, 0);
+    OutImage;
+end

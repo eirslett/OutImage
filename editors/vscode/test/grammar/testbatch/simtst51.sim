@@ -1,0 +1,828 @@
+// SYNTAX TEST "source.simula" "simtst51"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 51
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test 'inner'.
+// <----------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   31/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   CLASS A ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      OUTTEXT (" L1 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      INNER ;
+//    ^^^^^ keyword.other.inner
+//          ^ punctuation.terminator.statement
+      OUTTEXT (" L2 ")
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+   END of class A ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   CLASS D ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+      OUTTEXT (" L3 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+
+   A CLASS B ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      OUTTEXT (" L4 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+
+   B CLASS F ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      OUTTEXT (" L5 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      INNER
+//    ^^^^^ keyword.other.inner
+   END of class F ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   A CLASS C ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      OUTTEXT (" L6 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      INNER ;
+//    ^^^^^ keyword.other.inner
+//          ^ punctuation.terminator.statement
+      OUTTEXT (" L7 ")
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+   END of class C ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   C CLASS G ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      OUTTEXT (" L8 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+
+   C CLASS J ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      OUTTEXT (" L9 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^ string.quoted.double
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+      INNER ;
+//    ^^^^^ keyword.other.inner
+//          ^ punctuation.terminator.statement
+      OUTTEXT (" L10 ")
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+   END of class J ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   B CLASS I ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      OUTTEXT (" L11 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      INNER ;
+//    ^^^^^ keyword.other.inner
+//          ^ punctuation.terminator.statement
+      OUTTEXT (" L12 ")
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+   END of class I ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   D CLASS E ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      OUTTEXT (" L13 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      INNER ;
+//    ^^^^^ keyword.other.inner
+//          ^ punctuation.terminator.statement
+      OUTTEXT (" L14 ")
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+   END of class E ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   E CLASS H ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      OUTTEXT (" L15 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      INNER ;
+//    ^^^^^ keyword.other.inner
+//          ^ punctuation.terminator.statement
+      OUTTEXT (" L16 ")
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+   END of class H ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   D CLASS K ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      OUTTEXT (" L17 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      INNER ;
+//    ^^^^^ keyword.other.inner
+//          ^ punctuation.terminator.statement
+      OUTTEXT (" L18 ")
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+   END of class K ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   L CLASS N ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      OUTTEXT (" L21 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+      INNER ;
+//    ^^^^^ keyword.other.inner
+//          ^ punctuation.terminator.statement
+      OUTTEXT (" L22 ")
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+   END of class N ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^ comment.block
+//                ^ punctuation.terminator.statement
+
+   K CLASS M ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      OUTTEXT (" L19 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+
+   D CLASS L ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+      OUTTEXT (" L20 ") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+
+
+   REF  (A) ra ;
+// ^^^ storage.modifier
+//      ^ punctuation.section.parens
+//       ^ entity.name.class
+//        ^ punctuation.section.parens
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   REF  (D) rd ;
+// ^^^ storage.modifier
+//      ^ punctuation.section.parens
+//       ^ entity.name.class
+//        ^ punctuation.section.parens
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+
+   Procedure Check (t, vt, errnr) ;
+// ^^^^^^^^^ storage.type
+//           ^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable.parameter
+//                   ^ punctuation.separator
+//                     ^^ variable.parameter
+//                       ^ punctuation.separator
+//                         ^^^^^ variable.parameter
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+      value t, vt ;
+//    ^^^^^ keyword.other.value
+//          ^ variable
+//           ^ punctuation.separator
+//             ^^ variable
+//                ^ punctuation.terminator.statement
+      text t, vt ;
+//    ^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+      integer errnr ;
+//    ^^^^^^^ storage.type
+//            ^^^^^ variable
+//                  ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      sysout.image.setpos (1) ;
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      sysout.image := notext ;
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^^ constant.language.null
+//                           ^ punctuation.terminator.statement
+
+      if t = vt then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^^ variable
+//              ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Sequence of execution of statements in ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            class bodies (") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+         Outint (errnr, if errnr < 10 then 1 else 2) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^ keyword.control.if
+//                         ^^^^^ variable
+//                               ^ keyword.operator.comparison
+//                                 ^^ constant.numeric.decimal
+//                                    ^^^^ keyword.control.then
+//                                         ^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.else
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+         Outtext (").") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus value :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("                  ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+         Outtext (t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Should have been :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("                  ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                    ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+         Outtext (vt) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^ variable
+//                  ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+         Outimage ; Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^^^^^^^ variable
+//                           ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end ;
+//    ^^^ keyword.control.end
+//        ^ punctuation.terminator.statement
+   end  pros. check ;
+// ^^^ keyword.control.end
+//      ^^^^^^^^^^^ comment.block
+//                  ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 51") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test 'inner'") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                            ^ punctuation.section.parens
+//                              ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   ra :- NEW A ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L1  L2", 1) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.separator
+//                                       ^ constant.numeric.decimal
+//                                        ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+
+   rd :- NEW D ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L3", 2) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^ string.quoted.double
+//                                 ^ punctuation.separator
+//                                   ^ constant.numeric.decimal
+//                                    ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+
+   ra :- NEW B ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L1  L4  L2", 3) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.separator
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+
+   ra :- NEW C ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L1  L6  L7  L2", 4) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.separator
+//                                               ^ constant.numeric.decimal
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+
+   rd :- NEW E ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L3  L13  L14", 5) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.separator
+//                                             ^ constant.numeric.decimal
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+
+   ra :- NEW F ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L1  L4  L5  L2", 6) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.separator
+//                                               ^ constant.numeric.decimal
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+
+   ra :- NEW G ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L1  L6  L8  L7  L2", 7) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.separator
+//                                                   ^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+
+   ra :- NEW I ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L1  L4  L11  L12  L2", 8) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                   ^ punctuation.separator
+//                                                     ^ constant.numeric.decimal
+//                                                      ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+
+   ra :- NEW J ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L1  L6  L9  L10  L7  L2", 9) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.separator
+//                                                        ^ constant.numeric.decimal
+//                                                         ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+
+   rd :- NEW H ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L3  L13  L15  L16  L14", 10) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                     ^ punctuation.separator
+//                                                       ^^ constant.numeric.decimal
+//                                                         ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+
+   rd :- NEW M ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L3  L17  L19  L18", 11) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.separator
+//                                                  ^^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+
+   rd :- NEW N ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L3  L20  L21  L22", 12) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.separator
+//                                                  ^^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+
+   rd :- NEW L ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L3  L20", 13) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^ string.quoted.double
+//                                      ^ punctuation.separator
+//                                        ^^ constant.numeric.decimal
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+
+   rd :- NEW K ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   Check (sysout.image.strip, " L3  L17  L18", 14) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^ string.quoted.double
+//                                           ^ punctuation.separator
+//                                             ^^ constant.numeric.decimal
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 51") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ End ;
+// <~--- keyword.control.end
+//   ^ punctuation.terminator.statement

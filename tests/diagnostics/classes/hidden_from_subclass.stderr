@@ -1,0 +1,15 @@
+[E0402] Error: HIDDEN ATTRIBUTE: hidden attribute `i` is not visible in class `c`
+    ╭─[ hidden_from_subclass.sim:12:8 ]
+    │
+ 12 │ OutInt(r.i, 2);
+    │        ─┬─  
+    │         ╰─── this access
+    │
+    ├─[ hidden_from_subclass.sim:12:8 ]
+    │
+  6 │ hidden i;
+    │ ────┬───  
+    │     ╰───── this `hidden` specification
+    │ 
+    │ Help: use a public name, or access the object at a prefix that still sees this attribute
+────╯

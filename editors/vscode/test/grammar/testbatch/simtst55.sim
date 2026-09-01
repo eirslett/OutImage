@@ -1,0 +1,849 @@
+// SYNTAX TEST "source.simula" "simtst55"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGrAM NAME:   Simula a.s. - SIMULA TEST NO 55
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test virtual procedures.
+// <---------------------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   01/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Class A ;
+// ^^^^^ keyword.other.class
+//       ^ entity.name.class
+//         ^ punctuation.terminator.statement
+      Virtual:        Procedure P ;
+//    ^^^^^^^ keyword.other.virtual
+//           ^ punctuation.separator
+//                    ^^^^^^^^^ storage.type
+//                              ^ entity.name.function
+//                                ^ punctuation.terminator.statement
+              Integer Procedure iP ;
+//            ^^^^^^^ storage.type
+//                    ^^^^^^^^^ storage.type
+//                              ^^ entity.name.function
+//                                 ^ punctuation.terminator.statement
+              Real    Procedure rP ;
+//            ^^^^ storage.type
+//                    ^^^^^^^^^ storage.type
+//                              ^^ entity.name.function
+//                                 ^ punctuation.terminator.statement
+              Ref (A) Procedure cP ;
+//            ^^^ storage.modifier
+//                ^ punctuation.section.parens
+//                 ^ entity.name.class
+//                  ^ punctuation.section.parens
+//                    ^^^^^^^^^ storage.type
+//                              ^^ entity.name.function
+//                                 ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Real    Procedure rP ; Outtext (" A.rP ") ;
+//    ^^^^ storage.type
+//            ^^^^^^^^^ storage.type
+//                      ^^ entity.name.function
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Ref (A) Procedure cP ; Outtext (" A.cP ") ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^^^^^^^^ storage.type
+//                      ^^ entity.name.function
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   A Class B ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Integer Procedure P ; Outtext (" B.P ") ;
+//    ^^^^^^^ storage.type
+//            ^^^^^^^^^ storage.type
+//                      ^ entity.name.function
+//                        ^ punctuation.terminator.statement
+//                          ^^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+      Integer Procedure iP ; Outtext (" B.iP ") ;
+//    ^^^^^^^ storage.type
+//            ^^^^^^^^^ storage.type
+//                      ^^ entity.name.function
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Ref (C) Procedure cP ; Outtext (" B.cP ") ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^^^^^^^^ storage.type
+//                      ^^ entity.name.function
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   A Class C ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Ref (A)   Procedure P ; Outtext (" C.P ") ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//              ^^^^^^^^^ storage.type
+//                        ^ entity.name.function
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Real      Procedure rP ; Outtext (" C.rP ") ;
+//    ^^^^ storage.type
+//              ^^^^^^^^^ storage.type
+//                        ^^ entity.name.function
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+      Ref (B)   Procedure cP ; Outtext (" C.cP ") ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//              ^^^^^^^^^ storage.type
+//                        ^^ entity.name.function
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^ entity.name.function
+//                                     ^ punctuation.section.parens
+//                                      ^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   A Class D ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Procedure P ; Outtext (" D.P ") ;
+//    ^^^^^^^^^ storage.type
+//              ^ entity.name.function
+//                ^ punctuation.terminator.statement
+//                  ^^^^^^^ entity.name.function
+//                          ^ punctuation.section.parens
+//                           ^^^^^^^ string.quoted.double
+//                                  ^ punctuation.section.parens
+//                                    ^ punctuation.terminator.statement
+      Integer  Procedure iP ; Outtext (" D.iP ") ;
+//    ^^^^^^^ storage.type
+//             ^^^^^^^^^ storage.type
+//                       ^^ entity.name.function
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+      Ref (A)  Procedure cP ; Outtext (" D.cP ") ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//             ^^^^^^^^^ storage.type
+//                       ^^ entity.name.function
+//                          ^ punctuation.terminator.statement
+//                            ^^^^^^^ entity.name.function
+//                                    ^ punctuation.section.parens
+//                                     ^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   D Class E ;
+// ^ entity.name.class
+//   ^^^^^ keyword.other.class
+//         ^ entity.name.class
+//           ^ punctuation.terminator.statement
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Text    Procedure P ; Outtext (" E.P ") ;
+//    ^^^^ storage.type
+//            ^^^^^^^^^ storage.type
+//                      ^ entity.name.function
+//                        ^ punctuation.terminator.statement
+//                          ^^^^^^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^^^^^^^ string.quoted.double
+//                                          ^ punctuation.section.parens
+//                                            ^ punctuation.terminator.statement
+      Integer Procedure iP ; Outtext (" E.iP ") ;
+//    ^^^^^^^ storage.type
+//            ^^^^^^^^^ storage.type
+//                      ^^ entity.name.function
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+      Ref (C) Procedure cP ; Outtext (" E.cP ") ;
+//    ^^^ storage.modifier
+//        ^ punctuation.section.parens
+//         ^ entity.name.class
+//          ^ punctuation.section.parens
+//            ^^^^^^^^^ storage.type
+//                      ^^ entity.name.function
+//                         ^ punctuation.terminator.statement
+//                           ^^^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^^^^^^^^ string.quoted.double
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Ref (A) rA ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+   Ref (B) rB ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+   Ref (C) rC ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+   Ref (D) rD ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+   Ref (E) rE ;
+// ^^^ storage.modifier
+//     ^ punctuation.section.parens
+//      ^ entity.name.class
+//       ^ punctuation.section.parens
+//         ^^ variable
+//            ^ punctuation.terminator.statement
+
+   Procedure Check (t, vt, errnr) ;
+// ^^^^^^^^^ storage.type
+//           ^^^^^ entity.name.function
+//                 ^ punctuation.section.parens
+//                  ^ variable.parameter
+//                   ^ punctuation.separator
+//                     ^^ variable.parameter
+//                       ^ punctuation.separator
+//                         ^^^^^ variable.parameter
+//                              ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+      value t, vt ;
+//    ^^^^^ keyword.other.value
+//          ^ variable
+//           ^ punctuation.separator
+//             ^^ variable
+//                ^ punctuation.terminator.statement
+      text t, vt ;
+//    ^^^^ storage.type
+//         ^ variable
+//          ^ punctuation.separator
+//            ^^ variable
+//               ^ punctuation.terminator.statement
+      integer errnr ;
+//    ^^^^^^^ storage.type
+//            ^^^^^ variable
+//                  ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+      sysout.image.setpos (1) ;
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                ^ punctuation.accessor
+//                 ^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+      sysout.image := notext  ;
+//    ^^^^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                 ^^ keyword.operator.assignment
+//                    ^^^^^^ constant.language.null
+//                            ^ punctuation.terminator.statement
+
+      if t = vt then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^^ variable
+//              ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Call on virtual procedure (") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                         ^ punctuation.section.parens
+//                                                           ^ punctuation.terminator.statement
+         Outint (errnr, if errnr < 10 then 1 else 2) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^^^^^ variable
+//                    ^ punctuation.separator
+//                      ^^ keyword.control.if
+//                         ^^^^^ variable
+//                               ^ keyword.operator.comparison
+//                                 ^^ constant.numeric.decimal
+//                                    ^^^^ keyword.control.then
+//                                         ^ constant.numeric.decimal
+//                                           ^^^^ keyword.control.else
+//                                                ^ constant.numeric.decimal
+//                                                 ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+         Outtext (").") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^ string.quoted.double
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext ("            Erroneus calls :") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         Outtext (t) ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                   ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end
+//    ^^^ keyword.control.end
+   end pros. check ;
+// ^^^ keyword.control.end
+//     ^^^^^^^^^^^ comment.block
+//                 ^ punctuation.terminator.statement
+
+
+   Outtext ("--- START Simula a.s. TEST 55") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test virtual procedures.") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                        ^ punctuation.section.parens
+//                                          ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   rA :- rB :- NEW B ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^^ keyword.control.new
+//                 ^ entity.name.class
+//                   ^ punctuation.terminator.statement
+   rC :- NEW C ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   rD :- rE :- NEW E ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^^ keyword.control.new
+//                 ^ entity.name.class
+//                   ^ punctuation.terminator.statement
+
+   rA.rP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+   rA.cP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+   rB.P ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^ variable
+//      ^ punctuation.terminator.statement
+   rB.iP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+   rB.cP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+   rC.P ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^ variable
+//      ^ punctuation.terminator.statement
+   rC.rP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+   rC.cP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+   rD.P ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^ variable
+//      ^ punctuation.terminator.statement
+   rD.iP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+   rD.cP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+   rE.P ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^ variable
+//      ^ punctuation.terminator.statement
+   rE.iP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+   rE.cP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+
+   Check (sysout.image.strip,
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+          " A.rP  B.cP  B.P  B.iP  B.cP  C.P  C.rP "
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+          " C.cP  E.P  E.iP  E.cP  E.P  E.iP  E.cP", 1) ;
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                 ^ punctuation.separator
+//                                                   ^ constant.numeric.decimal
+//                                                    ^ punctuation.section.parens
+//                                                      ^ punctuation.terminator.statement
+
+   rA QUA B.rP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rA QUA B.iP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rA QUA B.cP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rA :- NEW C ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   rA QUA C.rP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rA QUA C.cP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rA :- NEW E ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^^ keyword.control.new
+//           ^ entity.name.class
+//             ^ punctuation.terminator.statement
+   rA QUA E.cP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rB QUA A.P ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^ variable
+//            ^ punctuation.terminator.statement
+   rB QUA A.rP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rB QUA A.cP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+
+   Check (sysout.image.strip,
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+          " A.rP  B.iP  B.cP  C.rP  C.cP  E.cP  B.P  A.rP  B.cP", 2) ;
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                              ^ punctuation.separator
+//                                                                ^ constant.numeric.decimal
+//                                                                 ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+
+   rC QUA A.rP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rC QUA A.cP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rD QUA A.P ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^ variable
+//            ^ punctuation.terminator.statement
+   rD QUA A.cP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rE QUA A.P ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^ variable
+//            ^ punctuation.terminator.statement
+   rE QUA A.iP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rE QUA A.cP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rE QUA D.P ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^ variable
+//            ^ punctuation.terminator.statement
+   rE QUA D.iP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rE QUA D.cP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+
+   Check (sysout.image.strip ,
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                           ^ punctuation.separator
+          " C.rP  C.cP  E.P  E.cP  E.P  E.iP  E.cP  E.P  E.iP  E.cP", 3) ;
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.separator
+//                                                                    ^ constant.numeric.decimal
+//                                                                     ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+
+   rA :- rD :- NEW E ;
+// ^^ variable
+//    ^^ keyword.operator.assignment
+//       ^^ variable
+//          ^^ keyword.operator.assignment
+//             ^^^ keyword.control.new
+//                 ^ entity.name.class
+//                   ^ punctuation.terminator.statement
+   rD QUA E.P ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^ variable
+//            ^ punctuation.terminator.statement
+   rD QUA E.iP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rD QUA E.cP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+
+   Check (sysout.image.strip," E.P  E.iP  E.cP", 4) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                           ^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.separator
+//                                               ^ constant.numeric.decimal
+//                                                ^ punctuation.section.parens
+//                                                  ^ punctuation.terminator.statement
+
+   rA.cP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+   rA QUA D.cP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rA QUA E.cP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+   rD.P ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^ variable
+//      ^ punctuation.terminator.statement
+   rD.cP ;
+// ^^ variable
+//   ^ punctuation.accessor
+//    ^^ variable
+//       ^ punctuation.terminator.statement
+   rD QUA E.iP ;
+// ^^ variable
+//    ^^^ keyword.operator
+//        ^ variable
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^ punctuation.terminator.statement
+
+   Check (sysout.image.strip, " E.cP  E.cP  E.cP  E.P  E.cP  E.iP", 5) ;
+// ^^^^^ entity.name.function
+//       ^ punctuation.section.parens
+//        ^^^^^^ variable
+//              ^ punctuation.accessor
+//               ^^^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^ variable
+//                          ^ punctuation.separator
+//                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.separator
+//                                                                  ^ constant.numeric.decimal
+//                                                                   ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 55") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

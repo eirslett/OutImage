@@ -1,0 +1,266 @@
+// SYNTAX TEST "source.simula" "simtst43"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 43
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test an integer procedure which computes "n-fac", using
+// <----------------------------------------------------------------------- comment.directive
+%               recursion.
+// <-------------------------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   24/07-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   INTEGER            i, j ;
+// ^^^^^^^ storage.type
+//                    ^ variable
+//                     ^ punctuation.separator
+//                       ^ variable
+//                         ^ punctuation.terminator.statement
+
+   integer array res (0:7) ;
+// ^^^^^^^ storage.type
+//         ^^^^^ storage.type
+//               ^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.section.parens
+//                         ^ punctuation.terminator.statement
+
+   INTEGER PROCEDURE Nfac (n) ;  INTEGER n ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^ storage.type
+//                   ^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ variable.parameter
+//                          ^ punctuation.section.parens
+//                            ^ punctuation.terminator.statement
+//                               ^^^^^^^ storage.type
+//                                       ^ variable
+//                                         ^ punctuation.terminator.statement
+      Nfac := if n = 0 then 1 else
+//    ^^^^ variable
+//         ^^ keyword.operator.assignment
+//            ^^ keyword.control.if
+//               ^ variable
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+//                          ^ constant.numeric.decimal
+//                            ^^^^ keyword.control.else
+              if n > 0 then n * Nfac (n-1) else 0 ;
+//            ^^ keyword.control.if
+//               ^ variable
+//                 ^ keyword.operator.comparison
+//                   ^ constant.numeric.decimal
+//                     ^^^^ keyword.control.then
+//                          ^ variable
+//                            ^ keyword.operator.arithmetic
+//                              ^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^ variable
+//                                     ^ keyword.operator.arithmetic
+//                                      ^ constant.numeric.decimal
+//                                       ^ punctuation.section.parens
+//                                         ^^^^ keyword.control.else
+//                                              ^ constant.numeric.decimal
+//                                                ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 43") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test integer procedure which computes 'n-fac' recursively.");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                          ^ punctuation.section.parens
+//                                                                           ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   res (0) := 1 ;
+// ^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+   res (1) := 1 ;
+// ^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+   res (2) := 2 ;
+// ^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+   res (3) := 6 ;
+// ^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^ constant.numeric.decimal
+//              ^ punctuation.terminator.statement
+   res (4) := 24 ;
+// ^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^^ constant.numeric.decimal
+//               ^ punctuation.terminator.statement
+   res (5) := 120 ;
+// ^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^^^ constant.numeric.decimal
+//                ^ punctuation.terminator.statement
+   res (6) := 720 ;
+// ^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^^^ constant.numeric.decimal
+//                ^ punctuation.terminator.statement
+   res (7) := 5040 ;
+// ^^^ entity.name.function
+//     ^ punctuation.section.parens
+//      ^ constant.numeric.decimal
+//       ^ punctuation.section.parens
+//         ^^ keyword.operator.assignment
+//            ^^^^ constant.numeric.decimal
+//                 ^ punctuation.terminator.statement
+
+   FOR  i := 1  STEP  1  UNTIL  7  DO
+// ^^^ keyword.control.for
+//      ^ variable
+//        ^^ keyword.operator.assignment
+//           ^ constant.numeric.decimal
+//              ^^^^ keyword.control.step
+//                    ^ constant.numeric.decimal
+//                       ^^^^^ keyword.control.until
+//                              ^ constant.numeric.decimal
+//                                 ^^ keyword.control.do
+   begin
+// ^^^^^ keyword.control.begin
+      j := Nfac (i) ;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.section.parens
+//                  ^ punctuation.terminator.statement
+      if j = res (i) then
+//    ^^ keyword.control.if
+//       ^ variable
+//         ^ keyword.operator.comparison
+//           ^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^ variable
+//                 ^ punctuation.section.parens
+//                   ^^^^ keyword.control.then
+      else
+//    ^^^^ keyword.control.else
+      begin
+//    ^^^^^ keyword.control.begin
+         Outtext ("*** ERROR : Values : ") ;
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+         Outint (i, 5) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+         Outint (j, 10) ;
+//       ^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.separator
+//                  ^^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+         Outimage ;
+//       ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+         found_error := true
+//       ^^^^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^ constant.language.bool
+      end
+//    ^^^ keyword.control.end
+   end ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 43") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+END of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

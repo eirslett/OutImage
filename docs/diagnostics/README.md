@@ -1,0 +1,73 @@
+# Diagnostic explain pages
+
+Long-form copy for `sim explain Ennnn`. The compiler catalog in `src/diagnostics/catalog.rs` is the source of truth; keep these pages in sync when you add a code.
+
+Confusing diagnostics are bugs: label issues `needs-better-error`.
+
+| Code | Title |
+| --- | --- |
+| [`E0001`](E0001.md) | UNEXPECTED CHARACTER |
+| [`E0002`](E0002.md) | UNTERMINATED STRING |
+| [`E0003`](E0003.md) | MISSING SEPARATOR |
+| [`E0004`](E0004.md) | DIRECTIVE PLACEMENT |
+| [`E0005`](E0005.md) | INVALID NUMBER |
+| [`E0006`](E0006.md) | INVALID ISO CODE |
+| [`E0101`](E0101.md) | UNEXPECTED TOKEN |
+| [`E0102`](E0102.md) | UNEXPECTED END OF FILE |
+| [`E0103`](E0103.md) | MISSING END |
+| [`E0104`](E0104.md) | WRONG ASSIGNMENT |
+| [`E0105`](E0105.md) | INCOMPLETE TYPE |
+| [`E0201`](E0201.md) | TYPE MISMATCH |
+| [`E0202`](E0202.md) | WRONG ASSIGNMENT |
+| [`E0203`](E0203.md) | WRONG ASSIGNMENT |
+| [`E0204`](E0204.md) | TYPE MISMATCH |
+| [`E0205`](E0205.md) | WRONG NUMBER OF ARGUMENTS |
+| [`E0206`](E0206.md) | TYPE MISMATCH |
+| [`E0301`](E0301.md) | UNKNOWN NAME |
+| [`E0302`](E0302.md) | UNKNOWN NAME |
+| [`E0303`](E0303.md) | UNKNOWN ATTRIBUTE |
+| [`E0304`](E0304.md) | UNDEFINED LABEL |
+| [`E0305`](E0305.md) | UNDEFINED SWITCH |
+| [`E0306`](E0306.md) | DUPLICATE DECLARATION |
+| [`W0001`](W0001.md) | UNUSED |
+| [`E0901`](E0901.md) | ARRAY TOO LARGE |
+| [`E0902`](E0902.md) | NONE REFERENCE |
+| [`E0903`](E0903.md) | UNDEFINED LABEL |
+| [`E0904`](E0904.md) | ARRAY INDEX |
+| [`E0905`](E0905.md) | DIVISION BY ZERO |
+| [`E0906`](E0906.md) | UNDEFINED POWER |
+| [`E0401`](E0401.md) | PROTECTED ATTRIBUTE |
+| [`E0402`](E0402.md) | HIDDEN ATTRIBUTE |
+| [`E0501`](E0501.md) | ILLEGAL MODE |
+| [`E0207`](E0207.md) | ARRAY BOUNDS |
+| [`E0208`](E0208.md) | ARRAY BOUND |
+| [`E0209`](E0209.md) | EMPTY SWITCH |
+| [`E0210`](E0210.md) | NOT AN EXPRESSION |
+| [`E0211`](E0211.md) | CONSTANT |
+| [`E0212`](E0212.md) | CONSTANT |
+| [`E0403`](E0403.md) | PREFIX CYCLE |
+| [`E0404`](E0404.md) | UNKNOWN CLASS |
+| [`E0405`](E0405.md) | PREFIX SCOPE |
+| [`E0406`](E0406.md) | VIRTUAL MISMATCH |
+| [`E0407`](E0407.md) | ILLEGAL THIS |
+| [`E0408`](E0408.md) | NOT A PREFIX |
+| [`E0409`](E0409.md) | HIDDEN |
+| [`E0410`](E0410.md) | DUPLICATE VIRTUAL |
+| [`E0411`](E0411.md) | DETACH |
+| [`E0412`](E0412.md) | ATTRIBUTE SCOPE |
+| [`E0502`](E0502.md) | DUPLICATE FORMAL |
+| [`E0503`](E0503.md) | FORMAL NAME |
+| [`E0504`](E0504.md) | FORMAL REDECLARED |
+| [`E0505`](E0505.md) | ARRAY ARITY |
+| [`E0506`](E0506.md) | FORMAL SCOPE |
+| [`E0507`](E0507.md) | FORMAL PROCEDURE |
+| [`E0601`](E0601.md) | EXTERNAL KIND |
+| [`E0602`](E0602.md) | EXTERNAL SPEC |
+| [`E0603`](E0603.md) | EXTERNAL BODY |
+| [`E0604`](E0604.md) | FOREIGN BOUNDARY |
+| [`E0701`](E0701.md) | NO SIMULATION |
+| [`E0702`](E0702.md) | NOT LOWERED |
+| [`E0801`](E0801.md) | LINKER FAILED |
+| [`E0802`](E0802.md) | LINKER NOT FOUND |
+| [`E0803`](E0803.md) | TOOLCHAIN |
+| [`I0001`](I0001.md) | INTERNAL ERROR |

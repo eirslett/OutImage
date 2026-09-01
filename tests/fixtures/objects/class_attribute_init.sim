@@ -1,0 +1,12 @@
+! §5.7.6: class attribute initialization at object generation.;
+begin
+    class Counter;
+    begin
+        integer count;
+        count := 0;
+    end;
+    ref(Counter) c;
+    c :- new Counter;
+    integer v;
+    v := c.count;
+end

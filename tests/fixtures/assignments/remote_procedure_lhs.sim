@@ -1,0 +1,9 @@
+! §4.1: assignment to remote text procedure designator (`sub`) as LHS.;
+begin
+    text t;
+    character c;
+    t :- blanks(20);
+    t.sub(7, 3) := "Tom";
+    t.setpos(7);
+    c := t.getchar;
+end

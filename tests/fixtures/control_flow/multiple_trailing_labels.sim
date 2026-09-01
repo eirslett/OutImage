@@ -1,0 +1,11 @@
+begin
+  integer x;
+  procedure DoSomething; begin end;
+  x := 0;
+  goto C;
+  x := 99;
+  DoSomething;
+  A:
+  B:
+  C:
+end;

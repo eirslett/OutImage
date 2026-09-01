@@ -1,0 +1,11 @@
+! §5.5.3.6: virtual procedure specification with `is` heading must match exactly.;
+begin
+    class C;
+    virtual: procedure hash is integer procedure hash;
+    begin
+        integer procedure hash(s); text s;
+        begin
+            hash := 100;
+        end;
+    end;
+end

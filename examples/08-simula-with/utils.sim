@@ -1,0 +1,4 @@
+integer procedure helper;
+begin
+   helper := 42;
+end;

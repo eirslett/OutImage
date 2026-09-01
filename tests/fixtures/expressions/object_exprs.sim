@@ -1,0 +1,5 @@
+begin ref(Node) r;
+    r :- none;
+    r :- new Node;
+    r :- p qua File;
+end

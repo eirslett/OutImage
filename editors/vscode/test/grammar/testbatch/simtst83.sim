@@ -1,0 +1,1337 @@
+// SYNTAX TEST "source.simula" "simtst83"
+% ==================================   Main   program  ===========
+// <------------------------------------------------------------------ comment.directive
+%  PROGRAM NAME:  Simula a.s. - SIMULA TEST NO 83
+// <------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE: Test type procedures as attributes to class, and dot access.
+// <------------------------------------------------------------------------ comment.directive
+%
+// <- comment.directive
+%  METHOD:
+// <---------- comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:
+// <-------------- comment.directive
+% ==============================================================
+// <---------------------------------------------------------------- comment.directive
+begin
+// <----- keyword.control.begin
+
+CLASS Person (yob, yod, children, sex, father, mp, es, yo, pname);
+// <----- keyword.other.class
+//    ^^^^^^ entity.name.class
+//           ^ punctuation.section.parens
+//            ^^^ variable.parameter
+//               ^ punctuation.separator
+//                 ^^^ variable.parameter
+//                    ^ punctuation.separator
+//                      ^^^^^^^^ variable.parameter
+//                              ^ punctuation.separator
+//                                ^^^ variable.parameter
+//                                   ^ punctuation.separator
+//                                     ^^^^^^ variable.parameter
+//                                           ^ punctuation.separator
+//                                             ^^ variable.parameter
+//                                               ^ punctuation.separator
+//                                                 ^^ variable.parameter
+//                                                   ^ punctuation.separator
+//                                                     ^^ variable.parameter
+//                                                       ^ punctuation.separator
+//                                                         ^^^^^ variable.parameter
+//                                                              ^ punctuation.section.parens
+//                                                               ^ punctuation.terminator.statement
+COMMENT CLASS Person in an out-of-date format ************;
+// <----------------------------------------------------------- comment.block
+                           VALUE        pname;
+//                         ^^^^^ keyword.other.value
+//                                      ^^^^^ variable
+//                                           ^ punctuation.terminator.statement
+                           TEXT         pname;
+//                         ^^^^ storage.type
+//                                      ^^^^^ variable
+//                                           ^ punctuation.terminator.statement
+                           INTEGER      yob, yod, children;
+//                         ^^^^^^^ storage.type
+//                                      ^^^ variable
+//                                         ^ punctuation.separator
+//                                           ^^^ variable
+//                                              ^ punctuation.separator
+//                                                ^^^^^^^^ variable
+//                                                        ^ punctuation.terminator.statement
+                           BOOLEAN      sex;
+//                         ^^^^^^^ storage.type
+//                                      ^^^ variable
+//                                         ^ punctuation.terminator.statement
+                           REF (Person) mp, es, yo ,father;
+//                         ^^^ storage.modifier
+//                             ^ punctuation.section.parens
+//                              ^^^^^^ entity.name.class
+//                                    ^ punctuation.section.parens
+//                                      ^^ variable
+//                                        ^ punctuation.separator
+//                                          ^^ variable
+//                                            ^ punctuation.separator
+//                                              ^^ variable
+//                                                 ^ punctuation.separator
+//                                                  ^^^^^^ variable
+//                                                        ^ punctuation.terminator.statement
+   begin
+// ^^^^^ keyword.control.begin
+         REF (Person) PROCEDURE Mother;
+//       ^^^ storage.modifier
+//           ^ punctuation.section.parens
+//            ^^^^^^ entity.name.class
+//                  ^ punctuation.section.parens
+//                    ^^^^^^^^^ storage.type
+//                              ^^^^^^ entity.name.function
+//                                    ^ punctuation.terminator.statement
+               Mother :- father.mp;
+//             ^^^^^^ variable
+//                    ^^ keyword.operator.assignment
+//                       ^^^^^^ variable
+//                             ^ punctuation.accessor
+//                              ^^ variable
+//                                ^ punctuation.terminator.statement
+
+         INTEGER PROCEDURE Siblings;
+//       ^^^^^^^ storage.type
+//               ^^^^^^^^^ storage.type
+//                         ^^^^^^^^ entity.name.function
+//                                 ^ punctuation.terminator.statement
+               IF father =/= NONE THEN Siblings := father.children-1;
+//             ^^ keyword.control.if
+//                ^^^^^^ variable
+//                       ^^^ keyword.operator.comparison
+//                           ^^^^ constant.language.null
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^^^^ variable
+//                                              ^^ keyword.operator.assignment
+//                                                 ^^^^^^ variable
+//                                                       ^ punctuation.accessor
+//                                                        ^^^^^^^^ variable
+//                                                                ^ keyword.operator.arithmetic
+//                                                                 ^ constant.numeric.decimal
+//                                                                  ^ punctuation.terminator.statement
+
+         INTEGER PROCEDURE Brothers;
+//       ^^^^^^^ storage.type
+//               ^^^^^^^^^ storage.type
+//                         ^^^^^^^^ entity.name.function
+//                                 ^ punctuation.terminator.statement
+         begin
+//       ^^^^^ keyword.control.begin
+                REF (Person) p; INTEGER      t;
+//              ^^^ storage.modifier
+//                  ^ punctuation.section.parens
+//                   ^^^^^^ entity.name.class
+//                         ^ punctuation.section.parens
+//                           ^ variable
+//                            ^ punctuation.terminator.statement
+//                              ^^^^^^^ storage.type
+//                                           ^ variable
+//                                            ^ punctuation.terminator.statement
+                IF father =/= NONE then begin
+//              ^^ keyword.control.if
+//                 ^^^^^^ variable
+//                        ^^^ keyword.operator.comparison
+//                            ^^^^ constant.language.null
+//                                 ^^^^ keyword.control.then
+//                                      ^^^^^ keyword.control.begin
+                   p :- father.yo;
+//                 ^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^^^ variable
+//                            ^ punctuation.accessor
+//                             ^^ variable
+//                               ^ punctuation.terminator.statement
+                   WHILE p =/= NONE DO begin
+//                 ^^^^^ keyword.control.while
+//                       ^ variable
+//                         ^^^ keyword.operator.comparison
+//                             ^^^^ constant.language.null
+//                                  ^^ keyword.control.do
+//                                     ^^^^^ keyword.control.begin
+                        IF  NOT p.sex OR p == THIS Person  then p:-p.es
+//                      ^^ keyword.control.if
+//                          ^^^ keyword.operator
+//                              ^ variable
+//                               ^ punctuation.accessor
+//                                ^^^ variable
+//                                    ^^ keyword.operator
+//                                       ^ variable
+//                                         ^^ keyword.operator.comparison
+//                                            ^^^^ keyword.other.this
+//                                                 ^^^^^^ variable
+//                                                         ^^^^ keyword.control.then
+//                                                              ^ variable
+//                                                               ^^ keyword.operator.assignment
+//                                                                 ^ variable
+//                                                                  ^ punctuation.accessor
+//                                                                   ^^ variable
+                        ELSE begin
+//                      ^^^^ keyword.control.else
+//                           ^^^^^ keyword.control.begin
+                            t := t+1;  p :- p.es  end;
+//                          ^ variable
+//                            ^^ keyword.operator.assignment
+//                               ^ variable
+//                                ^ keyword.operator.arithmetic
+//                                 ^ constant.numeric.decimal
+//                                  ^ punctuation.terminator.statement
+//                                     ^ variable
+//                                       ^^ keyword.operator.assignment
+//                                          ^ variable
+//                                           ^ punctuation.accessor
+//                                            ^^ variable
+//                                                ^^^ keyword.control.end
+//                                                   ^ punctuation.terminator.statement
+                   end;
+//                 ^^^ keyword.control.end
+//                    ^ punctuation.terminator.statement
+                   Brothers := t
+//                 ^^^^^^^^ variable
+//                          ^^ keyword.operator.assignment
+//                             ^ variable
+                end
+//              ^^^ keyword.control.end
+         end of procedure Brothers;
+//       ^^^ keyword.control.end
+//           ^^^^^^^^^^^^^^^^^^^^^ comment.block
+//                                ^ punctuation.terminator.statement
+
+         INTEGER PROCEDURE Sisters;
+//       ^^^^^^^ storage.type
+//               ^^^^^^^^^ storage.type
+//                         ^^^^^^^ entity.name.function
+//                                ^ punctuation.terminator.statement
+         begin REF (Person) p; INTEGER t;
+//       ^^^^^ keyword.control.begin
+//             ^^^ storage.modifier
+//                 ^ punctuation.section.parens
+//                  ^^^^^^ entity.name.class
+//                        ^ punctuation.section.parens
+//                          ^ variable
+//                           ^ punctuation.terminator.statement
+//                             ^^^^^^^ storage.type
+//                                     ^ variable
+//                                      ^ punctuation.terminator.statement
+               IF father =/= NONE then begin
+//             ^^ keyword.control.if
+//                ^^^^^^ variable
+//                       ^^^ keyword.operator.comparison
+//                           ^^^^ constant.language.null
+//                                ^^^^ keyword.control.then
+//                                     ^^^^^ keyword.control.begin
+                  p :- father.yo;
+//                ^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^^^^^^ variable
+//                           ^ punctuation.accessor
+//                            ^^ variable
+//                              ^ punctuation.terminator.statement
+                  WHILE p =/= NONE DO begin
+//                ^^^^^ keyword.control.while
+//                      ^ variable
+//                        ^^^ keyword.operator.comparison
+//                            ^^^^ constant.language.null
+//                                 ^^ keyword.control.do
+//                                    ^^^^^ keyword.control.begin
+                     IF p.sex OR p == THIS Person then !nothing;
+//                   ^^ keyword.control.if
+//                      ^ variable
+//                       ^ punctuation.accessor
+//                        ^^^ variable
+//                            ^^ keyword.operator
+//                               ^ variable
+//                                 ^^ keyword.operator.comparison
+//                                    ^^^^ keyword.other.this
+//                                         ^^^^^^ variable
+//                                                ^^^^ keyword.control.then
+//                                                     ^^^^^^^^^ comment.block
+                     ELSE  t := t+1;
+//                   ^^^^ keyword.control.else
+//                         ^ variable
+//                           ^^ keyword.operator.assignment
+//                              ^ variable
+//                               ^ keyword.operator.arithmetic
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.terminator.statement
+                     p:-p.es;
+//                   ^ variable
+//                    ^^ keyword.operator.assignment
+//                      ^ variable
+//                       ^ punctuation.accessor
+//                        ^^ variable
+//                          ^ punctuation.terminator.statement
+                  end
+//                ^^^ keyword.control.end
+               end;
+//             ^^^ keyword.control.end
+//                ^ punctuation.terminator.statement
+               Sisters := t
+//             ^^^^^^^ variable
+//                     ^^ keyword.operator.assignment
+//                        ^ variable
+         end of procedure Sisters;
+//       ^^^ keyword.control.end
+//           ^^^^^^^^^^^^^^^^^^^^ comment.block
+//                               ^ punctuation.terminator.statement
+
+         INTEGER PROCEDURE Age;
+//       ^^^^^^^ storage.type
+//               ^^^^^^^^^ storage.type
+//                         ^^^ entity.name.function
+//                            ^ punctuation.terminator.statement
+               Age :=  (IF yod=0 THEN 1983 ELSE yod) -yob;
+//             ^^^ variable
+//                 ^^ keyword.operator.assignment
+//                     ^ punctuation.section.parens
+//                      ^^ keyword.control.if
+//                         ^^^ variable
+//                            ^ keyword.operator.comparison
+//                             ^ constant.numeric.decimal
+//                               ^^^^ keyword.control.then
+//                                    ^^^^ constant.numeric.decimal
+//                                         ^^^^ keyword.control.else
+//                                              ^^^ variable
+//                                                 ^ punctuation.section.parens
+//                                                   ^ keyword.operator.arithmetic
+//                                                    ^^^ variable
+//                                                       ^ punctuation.terminator.statement
+
+         REF (Person) PROCEDURE Lastaddition;
+//       ^^^ storage.modifier
+//           ^ punctuation.section.parens
+//            ^^^^^^ entity.name.class
+//                  ^ punctuation.section.parens
+//                    ^^^^^^^^^ storage.type
+//                              ^^^^^^^^^^^^ entity.name.function
+//                                          ^ punctuation.terminator.statement
+               Lastaddition :- yo;
+//             ^^^^^^^^^^^^ variable
+//                          ^^ keyword.operator.assignment
+//                             ^^ variable
+//                               ^ punctuation.terminator.statement
+
+         REF (Person) PROCEDURE Firstborn;
+//       ^^^ storage.modifier
+//           ^ punctuation.section.parens
+//            ^^^^^^ entity.name.class
+//                  ^ punctuation.section.parens
+//                    ^^^^^^^^^ storage.type
+//                              ^^^^^^^^^ entity.name.function
+//                                       ^ punctuation.terminator.statement
+         begin REF (Person) p;
+//       ^^^^^ keyword.control.begin
+//             ^^^ storage.modifier
+//                 ^ punctuation.section.parens
+//                  ^^^^^^ entity.name.class
+//                        ^ punctuation.section.parens
+//                          ^ variable
+//                           ^ punctuation.terminator.statement
+               p :- yo;
+//             ^ variable
+//               ^^ keyword.operator.assignment
+//                  ^^ variable
+//                    ^ punctuation.terminator.statement
+               IF p =/= NONE then WHILE p.es =/= NONE DO p :- p.es;
+//             ^^ keyword.control.if
+//                ^ variable
+//                  ^^^ keyword.operator.comparison
+//                      ^^^^ constant.language.null
+//                           ^^^^ keyword.control.then
+//                                ^^^^^ keyword.control.while
+//                                      ^ variable
+//                                       ^ punctuation.accessor
+//                                        ^^ variable
+//                                           ^^^ keyword.operator.comparison
+//                                               ^^^^ constant.language.null
+//                                                    ^^ keyword.control.do
+//                                                       ^ variable
+//                                                         ^^ keyword.operator.assignment
+//                                                            ^ variable
+//                                                             ^ punctuation.accessor
+//                                                              ^^ variable
+//                                                                ^ punctuation.terminator.statement
+               Firstborn :- p
+//             ^^^^^^^^^ variable
+//                       ^^ keyword.operator.assignment
+//                          ^ variable
+         end of procedure Firstborn;
+//       ^^^ keyword.control.end
+//           ^^^^^^^^^^^^^^^^^^^^^^ comment.block
+//                                 ^ punctuation.terminator.statement
+
+         OUTIMAGE;
+//       ^^^^^^^^ variable
+//               ^ punctuation.terminator.statement
+         OUTTEXT (pname); OUTTEXT (" was born in"); OUTINT (yob, 5);
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^ variable
+//                     ^ punctuation.section.parens
+//                      ^ punctuation.terminator.statement
+//                        ^^^^^^^ entity.name.function
+//                                ^ punctuation.section.parens
+//                                 ^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                ^ punctuation.terminator.statement
+//                                                  ^^^^^^ entity.name.function
+//                                                         ^ punctuation.section.parens
+//                                                          ^^^ variable
+//                                                             ^ punctuation.separator
+//                                                               ^ constant.numeric.decimal
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+         OUTTEXT (". The parents were ");
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+         IF father == NONE THEN OUTTEXT ("unknown")
+//       ^^ keyword.control.if
+//          ^^^^^^ variable
+//                 ^^ keyword.operator.comparison
+//                    ^^^^ constant.language.null
+//                         ^^^^ keyword.control.then
+//                              ^^^^^^^ entity.name.function
+//                                      ^ punctuation.section.parens
+//                                       ^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+         ELSE begin
+//       ^^^^ keyword.control.else
+//            ^^^^^ keyword.control.begin
+              OUTTEXT(father.pname); OUTTEXT(" and ");
+//            ^^^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^^ variable
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.terminator.statement
+//                                   ^^^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+              OUTTEXT (Mother.pname)
+//            ^^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^^ variable
+//                           ^ punctuation.accessor
+//                            ^^^^^ variable
+//                                 ^ punctuation.section.parens
+         end;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+         OUTCHAR ('.');
+//       ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^ constant.character
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+         OUTIMAGE
+//       ^^^^^^^^ variable
+end of class Person;
+// <--- keyword.control.end
+//  ^^^^^^^^^^^^^^^ comment.block
+//                 ^ punctuation.terminator.statement
+
+INTEGER      i;
+// <------- storage.type
+//           ^ variable
+//            ^ punctuation.terminator.statement
+REF (Person) ARRAY persons (1:10);
+// <--- storage.modifier
+//  ^ punctuation.section.parens
+//   ^^^^^^ entity.name.class
+//         ^ punctuation.section.parens
+//           ^^^^^ storage.type
+//                 ^^^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^^ constant.numeric.decimal
+//                              ^ punctuation.section.parens
+//                               ^ punctuation.terminator.statement
+
+outtext("--- START Simula a.s. TEST 83"); outimage;
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                     ^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+//                                        ^^^^^^^^ variable
+//                                                ^ punctuation.terminator.statement
+Outtext("--- Test type procedures as attributes to class, and dot access.");
+// <------- entity.name.function
+//     ^ punctuation.section.parens
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                        ^ punctuation.section.parens
+//                                                                         ^ punctuation.terminator.statement
+Outimage; Outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+//        ^^^^^^^^ variable
+//                ^ punctuation.terminator.statement
+
+! THE YEAR IS NOW 1910;
+// <----------------------- comment.block
+
+persons (7) :- NEW Person (1910,0,0,TRUE,NONE,NONE,NONE,NONE,"Romeo");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+//             ^^^ keyword.control.new
+//                 ^^^^^^ entity.name.class
+//                        ^ punctuation.section.parens
+//                         ^^^^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.separator
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.separator
+//                                  ^^^^ constant.language.bool
+//                                      ^ punctuation.separator
+//                                       ^^^^ constant.language.null
+//                                           ^ punctuation.separator
+//                                            ^^^^ constant.language.null
+//                                                ^ punctuation.separator
+//                                                 ^^^^ constant.language.null
+//                                                     ^ punctuation.separator
+//                                                      ^^^^ constant.language.null
+//                                                          ^ punctuation.separator
+//                                                           ^^^^^^^ string.quoted.double
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ punctuation.terminator.statement
+
+! THE YEAR IS NOW 1930;
+// <----------------------- comment.block
+
+persons (8) :- NEW Person (1930,0,0,FALSE,NONE,NONE,NONE,NONE,"Juliet");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+//             ^^^ keyword.control.new
+//                 ^^^^^^ entity.name.class
+//                        ^ punctuation.section.parens
+//                         ^^^^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.separator
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.separator
+//                                  ^^^^^ constant.language.bool
+//                                       ^ punctuation.separator
+//                                        ^^^^ constant.language.null
+//                                            ^ punctuation.separator
+//                                             ^^^^ constant.language.null
+//                                                 ^ punctuation.separator
+//                                                  ^^^^ constant.language.null
+//                                                      ^ punctuation.separator
+//                                                       ^^^^ constant.language.null
+//                                                           ^ punctuation.separator
+//                                                            ^^^^^^^^ string.quoted.double
+//                                                                    ^ punctuation.section.parens
+//                                                                     ^ punctuation.terminator.statement
+persons (1) :- NEW Person (1930,0,0,TRUE,NONE,NONE,NONE,NONE,"Donald");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+//             ^^^ keyword.control.new
+//                 ^^^^^^ entity.name.class
+//                        ^ punctuation.section.parens
+//                         ^^^^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.separator
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.separator
+//                                  ^^^^ constant.language.bool
+//                                      ^ punctuation.separator
+//                                       ^^^^ constant.language.null
+//                                           ^ punctuation.separator
+//                                            ^^^^ constant.language.null
+//                                                ^ punctuation.separator
+//                                                 ^^^^ constant.language.null
+//                                                     ^ punctuation.separator
+//                                                      ^^^^ constant.language.null
+//                                                          ^ punctuation.separator
+//                                                           ^^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+
+! WE NOW MOVE TO YEAR 1935;
+// <--------------------------- comment.block
+
+persons (2) :- NEW Person (1935,0,0,FALSE,NONE,NONE,NONE,NONE,"Daisy");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+//             ^^^ keyword.control.new
+//                 ^^^^^^ entity.name.class
+//                        ^ punctuation.section.parens
+//                         ^^^^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.separator
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.separator
+//                                  ^^^^^ constant.language.bool
+//                                       ^ punctuation.separator
+//                                        ^^^^ constant.language.null
+//                                            ^ punctuation.separator
+//                                             ^^^^ constant.language.null
+//                                                 ^ punctuation.separator
+//                                                  ^^^^ constant.language.null
+//                                                      ^ punctuation.separator
+//                                                       ^^^^ constant.language.null
+//                                                           ^ punctuation.separator
+//                                                            ^^^^^^^ string.quoted.double
+//                                                                   ^ punctuation.section.parens
+//                                                                    ^ punctuation.terminator.statement
+
+! IN 1955 THEY MARRY;
+// <--------------------- comment.block
+
+persons (7).mp :- persons (8);
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+persons (8).mp :- persons (7);
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+persons (1).mp :- persons (2);
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+persons (2).mp :- persons (1);
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+OUTTEXT ("In 1955 Romeo marries Juliet and Daisy marries Donald. ");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                ^ punctuation.section.parens
+//                                                                 ^ punctuation.terminator.statement
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+
+! SO THEY START GETTING CHILDREN;
+// <--------------------------------- comment.block
+
+persons (3) :- NEW Person (1956,0,0,FALSE,persons (1),NONE,NONE,NONE,"Lucy");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+//             ^^^ keyword.control.new
+//                 ^^^^^^ entity.name.class
+//                        ^ punctuation.section.parens
+//                         ^^^^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                              ^ constant.numeric.decimal
+//                               ^ punctuation.separator
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.separator
+//                                  ^^^^^ constant.language.bool
+//                                       ^ punctuation.separator
+//                                        ^^^^^^^ entity.name.function
+//                                                ^ punctuation.section.parens
+//                                                 ^ constant.numeric.decimal
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.separator
+//                                                    ^^^^ constant.language.null
+//                                                        ^ punctuation.separator
+//                                                         ^^^^ constant.language.null
+//                                                             ^ punctuation.separator
+//                                                              ^^^^ constant.language.null
+//                                                                  ^ punctuation.separator
+//                                                                   ^^^^^^ string.quoted.double
+//                                                                         ^ punctuation.section.parens
+//                                                                          ^ punctuation.terminator.statement
+persons (4) :-
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+        NEW Person (1957,0,0,TRUE ,persons (1),NONE,persons (3),NONE,"Linus");
+//      ^^^ keyword.control.new
+//          ^^^^^^ entity.name.class
+//                 ^ punctuation.section.parens
+//                  ^^^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^^^^ constant.language.bool
+//                                ^ punctuation.separator
+//                                 ^^^^^^^ entity.name.function
+//                                         ^ punctuation.section.parens
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.separator
+//                                             ^^^^ constant.language.null
+//                                                 ^ punctuation.separator
+//                                                  ^^^^^^^ entity.name.function
+//                                                          ^ punctuation.section.parens
+//                                                           ^ constant.numeric.decimal
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.separator
+//                                                              ^^^^ constant.language.null
+//                                                                  ^ punctuation.separator
+//                                                                   ^^^^^^^ string.quoted.double
+//                                                                          ^ punctuation.section.parens
+//                                                                           ^ punctuation.terminator.statement
+persons (5) :-
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+       NEW Person (1960,0,0,TRUE ,persons (1),NONE,persons (4),NONE,"Charlie");
+//     ^^^ keyword.control.new
+//         ^^^^^^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^^^^ constant.numeric.decimal
+//                     ^ punctuation.separator
+//                      ^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                          ^^^^ constant.language.bool
+//                               ^ punctuation.separator
+//                                ^^^^^^^ entity.name.function
+//                                        ^ punctuation.section.parens
+//                                         ^ constant.numeric.decimal
+//                                          ^ punctuation.section.parens
+//                                           ^ punctuation.separator
+//                                            ^^^^ constant.language.null
+//                                                ^ punctuation.separator
+//                                                 ^^^^^^^ entity.name.function
+//                                                         ^ punctuation.section.parens
+//                                                          ^ constant.numeric.decimal
+//                                                           ^ punctuation.section.parens
+//                                                            ^ punctuation.separator
+//                                                             ^^^^ constant.language.null
+//                                                                 ^ punctuation.separator
+//                                                                  ^^^^^^^^^ string.quoted.double
+//                                                                           ^ punctuation.section.parens
+//                                                                            ^ punctuation.terminator.statement
+persons (6) :-
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+        NEW Person (1962,0,0,TRUE ,persons (1),NONE,persons (5),NONE,"Snoopy");
+//      ^^^ keyword.control.new
+//          ^^^^^^ entity.name.class
+//                 ^ punctuation.section.parens
+//                  ^^^^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                       ^ constant.numeric.decimal
+//                        ^ punctuation.separator
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.separator
+//                           ^^^^ constant.language.bool
+//                                ^ punctuation.separator
+//                                 ^^^^^^^ entity.name.function
+//                                         ^ punctuation.section.parens
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.separator
+//                                             ^^^^ constant.language.null
+//                                                 ^ punctuation.separator
+//                                                  ^^^^^^^ entity.name.function
+//                                                          ^ punctuation.section.parens
+//                                                           ^ constant.numeric.decimal
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.separator
+//                                                              ^^^^ constant.language.null
+//                                                                  ^ punctuation.separator
+//                                                                   ^^^^^^^^ string.quoted.double
+//                                                                           ^ punctuation.section.parens
+//                                                                            ^ punctuation.terminator.statement
+persons (1).yo :- persons (2).yo :- persons (6);
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.accessor
+//                            ^^ variable
+//                               ^^ keyword.operator.assignment
+//                                  ^^^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+persons (1).children := persons (2).children := 4;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ constant.numeric.decimal
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.accessor
+//                                  ^^^^^^^^ variable
+//                                           ^^ keyword.operator.assignment
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.terminator.statement
+persons (9) :-
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//          ^^ keyword.operator.assignment
+         NEW Person (1956,0,0,TRUE ,persons (7) ,NONE,NONE,NONE,"Scroeder");
+//       ^^^ keyword.control.new
+//           ^^^^^^ entity.name.class
+//                  ^ punctuation.section.parens
+//                   ^^^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^^^^ constant.language.bool
+//                                 ^ punctuation.separator
+//                                  ^^^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                              ^ punctuation.separator
+//                                               ^^^^ constant.language.null
+//                                                   ^ punctuation.separator
+//                                                    ^^^^ constant.language.null
+//                                                        ^ punctuation.separator
+//                                                         ^^^^ constant.language.null
+//                                                             ^ punctuation.separator
+//                                                              ^^^^^^^^^^ string.quoted.double
+//                                                                        ^ punctuation.section.parens
+//                                                                         ^ punctuation.terminator.statement
+persons (7).yo :- persons (8).yo :- persons (9);
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.accessor
+//                            ^^ variable
+//                               ^^ keyword.operator.assignment
+//                                  ^^^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^ constant.numeric.decimal
+//                                            ^ punctuation.section.parens
+//                                             ^ punctuation.terminator.statement
+persons (7).children := persons (8).children := 1;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ constant.numeric.decimal
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.accessor
+//                                  ^^^^^^^^ variable
+//                                           ^^ keyword.operator.assignment
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.terminator.statement
+
+! THE CHILDREN GROW UP AND START THEIR OWN FAMILIES;
+// <---------------------------------------------------- comment.block
+
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+OUTTEXT ("In 1980 Lucy marries Scroeder (and his piano).");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                       ^ punctuation.section.parens
+//                                                        ^ punctuation.terminator.statement
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+
+persons (3).mp :- persons (9);
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+persons (9).mp :- persons (3);
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.terminator.statement
+
+persons (10) :-
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^ constant.numeric.decimal
+//         ^ punctuation.section.parens
+//           ^^ keyword.operator.assignment
+         NEW Person (1981,0,0,TRUE,persons (9),NONE,NONE,NONE,"Wolfgang");
+//       ^^^ keyword.control.new
+//           ^^^^^^ entity.name.class
+//                  ^ punctuation.section.parens
+//                   ^^^^ constant.numeric.decimal
+//                       ^ punctuation.separator
+//                        ^ constant.numeric.decimal
+//                         ^ punctuation.separator
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^^^^ constant.language.bool
+//                                ^ punctuation.separator
+//                                 ^^^^^^^ entity.name.function
+//                                         ^ punctuation.section.parens
+//                                          ^ constant.numeric.decimal
+//                                           ^ punctuation.section.parens
+//                                            ^ punctuation.separator
+//                                             ^^^^ constant.language.null
+//                                                 ^ punctuation.separator
+//                                                  ^^^^ constant.language.null
+//                                                      ^ punctuation.separator
+//                                                       ^^^^ constant.language.null
+//                                                           ^ punctuation.separator
+//                                                            ^^^^^^^^^^ string.quoted.double
+//                                                                      ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+
+persons (3).yo :- persons (9).yo :- persons (10);
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^ variable
+//             ^^ keyword.operator.assignment
+//                ^^^^^^^ entity.name.function
+//                        ^ punctuation.section.parens
+//                         ^ constant.numeric.decimal
+//                          ^ punctuation.section.parens
+//                           ^ punctuation.accessor
+//                            ^^ variable
+//                               ^^ keyword.operator.assignment
+//                                  ^^^^^^^ entity.name.function
+//                                          ^ punctuation.section.parens
+//                                           ^^ constant.numeric.decimal
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+persons (3).children := persons (9).children := 1;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^^^^^^^ variable
+//                   ^^ keyword.operator.assignment
+//                      ^^^^^^^ entity.name.function
+//                              ^ punctuation.section.parens
+//                               ^ constant.numeric.decimal
+//                                ^ punctuation.section.parens
+//                                 ^ punctuation.accessor
+//                                  ^^^^^^^^ variable
+//                                           ^^ keyword.operator.assignment
+//                                              ^ constant.numeric.decimal
+//                                               ^ punctuation.terminator.statement
+
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+OUTTEXT ("In 1982 Romeo and Juliet are killed in a car accident.");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                               ^ punctuation.section.parens
+//                                                                ^ punctuation.terminator.statement
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+
+persons (7).yod := persons (8).yod := 1982;
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^ constant.numeric.decimal
+//        ^ punctuation.section.parens
+//         ^ punctuation.accessor
+//          ^^^ variable
+//              ^^ keyword.operator.assignment
+//                 ^^^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.section.parens
+//                            ^ punctuation.accessor
+//                             ^^^ variable
+//                                 ^^ keyword.operator.assignment
+//                                    ^^^^ constant.numeric.decimal
+//                                        ^ punctuation.terminator.statement
+
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+OUTTEXT ("**** IT IS NOW 1983 AND THE FAMILY SITUATION IS AS FOLLOWS : ****");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                          ^ punctuation.section.parens
+//                                                                           ^ punctuation.terminator.statement
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+OUTTEXT ("                                        !");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+OUTTEXT ("**** NUMBER OF ****! YOUNGEST          ");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+OUTTEXT ("NAME     FATHER   MOTHER   BORN DEAD AGE!");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                  ^ punctuation.section.parens
+//                                                   ^ punctuation.terminator.statement
+OUTTEXT ("SIBL BROT SIST CHIL! CHILD    FIRSTBORN");
+// <------- entity.name.function
+//      ^ punctuation.section.parens
+//       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+OUTIMAGE;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+
+FOR i := 1 STEP 1 UNTIL 10 DO
+// <--- keyword.control.for
+//  ^ variable
+//    ^^ keyword.operator.assignment
+//       ^ constant.numeric.decimal
+//         ^^^^ keyword.control.step
+//              ^ constant.numeric.decimal
+//                ^^^^^ keyword.control.until
+//                      ^^ constant.numeric.decimal
+//                         ^^ keyword.control.do
+INSPECT persons (i) DO begin
+// <------- keyword.control.inspect
+//      ^^^^^^^ entity.name.function
+//              ^ punctuation.section.parens
+//               ^ variable
+//                ^ punctuation.section.parens
+//                  ^^ keyword.control.do
+//                     ^^^^^ keyword.control.begin
+   TEXT t;
+// ^^^^ storage.type
+//      ^ variable
+//       ^ punctuation.terminator.statement
+   t :- BLANKS (9);
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^^^ entity.name.function
+//             ^ punctuation.section.parens
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   t := pname;
+// ^ variable
+//   ^^ keyword.operator.assignment
+//      ^^^^^ variable
+//           ^ punctuation.terminator.statement
+   OUTTEXT (t);
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^ variable
+//           ^ punctuation.section.parens
+//            ^ punctuation.terminator.statement
+
+   IF father == NONE then begin
+// ^^ keyword.control.if
+//    ^^^^^^ variable
+//           ^^ keyword.operator.comparison
+//              ^^^^ constant.language.null
+//                   ^^^^ keyword.control.then
+//                        ^^^^^ keyword.control.begin
+      t := "UNKNOWN";
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^^^^ string.quoted.double
+//                  ^ punctuation.terminator.statement
+      OUTTEXT (t);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      OUTTEXT (t) end
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//                ^^^ keyword.control.end
+   ELSE begin
+// ^^^^ keyword.control.else
+//      ^^^^^ keyword.control.begin
+      t := father.pname;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^ variable
+//               ^ punctuation.accessor
+//                ^^^^^ variable
+//                     ^ punctuation.terminator.statement
+      OUTTEXT (t);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      t := Mother.pname;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^ variable
+//               ^ punctuation.accessor
+//                ^^^^^ variable
+//                     ^ punctuation.terminator.statement
+      OUTTEXT (t)
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   OUTINT (yob, 4);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   IF yod = 0 THEN OUTTEXT ("   no") ELSE OUTINT (yod, 5);
+// ^^ keyword.control.if
+//    ^^^ variable
+//        ^ keyword.operator.comparison
+//          ^ constant.numeric.decimal
+//            ^^^^ keyword.control.then
+//                 ^^^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^^^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                   ^^^^ keyword.control.else
+//                                        ^^^^^^ entity.name.function
+//                                               ^ punctuation.section.parens
+//                                                ^^^ variable
+//                                                   ^ punctuation.separator
+//                                                     ^ constant.numeric.decimal
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+   OUTINT (Age, 4);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ variable
+//            ^ punctuation.separator
+//              ^ constant.numeric.decimal
+//               ^ punctuation.section.parens
+//                ^ punctuation.terminator.statement
+   OUTINT (Siblings, 5);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+   OUTINT (Brothers, 5);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+   OUTINT (Sisters, 5);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^ variable
+//                ^ punctuation.separator
+//                  ^ constant.numeric.decimal
+//                   ^ punctuation.section.parens
+//                    ^ punctuation.terminator.statement
+   OUTINT (children, 5);
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^^^^^^ variable
+//                 ^ punctuation.separator
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+   OUTTEXT ("  ");
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^ string.quoted.double
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+
+   IF yo =/= NONE then begin
+// ^^ keyword.control.if
+//    ^^ variable
+//       ^^^ keyword.operator.comparison
+//           ^^^^ constant.language.null
+//                ^^^^ keyword.control.then
+//                     ^^^^^ keyword.control.begin
+      t := Lastaddition.pname;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^^^^^^^ variable
+//                     ^ punctuation.accessor
+//                      ^^^^^ variable
+//                           ^ punctuation.terminator.statement
+      OUTTEXT (t);
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+//               ^ punctuation.terminator.statement
+      t := Firstborn.pname;
+//    ^ variable
+//      ^^ keyword.operator.assignment
+//         ^^^^^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^ variable
+//                        ^ punctuation.terminator.statement
+      OUTTEXT (t)
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^ variable
+//              ^ punctuation.section.parens
+   end;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   OUTIMAGE
+// ^^^^^^^^ variable
+end;
+// <--- keyword.control.end
+// ^ punctuation.terminator.statement
+
+Outimage; Outtext("--- end Simula a.s. TEST 83"); Outimage;
+// <-------- variable
+//      ^ punctuation.terminator.statement
+//        ^^^^^^^ entity.name.function
+//               ^ punctuation.section.parens
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                             ^ punctuation.section.parens
+//                                              ^ punctuation.terminator.statement
+//                                                ^^^^^^^^ variable
+//                                                        ^ punctuation.terminator.statement
+end of program
+// <--- keyword.control.end
+//  ^^^^^^^^^^ comment.block

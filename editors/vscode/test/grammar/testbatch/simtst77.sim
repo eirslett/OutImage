@@ -1,0 +1,489 @@
+// SYNTAX TEST "source.simula" "simtst77"
+% ===============================================   Main   program =============
+// <-------------------------------------------------------------------------------- comment.directive
+%  PROGRAM NAME:   Simula a.s. - SIMULA TEST NO 77
+// <-------------------------------------------------- comment.directive
+%
+// <- comment.directive
+%  PURPOSE:     Test infile using two infile objects reading from the same
+// <-------------------------------------------------------------------------- comment.directive
+%               external file.
+// <------------------------------ comment.directive
+%
+// <- comment.directive
+%  WRITTEN BY:  BEH   26/08-86
+// <------------------------------ comment.directive
+% ==============================================================================
+// <-------------------------------------------------------------------------------- comment.directive
+BEGIN
+// <----- keyword.control.begin
+   Boolean found_error ;
+// ^^^^^^^ storage.type
+//         ^^^^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Class Les (n, andre); Integer n; Ref (Les) andre;
+// ^^^^^ keyword.other.class
+//       ^^^ entity.name.class
+//           ^ punctuation.section.parens
+//            ^ variable.parameter
+//             ^ punctuation.separator
+//               ^^^^^ variable.parameter
+//                    ^ punctuation.section.parens
+//                     ^ punctuation.terminator.statement
+//                       ^^^^^^^ storage.type
+//                               ^ variable
+//                                ^ punctuation.terminator.statement
+//                                  ^^^ storage.modifier
+//                                      ^ punctuation.section.parens
+//                                       ^^^ entity.name.class
+//                                          ^ punctuation.section.parens
+//                                            ^^^^^ variable
+//                                                 ^ punctuation.terminator.statement
+   Begin Text array linjer (1:300);
+// ^^^^^ keyword.control.begin
+//       ^^^^ storage.type
+//            ^^^^^ storage.type
+//                  ^^^^^^ entity.name.function
+//                         ^ punctuation.section.parens
+//                          ^ constant.numeric.decimal
+//                           ^ punctuation.separator
+//                            ^^^ constant.numeric.decimal
+//                               ^ punctuation.section.parens
+//                                ^ punctuation.terminator.statement
+         Integer lnr, i;
+//       ^^^^^^^ storage.type
+//               ^^^ variable
+//                  ^ punctuation.separator
+//                    ^ variable
+//                     ^ punctuation.terminator.statement
+         Ref (infile) fil;
+//       ^^^ storage.modifier
+//           ^ punctuation.section.parens
+//            ^^^^^^ entity.name.class
+//                  ^ punctuation.section.parens
+//                    ^^^ variable
+//                       ^ punctuation.terminator.statement
+
+         Procedure Sammenlign;
+//       ^^^^^^^^^ storage.type
+//                 ^^^^^^^^^^ entity.name.function
+//                           ^ punctuation.terminator.statement
+         Begin Boolean Procedure OK (i); integer i;
+//       ^^^^^ keyword.control.begin
+//             ^^^^^^^ storage.type
+//                     ^^^^^^^^^ storage.type
+//                               ^^ entity.name.function
+//                                  ^ punctuation.section.parens
+//                                   ^ variable.parameter
+//                                    ^ punctuation.section.parens
+//                                     ^ punctuation.terminator.statement
+//                                       ^^^^^^^ storage.type
+//                                               ^ variable
+//                                                ^ punctuation.terminator.statement
+                     OK:= if i<=lnr and i<=andre.lnr then
+//                   ^^ variable
+//                     ^^ keyword.operator.assignment
+//                        ^^ keyword.control.if
+//                           ^ variable
+//                            ^^ keyword.operator.comparison
+//                              ^^^ variable
+//                                  ^^^ keyword.operator
+//                                      ^ variable
+//                                       ^^ keyword.operator.comparison
+//                                         ^^^^^ variable
+//                                              ^ punctuation.accessor
+//                                               ^^^ variable
+//                                                   ^^^^ keyword.control.then
+                               linjer(i) = andre.linjer(i)
+//                             ^^^^^^ entity.name.function
+//                                   ^ punctuation.section.parens
+//                                    ^ variable
+//                                     ^ punctuation.section.parens
+//                                       ^ keyword.operator.comparison
+//                                         ^^^^^ variable
+//                                              ^ punctuation.accessor
+//                                               ^^^^^^ entity.name.function
+//                                                     ^ punctuation.section.parens
+//                                                      ^ variable
+//                                                       ^ punctuation.section.parens
+                          else false;
+//                        ^^^^ keyword.control.else
+//                             ^^^^^ constant.language.bool
+//                                  ^ punctuation.terminator.statement
+
+               For i:= 1, i+1 while i<=lnr, i+1 while i<=andre.lnr do
+//             ^^^ keyword.control.for
+//                 ^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^ constant.numeric.decimal
+//                      ^ punctuation.separator
+//                        ^ variable
+//                         ^ keyword.operator.arithmetic
+//                          ^ constant.numeric.decimal
+//                            ^^^^^ keyword.control.while
+//                                  ^ variable
+//                                   ^^ keyword.operator.comparison
+//                                     ^^^ variable
+//                                        ^ punctuation.separator
+//                                          ^ variable
+//                                           ^ keyword.operator.arithmetic
+//                                            ^ constant.numeric.decimal
+//                                              ^^^^^ keyword.control.while
+//                                                    ^ variable
+//                                                     ^^ keyword.operator.comparison
+//                                                       ^^^^^ variable
+//                                                            ^ punctuation.accessor
+//                                                             ^^^ variable
+//                                                                 ^^ keyword.control.do
+               If not OK(i) then found_error := true;
+//             ^^ keyword.control.if
+//                ^^^ keyword.operator
+//                    ^^ entity.name.function
+//                      ^ punctuation.section.parens
+//                       ^ variable
+//                        ^ punctuation.section.parens
+//                          ^^^^ keyword.control.then
+//                               ^^^^^^^^^^^ variable
+//                                           ^^ keyword.operator.assignment
+//                                              ^^^^ constant.language.bool
+//                                                  ^ punctuation.terminator.statement
+
+               If found_error then
+//             ^^ keyword.control.if
+//                ^^^^^^^^^^^ variable
+//                            ^^^^ keyword.control.then
+               Begin Outtext ("*** NOTE : Did not work.");
+//             ^^^^^ keyword.control.begin
+//                   ^^^^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                      ^ punctuation.section.parens
+//                                                       ^ punctuation.terminator.statement
+                     Outimage;
+//                   ^^^^^^^^ variable
+//                           ^ punctuation.terminator.statement
+                     Outtext ("       Records read from file:");
+//                   ^^^^^^^ entity.name.function
+//                           ^ punctuation.section.parens
+//                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                            ^ punctuation.section.parens
+//                                                             ^ punctuation.terminator.statement
+                     Outimage;
+//                   ^^^^^^^^ variable
+//                           ^ punctuation.terminator.statement
+                     For i:= 1, i+1 while i<=lnr, i+1 while i<=andre.lnr do
+//                   ^^^ keyword.control.for
+//                       ^ variable
+//                        ^^ keyword.operator.assignment
+//                           ^ constant.numeric.decimal
+//                            ^ punctuation.separator
+//                              ^ variable
+//                               ^ keyword.operator.arithmetic
+//                                ^ constant.numeric.decimal
+//                                  ^^^^^ keyword.control.while
+//                                        ^ variable
+//                                         ^^ keyword.operator.comparison
+//                                           ^^^ variable
+//                                              ^ punctuation.separator
+//                                                ^ variable
+//                                                 ^ keyword.operator.arithmetic
+//                                                  ^ constant.numeric.decimal
+//                                                    ^^^^^ keyword.control.while
+//                                                          ^ variable
+//                                                           ^^ keyword.operator.comparison
+//                                                             ^^^^^ variable
+//                                                                  ^ punctuation.accessor
+//                                                                   ^^^ variable
+//                                                                       ^^ keyword.control.do
+                     Begin Setpos(5);
+//                   ^^^^^ keyword.control.begin
+//                         ^^^^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^ constant.numeric.decimal
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+                           if i<=lnr then Outtext(linjer(i));
+//                         ^^ keyword.control.if
+//                            ^ variable
+//                             ^^ keyword.operator.comparison
+//                               ^^^ variable
+//                                   ^^^^ keyword.control.then
+//                                        ^^^^^^^ entity.name.function
+//                                               ^ punctuation.section.parens
+//                                                ^^^^^^ entity.name.function
+//                                                      ^ punctuation.section.parens
+//                                                       ^ variable
+//                                                        ^^ punctuation.section.parens
+//                                                          ^ punctuation.terminator.statement
+                           Setpos(40);
+//                         ^^^^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^^ constant.numeric.decimal
+//                                  ^ punctuation.section.parens
+//                                   ^ punctuation.terminator.statement
+                           if i<=andre.lnr then Outtext(andre.linjer(i));
+//                         ^^ keyword.control.if
+//                            ^ variable
+//                             ^^ keyword.operator.comparison
+//                               ^^^^^ variable
+//                                    ^ punctuation.accessor
+//                                     ^^^ variable
+//                                         ^^^^ keyword.control.then
+//                                              ^^^^^^^ entity.name.function
+//                                                     ^ punctuation.section.parens
+//                                                      ^^^^^ variable
+//                                                           ^ punctuation.accessor
+//                                                            ^^^^^^ entity.name.function
+//                                                                  ^ punctuation.section.parens
+//                                                                   ^ variable
+//                                                                    ^^ punctuation.section.parens
+//                                                                      ^ punctuation.terminator.statement
+                           Outimage
+//                         ^^^^^^^^ variable
+                     End;
+//                   ^^^ keyword.control.end
+//                      ^ punctuation.terminator.statement
+                     Outimage
+//                   ^^^^^^^^ variable
+               End
+//             ^^^ keyword.control.end
+         End pros. sammenlign;
+//       ^^^ keyword.control.end
+//           ^^^^^^^^^^^^^^^^ comment.block
+//                           ^ punctuation.terminator.statement
+
+         If andre =/= none then
+//       ^^ keyword.control.if
+//          ^^^^^ variable
+//                ^^^ keyword.operator.comparison
+//                    ^^^^ constant.language.null
+//                         ^^^^ keyword.control.then
+               andre.andre :- this Les;
+//             ^^^^^ variable
+//                  ^ punctuation.accessor
+//                   ^^^^^ variable
+//                         ^^ keyword.operator.assignment
+//                            ^^^^ keyword.other.this
+//                                 ^^^ variable
+//                                    ^ punctuation.terminator.statement
+
+         Detach;
+//       ^^^^^^ variable
+//             ^ punctuation.terminator.statement
+
+         fil :- new infile ("any77");
+//       ^^^ variable
+//           ^^ keyword.operator.assignment
+//              ^^^ keyword.control.new
+//                  ^^^^^^ entity.name.class
+//                         ^ punctuation.section.parens
+//                          ^^^^^^^ string.quoted.double
+//                                 ^ punctuation.section.parens
+//                                  ^ punctuation.terminator.statement
+         if not fil.open (blanks (30)) then
+//       ^^ keyword.control.if
+//          ^^^ keyword.operator
+//              ^^^ variable
+//                 ^ punctuation.accessor
+//                  ^^^^ entity.name.function
+//                       ^ punctuation.section.parens
+//                        ^^^^^^ entity.name.function
+//                               ^ punctuation.section.parens
+//                                ^^ constant.numeric.decimal
+//                                  ^^ punctuation.section.parens
+//                                     ^^^^ keyword.control.then
+                Error("Can't open infile: any77");
+//              ^^^^^ entity.name.function
+//                   ^ punctuation.section.parens
+//                    ^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                              ^ punctuation.section.parens
+//                                               ^ punctuation.terminator.statement
+         fil.Inrecord;
+//       ^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^^^^ variable
+//                   ^ punctuation.terminator.statement
+
+         While not fil.Endfile do
+//       ^^^^^ keyword.control.while
+//             ^^^ keyword.operator
+//                 ^^^ variable
+//                    ^ punctuation.accessor
+//                     ^^^^^^^ variable
+//                             ^^ keyword.control.do
+         Begin i:= n+1;
+//       ^^^^^ keyword.control.begin
+//             ^ variable
+//              ^^ keyword.operator.assignment
+//                 ^ variable
+//                  ^ keyword.operator.arithmetic
+//                   ^ constant.numeric.decimal
+//                    ^ punctuation.terminator.statement
+               For i:= i-1 while not fil.Endfile and i>0 and lnr<301 do
+//             ^^^ keyword.control.for
+//                 ^ variable
+//                  ^^ keyword.operator.assignment
+//                     ^ variable
+//                      ^ keyword.operator.arithmetic
+//                       ^ constant.numeric.decimal
+//                         ^^^^^ keyword.control.while
+//                               ^^^ keyword.operator
+//                                   ^^^ variable
+//                                      ^ punctuation.accessor
+//                                       ^^^^^^^ variable
+//                                               ^^^ keyword.operator
+//                                                   ^ variable
+//                                                    ^ keyword.operator.comparison
+//                                                     ^ constant.numeric.decimal
+//                                                       ^^^ keyword.operator
+//                                                           ^^^ variable
+//                                                              ^ keyword.operator.comparison
+//                                                               ^^^ constant.numeric.decimal
+//                                                                   ^^ keyword.control.do
+               Begin lnr:= lnr+1; linjer(lnr):- copy (fil.image);
+//             ^^^^^ keyword.control.begin
+//                   ^^^ variable
+//                      ^^ keyword.operator.assignment
+//                         ^^^ variable
+//                            ^ keyword.operator.arithmetic
+//                             ^ constant.numeric.decimal
+//                              ^ punctuation.terminator.statement
+//                                ^^^^^^ entity.name.function
+//                                      ^ punctuation.section.parens
+//                                       ^^^ variable
+//                                          ^ punctuation.section.parens
+//                                           ^^ keyword.operator.assignment
+//                                              ^^^^ entity.name.function
+//                                                   ^ punctuation.section.parens
+//                                                    ^^^ variable
+//                                                       ^ punctuation.accessor
+//                                                        ^^^^^ variable
+//                                                             ^ punctuation.section.parens
+//                                                              ^ punctuation.terminator.statement
+                     fil.Inrecord
+//                   ^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^^^^^^ variable
+               End;
+//             ^^^ keyword.control.end
+//                ^ punctuation.terminator.statement
+               Resume (andre)
+//             ^^^^^^ entity.name.function
+//                    ^ punctuation.section.parens
+//                     ^^^^^ variable
+//                          ^ punctuation.section.parens
+         End;
+//       ^^^ keyword.control.end
+//          ^ punctuation.terminator.statement
+
+         While not andre.fil.endfile do resume (andre);
+//       ^^^^^ keyword.control.while
+//             ^^^ keyword.operator
+//                 ^^^^^ variable
+//                      ^ punctuation.accessor
+//                       ^^^ variable
+//                          ^ punctuation.accessor
+//                           ^^^^^^^ variable
+//                                   ^^ keyword.control.do
+//                                      ^^^^^^ entity.name.function
+//                                             ^ punctuation.section.parens
+//                                              ^^^^^ variable
+//                                                   ^ punctuation.section.parens
+//                                                    ^ punctuation.terminator.statement
+
+         fil.Close; andre.fil.Close;
+//       ^^^ variable
+//          ^ punctuation.accessor
+//           ^^^^^ variable
+//                ^ punctuation.terminator.statement
+//                  ^^^^^ variable
+//                       ^ punctuation.accessor
+//                        ^^^ variable
+//                           ^ punctuation.accessor
+//                            ^^^^^ variable
+//                                 ^ punctuation.terminator.statement
+         Sammenlign;
+//       ^^^^^^^^^^ variable
+//                 ^ punctuation.terminator.statement
+   End;
+// ^^^ keyword.control.end
+//    ^ punctuation.terminator.statement
+
+   Outtext ("--- START Simula a.s. TEST 77") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                         ^ punctuation.section.parens
+//                                           ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- Test infile using two infile objects reading from the") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                                                     ^ punctuation.section.parens
+//                                                                       ^ punctuation.terminator.statement
+   Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+   Outtext ("--- same external file (""any77"").") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+   Outimage ; Outimage ;
+// ^^^^^^^^ variable
+//          ^ punctuation.terminator.statement
+//            ^^^^^^^^ variable
+//                     ^ punctuation.terminator.statement
+
+   Resume (New Les(3, New Les(7, none)));
+// ^^^^^^ entity.name.function
+//        ^ punctuation.section.parens
+//         ^^^ keyword.control.new
+//             ^^^ entity.name.class
+//                ^ punctuation.section.parens
+//                 ^ constant.numeric.decimal
+//                  ^ punctuation.separator
+//                    ^^^ keyword.control.new
+//                        ^^^ entity.name.class
+//                           ^ punctuation.section.parens
+//                            ^ constant.numeric.decimal
+//                             ^ punctuation.separator
+//                               ^^^^ constant.language.null
+//                                   ^^^ punctuation.section.parens
+//                                      ^ punctuation.terminator.statement
+
+   IF found_error THEN
+// ^^ keyword.control.if
+//    ^^^^^^^^^^^ variable
+//                ^^^^ keyword.control.then
+   ELSE
+// ^^^^ keyword.control.else
+   BEGIN
+// ^^^^^ keyword.control.begin
+      Outtext ("--- NO ERRORS FOUND IN THIS TEST") ;
+//    ^^^^^^^ entity.name.function
+//            ^ punctuation.section.parens
+//             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                               ^ punctuation.section.parens
+//                                                 ^ punctuation.terminator.statement
+      Outimage
+//    ^^^^^^^^ variable
+   END ;
+// ^^^ keyword.control.end
+//     ^ punctuation.terminator.statement
+
+   Outtext ("--- END Simula a.s. TEST 77") ;
+// ^^^^^^^ entity.name.function
+//         ^ punctuation.section.parens
+//          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ string.quoted.double
+//                                       ^ punctuation.section.parens
+//                                         ^ punctuation.terminator.statement
+   Outimage
+// ^^^^^^^^ variable
+ END
+// <~--- keyword.control.end

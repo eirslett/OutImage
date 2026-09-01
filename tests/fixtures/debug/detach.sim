@@ -1,0 +1,16 @@
+! Debug acceptance: detach leaves a suspended object thread.;
+begin
+    class Worker;
+    begin
+        OutText("A");
+        OutImage;
+        detach;
+        OutText("B");
+        OutImage;
+    end;
+    ref(Worker) w;
+    w :- new Worker;
+    OutText("C");
+    OutImage;
+    call(w);
+end

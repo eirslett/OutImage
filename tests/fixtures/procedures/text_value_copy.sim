@@ -1,0 +1,11 @@
+! §4.6.2 / Ch. 8: text value parameter is initialized by copy(AP).;
+begin
+    procedure show(t); value t; text t;
+    begin
+        OutText(t);
+        OutImage;
+    end;
+    text msg;
+    msg :- "hello";
+    show(msg);
+end

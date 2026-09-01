@@ -1,0 +1,11 @@
+[E0206] Error: TYPE MISMATCH: this `else` branch is boolean, but it should be integer
+   ╭─[ incompatible_if_branches.sim:1:43 ]
+   │
+ 1 │ begin integer x; x := if true then 1 else true; end;
+   │                                           ──┬─  
+   │                                             ╰─── this is boolean
+   │ 
+   │ Help: change this branch so it yields integer
+   │ 
+   │ Note: this `if` is used where integer is required, so both branches must yield integer
+───╯

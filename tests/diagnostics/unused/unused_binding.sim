@@ -1,0 +1,1 @@
+begin integer x; integer y; y := 1; end;

@@ -1,0 +1,15 @@
+[E0302] Error: UNKNOWN NAME: I cannot find a procedure named `outtxt`
+   ╭─[ unknown_procedure_typo.sim:1:7 ]
+   │
+ 1 │ begin Outtxt("hi"); end;
+   │       ──────┬──────  
+   │             ╰──────── here
+   │ 
+   │ Help 1: declare it, import it with `external procedure`, or prefix the block with a class that provides it
+   │ 
+   │ Help 2: did you mean `OutText`?
+   │ 
+   │ Help 3: suggestion: replace `outtxt` with `OutText`
+   │ 
+   │ Note: names are matched without regard to case
+───╯

@@ -1,0 +1,16 @@
+! Prefixed-block locals must not leak into the enclosing scope;
+begin
+    class Box;
+    begin
+        integer x;
+        x := 0;
+    end;
+    integer n;
+    n := 0;
+    Box begin
+        integer k;
+        k := 1;
+        n := k;
+    end;
+    n := 2;
+end

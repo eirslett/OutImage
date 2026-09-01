@@ -1,0 +1,9 @@
+[E0502] Error: DUPLICATE FORMAL: duplicate formal parameter `a`
+   ╭─[ duplicate_formal.sim:1:1 ]
+   │
+ 1 │ begin procedure p(a, a); integer a; begin end; end;
+   │ │ 
+   │ ╰─ second occurrence
+   │ 
+   │ Help: rename one of the formals
+───╯

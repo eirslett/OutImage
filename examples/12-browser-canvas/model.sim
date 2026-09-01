@@ -1,0 +1,12 @@
+external Host procedure plot = "plot"
+   is procedure plot(x, y); real x, y;
+
+comment Rhodonea (rose). Even k gives 2*k petals, odd k gives k petals.
+      Try k=24 for 48 petals, or k=15 for a 15-petal daisy;
+procedure tick(t); real t;
+begin
+   real k, s;
+   k := 18.0;
+   s := 0.42 * cos(k * t);
+   plot(0.5 + s * cos(t), 0.5 + s * sin(t));
+end;

@@ -1,0 +1,6 @@
+begin
+    comment
+        abc
+        def
+    ;
+end

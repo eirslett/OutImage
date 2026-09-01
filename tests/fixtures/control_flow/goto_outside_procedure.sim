@@ -1,0 +1,12 @@
+! §5.4.18: goto outside a procedure abandons the call and resumes at the outer label.;
+begin
+    integer x;
+    procedure p;
+    begin
+        goto done;
+    end;
+    p;
+    x := 1;
+    done:
+    x := 2;
+end
