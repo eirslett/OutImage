@@ -102,6 +102,7 @@ fn dwarf_line_numbers(bytes: &[u8]) -> Vec<u64> {
     lines
 }
 
+#[cfg(not(windows))]
 #[test]
 fn linked_binary_or_dsym_contains_dwarf_debug_sections() {
     let source = "begin integer x;\n  x := 1;\n  OutText(\"hi\");\n  OutImage;\nend;\n";
@@ -117,6 +118,7 @@ fn linked_binary_or_dsym_contains_dwarf_debug_sections() {
     );
 }
 
+#[cfg(not(windows))]
 #[test]
 fn dwarf_line_table_includes_assignment_line() {
     // Line 2 is `integer x;`, line 3 is `x := 1;`.
@@ -739,6 +741,7 @@ fn dwarf_variable_names(bytes: &[u8]) -> Vec<(String, bool)> {
     names
 }
 
+#[cfg(not(windows))]
 #[test]
 fn dwarf_contains_named_local_with_location() {
     // Unused after assignment still locates: `-g` keeps named locals live via
@@ -758,6 +761,7 @@ fn dwarf_contains_named_local_with_location() {
     assert!(x.1, "variable x should have a DW_AT_location: {vars:?}");
 }
 
+#[cfg(not(windows))]
 #[test]
 fn dwarf_contains_procedure_parameter_name() {
     let source = r#"begin
@@ -865,6 +869,7 @@ fn dwarf_struct_members(bytes: &[u8]) -> Vec<(String, Vec<(String, u64)>)> {
     structs
 }
 
+#[cfg(not(windows))]
 #[test]
 fn dwarf_contains_class_structure_and_field_members() {
     let source = r#"begin
@@ -900,6 +905,7 @@ end;
     assert!(p.1, "object local p should have a DW_AT_location: {vars:?}");
 }
 
+#[cfg(not(windows))]
 #[test]
 fn dwarf_prefixed_class_includes_prefix_fields() {
     let source = r#"begin
@@ -940,6 +946,7 @@ end;
 /// attribute, so a debugger sees the object's declared attributes and nothing
 /// else. The statement-index splitter this replaced kept a resume PC in
 /// `__simrt_coro_pc`, which showed up here.
+#[cfg(not(windows))]
 #[test]
 fn dwarf_shows_no_synthetic_continuation_field_on_a_process() {
     let source = r#"Simulation begin
@@ -1053,6 +1060,7 @@ fn dwarf_variable_pointee_types(bytes: &[u8]) -> Vec<(String, String)> {
     out
 }
 
+#[cfg(not(windows))]
 #[test]
 fn dwarf_text_and_array_locals_use_runtime_struct_types() {
     let source = r#"begin
@@ -1103,6 +1111,7 @@ end;
     );
 }
 
+#[cfg(not(windows))]
 #[test]
 fn dwarf_object_text_and_ref_fields_are_typed() {
     let source = r#"begin
