@@ -294,7 +294,7 @@ pub(in crate::codegen::wasm) fn emit_call_env(
         other => {
             let _ = function;
             Err(CompileError::codegen(format!(
-                "MIR wasm: ENVIRONMENT helper '{other}' is not supported yet (native only)"
+                "ENVIRONMENT helper '{other}' is not supported on wasm yet (native only)"
             )))
         }
     }

@@ -109,6 +109,9 @@ fn compile_native_runtime(out_dir: &Path, manifest_dir: &Path) -> (PathBuf, bool
         san.flag("-fsanitize=address,undefined");
         san.flag("-fno-omit-frame-pointer");
         san.flag("-g");
+        // CRT `main` lives only in this archive so ASan constructors run.
+        // The compiler-linked `simrt_rt` must not define `main`.
+        san.define("SIMRT_NEED_CRT_MAIN", None);
         san.cargo_metadata(false);
         san.compile("simrt_san");
         let archive = find_runtime_archive(out_dir, "simrt_san")
