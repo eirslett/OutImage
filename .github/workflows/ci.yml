@@ -24,20 +24,30 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: cargo clippy --workspace --all-targets --all-features -- -D warnings
         env:
-          # rust-lld SIGBUS on GitHub Ubuntu when many debug test bins link at once.
+          # Full debug + rust-lld SIGBUS on GitHub Ubuntu when many test
+          # binaries link at once. GNU ld + smaller DWARF stays in RAM.
           RUSTFLAGS: "-C linker-features=-lld"
+          CARGO_PROFILE_DEV_DEBUG: line-tables-only
           CARGO_BUILD_JOBS: "2"
+      # Skip on Ubuntu: clippy already typechecks, and `cargo build --all-targets`
+      # linking every integration test at once OOMs the 7GB runner.
       - name: Build
+        if: runner.os != 'Linux'
         run: cargo build --all-targets
         env:
-          RUSTFLAGS: ${{ runner.os == 'Linux' && '-C linker-features=-lld' || '' }}
-          CARGO_BUILD_JOBS: ${{ runner.os == 'Linux' && '2' || '16' }}
+          CC: ${{ runner.os == 'Windows' && 'cl' || 'cc' }}
       - name: Test
+        if: runner.os == 'Linux'
+        run: cargo test
+        env:
+          RUSTFLAGS: "-C linker-features=-lld"
+          CARGO_PROFILE_DEV_DEBUG: line-tables-only
+          CARGO_BUILD_JOBS: "2"
+      - name: Test
+        if: runner.os != 'Linux'
         run: cargo test
         env:
           CC: ${{ runner.os == 'Windows' && 'cl' || 'cc' }}
-          RUSTFLAGS: ${{ runner.os == 'Linux' && '-C linker-features=-lld' || '' }}
-          CARGO_BUILD_JOBS: ${{ runner.os == 'Linux' && '2' || '16' }}
         # Includes the GC stress suite: tests/gc_stress.rs,
         # tests/memory_gc.rs, tests/runtime_gc.rs. C fixtures compile with
         # ASan+UBSan on Unix. TestBatch stays the 100/100 correctness gate.
