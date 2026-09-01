@@ -27,16 +27,13 @@ void simrt_gc_visit_runtime_roots(simrt_gc_mark_fn mark) {
     simrt_sim_gc_visit_roots(mark);
 }
 
-/* Cranelift exports `sim_main`. Provide `main` only when the CRT is the
- * process entry: PE (always) and sanitizer-linked ELF (`SIMRT_NEED_CRT_MAIN`
- * from the extra `simrt_san` archive). Unsanitized Linux AOT still uses
- * `-nostartfiles --entry=sim_main`. Do not emit `main` in the compiler-linked
- * archive — Rust test binaries already have a Rust `main`, and a second one
- * in `libsimrt_rt.a` crashes lld. */
-#if defined(_WIN32) || defined(SIMRT_NEED_CRT_MAIN)
+/* Cranelift exports `sim_main`. CRT `main` forwards to it so PE and ELF
+ * binaries can use libc startup (`atexit`, `__dso_handle`, ASan
+ * constructors). The archive is bundled into AOT programs and is *not*
+ * cargo-linked into the compiler (see `build.rs` `cargo_metadata(false)`),
+ * so Rust test binaries do not pick up this `main`. */
 int sim_main(void);
 
 int main(void) {
     return sim_main();
 }
-#endif
