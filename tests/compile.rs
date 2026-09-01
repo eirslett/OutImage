@@ -128,7 +128,9 @@ fn emit_obj_writes_object_file_without_linking() {
                 bytes.starts_with(b"\xcf\xfa\xed\xfe") // Mach-O 64 LE
                     || bytes.starts_with(b"\x7fELF")
                     || bytes.starts_with(b"\xfe\xed\xfa\xce")
-                    || bytes.starts_with(b"\xfe\xed\xfa\xcf"),
+                    || bytes.starts_with(b"\xfe\xed\xfa\xcf")
+                    || bytes.starts_with(&[0x64, 0x86]) // COFF AMD64
+                    || bytes.starts_with(&[0x4c, 0x01]), // COFF i386
                 "unexpected object magic: {:02x?}",
                 &bytes[..bytes.len().min(4)]
             );
