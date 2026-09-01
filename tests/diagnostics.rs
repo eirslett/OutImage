@@ -367,7 +367,9 @@ fn file_goldens() {
 
     let mut failures = Vec::new();
     for sim in &sims {
-        let text = fs::read_to_string(sim).unwrap();
+        let text = fs::read_to_string(sim)
+            .unwrap()
+            .replace('\r', "");
         let file = SourceFile {
             name: sim.file_name().unwrap().to_string_lossy().into_owned(),
             text,
@@ -591,7 +593,7 @@ fn every_catalog_code_has_explain_page() {
 #[test]
 fn error_codes_doc_contains_generated_table() {
     let table = outimage::diagnostics::catalog_index_markdown();
-    let doc = include_str!("../docs/ERROR_CODES.md");
+    let doc = include_str!("../docs/ERROR_CODES.md").replace('\r', "");
     assert!(
         doc.contains(table.trim()),
         "docs/ERROR_CODES.md is stale; paste catalog_index_markdown() into the catalogued-codes table"

@@ -42,6 +42,9 @@ int main(void) {
 
 #if !defined(_WIN32)
 /* GNU ld + `-nostartfiles` still pulls libc `atexit`, which wants this CRT
- * symbol. Weak so C fixtures / sanitizer links keep crtbegin's definition. */
-void *__dso_handle __attribute__((weak, visibility("hidden"))) = 0;
+ * symbol. Must be a real object (not NULL) or FILE* teardown SIGSEGVs.
+ * Weak so C fixtures / sanitizer links keep crtbegin's definition. */
+static char simrt_dso_handle_storage;
+void *__dso_handle __attribute__((weak, visibility("hidden"))) =
+    &simrt_dso_handle_storage;
 #endif
