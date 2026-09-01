@@ -117,6 +117,8 @@ pub fn link_native(
         LinkerKind::GnuCc => {
             if crate_type == CrateType::Lib {
                 command.arg("-shared");
+            } else if !bundled::RUNTIME_SANITIZED {
+                command.arg("-nostartfiles");
             }
             if debug_info && linker_name_looks_like_lld(&linker.path) {
                 command.arg("-Wl,--gdb-index");
@@ -132,9 +134,12 @@ pub fn link_native(
             for lib in filtered_libs(target, &extra.libs) {
                 command.arg(format!("-l{lib}"));
             }
-            if crate_type == CrateType::Bin {
+            if crate_type == CrateType::Bin && bundled::RUNTIME_SANITIZED {
                 // CRT needs `main` from the runtime archive; force the member in.
                 command.arg("-Wl,-u,main");
+            }
+            if crate_type == CrateType::Bin && !bundled::RUNTIME_SANITIZED {
+                command.arg("-Wl,--entry=sim_main");
             }
         }
         LinkerKind::GnuLd => {
