@@ -158,7 +158,7 @@ fn dap_stop_on_entry_then_continue() {
             "command": "disconnect"
         }),
     );
-    let _ = child.wait_timeout_friendly();
+    child.wait_timeout_friendly();
     let _ = std::fs::remove_file(&path);
 }
 

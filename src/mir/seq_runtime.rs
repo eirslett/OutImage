@@ -1289,7 +1289,7 @@ mod tests {
 
     #[test]
     fn the_static_state_fits_the_reserved_block() {
-        assert!(STATE_MAIN_CORO + 8 <= STATE_BYTES);
+        const { assert!(STATE_MAIN_CORO + 8 <= STATE_BYTES) };
     }
 
     #[test]

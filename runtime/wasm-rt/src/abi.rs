@@ -10,7 +10,11 @@ const FRAME_OFF_PTR: i32 = 0;
 const FRAME_OFF_LEN: i32 = 4;
 const FRAME_OFF_POS: i32 = 8;
 const FRAME_OFF_PAD: i32 = 12;
+// Host `SimrtTextFrame` also stores start/main after pad; the wasm ABI currently
+// only reads ptr/len/pos/pad.
+#[allow(dead_code)]
 const FRAME_OFF_START: i32 = 16;
+#[allow(dead_code)]
 const FRAME_OFF_MAIN_LEN: i32 = 20;
 const NUMERIC_FIELD_MAX: usize = 256;
 const FORMAT_SCRATCH_LEN: usize = 512;
@@ -349,7 +353,7 @@ pub extern "C" fn f64_pow(base: f64, exponent: f64) -> f64 {
 
 #[unsafe(export_name = "simrt_ln")]
 pub extern "C" fn ln(x: f64) -> f64 {
-    if !(x > 0.0) {
+    if x.is_nan() || x <= 0.0 {
         trap("ln of non-positive argument");
     }
     x.ln()
@@ -408,6 +412,6 @@ pub extern "C" fn negexp(a: f64, stream: i64) -> f64 {
 #[unsafe(export_name = "simrt_draw")]
 pub extern "C" fn draw(a: f64, stream: i64) -> i64 {
     with_stream(stream, |s| {
-        environment::draw(a, s).map(|value| i64::from(value))
+        environment::draw(a, s).map(i64::from)
     })
 }

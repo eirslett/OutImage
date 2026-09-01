@@ -171,6 +171,11 @@ fn compile_wasm_runtime(out_dir: &Path, manifest_dir: &Path, math_only: bool) ->
     let status = command
         .env("RUSTFLAGS", rustflags)
         .env_remove("CARGO_ENCODED_RUSTFLAGS")
+        // Parent `cargo clippy -D warnings` otherwise wraps this nested build
+        // in clippy-driver and treats wasm-rt warnings as errors.
+        .env_remove("RUSTC_WRAPPER")
+        .env_remove("RUSTC_WORKSPACE_WRAPPER")
+        .env_remove("CLIPPY_ARGS")
         .status()
         .unwrap_or_else(|error| panic!("failed to spawn cargo for outimage-wasm-rt: {error}"));
     if !status.success() {

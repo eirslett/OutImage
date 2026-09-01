@@ -42,10 +42,10 @@ pub const NATIVE_RUNTIME_SOURCES: &[&str] = &[
 ];
 
 fn host_c_compiler() -> String {
-    if let Ok(cc) = std::env::var("CC") {
-        if !cc.is_empty() {
-            return cc;
-        }
+    if let Ok(cc) = std::env::var("CC")
+        && !cc.is_empty()
+    {
+        return cc;
     }
     for name in ["cc", "clang", "gcc"] {
         if Command::new(name)

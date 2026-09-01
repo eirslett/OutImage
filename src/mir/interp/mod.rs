@@ -2552,7 +2552,7 @@ pub(super) fn format_out_frac(value: i64, digits: i64, width: i64) -> Result<Str
 
 fn collect_locals(frame: &CallFrame, args: &[LocalId]) -> Result<Vec<Value>, CompileError> {
     args.iter()
-        .map(|arg| frame.get_local(*arg).map(Clone::clone))
+        .map(|arg| frame.get_local(*arg).cloned())
         .collect()
 }
 

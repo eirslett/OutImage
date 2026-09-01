@@ -155,10 +155,10 @@ enum WasmIo {
 
 thread_local! {
     /// When true, `ObjectRef` lowers to `(ref null any)` and object ops use WasmGC.
-    static GC_OBJECTS: std::cell::Cell<bool> = std::cell::Cell::new(false);
+    static GC_OBJECTS: std::cell::Cell<bool> = const { std::cell::Cell::new(false) };
     static GC_CTX: std::cell::RefCell<Option<crate::codegen::wasm_gc::GcEmitCtx>> =
-        std::cell::RefCell::new(None);
-    static FFI_CHARSET: std::cell::Cell<Charset> = std::cell::Cell::new(Charset::Latin1);
+        const { std::cell::RefCell::new(None) };
+    static FFI_CHARSET: std::cell::Cell<Charset> = const { std::cell::Cell::new(Charset::Latin1) };
 }
 
 fn gc_objects_enabled() -> bool {
@@ -348,6 +348,13 @@ fn append_shaken_runtime(bytes: &mut Vec<u8>, keep: &HashSet<String>) -> Result<
     Ok(())
 }
 
+fn unsupported_whole_file_io() -> CompileError {
+    CompileError::codegen(
+        "whole-file I/O (fileExists/fileRead/fileWrite) is not supported on wasm yet \
+         (native only; use the interpreter or Native target)",
+    )
+}
+
 fn ensure_supported_subset(function: &MirFunction, reachable: bool) -> Result<(), CompileError> {
     // Dead bodies (standard-class leftovers) become traps; only live code
     // has to stay inside the wasm-supported subset.
@@ -358,9 +365,7 @@ fn ensure_supported_subset(function: &MirFunction, reachable: bool) -> Result<()
         for spanned in &block.ops {
             match &spanned.op {
                 Op::CallFileExists { .. } | Op::CallFileRead { .. } | Op::CallFileWrite { .. } => {
-                    return Err(CompileError::codegen(
-                        "MIR wasm: whole-file I/O (fileExists/fileRead/fileWrite) is not                          supported yet (native only; use the interpreter or Native target)",
-                    ));
+                    return Err(unsupported_whole_file_io());
                 }
                 op if !op_is_supported(op) => {
                     return Err(CompileError::codegen(format!(

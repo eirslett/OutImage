@@ -1167,7 +1167,7 @@ pub fn rename(
 /// them back to those scopes via `semanticTokenScopes` so themes still color them.
 pub fn semantic_tokens_legend() -> SemanticTokensLegend {
     SemanticTokensLegend {
-        token_types: LEGEND_TYPES.iter().cloned().collect(),
+        token_types: LEGEND_TYPES.to_vec(),
         token_modifiers: vec![
             SemanticTokenModifier::DECLARATION,
             SemanticTokenModifier::READONLY,

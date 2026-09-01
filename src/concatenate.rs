@@ -3065,7 +3065,7 @@ end"#,
         );
         // The hider itself still sees attribute `i`.
         let b = map.get("b").unwrap();
-        assert!(b.identifier_substitutions.get("i").is_none());
+        assert!(!b.identifier_substitutions.contains_key("i"));
     }
 
     #[test]

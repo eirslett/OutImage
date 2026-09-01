@@ -421,27 +421,27 @@ fn array_extent_overflow_rejected() {
         &outimage::source::SourceFile::anonymous(source),
         &outimage::CompileOptions::for_compile(native_output_path, outimage::CompileTarget::Native),
     ) {
-        if let Ok(run) = std::process::Command::new(&artifact).output() {
-            if !run.status.success() {
-                assert_eq!(
-                    String::from_utf8_lossy(&run.stdout),
-                    "",
-                    "no output should be printed if native rejects the huge array extent"
-                );
-            }
+        if let Ok(run) = std::process::Command::new(&artifact).output()
+            && !run.status.success()
+        {
+            assert_eq!(
+                String::from_utf8_lossy(&run.stdout),
+                "",
+                "no output should be printed if native rejects the huge array extent"
+            );
         }
         let _ = std::fs::remove_file(&artifact);
     }
 
     // Wasm: same best-effort story as native, using a non-panicking runner
     // since a trap here is an *acceptable* outcome, not a required one.
-    if let Some((success, stdout, _stderr)) = run_wasm_node_lenient(source) {
-        if !success {
-            assert_eq!(
-                stdout, "",
-                "no output should be printed if wasm rejects/traps on the huge array extent"
-            );
-        }
+    if let Some((success, stdout, _stderr)) = run_wasm_node_lenient(source)
+        && !success
+    {
+        assert_eq!(
+            stdout, "",
+            "no output should be printed if wasm rejects/traps on the huge array extent"
+        );
     }
 }
 

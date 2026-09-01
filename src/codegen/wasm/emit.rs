@@ -702,9 +702,9 @@ pub(in crate::codegen::wasm) fn emit_op(
             }
             Ok(false)
         }
-        Op::CallFileExists { .. } | Op::CallFileRead { .. } | Op::CallFileWrite { .. } => Err(
-            CompileError::codegen("MIR wasm: whole-file I/O is not supported yet (native only)"),
-        ),
+        Op::CallFileExists { .. } | Op::CallFileRead { .. } | Op::CallFileWrite { .. } => {
+            Err(unsupported_whole_file_io())
+        }
         Op::CallOutReal {
             value,
             digits,
