@@ -117,8 +117,6 @@ pub fn link_native(
         LinkerKind::GnuCc => {
             if crate_type == CrateType::Lib {
                 command.arg("-shared");
-            } else if !bundled::RUNTIME_SANITIZED {
-                command.arg("-nostartfiles");
             }
             if debug_info && linker_name_looks_like_lld(&linker.path) {
                 command.arg("-Wl,--gdb-index");
@@ -134,12 +132,9 @@ pub fn link_native(
             for lib in filtered_libs(target, &extra.libs) {
                 command.arg(format!("-l{lib}"));
             }
-            if crate_type == CrateType::Bin && bundled::RUNTIME_SANITIZED {
-                // CRT needs `main` from the runtime archive; force the member in.
+            if crate_type == CrateType::Bin {
+                // CRT needs `main` from crt_main.c in the runtime archive.
                 command.arg("-Wl,-u,main");
-            }
-            if crate_type == CrateType::Bin && !bundled::RUNTIME_SANITIZED {
-                command.arg("-Wl,--entry=sim_main");
             }
         }
         LinkerKind::GnuLd => {
@@ -395,6 +390,8 @@ fn apply_windows_link_args(
     // runtime archive pull kernel32 / UCRT once LIB is set.
     command.arg("/DEFAULTLIB:libcmt");
     command.arg("/DEFAULTLIB:oldnames");
+    // Default 1MiB stack is too small for Simula (DoStestBatch simtst00).
+    command.arg("/STACK:8388608");
     // Cranelift DWARF uses 32-bit section-relative relocs. MSVC `link.exe`
     // rejects those in a LARGEADDRESSAWARE image (LNK2017 / LNK1165).
     if debug_info {
