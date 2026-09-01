@@ -94,13 +94,15 @@ fn target_is_wasm32() -> bool {
 fn compile_native_runtime(out_dir: &Path, manifest_dir: &Path) -> (PathBuf, bool) {
     let sanitize = runtime_sanitize_requested();
 
-    // Unsanitized copy is what the compiler binary itself links. AOT programs
-    // use the bundled archive below, which may be a second, sanitized build.
+    // Unsanitized copy is what the compiler *bundles* for AOT. Do not cargo-link
+    // it into rustc's crate: every integration-test binary would pull the full
+    // C runtime, which OOMs rust-lld on GitHub's Ubuntu runners (SIGBUS).
     let mut host = cc::Build::new();
     add_runtime_files(&mut host, manifest_dir);
     if cfg!(target_env = "msvc") {
         host.static_crt(true);
     }
+    host.cargo_metadata(false);
     host.compile("simrt_rt");
 
     if sanitize {
@@ -231,12 +233,23 @@ fn escape_path_for_include(path: &Path) -> String {
 }
 
 fn find_runtime_archive(out_dir: &Path, stem: &str) -> Option<PathBuf> {
-    let candidates = [
-        format!("lib{stem}.a"),
-        format!("{stem}.lib"),
-        format!("lib{stem}.lib"),
-        format!("{stem}.a"),
-    ];
+    // MSVC `link.exe` needs a COFF `.lib`. Prefer that even if a GNU `.a`
+    // leftover (clang/`llvm-ar`) is sitting in OUT_DIR too.
+    let candidates = if cfg!(target_env = "msvc") {
+        [
+            format!("{stem}.lib"),
+            format!("lib{stem}.lib"),
+            format!("lib{stem}.a"),
+            format!("{stem}.a"),
+        ]
+    } else {
+        [
+            format!("lib{stem}.a"),
+            format!("{stem}.a"),
+            format!("{stem}.lib"),
+            format!("lib{stem}.lib"),
+        ]
+    };
     for name in candidates {
         let path = out_dir.join(&name);
         if path.exists() {

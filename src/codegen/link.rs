@@ -97,7 +97,6 @@ pub fn link_native(
                 object_path,
                 &runtime,
                 output_path,
-                debug_info,
                 crate_type,
                 extra,
             )?;
@@ -171,9 +170,16 @@ pub fn link_native(
 
     if !output.status.success() {
         let stderr = String::from_utf8_lossy(&output.stderr);
+        let stdout = String::from_utf8_lossy(&output.stdout);
+        let detail = match (stderr.trim().is_empty(), stdout.trim().is_empty()) {
+            (true, true) => String::new(),
+            (false, true) => stderr.into_owned(),
+            (true, false) => stdout.into_owned(),
+            (false, false) => format!("{stderr}\n{stdout}"),
+        };
         return Err(crate::diagnostics::linker_failed(
             &target.to_string(),
-            format_link_failure(target, &stderr, &command_summary),
+            format_link_failure(target, &detail, &command_summary),
         ));
     }
 
@@ -372,7 +378,6 @@ fn apply_windows_link_args(
     object_path: &Path,
     runtime: &Path,
     output_path: &Path,
-    debug_info: bool,
     crate_type: CrateType,
     extra: &ExtraLink,
 ) -> Result<(), CompileError> {
@@ -388,11 +393,9 @@ fn apply_windows_link_args(
     // runtime archive pull kernel32 / UCRT once LIB is set.
     command.arg("/DEFAULTLIB:libcmt");
     command.arg("/DEFAULTLIB:oldnames");
-    // Keep Cranelift DWARF sections in the PE (CodeLLDB / gdb can consume them).
-    // PDB / CodeView is not emitted yet.
-    if debug_info {
-        command.arg("/DEBUG:DWARF");
-    }
+    // Cranelift emits DWARF, not CodeView. MSVC `link.exe` has no
+    // `/DEBUG:DWARF` (that's lld-link) and treats it as LNK1146. Leave the
+    // flag off; `.sim-map` / Source Map v3 are written beside the binary.
 
     if let Ok(lib) = std::env::var("LIB") {
         for path in std::env::split_paths(&lib) {
