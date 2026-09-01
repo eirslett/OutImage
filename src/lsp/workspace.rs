@@ -222,6 +222,7 @@ pub fn path_to_uri(path: &Path) -> Result<String, String> {
             .join(path)
     };
     let abs = std::fs::canonicalize(&abs).unwrap_or(abs);
+    let abs = strip_windows_extended_path(abs);
     let mut s = abs.to_string_lossy().replace('\\', "/");
     if cfg!(windows) && !s.starts_with('/') {
         s = format!("/{s}");
@@ -229,6 +230,19 @@ pub fn path_to_uri(path: &Path) -> Result<String, String> {
     // Minimal percent-encoding for spaces.
     let s = s.replace(' ', "%20");
     Ok(format!("file://{s}"))
+}
+
+/// `std::fs::canonicalize` on Windows returns `\\?\C:\…`. A `file://` URI
+/// built from that is not a valid path for `Uri` / `uri_to_path`.
+fn strip_windows_extended_path(path: PathBuf) -> PathBuf {
+    let s = path.to_string_lossy();
+    if let Some(rest) = s.strip_prefix(r"\\?\UNC\") {
+        PathBuf::from(format!(r"\\{rest}"))
+    } else if let Some(rest) = s.strip_prefix(r"\\?\") {
+        PathBuf::from(rest)
+    } else {
+        path
+    }
 }
 
 fn percent_decode(input: &str) -> String {
@@ -309,5 +323,19 @@ mod tests {
             std::fs::canonicalize(&back).unwrap()
         );
         let _ = fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn strips_windows_extended_path_prefix() {
+        assert_eq!(
+            strip_windows_extended_path(PathBuf::from(r"\\?\C:\Users\me\a.sim")),
+            PathBuf::from(r"C:\Users\me\a.sim")
+        );
+        assert_eq!(
+            strip_windows_extended_path(PathBuf::from(r"\\?\UNC\server\share\a.sim")),
+            PathBuf::from(r"\\server\share\a.sim")
+        );
+        let unix = PathBuf::from("/tmp/a.sim");
+        assert_eq!(strip_windows_extended_path(unix.clone()), unix);
     }
 }

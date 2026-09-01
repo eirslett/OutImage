@@ -214,10 +214,11 @@ __asm__(
     "  ud2\n"
 );
 
-/* Six saved registers then the return address the swap's `ret` will consume. */
+/* Six saved registers then the return address the swap's `ret` will consume.
+ * Restore order is r15, r14, r13, r12, rbx, rbp, ret — so r12 is slot 3. */
 #define SIMRT_CORO_FRAME_SLOTS 7
 #define SIMRT_CORO_ENTRY_SLOT 6
-#define SIMRT_CORO_SELF_SLOT 2 /* r12 */
+#define SIMRT_CORO_SELF_SLOT 3 /* r12 */
 
 #elif defined(__aarch64__)
 

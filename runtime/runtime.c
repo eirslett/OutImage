@@ -27,11 +27,16 @@ void simrt_gc_visit_runtime_roots(simrt_gc_mark_fn mark) {
     simrt_sim_gc_visit_roots(mark);
 }
 
-/* Cranelift exports `sim_main`. Provide `main` so PE and sanitizer-linked ELF
- * binaries can use CRT startup (ASan/UBSan need constructors). Unsanitized
- * Linux still links with `-nostartfiles --entry=sim_main` and ignores this. */
+/* Cranelift exports `sim_main`. Provide `main` only when the CRT is the
+ * process entry: PE (always) and sanitizer-linked ELF (`SIMRT_NEED_CRT_MAIN`
+ * from the extra `simrt_san` archive). Unsanitized Linux AOT still uses
+ * `-nostartfiles --entry=sim_main`. Do not emit `main` in the compiler-linked
+ * archive — Rust test binaries already have a Rust `main`, and a second one
+ * in `libsimrt_rt.a` crashes lld. */
+#if defined(_WIN32) || defined(SIMRT_NEED_CRT_MAIN)
 int sim_main(void);
 
 int main(void) {
     return sim_main();
 }
+#endif

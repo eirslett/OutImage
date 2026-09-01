@@ -36,7 +36,7 @@ jobs:
       - name: Test
         run: cargo test
         env:
-          CC: ${{ runner.os == 'Windows' && 'clang' || 'cc' }}
+          CC: ${{ runner.os == 'Windows' && 'cl' || 'cc' }}
         # Includes the GC stress suite: tests/gc_stress.rs,
         # tests/memory_gc.rs, tests/runtime_gc.rs. C fixtures compile with
         # ASan+UBSan on Unix. TestBatch stays the 100/100 correctness gate.
