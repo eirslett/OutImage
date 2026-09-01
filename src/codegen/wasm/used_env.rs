@@ -124,7 +124,7 @@ pub(in crate::codegen::wasm) const MATH_RT_EXPORTS: &[&str] = &[
 /// Keep-set is empty or only math helpers — shake the math blob, not full `std`.
 pub(in crate::codegen::wasm) fn keep_fits_math_rt(keep: &HashSet<String>) -> bool {
     keep.iter()
-        .all(|name| MATH_RT_EXPORTS.iter().any(|math| *math == name.as_str()))
+        .all(|name| MATH_RT_EXPORTS.contains(&name.as_str()))
 }
 
 /// Linear SysOut image (JS `sysout_write` / `sysout_flush` / OutReal).

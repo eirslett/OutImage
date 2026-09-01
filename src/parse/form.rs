@@ -302,6 +302,7 @@ fn looks_like_nested_procedure_heading(tokens: &[Token], formal_names: &[String]
         })
 }
 
+#[allow(dead_code)]
 pub fn procedure_specification_section_parser<'a>()
 -> impl Parser<'a, &'a [Token], (Vec<ModeApplication>, Vec<Specification>), ParseExtra<'a>> + Clone
 {

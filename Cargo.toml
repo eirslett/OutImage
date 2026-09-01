@@ -64,6 +64,16 @@ too_many_arguments = "allow"
 # Parser/AST enums and complex MIR helper types trip these without clarity gains.
 type_complexity = "allow"
 large_enum_variant = "allow"
+# Nested MIR/wasm emission guards are easier to read as stacked `if`s.
+collapsible_if = "allow"
+collapsible_match = "allow"
+if_same_then_else = "allow"
+needless_return = "allow"
+map_entry = "allow"
+question_mark = "allow"
+unnecessary_sort_by = "allow"
+items_after_test_module = "allow"
+manual_strip = "allow"
 
 [[bin]]
 name = "sim"

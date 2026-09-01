@@ -27,11 +27,11 @@ void simrt_gc_visit_runtime_roots(simrt_gc_mark_fn mark) {
     simrt_sim_gc_visit_roots(mark);
 }
 
-#ifdef _WIN32
-/* Cranelift exports `sim_main`; PE needs CRT startup, so provide `main`. */
+/* Cranelift exports `sim_main`. Provide `main` so PE and sanitizer-linked ELF
+ * binaries can use CRT startup (ASan/UBSan need constructors). Unsanitized
+ * Linux still links with `-nostartfiles --entry=sim_main` and ignores this. */
 int sim_main(void);
 
 int main(void) {
     return sim_main();
 }
-#endif

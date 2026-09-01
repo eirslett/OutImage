@@ -1406,6 +1406,10 @@ impl GcTypeRegistry {
         self.next
     }
 
+    pub fn is_empty(&self) -> bool {
+        self.next == 0
+    }
+
     /// Emit the accumulated types into a fresh [`TypeSection`] (indices from 0).
     pub fn emit_types(&self) -> TypeSection {
         let mut types = TypeSection::new();
@@ -1592,7 +1596,7 @@ pub fn env_enabled() -> bool {
 }
 
 std::thread_local! {
-    static FORCE_ENABLED: std::cell::Cell<Option<bool>> = std::cell::Cell::new(None);
+    static FORCE_ENABLED: std::cell::Cell<Option<bool>> = const { std::cell::Cell::new(None) };
 }
 
 /// Run `f` with [`env_enabled`] forced to `enabled` for this thread.

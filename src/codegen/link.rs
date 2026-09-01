@@ -117,7 +117,7 @@ pub fn link_native(
         LinkerKind::GnuCc => {
             if crate_type == CrateType::Lib {
                 command.arg("-shared");
-            } else {
+            } else if !bundled::RUNTIME_SANITIZED {
                 command.arg("-nostartfiles");
             }
             if debug_info && linker_name_looks_like_lld(&linker.path) {
@@ -134,7 +134,11 @@ pub fn link_native(
             for lib in filtered_libs(target, &extra.libs) {
                 command.arg(format!("-l{lib}"));
             }
-            if crate_type == CrateType::Bin {
+            if crate_type == CrateType::Bin && bundled::RUNTIME_SANITIZED {
+                // CRT needs `main` from the runtime archive; force the member in.
+                command.arg("-Wl,-u,main");
+            }
+            if crate_type == CrateType::Bin && !bundled::RUNTIME_SANITIZED {
                 command.arg("-Wl,--entry=sim_main");
             }
         }
@@ -176,7 +180,7 @@ pub fn link_native(
     Ok(output_path.to_path_buf())
 }
 
-fn filtered_libs<'a>(target: CompileTarget, libs: &'a [String]) -> impl Iterator<Item = &'a str> {
+fn filtered_libs(target: CompileTarget, libs: &[String]) -> impl Iterator<Item = &str> {
     libs.iter()
         .map(String::as_str)
         .filter(move |lib| !(link_flavor(target) == "darwin" && *lib == "m"))

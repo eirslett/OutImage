@@ -71,12 +71,12 @@ fn compile_and_run(sources: &[PathBuf], stdin: &[u8]) -> Result<String, String> 
     ));
     let _ = std::fs::create_dir_all(&run_dir);
     let fixtures = Path::new("tests/fixtures/dostestbatch_data");
-    if fixtures.is_dir() {
-        if let Ok(entries) = std::fs::read_dir(fixtures) {
-            for entry in entries.flatten() {
-                let dest = run_dir.join(entry.file_name());
-                let _ = std::fs::copy(entry.path(), dest);
-            }
+    if fixtures.is_dir()
+        && let Ok(entries) = std::fs::read_dir(fixtures)
+    {
+        for entry in entries.flatten() {
+            let dest = run_dir.join(entry.file_name());
+            let _ = std::fs::copy(entry.path(), dest);
         }
     }
     // Redirect to files rather than pipes: a unit that outruns the pipe buffer

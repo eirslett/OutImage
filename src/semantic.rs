@@ -3152,7 +3152,7 @@ fn analyze_procedure_call(
             // §10 embedding: free SYSIN/SYSOUT attributes (eject, line, …).
         }
         name if crate::basicio::is_basicio_method(name)
-            && current_class.is_some_and(|class| crate::basicio::is_basicio_class(class)) =>
+            && current_class.is_some_and(crate::basicio::is_basicio_class) =>
         {
             // Connection / class body: bare BASICIO methods on `this` (e.g.
             // `inspect new DirectFile(...) do locate(1);`).
@@ -3409,7 +3409,7 @@ fn is_implicit_simple_name(name: &str, ctx: &TypeContext<'_>) -> bool {
     if crate::basicio::is_basicio_method(name)
         && ctx
             .current_class
-            .is_some_and(|class| crate::basicio::is_basicio_class(class))
+            .is_some_and(crate::basicio::is_basicio_class)
     {
         return true;
     }
@@ -4416,7 +4416,7 @@ fn type_of_expr_expecting(
                 if crate::basicio::is_basicio_method(name)
                     && ctx
                         .current_class
-                        .is_some_and(|class| crate::basicio::is_basicio_class(class))
+                        .is_some_and(crate::basicio::is_basicio_class)
                 {
                     return Ok(crate::basicio::basicio_method_result_type(name));
                 }

@@ -54,7 +54,7 @@ pub fn object_from_mir(
 ) -> Result<(Option<crate::codegen::dwarf::NativeDebugInfo>, Vec<String>), CompileError> {
     mir_module.ensure_externals_resolved()?;
 
-    let foreign_libs = foreign_c_libs(&mir_module);
+    let foreign_libs = foreign_c_libs(mir_module);
     let isa = create_isa(target, !debug_info, pic)?;
     let mut module = ObjectModule::new(
         ObjectBuilder::new(
@@ -68,7 +68,7 @@ pub fn object_from_mir(
     let debug_source = debug_info.then_some(source);
     let (function_debug, asm) = emit::emit_mir_module(
         &mut module,
-        &mir_module,
+        mir_module,
         debug_source,
         asm_path.is_some(),
         pic,

@@ -570,17 +570,13 @@ end;
 }
 
 fn host_cc() -> Option<&'static str> {
-    for name in ["cc", "clang", "gcc"] {
-        if Command::new(name)
+    ["cc", "clang", "gcc"].into_iter().find(|&name| {
+        Command::new(name)
             .arg("-v")
             .output()
             .map(|output| output.status.success() || !output.stderr.is_empty())
             .unwrap_or(false)
-        {
-            return Some(name);
-        }
-    }
-    None
+    })
 }
 
 fn temp_path(tag: &str, ext: &str) -> PathBuf {

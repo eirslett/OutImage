@@ -166,10 +166,19 @@ static int64_t simrt_entier(double r) {
 }
 
 static int64_t simrt_advance_stream(int64_t u) {
+#if defined(__SIZEOF_INT128__)
     __int128 product = (__int128)u * (__int128)SIMRT_RT_STREAM_MULTIPLIER;
     __int128 modulus = (__int128)SIMRT_RT_STREAM_MODULUS;
     __int128 q = product / modulus;
     return (int64_t)(product - q * modulus);
+#else
+    /* rem(u * 5^27, 2^31). MSVC has no `__int128`; the modulus is a power of
+     * two, so this is the low 31 bits of the product. */
+    uint64_t modulus = (uint64_t)SIMRT_RT_STREAM_MODULUS;
+    uint64_t mul = (uint64_t)SIMRT_RT_STREAM_MULTIPLIER % modulus;
+    uint64_t seed = (uint64_t)u % modulus;
+    return (int64_t)((seed * mul) % modulus);
+#endif
 }
 
 double simrt_basic_draw(int64_t *stream) {

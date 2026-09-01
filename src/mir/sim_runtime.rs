@@ -1488,7 +1488,7 @@ mod tests {
 
     #[test]
     fn the_static_state_fits_the_reserved_block() {
-        assert!(SIM_OFF_MAIN + 8 <= SIM_STATE_BYTES);
+        const { assert!(SIM_OFF_MAIN + 8 <= SIM_STATE_BYTES) };
     }
 
     #[test]

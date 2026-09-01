@@ -561,7 +561,7 @@ pub(in crate::codegen::wasm) fn emit_sysin_skip_blanks(
     // A record separator counts as a blank here: stdin arrives as a block, so
     // one image can span several external records.
     body.instruction(&Instruction::I32Const(0));
-    for byte in [b' ', b'\t', b'\n', b'\r'] {
+    for byte in *b" \t\n\r" {
         body.instruction(&Instruction::LocalGet(s0));
         body.instruction(&Instruction::I32Const(byte as i32));
         body.instruction(&Instruction::I32Eq);
