@@ -754,11 +754,10 @@ fn dwarf_contains_named_local_with_location() {
     let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
     let _ = std::fs::remove_file(&map_path);
 
-    let x = vars
-        .iter()
-        .find(|(name, _)| name == "x")
-        .unwrap_or_else(|| panic!("expected variable x in DWARF, got {vars:?}"));
-    assert!(x.1, "variable x should have a DW_AT_location: {vars:?}");
+    assert!(
+        vars.iter().any(|(name, has_loc)| name == "x" && *has_loc),
+        "expected variable x with DW_AT_location, got {vars:?}"
+    );
 }
 
 #[cfg(not(windows))]

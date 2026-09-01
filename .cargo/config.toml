@@ -14,3 +14,9 @@ RUST_MIN_STACK = "67108864"
 # debug test binaries in parallel. GNU ld is slower but stays within RAM.
 [target.x86_64-unknown-linux-gnu]
 rustflags = ["-C", "linker-features=-lld"]
+
+# The compiler's recursive-descent parse uses the process main-thread stack.
+# Windows PE defaults to 1MiB; match RUST_MIN_STACK so `sim compile` of
+# corpus units (simtst00) does not overflow.
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "link-arg=/STACK:67108864"]
