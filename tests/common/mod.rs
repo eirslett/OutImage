@@ -44,6 +44,10 @@ pub const NATIVE_RUNTIME_SOURCES: &[&str] = &[
 fn host_c_compiler() -> String {
     if let Ok(cc) = std::env::var("CC")
         && !cc.is_empty()
+        // Fixtures pass GNU flags (`-o`, `-g`); MSVC `cl` is used for the
+        // bundled archive but cannot compile those fixtures.
+        && !cc.eq_ignore_ascii_case("cl")
+        && !cc.eq_ignore_ascii_case("cl.exe")
     {
         return cc;
     }

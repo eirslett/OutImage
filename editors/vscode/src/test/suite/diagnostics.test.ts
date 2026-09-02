@@ -61,6 +61,7 @@ suite("Simula diagnostics (mock LSP)", () => {
     );
 
     await stopLanguageClient();
+    await sleep(250);
     try {
       await startLanguageClient();
     } catch (error) {
