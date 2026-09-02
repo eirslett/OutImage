@@ -248,7 +248,7 @@ def run_unit(
             return UnitResult(name, status, elapsed(), detail, stdout, stderr)
 
         if backend == "native":
-            binary = scratch / "unit"
+            binary = scratch / ("unit.exe" if os.name == "nt" else "unit")
             code, stdout, stderr = run_cmd(
                 [
                     str(sim),
@@ -261,7 +261,7 @@ def run_unit(
                     "-o",
                     str(binary),
                 ],
-                cwd=scratch,
+                cwd=ROOT,
                 stdin=b"",
                 timeout=timeout,
             )
@@ -475,8 +475,8 @@ def main() -> int:
                 if not args.verbose:
                     snippet = (result.stderr or result.stdout).strip()
                     if snippet:
-                        first = snippet.splitlines()[0]
-                        print(f"             {first[:160]}")
+                        for line in snippet.splitlines()[:12]:
+                            print(f"             {line[:200]}")
         return 1
     return 0
 
