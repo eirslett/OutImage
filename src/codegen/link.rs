@@ -390,6 +390,15 @@ fn apply_windows_link_args(
         }
     } else {
         command.arg("/SUBSYSTEM:CONSOLE");
+        if debug_info {
+            // MSVC 18 `/DEBUG` no longer writes a COFF symbol table. Export
+            // Simula functions so the DWARF companion can resolve addresses,
+            // and skip the import lib an EXE `/EXPORT` would otherwise emit.
+            command.arg("/NOIMPLIB");
+            for symbol in windows_object_global_text_names(object_path) {
+                command.arg(format!("/EXPORT:{symbol}"));
+            }
+        }
     }
     command.arg(format!("/OUT:{}", output_path.display()));
     // Match `build.rs` `static_crt(true)` on MSVC. COFF defaultlibs from the
@@ -471,6 +480,29 @@ fn windows_dll_export_names(object_path: &Path) -> Vec<String> {
             if name.is_empty() || names.iter().any(|existing| existing == name) {
                 continue;
             }
+            names.push(name.to_string());
+        }
+    }
+    names
+}
+
+fn windows_object_global_text_names(object_path: &Path) -> Vec<String> {
+    let mut names = Vec::new();
+    let Ok(bytes) = std::fs::read(object_path) else {
+        return names;
+    };
+    let Ok(file) = object::File::parse(&bytes[..]) else {
+        return names;
+    };
+    for symbol in file.symbols() {
+        if !symbol.is_global() || symbol.kind() != SymbolKind::Text {
+            continue;
+        }
+        let Ok(name) = symbol.name() else {
+            continue;
+        };
+        let name = name.trim_start_matches('_');
+        if !name.is_empty() && !names.iter().any(|existing| existing == name) {
             names.push(name.to_string());
         }
     }

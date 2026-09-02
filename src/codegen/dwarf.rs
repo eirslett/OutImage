@@ -779,7 +779,23 @@ fn symbol_address(bytes: &[u8], name: &str) -> Option<u64> {
         }
         fallback = Some(symbol.address());
     }
-    fallback
+    if let Some(address) = fallback {
+        return Some(address);
+    }
+    // MSVC `/DEBUG` on VS 2026 leaves no COFF symbol table; look at PE exports
+    // (`/EXPORT` from the Windows debug link line).
+    let Ok(exports) = file.exports() else {
+        return None;
+    };
+    for export in exports {
+        let Ok(export_name) = std::str::from_utf8(export.name()) else {
+            continue;
+        };
+        if export_name.trim_start_matches('_') == needle {
+            return Some(export.address());
+        }
+    }
+    None
 }
 
 fn write_info_plist(executable_path: &Path) -> Result<(), CompileError> {
