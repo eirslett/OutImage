@@ -14,7 +14,7 @@ import { markBinaryMissing, updateStatusBar } from "./statusBar";
 
 const RESTART_DEBOUNCE_MS = 300;
 
-let bootPromise: Promise<boolean> | undefined;
+let bootChain: Promise<boolean> = Promise.resolve(false);
 let restartTimer: ReturnType<typeof setTimeout> | undefined;
 
 export function scheduleLanguageServerBoot(): void {
@@ -32,13 +32,12 @@ export async function bootLanguageServer(): Promise<boolean> {
     clearTimeout(restartTimer);
     restartTimer = undefined;
   }
-  if (bootPromise) {
-    return bootPromise;
-  }
-  bootPromise = doBoot().finally(() => {
-    bootPromise = undefined;
-  });
-  return bootPromise;
+  // Always run after any in-flight boot so a config change mid-start is applied.
+  bootChain = bootChain.then(
+    () => doBoot(),
+    () => doBoot(),
+  );
+  return bootChain;
 }
 
 async function doBoot(): Promise<boolean> {

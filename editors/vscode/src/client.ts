@@ -27,6 +27,16 @@ let serverVersion: string | undefined;
 let onStateChange: ((state: State) => void) | undefined;
 let onUnexpectedStop: (() => void) | undefined;
 let starting = false;
+let clientLock: Promise<unknown> = Promise.resolve();
+
+function withClientLock<T>(fn: () => Promise<T>): Promise<T> {
+  const next = clientLock.then(fn, fn);
+  clientLock = next.then(
+    () => undefined,
+    () => undefined,
+  );
+  return next;
+}
 
 export function getLanguageClient(): LanguageClient | undefined {
   return client;
@@ -113,28 +123,31 @@ export function binaryIsReady(): boolean {
 }
 
 export async function startLanguageClient(): Promise<LanguageClient> {
-  if (starting) {
-    throw new Error("language server is already starting");
-  }
-  starting = true;
-  try {
-    if (client) {
-      await client.stop();
-      client.dispose();
-      client = undefined;
+  return withClientLock(async () => {
+    if (starting) {
+      throw new Error("language server is already starting");
     }
-    await resolveAndPersistLaunch();
-    const launch = getResolvedLaunch();
-    if (!launch.present) {
-      throw new Error(missingLaunchMessage(launch));
+    starting = true;
+    try {
+      if (client) {
+        await client.stop();
+        client.dispose();
+        client = undefined;
+      }
+      await resolveAndPersistLaunch();
+      const launch = getResolvedLaunch();
+      if (!launch.present) {
+        throw new Error(missingLaunchMessage(launch));
+      }
+      const languageClient = createLanguageClient();
+      client = languageClient;
+      await languageClient.start();
+      serverVersion = languageClient.initializeResult?.serverInfo?.version;
+      return languageClient;
+    } finally {
+      starting = false;
     }
-    client = createLanguageClient();
-    await client.start();
-    serverVersion = client.initializeResult?.serverInfo?.version;
-    return client;
-  } finally {
-    starting = false;
-  }
+  });
 }
 
 export function missingLaunchMessage(launch: ReturnType<typeof getResolvedLaunch>): string {
@@ -142,24 +155,26 @@ export function missingLaunchMessage(launch: ReturnType<typeof getResolvedLaunch
 }
 
 export async function stopLanguageClient(): Promise<void> {
-  if (!client) {
-    return;
-  }
-  const current = client;
-  client = undefined;
-  serverVersion = undefined;
-  try {
-    if (current.state === State.Running || current.state === State.Starting) {
-      await current.stop();
+  return withClientLock(async () => {
+    if (!client) {
+      return;
     }
-  } catch {
-    // startFailed / already stopped — dispose below
-  }
-  try {
-    current.dispose();
-  } catch {
-    // ignore
-  }
+    const current = client;
+    client = undefined;
+    serverVersion = undefined;
+    try {
+      if (current.state === State.Running || current.state === State.Starting) {
+        await current.stop();
+      }
+    } catch {
+      // startFailed / already stopped — dispose below
+    }
+    try {
+      current.dispose();
+    } catch {
+      // ignore
+    }
+  });
 }
 
 export async function restartLanguageClient(): Promise<LanguageClient> {

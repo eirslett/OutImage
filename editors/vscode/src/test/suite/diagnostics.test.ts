@@ -8,7 +8,6 @@ import {
   getLanguageClient,
   getResolvedBinary,
   showLanguageServerOutput,
-  startLanguageClient,
   stopLanguageClient,
 } from "../../client";
 
@@ -60,15 +59,18 @@ suite("Simula diagnostics (mock LSP)", () => {
       nodePath,
     );
 
-    await stopLanguageClient();
-    await sleep(250);
     try {
-      await startLanguageClient();
+      const started = await bootLanguageServer();
+      assert.equal(
+        started,
+        true,
+        `bootLanguageServer returned false (binary=${getResolvedBinary()})`,
+      );
     } catch (error) {
       showLanguageServerOutput();
       const message = error instanceof Error ? error.message : String(error);
       assert.fail(
-        `startLanguageClient failed: ${message} (binary=${getResolvedBinary()})`,
+        `bootLanguageServer failed: ${message} (binary=${getResolvedBinary()})`,
       );
     }
 
