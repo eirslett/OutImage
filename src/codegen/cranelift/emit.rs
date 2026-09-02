@@ -694,7 +694,7 @@ pub fn emit_mir_module(
         let func_id = if function.name == "main" {
             declare_main(module)?
         } else {
-            declare_procedure(module, function, pointer_type)?
+            declare_procedure(module, function, pointer_type, debug_source.is_some())?
         };
         proc_ids.insert(function.name.clone(), func_id);
     }
@@ -2306,12 +2306,14 @@ fn declare_main(module: &mut ObjectModule) -> Result<FuncId, CompileError> {
 /// Declares a local procedure's Cranelift signature: one `AbiParam` per
 /// value parameter (in declaration order) and, for a function procedure, a
 /// single return matching [`mir::Function::result`]. The symbol is mangled
-/// (and kept `Linkage::Local`, i.e. not exported) so a user procedure can
-/// never collide with `sim_main` or a `simrt_*` runtime import.
+/// so a user procedure can never collide with `sim_main` or a `simrt_*`
+/// runtime import. `-g` uses [`Linkage::Export`] so Windows PE can put the
+/// address in the export table for the DWARF companion.
 fn declare_procedure(
     module: &mut ObjectModule,
     function: &mir::Function,
     pointer_type: Type,
+    debug_info: bool,
 ) -> Result<FuncId, CompileError> {
     let mut sig = module.make_signature();
     for param in &function.params {
@@ -2322,12 +2324,13 @@ fn declare_procedure(
         sig.returns
             .push(AbiParam::new(clif_type(result, pointer_type)));
     }
+    let linkage = if debug_info {
+        Linkage::Export
+    } else {
+        Linkage::Local
+    };
     module
-        .declare_function(
-            &mangled_procedure_name(&function.name),
-            Linkage::Local,
-            &sig,
-        )
+        .declare_function(&mangled_procedure_name(&function.name), linkage, &sig)
         .map_err(map_module_error)
 }
 
