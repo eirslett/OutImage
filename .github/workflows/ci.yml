@@ -51,7 +51,8 @@ jobs:
         # tests/memory_gc.rs, tests/runtime_gc.rs. C fixtures compile with
         # ASan+UBSan on Unix.
       # Full 100-unit TestBatch corpus (native AOT). `cargo test` only runs an
-      # allowlist in tests/result_plan_native.rs.
+      # allowlist in tests/result_plan_native.rs. Windows currently SKIPs
+      # simtst96 (inspect+process none-deref); every other unit runs.
       - name: TestBatch
         if: runner.os == 'Linux'
         run: python3 tests/run_testbatch.py native --jobs 2
