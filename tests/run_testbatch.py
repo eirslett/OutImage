@@ -157,6 +157,12 @@ def prepare_scratch(scratch: Path) -> None:
                 shutil.copy2(entry, scratch / entry.name)
 
 
+def sim_names() -> tuple[str, ...]:
+    if os.name == "nt":
+        return ("sim.exe", "sim")
+    return ("sim", "sim.exe")
+
+
 def find_sim(release: bool, explicit: Path | None) -> Path:
     if explicit is not None:
         if not explicit.is_file():
@@ -168,20 +174,33 @@ def find_sim(release: bool, explicit: Path | None) -> Path:
         if not path.is_file():
             sys.exit(f"SIM is set but not a file: {path}")
         return path
-    candidate = ROOT / "target" / ("release" if release else "debug") / "sim"
-    if candidate.is_file():
-        return candidate
-    return candidate
+    profile = ROOT / "target" / ("release" if release else "debug")
+    for name in sim_names():
+        candidate = profile / name
+        if candidate.is_file():
+            return candidate
+    return profile / sim_names()[0]
 
 
 def ensure_sim(path: Path, release: bool) -> None:
     if path.is_file():
         return
-    argv = ["cargo", "build", "-q", "-p", "sim"]
+    argv = ["cargo", "build", "-q", "--bin", "sim"]
     if release:
         argv.append("--release")
     print(f"==> building sim ({'release' if release else 'debug'})", flush=True)
     subprocess.run(argv, cwd=ROOT, check=True)
+
+
+def native_run_path(binary: Path) -> Path:
+    """MSVC `/OUT:unit` may write `unit.exe`; run whichever exists."""
+    if binary.is_file():
+        return binary
+    if os.name == "nt":
+        exe = binary.with_suffix(".exe")
+        if exe.is_file():
+            return exe
+    return binary
 
 
 def run_unit(
@@ -260,7 +279,7 @@ def run_unit(
                 )
             remaining = max(1.0, timeout - elapsed())
             code, stdout, stderr = run_cmd(
-                [str(binary)],
+                [str(native_run_path(binary))],
                 cwd=scratch,
                 stdin=stdin,
                 timeout=remaining,
@@ -396,7 +415,7 @@ def main() -> int:
 
     sim = find_sim(args.release, args.bin)
     ensure_sim(sim, args.release)
-    if not simula.is_file():
+    if not sim.is_file():
         sys.exit(f"sim not found: {sim}")
 
     print(
