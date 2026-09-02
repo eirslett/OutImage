@@ -402,10 +402,10 @@ fn apply_windows_link_args(
     // rejects those in a LARGEADDRESSAWARE image (LNK2017 / LNK1165).
     if debug_info {
         command.arg("/LARGEADDRESSAWARE:NO");
-        // Keep a COFF symbol table in the image so the DWARF companion can
-        // resolve `sim_main` (PDB-only `/DEBUG` would hide those addresses).
+        // `/DEBUG` (FULL) still leaves a COFF symbol table so the DWARF
+        // companion can resolve `sim_main`. `/DEBUGTYPE:BOTH` is rejected by
+        // MSVC 18 / VS 2026 (`LNK1117`).
         command.arg("/DEBUG");
-        command.arg("/DEBUGTYPE:BOTH");
     }
 
     if let Ok(lib) = std::env::var("LIB") {

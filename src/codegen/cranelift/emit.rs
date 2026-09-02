@@ -248,6 +248,8 @@ struct RuntimeFuncs {
     gc_root_pop: FuncId,
     host_resolve: FuncId,
     register_export: FuncId,
+    /// Opaque sink so `-g` stack homes cannot be DCE'd (x86-64 unused locals).
+    debug_keep: Option<FuncId>,
 }
 
 /// Declares one `runtime/sequencing.c` entry point. Apart from a leading block
@@ -669,6 +671,11 @@ pub fn emit_mir_module(
         gc_root_pop: declare_gc_root_pop(module, pointer_type)?,
         host_resolve: declare_host_resolve(module, pointer_type)?,
         register_export: declare_register_export(module, pointer_type)?,
+        debug_keep: if debug_source.is_some() {
+            Some(declare_and_define_debug_keep(module, pointer_type)?)
+        } else {
+            None
+        },
     };
 
     // Pass 1: declare every function's signature before defining any body,
@@ -715,7 +722,7 @@ pub fn emit_mir_module(
             mangled_procedure_name(&function.name)
         };
 
-        if function
+        let homes = if function
             .foreign
             .as_ref()
             .is_some_and(|abi| is_lib && abi.kind == crate::mir::ForeignKind::Host)
@@ -740,6 +747,7 @@ pub fn emit_mir_module(
                 runtime.gc_root_push,
                 runtime.gc_root_pop,
             )?;
+            Vec::new()
         } else if let Some(&import_id) = foreign_imports.get(&function.name) {
             let utf8 = mir_module.charset == crate::target::Charset::Utf8;
             emit_foreign_thunk(
@@ -761,6 +769,7 @@ pub fn emit_mir_module(
                 runtime.gc_root_push,
                 runtime.gc_root_pop,
             )?;
+            Vec::new()
         } else {
             emit_function(
                 module,
@@ -772,8 +781,8 @@ pub fn emit_mir_module(
                 &proc_ids,
                 &mut string_data,
                 debug_source,
-            )?;
-        }
+            )?
+        };
 
         module
             .define_function(func_id, &mut ctx)
@@ -798,7 +807,7 @@ pub fn emit_mir_module(
                     .flat_map(|block| block.ops.iter().map(|spanned| spanned.span.clone()));
                 let (default_line, default_column) =
                     default_location_for_function(&source.text, spans);
-                let locals = collect_debug_locals(function, compiled, module.isa());
+                let locals = collect_debug_locals(function, compiled, module.isa(), &homes);
                 function_debug.push(FunctionDebugInfo {
                     func_id,
                     symbol_name: symbol_name.clone(),
@@ -1585,6 +1594,34 @@ fn declare_gc_root_push(
     module
         .declare_function("simrt_gc_root_push", Linkage::Import, &sig)
         .map_err(map_module_error)
+}
+
+fn declare_and_define_debug_keep(
+    module: &mut ObjectModule,
+    pointer_type: Type,
+) -> Result<FuncId, CompileError> {
+    let mut sig = module.make_signature();
+    sig.params.push(AbiParam::new(pointer_type));
+    let func_id = module
+        .declare_function("simrt_debug_keep", Linkage::Local, &sig)
+        .map_err(map_module_error)?;
+    let mut ctx = module.make_context();
+    ctx.func = ClifFunction::with_name_signature(UserFuncName::user(0, func_id.as_u32()), sig);
+    let mut fb_ctx = FunctionBuilderContext::new();
+    {
+        let mut builder = FunctionBuilder::new(&mut ctx.func, &mut fb_ctx);
+        let block = builder.create_block();
+        builder.append_block_params_for_function_params(block);
+        builder.switch_to_block(block);
+        builder.seal_block(block);
+        builder.ins().return_(&[]);
+        builder.finalize();
+    }
+    module
+        .define_function(func_id, &mut ctx)
+        .map_err(|error| map_define_error(error, &ctx.func))?;
+    module.clear_context(&mut ctx);
+    Ok(func_id)
 }
 
 fn declare_gc_root_pop(
@@ -2877,16 +2914,18 @@ fn collect_debug_locals(
     function: &mir::Function,
     compiled: &cranelift_codegen::CompiledCode,
     isa: &dyn cranelift_codegen::isa::TargetIsa,
+    homes: &[Option<StackHome>],
 ) -> Vec<DebugLocal> {
     let mut locals = Vec::new();
     let total = function.params.len() + function.locals.len();
+    let func_end = compiled.buffer.data().len() as u32;
     for index in 0..total {
         let local = function.local(LocalId(index));
         if !is_user_local_name(&local.name) {
             continue;
         }
         let label = ValueLabel::from_u32(index as u32);
-        let locations = compiled
+        let mut locations: Vec<LocalLocRange> = compiled
             .value_labels_ranges
             .get(&label)
             .map(|ranges| {
@@ -2909,6 +2948,19 @@ fn collect_debug_locals(
                     .collect()
             })
             .unwrap_or_default();
+        // Unused scalars often lose value-label ranges on x86-64 (stack stores
+        // to never-loaded slots are DCE'd). The `-g` stack home is still in
+        // the frame layout once `simrt_debug_keep` has taken its address.
+        if locations.is_empty()
+            && let Some(fp_offset) = stack_home_fp_offset(homes, index, compiled)
+            && func_end > 0
+        {
+            locations.push(LocalLocRange {
+                start: 0,
+                end: func_end,
+                loc: LocalLocation::FpOffset(fp_offset),
+            });
+        }
         locals.push(DebugLocal {
             name: local.name.clone(),
             is_param: index < function.params.len(),
@@ -2918,6 +2970,17 @@ fn collect_debug_locals(
         });
     }
     locals
+}
+
+fn stack_home_fp_offset(
+    homes: &[Option<StackHome>],
+    index: usize,
+    compiled: &cranelift_codegen::CompiledCode,
+) -> Option<i64> {
+    let home = homes.get(index)?.as_ref()?;
+    let layout = compiled.buffer.frame_layout()?;
+    let slot = layout.stackslots.get(home.slot)?;
+    Some(i64::from(slot.offset) + i64::from(home.offset) - i64::from(layout.frame_to_fp_offset))
 }
 
 fn is_user_local_name(name: &str) -> bool {
@@ -3061,11 +3124,17 @@ fn zero_for_type(
 
 /// Keeps named locals live until return so DWARF value labels cover unused vars.
 fn keep_alive_named_locals(
+    module: &mut ObjectModule,
     builder: &mut FunctionBuilder<'_>,
-    _function: &mir::Function,
     vars: &[Variable],
     homes: &[Option<StackHome>],
+    debug_keep: Option<FuncId>,
 ) {
+    let Some(keep_id) = debug_keep else {
+        return;
+    };
+    let pointer_type = module.isa().pointer_type();
+    let keep = module.declare_func_in_func(keep_id, builder.func);
     for (index, home) in homes.iter().enumerate() {
         let Some(home) = home else {
             continue;
@@ -3074,6 +3143,12 @@ fn keep_alive_named_locals(
         let value = builder.use_var(vars[id.0]);
         builder.set_val_label(value, ValueLabel::from_u32(id.0 as u32));
         builder.ins().stack_store(value, home.slot, home.offset);
+        // Passing the home address to an opaque callee stops Cranelift from
+        // deleting unused ExplicitSlots (and their stores) on x86-64.
+        let addr = builder
+            .ins()
+            .stack_addr(pointer_type, home.slot, home.offset);
+        builder.ins().call(keep, &[addr]);
     }
 }
 
@@ -3091,7 +3166,7 @@ fn emit_function(
     proc_ids: &HashMap<String, FuncId>,
     string_data: &mut HashMap<usize, DataId>,
     debug_source: Option<&SourceFile>,
-) -> Result<(), CompileError> {
+) -> Result<Vec<Option<StackHome>>, CompileError> {
     let is_main = function.name == "main";
     let track_debug = debug_source.is_some();
     if track_debug {
@@ -3282,7 +3357,7 @@ fn emit_function(
 
     builder.seal_all_blocks();
     builder.finalize();
-    Ok(())
+    Ok(homes)
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -4404,7 +4479,7 @@ fn emit_op(
         }
         Op::Return { value } => {
             if track_debug {
-                keep_alive_named_locals(builder, function, vars, homes);
+                keep_alive_named_locals(module, builder, vars, homes, runtime.debug_keep);
             }
             emit_gc_root_pop(module, builder, runtime, gc_frame);
             if is_main {
