@@ -59,14 +59,14 @@ jobs:
           CARGO_PROFILE_DEV_DEBUG: line-tables-only
           CARGO_BUILD_JOBS: "2"
       - name: TestBatch
-        if: runner.os != 'Linux'
-        shell: bash
-        run: |
-          PY=python3
-          command -v python3 >/dev/null 2>&1 || PY=python
-          "$PY" tests/run_testbatch.py native --jobs 2
+        if: runner.os == 'macOS'
+        run: python3 tests/run_testbatch.py native --jobs 2
+      - name: TestBatch
+        if: runner.os == 'Windows'
+        # Default pwsh (not Git bash): bash mangles MSVC `LIB` so link.exe fails.
+        run: python tests/run_testbatch.py native --jobs 2
         env:
-          CC: ${{ runner.os == 'Windows' && 'cl' || 'cc' }}
+          CC: cl
       - name: cargo deny
         if: matrix.os == 'ubuntu-latest'
         uses: EmbarkStudios/cargo-deny-action@v2
