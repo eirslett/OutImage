@@ -89,6 +89,9 @@ pub enum LocalLocation {
     Reg(u16),
     /// Byte offset from the CFA (`DW_OP_fbreg` after converting CFA→FP).
     CfaOffset(i64),
+    /// Byte offset from the frame pointer (`DW_OP_fbreg` as-is). Used when a
+    /// named local lives in a Cranelift stack home that value-labels missed.
+    FpOffset(i64),
 }
 
 /// A user-visible MIR local or parameter to emit as a DWARF DIE.
@@ -558,6 +561,9 @@ impl DebugContext {
                 // CFA = FP + fp_to_cfa ⇒ address = FP + (fp_to_cfa + offset).
                 expr.op_fbreg(self.fp_to_cfa + offset);
             }
+            LocalLocation::FpOffset(offset) => {
+                expr.op_fbreg(offset);
+            }
         }
         expr
     }
@@ -760,19 +766,20 @@ fn target_is_macho(target: CompileTarget) -> bool {
 fn symbol_address(bytes: &[u8], name: &str) -> Option<u64> {
     let file = object::File::parse(bytes).ok()?;
     let needle = name.trim_start_matches('_');
-    file.symbols().find_map(|symbol| {
-        if symbol.kind() != SymbolKind::Text && symbol.kind() != SymbolKind::Unknown {
-            return None;
-        }
+    let mut fallback = None;
+    for symbol in file.symbols() {
         let Ok(symbol_name) = symbol.name() else {
-            return None;
+            continue;
         };
-        if symbol_name.trim_start_matches('_') == needle {
-            Some(symbol.address())
-        } else {
-            None
+        if symbol_name.trim_start_matches('_') != needle {
+            continue;
         }
-    })
+        if symbol.kind() == SymbolKind::Text || symbol.kind() == SymbolKind::Unknown {
+            return Some(symbol.address());
+        }
+        fallback = Some(symbol.address());
+    }
+    fallback
 }
 
 fn write_info_plist(executable_path: &Path) -> Result<(), CompileError> {
