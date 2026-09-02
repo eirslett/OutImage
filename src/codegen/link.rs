@@ -8,6 +8,8 @@
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+use object::{Object, ObjectSymbol, SymbolKind};
+
 use crate::bundled;
 use crate::error::CompileError;
 use crate::target::{CompileTarget, CrateType};
@@ -382,6 +384,10 @@ fn apply_windows_link_args(
     command.arg("/NOLOGO");
     if crate_type == CrateType::Lib {
         command.arg("/DLL");
+        // Unix shared objects export the embed API by default; PE DLLs do not.
+        for symbol in windows_dll_export_names(object_path) {
+            command.arg(format!("/EXPORT:{symbol}"));
+        }
     } else {
         command.arg("/SUBSYSTEM:CONSOLE");
     }
@@ -396,6 +402,10 @@ fn apply_windows_link_args(
     // rejects those in a LARGEADDRESSAWARE image (LNK2017 / LNK1165).
     if debug_info {
         command.arg("/LARGEADDRESSAWARE:NO");
+        // Keep a COFF symbol table in the image so the DWARF companion can
+        // resolve `sim_main` (PDB-only `/DEBUG` would hide those addresses).
+        command.arg("/DEBUG");
+        command.arg("/DEBUGTYPE:BOTH");
     }
 
     if let Ok(lib) = std::env::var("LIB") {
@@ -426,6 +436,45 @@ fn apply_windows_link_args(
         command.arg(format!("{lib}.lib"));
     }
     Ok(())
+}
+
+/// PE DLLs only export `__declspec(dllexport)` / `/EXPORT` symbols. Unix
+/// `.so` files export the embed API and Cranelift `Linkage::Export` names by
+/// default; list both so a C host can `cl host.c foo.lib`.
+fn windows_dll_export_names(object_path: &Path) -> Vec<String> {
+    let mut names: Vec<String> = [
+        "simrt_instantiate",
+        "simrt_release",
+        "simrt_host_define",
+        "simrt_call",
+        "simrt_sim_now",
+        "simrt_sim_step",
+        "simrt_sim_run_until",
+        "simrt_ref_pin",
+        "simrt_ref_unpin",
+        "simrt_ref_get",
+    ]
+    .into_iter()
+    .map(str::to_string)
+    .collect();
+    if let Ok(bytes) = std::fs::read(object_path)
+        && let Ok(file) = object::File::parse(&bytes[..])
+    {
+        for symbol in file.symbols() {
+            if !symbol.is_global() || symbol.kind() != SymbolKind::Text {
+                continue;
+            }
+            let Ok(name) = symbol.name() else {
+                continue;
+            };
+            let name = name.trim_start_matches('_');
+            if name.is_empty() || names.iter().any(|existing| existing == name) {
+                continue;
+            }
+            names.push(name.to_string());
+        }
+    }
+    names
 }
 
 /// Best-effort MSVC / Windows SDK lib directories when `LIB` is unset.

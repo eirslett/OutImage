@@ -5,7 +5,7 @@ use std::sync::atomic::{AtomicU64, Ordering};
 
 use gimli::{EndianSlice, RunTimeEndian, SectionId};
 use object::{Object, ObjectSection};
-use outimage::codegen::dwarf::dsym_dwarf_object_path;
+use outimage::codegen::dwarf::debug_companion_path;
 use outimage::source::SourceFile;
 use outimage::{CompileOptions, CompileResult, CompileTarget};
 
@@ -33,14 +33,28 @@ fn compile_with_debug(source_text: &str) -> (PathBuf, PathBuf) {
 }
 
 fn debug_info_bytes(artifact: &Path) -> Option<Vec<u8>> {
+    // Prefer the relocated sidecar: host linkers drop or mangle Cranelift DWARF
+    // in the image (Darwin ld, GNU ld location lists, MSVC).
+    let companion = debug_companion_path(artifact);
+    if let Ok(bytes) = std::fs::read(&companion)
+        && has_dwarf_section(&bytes)
+    {
+        return Some(bytes);
+    }
     if let Ok(bytes) = std::fs::read(artifact)
         && has_dwarf_section(&bytes)
     {
         return Some(bytes);
     }
+    None
+}
 
-    let dsym = dsym_dwarf_object_path(artifact);
-    std::fs::read(dsym).ok()
+fn cleanup_debug_artifact(artifact: &Path, map_path: &Path) {
+    let _ = std::fs::remove_file(artifact);
+    let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
+    let _ = std::fs::remove_file(debug_companion_path(artifact));
+    let _ = std::fs::remove_file(artifact.with_extension("pdb"));
+    let _ = std::fs::remove_file(map_path);
 }
 
 fn has_dwarf_section(bytes: &[u8]) -> bool {
@@ -102,15 +116,12 @@ fn dwarf_line_numbers(bytes: &[u8]) -> Vec<u64> {
     lines
 }
 
-#[cfg(not(windows))]
 #[test]
 fn linked_binary_or_dsym_contains_dwarf_debug_sections() {
     let source = "begin integer x;\n  x := 1;\n  OutText(\"hi\");\n  OutImage;\nend;\n";
     let (artifact, map_path) = compile_with_debug(source);
     let bytes = debug_info_bytes(&artifact).expect("expected DWARF in binary or dSYM");
-    let _ = std::fs::remove_file(&artifact);
-    let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
-    let _ = std::fs::remove_file(&map_path);
+    cleanup_debug_artifact(&artifact, &map_path);
 
     assert!(
         has_dwarf_section(&bytes),
@@ -118,7 +129,6 @@ fn linked_binary_or_dsym_contains_dwarf_debug_sections() {
     );
 }
 
-#[cfg(not(windows))]
 #[test]
 fn dwarf_line_table_includes_assignment_line() {
     // Line 2 is `integer x;`, line 3 is `x := 1;`.
@@ -126,9 +136,7 @@ fn dwarf_line_table_includes_assignment_line() {
     let (artifact, map_path) = compile_with_debug(source);
     let bytes = debug_info_bytes(&artifact).expect("expected DWARF in binary or dSYM");
     let lines = dwarf_line_numbers(&bytes);
-    let _ = std::fs::remove_file(&artifact);
-    let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
-    let _ = std::fs::remove_file(&map_path);
+    cleanup_debug_artifact(&artifact, &map_path);
 
     assert!(
         lines.contains(&3),
@@ -140,12 +148,9 @@ fn dwarf_line_table_includes_assignment_line() {
 fn debug_info_still_writes_json_side_map() {
     let source = "begin integer x;\n  x := 1;\nend;\n";
     let (artifact, map_path) = compile_with_debug(source);
-    let _ = std::fs::remove_file(&artifact);
-    let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
-
     let json = std::fs::read_to_string(&map_path)
         .unwrap_or_else(|error| panic!("expected side-map at {}: {error}", map_path.display()));
-    let _ = std::fs::remove_file(&map_path);
+    cleanup_debug_artifact(&artifact, &map_path);
 
     let value: serde_json::Value = serde_json::from_str(&json).expect("valid JSON");
     assert_eq!(value["version"], 1);
@@ -163,15 +168,19 @@ fn release_build_has_no_dwarf_sections() {
         panic!("expected artifact");
     };
     let bytes = std::fs::read(&artifact).expect("read binary");
+    let had_dsym = artifact.with_extension("dSYM").exists();
+    let had_companion = debug_companion_path(&artifact).exists();
     let _ = std::fs::remove_file(&artifact);
+    let _ = std::fs::remove_file(debug_companion_path(&artifact));
 
     assert!(
         !has_dwarf_section(&bytes),
         "non-debug build should not contain DWARF sections"
     );
+    assert!(!had_dsym, "non-debug build should not emit a dSYM bundle");
     assert!(
-        !artifact.with_extension("dSYM").exists(),
-        "non-debug build should not emit a dSYM bundle"
+        !had_companion,
+        "non-debug build should not emit a DWARF companion"
     );
 }
 
@@ -741,32 +750,23 @@ fn dwarf_variable_names(bytes: &[u8]) -> Vec<(String, bool)> {
     names
 }
 
-#[cfg(not(windows))]
 #[test]
 fn dwarf_contains_named_local_with_location() {
     // Unused after assignment still locates: `-g` keeps named locals live via
     // stack homes + end-of-function keep-alive stores.
     let source = "begin\n  integer x;\n  x := 42;\n  OutText(\"hi\");\n  OutImage;\nend;\n";
     let (artifact, map_path) = compile_with_debug(source);
-    let bytes = debug_info_bytes(&artifact).expect("expected DWARF in binary or dSYM");
+    let bytes = debug_info_bytes(&artifact).expect("expected DWARF in binary or debug companion");
     let vars = dwarf_variable_names(&bytes);
-    let _ = std::fs::remove_file(&artifact);
-    let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
-    let _ = std::fs::remove_file(&map_path);
+    cleanup_debug_artifact(&artifact, &map_path);
 
-    let has_x = vars.iter().any(|(name, _)| name == "x");
-    assert!(has_x, "expected variable x in DWARF, got {vars:?}");
-    // GNU ld + CRT can drop DW_AT_location on unused Simula locals while still
-    // emitting the name (and extra C `x` locals from libc). Darwin ld keeps it.
-    if !cfg!(target_os = "linux") {
-        assert!(
-            vars.iter().any(|(name, has_loc)| name == "x" && *has_loc),
-            "expected variable x with DW_AT_location, got {vars:?}"
-        );
-    }
+    let x = vars
+        .iter()
+        .find(|(name, _)| name == "x")
+        .unwrap_or_else(|| panic!("expected variable x in DWARF, got {vars:?}"));
+    assert!(x.1, "variable x should have a DW_AT_location: {vars:?}");
 }
 
-#[cfg(not(windows))]
 #[test]
 fn dwarf_contains_procedure_parameter_name() {
     let source = r#"begin
@@ -781,9 +781,7 @@ end;
     let (artifact, map_path) = compile_with_debug(source);
     let bytes = debug_info_bytes(&artifact).expect("expected DWARF in binary or dSYM");
     let vars = dwarf_variable_names(&bytes);
-    let _ = std::fs::remove_file(&artifact);
-    let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
-    let _ = std::fs::remove_file(&map_path);
+    cleanup_debug_artifact(&artifact, &map_path);
 
     let n = vars
         .iter()
@@ -874,7 +872,6 @@ fn dwarf_struct_members(bytes: &[u8]) -> Vec<(String, Vec<(String, u64)>)> {
     structs
 }
 
-#[cfg(not(windows))]
 #[test]
 fn dwarf_contains_class_structure_and_field_members() {
     let source = r#"begin
@@ -889,9 +886,7 @@ end;
     let bytes = debug_info_bytes(&artifact).expect("expected DWARF in binary or dSYM");
     let structs = dwarf_struct_members(&bytes);
     let vars = dwarf_variable_names(&bytes);
-    let _ = std::fs::remove_file(&artifact);
-    let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
-    let _ = std::fs::remove_file(&map_path);
+    cleanup_debug_artifact(&artifact, &map_path);
 
     let point = structs
         .iter()
@@ -910,7 +905,6 @@ end;
     assert!(p.1, "object local p should have a DW_AT_location: {vars:?}");
 }
 
-#[cfg(not(windows))]
 #[test]
 fn dwarf_prefixed_class_includes_prefix_fields() {
     let source = r#"begin
@@ -923,9 +917,7 @@ end;
     let (artifact, map_path) = compile_with_debug(source);
     let bytes = debug_info_bytes(&artifact).expect("expected DWARF");
     let structs = dwarf_struct_members(&bytes);
-    let _ = std::fs::remove_file(&artifact);
-    let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
-    let _ = std::fs::remove_file(&map_path);
+    cleanup_debug_artifact(&artifact, &map_path);
 
     let polar = structs
         .iter()
@@ -951,7 +943,6 @@ end;
 /// attribute, so a debugger sees the object's declared attributes and nothing
 /// else. The statement-index splitter this replaced kept a resume PC in
 /// `__simrt_coro_pc`, which showed up here.
-#[cfg(not(windows))]
 #[test]
 fn dwarf_shows_no_synthetic_continuation_field_on_a_process() {
     let source = r#"Simulation begin
@@ -968,9 +959,7 @@ end;"#;
     let (artifact, map_path) = compile_with_debug(source);
     let bytes = debug_info_bytes(&artifact).expect("expected DWARF in binary or dSYM");
     let structs = dwarf_struct_members(&bytes);
-    let _ = std::fs::remove_file(&artifact);
-    let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
-    let _ = std::fs::remove_file(&map_path);
+    cleanup_debug_artifact(&artifact, &map_path);
 
     let worker = structs
         .iter()
@@ -1065,7 +1054,6 @@ fn dwarf_variable_pointee_types(bytes: &[u8]) -> Vec<(String, String)> {
     out
 }
 
-#[cfg(not(windows))]
 #[test]
 fn dwarf_text_and_array_locals_use_runtime_struct_types() {
     let source = r#"begin
@@ -1079,9 +1067,7 @@ end;
     let bytes = debug_info_bytes(&artifact).expect("expected DWARF");
     let structs = dwarf_struct_members(&bytes);
     let vars = dwarf_variable_pointee_types(&bytes);
-    let _ = std::fs::remove_file(&artifact);
-    let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
-    let _ = std::fs::remove_file(&map_path);
+    cleanup_debug_artifact(&artifact, &map_path);
 
     assert!(
         structs.iter().any(|(n, m)| n == "SimrtTextFrame"
@@ -1116,7 +1102,6 @@ end;
     );
 }
 
-#[cfg(not(windows))]
 #[test]
 fn dwarf_object_text_and_ref_fields_are_typed() {
     let source = r#"begin
@@ -1133,9 +1118,7 @@ end;
     let (artifact, map_path) = compile_with_debug(source);
     let bytes = debug_info_bytes(&artifact).expect("expected DWARF");
     let structs = dwarf_struct_members(&bytes);
-    let _ = std::fs::remove_file(&artifact);
-    let _ = std::fs::remove_dir_all(artifact.with_extension("dSYM"));
-    let _ = std::fs::remove_file(&map_path);
+    cleanup_debug_artifact(&artifact, &map_path);
 
     let box_struct = structs
         .iter()
