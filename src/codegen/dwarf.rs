@@ -642,8 +642,13 @@ impl DebugContext {
     }
 }
 
-/// Writes a macOS dSYM bundle next to `executable_path` so lldb can resolve
-/// Simula source lines after the host Darwin linker drops DWARF from the `.o`.
+/// Writes relocated Simula DWARF next to `executable_path`.
+///
+/// Host linkers do not preserve Cranelift DWARF faithfully: Darwin `ld` drops
+/// it from the image, GNU ld can drop `DW_AT_location`, and MSVC `link.exe`
+/// never keeps `.debug_*` sections. Rebuild from [`NativeDebugInfo`] at the
+/// linked symbol addresses (the macOS dSYM path), and keep a sidecar on every
+/// OS so a debugger — and the debug-info tests — see the same DIEs.
 pub fn write_dsym_bundle(
     executable_path: &Path,
     debug: &NativeDebugInfo,
@@ -651,10 +656,6 @@ pub fn write_dsym_bundle(
     target: CompileTarget,
     isa: &dyn TargetIsa,
 ) -> Result<(), CompileError> {
-    if !target_is_macho(target) {
-        return Ok(());
-    }
-
     let exe_bytes = std::fs::read(executable_path).map_err(|error| {
         CompileError::codegen(format!(
             "failed to read {} for DWARF: {error}",
@@ -664,32 +665,45 @@ pub fn write_dsym_bundle(
 
     let mut context = DebugContext::new(isa, source, &debug.class_layouts);
     for info in &debug.functions {
-        let lookup_name = macho_symbol_name(&info.symbol_name);
-        let base = symbol_address(&exe_bytes, lookup_name).ok_or_else(|| {
+        let base = symbol_address(&exe_bytes, &info.symbol_name).ok_or_else(|| {
             CompileError::codegen(format!(
-                "failed to resolve linked symbol '{lookup_name}' for DWARF"
+                "failed to resolve linked symbol '{}' for DWARF",
+                info.symbol_name
             ))
         })?;
         context.add_function_at_base(info, base);
     }
-
-    let dwarf_path = dsym_dwarf_object_path(executable_path);
-    if let Some(parent) = dwarf_path.parent() {
-        std::fs::create_dir_all(parent).map_err(|error| {
-            CompileError::codegen(format!("failed to create {}: {error}", parent.display()))
-        })?;
-    }
-    write_info_plist(executable_path)?;
 
     let endian = match isa.endianness() {
         cranelift_codegen::ir::Endianness::Little => RunTimeEndian::Little,
         cranelift_codegen::ir::Endianness::Big => RunTimeEndian::Big,
     };
     let sections = context.finish_sections(endian)?;
-    let uuid = executable_uuid(&exe_bytes);
-    write_standalone_macho(&dwarf_path, target, sections, uuid)?;
+    let dwarf_path = debug_companion_path(executable_path);
+    if let Some(parent) = dwarf_path.parent() {
+        std::fs::create_dir_all(parent).map_err(|error| {
+            CompileError::codegen(format!("failed to create {}: {error}", parent.display()))
+        })?;
+    }
+
+    if target_is_macho(target) {
+        write_info_plist(executable_path)?;
+        let uuid = executable_uuid(&exe_bytes);
+        write_standalone_macho(&dwarf_path, target, sections, uuid)?;
+    } else {
+        write_standalone_debug_object(&dwarf_path, target, sections)?;
+    }
 
     Ok(())
+}
+
+/// Relocated Simula DWARF sidecar: a dSYM object on macOS, `{exe}.debug` elsewhere.
+pub fn debug_companion_path(executable_path: &Path) -> PathBuf {
+    if cfg!(target_os = "macos") {
+        dsym_dwarf_object_path(executable_path)
+    } else {
+        executable_path.with_extension("debug")
+    }
 }
 
 /// Path to `{exe}.dSYM/Contents/Resources/DWARF/{exe_name}`.
@@ -743,28 +757,17 @@ fn target_is_macho(target: CompileTarget) -> bool {
     )
 }
 
-fn macho_symbol_name(name: &str) -> &str {
-    if name.starts_with('_') {
-        name
-    } else {
-        // Mach-O exports use a leading underscore; nm/lldb accept either form
-        // but object crate returns the nlist name including `_`.
-        name
-    }
-}
-
 fn symbol_address(bytes: &[u8], name: &str) -> Option<u64> {
     let file = object::File::parse(bytes).ok()?;
+    let needle = name.trim_start_matches('_');
     file.symbols().find_map(|symbol| {
-        if symbol.kind() != SymbolKind::Text {
+        if symbol.kind() != SymbolKind::Text && symbol.kind() != SymbolKind::Unknown {
             return None;
         }
         let Ok(symbol_name) = symbol.name() else {
             return None;
         };
-        if symbol_name == name
-            || symbol_name.trim_start_matches('_') == name.trim_start_matches('_')
-        {
+        if symbol_name.trim_start_matches('_') == needle {
             Some(symbol.address())
         } else {
             None
@@ -812,7 +815,7 @@ fn write_standalone_macho(
     sections: Vec<(SectionId, Vec<u8>)>,
     uuid: Option<[u8; 16]>,
 ) -> Result<(), CompileError> {
-    let (arch, endian) = object_format(target)?;
+    let (arch, endian) = object_arch_endian(target)?;
     let mut object = WriteObject::new(BinaryFormat::MachO, arch, endian);
     for (id, data) in sections {
         let name = id.name().replace('.', "__").into_bytes();
@@ -936,18 +939,51 @@ fn executable_uuid(bytes: &[u8]) -> Option<[u8; 16]> {
     file.mach_uuid().ok().flatten()
 }
 
-fn object_format(
+fn write_standalone_debug_object(
+    path: &Path,
+    target: CompileTarget,
+    sections: Vec<(SectionId, Vec<u8>)>,
+) -> Result<(), CompileError> {
+    let (arch, endian) = object_arch_endian(target)?;
+    let mut object = WriteObject::new(BinaryFormat::Elf, arch, endian);
+    for (id, data) in sections {
+        let section_id = object.add_section(
+            Vec::new(),
+            id.name().as_bytes().to_vec(),
+            SectionKind::Debug,
+        );
+        object.section_mut(section_id).set_data(data, 1);
+    }
+    let bytes = object.write().map_err(|error| {
+        CompileError::codegen(format!("failed to emit DWARF companion: {error}"))
+    })?;
+    std::fs::write(path, bytes).map_err(|error| {
+        CompileError::codegen(format!("failed to write {}: {error}", path.display()))
+    })
+}
+
+fn object_arch_endian(
     target: CompileTarget,
 ) -> Result<(Architecture, object::Endianness), CompileError> {
     match target {
-        CompileTarget::MacOsX86_64 => Ok((Architecture::X86_64, object::Endianness::Little)),
-        CompileTarget::MacOsAarch64 => Ok((Architecture::Aarch64, object::Endianness::Little)),
-        CompileTarget::Native if cfg!(target_os = "macos") => {
-            if cfg!(target_arch = "aarch64") {
-                Ok((Architecture::Aarch64, object::Endianness::Little))
+        CompileTarget::MacOsX86_64 | CompileTarget::LinuxX86_64 | CompileTarget::WindowsX86_64 => {
+            Ok((Architecture::X86_64, object::Endianness::Little))
+        }
+        CompileTarget::MacOsAarch64 | CompileTarget::LinuxAarch64 => {
+            Ok((Architecture::Aarch64, object::Endianness::Little))
+        }
+        CompileTarget::Native => {
+            let arch = if cfg!(target_arch = "aarch64") {
+                Architecture::Aarch64
+            } else if cfg!(target_arch = "x86_64") {
+                Architecture::X86_64
             } else {
-                Ok((Architecture::X86_64, object::Endianness::Little))
-            }
+                return Err(CompileError::codegen(format!(
+                    "unsupported native DWARF architecture {}",
+                    std::env::consts::ARCH
+                )));
+            };
+            Ok((arch, object::Endianness::Little))
         }
         other => Err(CompileError::codegen(format!(
             "unsupported DWARF target {other}"

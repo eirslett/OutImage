@@ -583,6 +583,79 @@ fn native_stdout_text(stdout: &[u8]) -> String {
     String::from_utf8_lossy(stdout).replace("\r\n", "\n")
 }
 
+fn remove_native_lib(lib_path: &Path) {
+    let _ = std::fs::remove_file(lib_path);
+    let _ = std::fs::remove_file(lib_path.with_extension("lib"));
+    let _ = std::fs::remove_file(lib_path.with_extension("exp"));
+    let _ = std::fs::remove_file(lib_path.with_extension("pdb"));
+}
+
+/// Compile and run a C host against a `--crate-type lib` artifact.
+/// Windows uses MSVC `cl` plus the import library; MinGW cannot consume MSVC DLLs.
+fn compile_and_run_c_against_lib(
+    lib_path: &Path,
+    c_source: &str,
+    extra_includes: &[&Path],
+) -> Option<(bool, String, String)> {
+    let dir = lib_path.parent()?;
+    let stem = lib_path.file_stem()?.to_string_lossy();
+    let host_c = dir.join(format!("{stem}-host.c"));
+    std::fs::write(&host_c, c_source).ok()?;
+    let host_bin = if cfg!(windows) {
+        dir.join(format!("{stem}-host.exe"))
+    } else {
+        dir.join(format!("{stem}-host"))
+    };
+
+    let output = if cfg!(windows) {
+        if Command::new("cl").output().is_err() {
+            let _ = std::fs::remove_file(&host_c);
+            return None;
+        }
+        let implib = lib_path.with_extension("lib");
+        let mut command = Command::new("cl");
+        command
+            .current_dir(dir)
+            .arg("/nologo")
+            .arg(format!("/Fe:{}", host_bin.display()))
+            .arg(&host_c);
+        for include in extra_includes {
+            command.arg(format!("/I{}", include.display()));
+        }
+        command.arg(&implib);
+        command.output().expect("cl host")
+    } else {
+        let Some(cc) = host_cc() else {
+            let _ = std::fs::remove_file(&host_c);
+            return None;
+        };
+        let mut command = Command::new(cc);
+        command.arg("-o").arg(&host_bin).arg(&host_c);
+        for include in extra_includes {
+            command.arg("-I").arg(include);
+        }
+        command.arg(lib_path);
+        command.output().expect("cc host")
+    };
+    let _ = std::fs::remove_file(&host_c);
+    let _ = std::fs::remove_file(dir.join(format!("{stem}-host.obj")));
+    if !output.status.success() {
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        let stdout = String::from_utf8_lossy(&output.stdout);
+        panic!("C host compile failed: {stderr}{stdout}");
+    }
+    let result = Command::new(&host_bin)
+        .current_dir(dir)
+        .output()
+        .expect("run host");
+    let _ = std::fs::remove_file(&host_bin);
+    Some((
+        result.status.success(),
+        native_stdout_text(&result.stdout),
+        String::from_utf8_lossy(&result.stderr).into_owned(),
+    ))
+}
+
 fn temp_path(tag: &str, ext: &str) -> PathBuf {
     let id = COUNTER.fetch_add(1, Ordering::Relaxed);
     let mut path = std::env::temp_dir().join(format!("sim-interop-{tag}-{id}"));
@@ -855,22 +928,19 @@ const uint8_t *echo(const uint8_t *p, int64_t n, int64_t *out_len) {
     }
 }
 
+fn native_lib_ext() -> &'static str {
+    if cfg!(target_os = "macos") {
+        "dylib"
+    } else if cfg!(target_os = "windows") {
+        "dll"
+    } else {
+        "so"
+    }
+}
+
 #[test]
 fn native_c_calls_exported_sim_add() {
-    if cfg!(windows) {
-        // MinGW `cc` cannot link MSVC-produced DLLs from `sim compile`.
-        return;
-    }
-    let lib = temp_path(
-        "libadd",
-        if cfg!(target_os = "macos") {
-            "dylib"
-        } else if cfg!(target_os = "windows") {
-            "dll"
-        } else {
-            "so"
-        },
-    );
+    let lib = temp_path("libadd", native_lib_ext());
     let mut options = CompileOptions::for_compile(lib.clone(), CompileTarget::Native);
     options.crate_type = CrateType::Lib;
     let lib_path =
@@ -880,13 +950,8 @@ fn native_c_calls_exported_sim_add() {
             Err(error) => panic!("crate-type lib failed: {error}"),
         };
 
-    let Some(cc) = host_cc() else {
-        let _ = std::fs::remove_file(&lib_path);
-        return;
-    };
-    let host_c = temp_path("host", "c");
-    std::fs::write(
-        &host_c,
+    let Some((ok, stdout, stderr)) = compile_and_run_c_against_lib(
+        &lib_path,
         r#"
 #include <stdint.h>
 #include <stdio.h>
@@ -896,46 +961,19 @@ int main(void) {
     return 0;
 }
 "#,
-    )
-    .unwrap();
-    let host_bin = temp_path("host-bin", "");
-    let mut command = Command::new(cc);
-    command.arg("-o").arg(&host_bin).arg(&host_c).arg(&lib_path);
-    let output = command.output().expect("cc host");
-    let _ = std::fs::remove_file(&host_c);
-    if !output.status.success() {
-        let _ = std::fs::remove_file(&lib_path);
-        panic!(
-            "cc host failed: {}",
-            String::from_utf8_lossy(&output.stderr)
-        );
-    }
-    let result = Command::new(&host_bin).output().expect("run host");
-    let _ = std::fs::remove_file(&host_bin);
-    let _ = std::fs::remove_file(&lib_path);
-    assert!(
-        result.status.success(),
-        "C host failed: {}",
-        String::from_utf8_lossy(&result.stderr)
-    );
-    assert_eq!(String::from_utf8_lossy(&result.stdout), "42\n");
+        &[],
+    ) else {
+        remove_native_lib(&lib_path);
+        return;
+    };
+    remove_native_lib(&lib_path);
+    assert!(ok, "C host failed: {stderr}");
+    assert_eq!(stdout, "42\n");
 }
 
 #[test]
 fn native_export_identification_uses_exact_symbol() {
-    if cfg!(windows) {
-        return;
-    }
-    let lib = temp_path(
-        "libplus",
-        if cfg!(target_os = "macos") {
-            "dylib"
-        } else if cfg!(target_os = "windows") {
-            "dll"
-        } else {
-            "so"
-        },
-    );
+    let lib = temp_path("libplus", native_lib_ext());
     let source = r#"
 integer procedure add(a, b) = "export:plus"; integer a, b;
 begin
@@ -949,13 +987,8 @@ end;
         Ok(other) => panic!("expected library artifact, got {other:?}"),
         Err(error) => panic!("crate-type lib failed: {error}"),
     };
-    let Some(cc) = host_cc() else {
-        let _ = std::fs::remove_file(&lib_path);
-        return;
-    };
-    let host_c = temp_path("host-plus", "c");
-    std::fs::write(
-        &host_c,
+    let Some((ok, stdout, stderr)) = compile_and_run_c_against_lib(
+        &lib_path,
         r#"
 #include <stdint.h>
 #include <stdio.h>
@@ -965,33 +998,14 @@ int main(void) {
     return 0;
 }
 "#,
-    )
-    .unwrap();
-    let host_bin = temp_path("host-plus-bin", "");
-    let output = Command::new(cc)
-        .arg("-o")
-        .arg(&host_bin)
-        .arg(&host_c)
-        .arg(&lib_path)
-        .output()
-        .expect("cc host");
-    let _ = std::fs::remove_file(&host_c);
-    if !output.status.success() {
-        let _ = std::fs::remove_file(&lib_path);
-        panic!(
-            "cc host failed: {}",
-            String::from_utf8_lossy(&output.stderr)
-        );
-    }
-    let result = Command::new(&host_bin).output().expect("run host");
-    let _ = std::fs::remove_file(&host_bin);
-    let _ = std::fs::remove_file(&lib_path);
-    assert!(
-        result.status.success(),
-        "C host failed: {}",
-        String::from_utf8_lossy(&result.stderr)
-    );
-    assert_eq!(String::from_utf8_lossy(&result.stdout), "42\n");
+        &[],
+    ) else {
+        remove_native_lib(&lib_path);
+        return;
+    };
+    remove_native_lib(&lib_path);
+    assert!(ok, "C host failed: {stderr}");
+    assert_eq!(stdout, "42\n");
 }
 
 #[test]
@@ -1046,19 +1060,7 @@ end;
 
 #[test]
 fn native_instantiate_host_table_and_call() {
-    if cfg!(windows) {
-        return;
-    }
-    let lib = temp_path(
-        "libhost",
-        if cfg!(target_os = "macos") {
-            "dylib"
-        } else if cfg!(target_os = "windows") {
-            "dll"
-        } else {
-            "so"
-        },
-    );
+    let lib = temp_path("libhost", native_lib_ext());
     let mut options = CompileOptions::for_compile(lib.clone(), CompileTarget::Native);
     options.crate_type = CrateType::Lib;
     let lib_path =
@@ -1068,14 +1070,9 @@ fn native_instantiate_host_table_and_call() {
             Err(error) => panic!("host lib compile failed: {error}"),
         };
 
-    let Some(cc) = host_cc() else {
-        let _ = std::fs::remove_file(&lib_path);
-        return;
-    };
     let runtime_inc = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("runtime");
-    let host_c = temp_path("embed-host", "c");
-    std::fs::write(
-        &host_c,
+    let Some((ok, stdout, stderr)) = compile_and_run_c_against_lib(
+        &lib_path,
         r#"
 #include "embed.h"
 #include <stdint.h>
@@ -1096,35 +1093,14 @@ int main(void) {
     return 0;
 }
 "#,
-    )
-    .unwrap();
-    let host_bin = temp_path("embed-bin", "");
-    let output = Command::new(cc)
-        .arg("-o")
-        .arg(&host_bin)
-        .arg("-I")
-        .arg(&runtime_inc)
-        .arg(&host_c)
-        .arg(&lib_path)
-        .output()
-        .expect("cc embed host");
-    let _ = std::fs::remove_file(&host_c);
-    if !output.status.success() {
-        let _ = std::fs::remove_file(&lib_path);
-        panic!(
-            "cc embed host failed: {}",
-            String::from_utf8_lossy(&output.stderr)
-        );
-    }
-    let result = Command::new(&host_bin).output().expect("run embed host");
-    let _ = std::fs::remove_file(&host_bin);
-    let _ = std::fs::remove_file(&lib_path);
-    assert!(
-        result.status.success(),
-        "embed host failed: {}",
-        String::from_utf8_lossy(&result.stderr)
-    );
-    assert_eq!(String::from_utf8_lossy(&result.stdout), "42\n0.0\n0\n");
+        &[&runtime_inc],
+    ) else {
+        remove_native_lib(&lib_path);
+        return;
+    };
+    remove_native_lib(&lib_path);
+    assert!(ok, "embed host failed: {stderr}");
+    assert_eq!(stdout, "42\n0.0\n0\n");
 }
 
 #[test]
