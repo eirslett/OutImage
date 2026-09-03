@@ -37,16 +37,25 @@ In the [Azure portal](https://portal.azure.com) (or CLI):
 
 ### 2. Federated credential (Azure → GitHub)
 
-On that managed identity: **Settings → Federated credentials → Add**.
+This repository uses GitHub’s **immutable** OIDC subject (owner and repo numeric
+IDs). The Azure “GitHub Actions” template often stores the old name-only
+subject, which will not match.
 
-- Federated credential scenario: **GitHub Actions deploying Azure resources**
-- Organization: `eirslett`
-- Repository: `OutImage` (exact casing)
-- Entity: **Environment**
-- Environment name: `vscode-marketplace`
-- Name: anything, e.g. `github-vscode-marketplace`
+On the managed identity: **Settings → Federated credentials → Add** (or edit
+the existing one). Prefer **Other issuer** / explicit subject if the GitHub
+template will not accept this subject verbatim:
 
-Save. Issuer should be `https://token.actions.githubusercontent.com` and subject
+- Issuer: `https://token.actions.githubusercontent.com`
+- Audience: `api://AzureADTokenExchange`
+- Subject (must match the token exactly, including casing):
+
+```
+repo:eirslett@1872593/OutImage@1352918393:environment:vscode-marketplace
+```
+
+If the GitHub Actions template asks for organization/repository IDs, fill
+`1872593` and `1352918393`, entity **Environment**, name `vscode-marketplace`,
+then **open the credential and confirm the Subject** is the string above — not
 `repo:eirslett/OutImage:environment:vscode-marketplace`.
 
 ### 3. GitHub environment secrets
