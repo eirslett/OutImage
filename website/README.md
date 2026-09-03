@@ -46,6 +46,9 @@ cd website
 npm run build
 ```
 
+CI deploys `website/dist` to [GitHub Pages](https://eirslett.github.io/OutImage/)
+on every push to `main`, after the Linux / macOS / Windows test matrix passes.
+
 ## Limits
 
 - Interpreter only (no native/wasm AOT of the Simula program)
