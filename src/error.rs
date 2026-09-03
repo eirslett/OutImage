@@ -16,7 +16,6 @@ use std::collections::HashMap;
 use std::env;
 use std::fmt;
 use std::io::{self, IsTerminal, Write};
-use std::sync::Mutex;
 
 pub type Span = std::ops::Range<usize>;
 
@@ -61,29 +60,6 @@ impl ColorChoice {
 
 fn env_flag_set(name: &str) -> bool {
     env::var_os(name).is_some_and(|v| !v.is_empty())
-}
-
-/// Ariadne paints through yansi's process-global flag. On Windows that flag
-/// starts off when `CONOUT$` has no VT mode (GitHub Actions). Colourless
-/// renders call `disable()`, so they must not interleave with an Always-colour
-/// write or the escape codes disappear. Hold the lock for the whole toggle +
-/// write + restore.
-fn with_forced_yansi<T>(want_color: bool, f: impl FnOnce() -> T) -> T {
-    static LOCK: Mutex<()> = Mutex::new(());
-    let _guard = LOCK.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
-    let prev = yansi::is_enabled();
-    if want_color {
-        yansi::enable();
-    } else {
-        yansi::disable();
-    }
-    let out = f();
-    if prev {
-        yansi::enable();
-    } else {
-        yansi::disable();
-    }
-    out
 }
 
 fn is_toolchain_message(message: &str) -> bool {
@@ -786,12 +762,18 @@ impl CompileError {
 
     pub fn render_with_config(&self, source: &SourceFile, config: &DiagnosticConfig) -> String {
         let want_color = config.color_enabled(false);
-        with_forced_yansi(want_color, || {
-            let mut buf = Vec::new();
-            self.write_with_config(source, &mut buf, config, want_color)
-                .expect("writing an ariadne report to a Vec should not fail");
-            String::from_utf8(buf).expect("ariadne output is UTF-8")
-        })
+        // Ariadne paints through yansi, which starts off on Windows when
+        // CONOUT$ has no VT mode. Enable for Always colour so Vec renders
+        // actually contain escapes. Do not disable: colourless output already
+        // omits styles via Config::with_color(false), and disable() is
+        // process-global so it races with parallel Always-colour writes.
+        if want_color {
+            yansi::enable();
+        }
+        let mut buf = Vec::new();
+        self.write_with_config(source, &mut buf, config, want_color)
+            .expect("writing an ariadne report to a Vec should not fail");
+        String::from_utf8(buf).expect("ariadne output is UTF-8")
     }
 }
 
