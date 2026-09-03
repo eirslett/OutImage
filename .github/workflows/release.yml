@@ -205,3 +205,41 @@ jobs:
           if gh release view next --json isDraft --jq .isDraft 2>/dev/null | grep -qx true; then
             gh release delete next --yes
           fi
+
+  publish-marketplace:
+    name: Publish VS Code Marketplace
+    needs: [bump, publish]
+    runs-on: ubuntu-latest
+    environment: vscode-marketplace
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.bump.outputs.sha }}
+      - uses: actions/download-artifact@v7
+        with:
+          name: release-vscode-simula
+          path: dist
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          allow-no-subscriptions: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: editors/vscode/package-lock.json
+      - name: Marketplace identity
+        run: |
+          az rest -u https://app.vssps.visualstudio.com/_apis/profile/profiles/me \
+            --resource 499b84ac-1321-427f-aa17-267ca6975798
+      - name: Publish to Visual Studio Marketplace
+        working-directory: editors/vscode
+        run: |
+          npm ci
+          npx vsce publish --azure-credential --skip-duplicate --no-dependencies \
+            --packagePath "$GITHUB_WORKSPACE/dist/vscode-simula.vsix"
