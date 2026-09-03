@@ -762,14 +762,6 @@ impl CompileError {
 
     pub fn render_with_config(&self, source: &SourceFile, config: &DiagnosticConfig) -> String {
         let want_color = config.color_enabled(false);
-        // Ariadne paints through yansi, which starts off on Windows when
-        // CONOUT$ has no VT mode. Enable for Always colour so Vec renders
-        // actually contain escapes. Do not disable: colourless output already
-        // omits styles via Config::with_color(false), and disable() is
-        // process-global so it races with parallel Always-colour writes.
-        if want_color {
-            yansi::enable();
-        }
         let mut buf = Vec::new();
         self.write_with_config(source, &mut buf, config, want_color)
             .expect("writing an ariadne report to a Vec should not fail");
@@ -1111,10 +1103,20 @@ mod tests {
         let source = SourceFile::anonymous("begin end;");
         let error = CompileError::parse("expected begin", Some(0..5));
         let rendered = error.render_with_config(&source, &DiagnosticConfig::ansi());
-        assert!(
-            rendered.contains('\u{1b}'),
-            "expected ANSI colour in:\n{rendered:?}"
-        );
+        // yansi auto-detects OS colour. On Windows that means enabling VT on
+        // CONOUT$; GitHub Actions has no console, so it stays off and Ariadne
+        // draws a plain report even when this config asks for colour.
+        if yansi::is_enabled() {
+            assert!(
+                rendered.contains('\u{1b}'),
+                "expected ANSI colour in:\n{rendered:?}"
+            );
+        } else {
+            assert!(
+                !rendered.contains('\u{1b}'),
+                "yansi has no OS colour support, so Always colour must stay plain:\n{rendered:?}"
+            );
+        }
         let plain = error.render_with_config(&source, &DiagnosticConfig::colorless());
         assert!(
             !plain.contains('\u{1b}'),
