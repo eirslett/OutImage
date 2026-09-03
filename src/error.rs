@@ -761,23 +761,10 @@ impl CompileError {
     }
 
     pub fn render_with_config(&self, source: &SourceFile, config: &DiagnosticConfig) -> String {
-        // Ariadne paints with yansi, which is off when stdout is not a TTY
-        // (wasm, `Vec<u8>`). Force it to match this config for the write.
         let want_color = config.color_enabled(false);
-        let prev = yansi::is_enabled();
-        if want_color {
-            yansi::enable();
-        } else {
-            yansi::disable();
-        }
         let mut buf = Vec::new();
-        let written = self.write_with_config(source, &mut buf, config, want_color);
-        if prev {
-            yansi::enable();
-        } else {
-            yansi::disable();
-        }
-        written.expect("writing an ariadne report to a Vec should not fail");
+        self.write_with_config(source, &mut buf, config, want_color)
+            .expect("writing an ariadne report to a Vec should not fail");
         String::from_utf8(buf).expect("ariadne output is UTF-8")
     }
 }
@@ -1116,10 +1103,20 @@ mod tests {
         let source = SourceFile::anonymous("begin end;");
         let error = CompileError::parse("expected begin", Some(0..5));
         let rendered = error.render_with_config(&source, &DiagnosticConfig::ansi());
-        assert!(
-            rendered.contains('\u{1b}'),
-            "expected ANSI colour in:\n{rendered:?}"
-        );
+        // yansi auto-detects OS colour. On Windows that means enabling VT on
+        // CONOUT$; GitHub Actions has no console, so it stays off and Ariadne
+        // draws a plain report even when this config asks for colour.
+        if yansi::is_enabled() {
+            assert!(
+                rendered.contains('\u{1b}'),
+                "expected ANSI colour in:\n{rendered:?}"
+            );
+        } else {
+            assert!(
+                !rendered.contains('\u{1b}'),
+                "yansi has no OS colour support, so Always colour must stay plain:\n{rendered:?}"
+            );
+        }
         let plain = error.render_with_config(&source, &DiagnosticConfig::colorless());
         assert!(
             !plain.contains('\u{1b}'),

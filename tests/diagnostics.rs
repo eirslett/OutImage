@@ -279,10 +279,14 @@ fn unterminated_string_playground_payload_includes_report() {
         plain.contains("<input>:2:") && plain.contains("OutText"),
         "expected line/column snippet:\n{report}"
     );
-    assert!(
-        report.contains('\u{1b}'),
-        "playground report should include ANSI colour:\n{report:?}"
-    );
+    // Colour is yansi's OS probe. Windows CI has no VT console, so this
+    // payload is plain there; unix/wasm (the playground) still paint.
+    if !cfg!(windows) {
+        assert!(
+            report.contains('\u{1b}'),
+            "playground report should include ANSI colour:\n{report:?}"
+        );
+    }
     assert_eq!(payload["diagnostics"][0]["span"]["start"], 17);
 }
 
