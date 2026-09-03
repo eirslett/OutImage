@@ -45,6 +45,30 @@ pub use runtime::{CapturingHost, IoHost, ReadLine, StdinRecord, StdioHost};
 pub use source::{CompositeSource, SourceFile};
 pub use target::{Charset, CompileTarget, CrateType};
 
+/// Front-end diagnostics as a JSON array (lex + recovering parse + semantic).
+///
+/// Used by the playground for live editor markers. Does not lower MIR or run.
+pub fn diagnose_json(source: &str) -> String {
+    let file = SourceFile::anonymous(source);
+    let options = LexOptions {
+        allow_square_bracket_subscripts: true,
+        allow_double_dash_comments: true,
+    };
+    let (tokens, _, lex_errors) = lex::tokenize_recovering(&file, &options, false);
+    let mut items = Vec::new();
+    for error in lex_errors {
+        items.extend(error.to_json_values());
+    }
+    let (program, parse_errors) = parse::parse_lenient(&tokens);
+    for error in parse_errors {
+        items.extend(error.to_json_values());
+    }
+    if let Err(errors) = semantic::analyze_all(&program) {
+        items.extend(errors.into_bundled().to_json_values());
+    }
+    serde_json::Value::Array(items).to_string()
+}
+
 /// Compiles and runs a Simula source file with the interpreter backend.
 pub fn compile(source: &SourceFile) -> Result<String, CompileError> {
     match compile_with_options(source, &CompileOptions::for_run())? {

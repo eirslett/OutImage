@@ -125,6 +125,16 @@ impl DiagnosticConfig {
         }
     }
 
+    /// Unicode boxes plus ANSI colour — xterm / the in-browser playground.
+    pub fn ansi() -> Self {
+        Self {
+            color: ColorChoice::Always,
+            unicode: true,
+            compact: false,
+            explain: ExplainLevel::Full,
+        }
+    }
+
     /// Compact, ASCII, no colour — suitable for constrained terminals / CI.
     pub fn plain() -> Self {
         Self {
@@ -532,8 +542,8 @@ impl CompileError {
         })
     }
 
-    /// JSON array of this diagnostic and each related sibling — playground / wasm.
-    pub fn to_json_bundle(&self) -> String {
+    /// This diagnostic and each related sibling as JSON objects.
+    pub fn to_json_values(&self) -> Vec<serde_json::Value> {
         let mut items = vec![self.to_json_value()];
         fn walk(err: &CompileError, items: &mut Vec<serde_json::Value>) {
             for related in &err.related {
@@ -542,7 +552,21 @@ impl CompileError {
             }
         }
         walk(self, &mut items);
-        serde_json::Value::Array(items).to_string()
+        items
+    }
+
+    /// JSON array of this diagnostic and each related sibling — playground / wasm.
+    pub fn to_json_bundle(&self) -> String {
+        serde_json::Value::Array(self.to_json_values()).to_string()
+    }
+
+    /// Playground payload: Ariadne text plus machine-readable spans.
+    pub fn to_playground_payload(&self, source: &SourceFile) -> String {
+        serde_json::json!({
+            "report": self.render_with_config(source, &DiagnosticConfig::ansi()),
+            "diagnostics": self.to_json_values(),
+        })
+        .to_string()
     }
 
     /// Builds an ariadne [`Report`] for this error against `primary` source.
@@ -737,9 +761,23 @@ impl CompileError {
     }
 
     pub fn render_with_config(&self, source: &SourceFile, config: &DiagnosticConfig) -> String {
+        // Ariadne paints with yansi, which is off when stdout is not a TTY
+        // (wasm, `Vec<u8>`). Force it to match this config for the write.
+        let want_color = config.color_enabled(false);
+        let prev = yansi::is_enabled();
+        if want_color {
+            yansi::enable();
+        } else {
+            yansi::disable();
+        }
         let mut buf = Vec::new();
-        self.write_with_config(source, &mut buf, config, false)
-            .expect("writing an ariadne report to a Vec should not fail");
+        let written = self.write_with_config(source, &mut buf, config, want_color);
+        if prev {
+            yansi::enable();
+        } else {
+            yansi::disable();
+        }
+        written.expect("writing an ariadne report to a Vec should not fail");
         String::from_utf8(buf).expect("ariadne output is UTF-8")
     }
 }
@@ -1071,6 +1109,22 @@ mod tests {
     #[test]
     fn color_choice_always_enables() {
         assert!(ColorChoice::Always.enabled(false));
+    }
+
+    #[test]
+    fn ansi_config_emits_escape_codes() {
+        let source = SourceFile::anonymous("begin end;");
+        let error = CompileError::parse("expected begin", Some(0..5));
+        let rendered = error.render_with_config(&source, &DiagnosticConfig::ansi());
+        assert!(
+            rendered.contains('\u{1b}'),
+            "expected ANSI colour in:\n{rendered:?}"
+        );
+        let plain = error.render_with_config(&source, &DiagnosticConfig::colorless());
+        assert!(
+            !plain.contains('\u{1b}'),
+            "colorless should not paint:\n{plain:?}"
+        );
     }
 
     #[test]

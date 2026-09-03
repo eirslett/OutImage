@@ -66,6 +66,88 @@ async function loadSimulaGrammar(): Promise<IGrammar> {
   return grammar;
 }
 
+export type DiagnosticSpanJson = {
+  start?: number;
+  end?: number;
+};
+
+export type DiagnosticJson = {
+  code?: string;
+  title?: string;
+  message?: string;
+  severity?: string;
+  span?: DiagnosticSpanJson | null;
+  notes?: string[];
+  helps?: string[];
+  suggestions?: { message?: string }[];
+};
+
+function byteOffsetToPosition(
+  text: string,
+  byteOffset: number,
+): { line: number; column: number } {
+  const encoder = new TextEncoder();
+  let bytes = 0;
+  let line = 1;
+  let column = 1;
+  const target = Math.max(0, byteOffset);
+  for (const ch of text) {
+    if (bytes >= target) {
+      break;
+    }
+    bytes += encoder.encode(ch).length;
+    if (ch === "\n") {
+      line += 1;
+      column = 1;
+    } else {
+      column += ch.length;
+    }
+  }
+  return { line, column };
+}
+
+/** Map compiler byte spans onto Monaco squiggles. */
+export function setCompileMarkers(
+  editor: monaco.editor.IStandaloneCodeEditor,
+  source: string,
+  diagnostics: DiagnosticJson[],
+): void {
+  const model = editor.getModel();
+  if (!model) {
+    return;
+  }
+  const markers: monaco.editor.IMarkerData[] = [];
+  for (const diag of diagnostics) {
+    const span = diag.span;
+    if (!span || span.start == null || span.end == null || span.start >= span.end) {
+      continue;
+    }
+    const start = byteOffsetToPosition(source, span.start);
+    const end = byteOffsetToPosition(source, span.end);
+    const severity =
+      diag.severity === "warning"
+        ? monaco.MarkerSeverity.Warning
+        : monaco.MarkerSeverity.Error;
+    const head = [diag.code, diag.title].filter(Boolean).join(" ");
+    markers.push({
+      severity,
+      message: [head, diag.message].filter(Boolean).join(": "),
+      startLineNumber: start.line,
+      startColumn: start.column,
+      endLineNumber: end.line,
+      endColumn: end.column,
+    });
+  }
+  monaco.editor.setModelMarkers(model, "outimage", markers);
+}
+
+export function clearCompileMarkers(editor: monaco.editor.IStandaloneCodeEditor): void {
+  const model = editor.getModel();
+  if (model) {
+    monaco.editor.setModelMarkers(model, "outimage", []);
+  }
+}
+
 export async function createEditor(
   element: HTMLElement,
   value: string,

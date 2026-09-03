@@ -1,5 +1,5 @@
 import "./style.css";
-import { createEditor } from "./editor";
+import { createEditor, clearCompileMarkers, setCompileMarkers } from "./editor";
 import { EXAMPLES } from "./examples";
 import { createTerminal } from "./terminal";
 import PlaygroundWorker from "./worker.ts?worker";
@@ -39,6 +39,10 @@ function writeFormattedDiagnostic(diag: {
   }
 }
 
+function writeReport(report: string): void {
+  write(report.replace(/\n/g, "\r\n"));
+}
+
 for (const example of EXAMPLES) {
   const option = document.createElement("option");
   option.value = example.id;
@@ -53,6 +57,8 @@ type DiagnosticJson = {
   code?: string;
   title?: string;
   message?: string;
+  severity?: string;
+  span?: { start?: number; end?: number } | null;
   notes?: string[];
   helps?: string[];
   suggestions?: { message?: string }[];
@@ -63,7 +69,17 @@ type WorkerOut =
   | { type: "init-error"; message: string }
   | { type: "stdout"; chunk: string }
   | { type: "stderr"; chunk: string }
-  | { type: "diagnostic"; diagnostics: DiagnosticJson[] }
+  | {
+      type: "diagnostic";
+      report?: string;
+      diagnostics: DiagnosticJson[];
+    }
+  | {
+      type: "markers";
+      seq: number;
+      source: string;
+      diagnostics: DiagnosticJson[];
+    }
   | { type: "need-stdin" }
   | { type: "exit"; code: number };
 
@@ -73,6 +89,15 @@ let editorReady = false;
 let running = false;
 let waitingStdin = false;
 let stdinBuffer = "";
+let runSource = "";
+let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+let diagnoseSeq = 0;
+let inFlightSeq: number | null = null;
+let queuedDiagnose: string | null = null;
+let workerGeneration = 0;
+let editor: Awaited<typeof editorPromise> | undefined;
+
+const DIAGNOSE_DEBOUNCE_MS = 250;
 
 function setStatus(text: string): void {
   statusEl.textContent = text;
@@ -92,15 +117,25 @@ function setRunning(value: boolean): void {
 }
 
 function spawnWorker(): Worker {
+  workerGeneration += 1;
+  const generation = workerGeneration;
+  inFlightSeq = null;
+  queuedDiagnose = null;
   workerReady = false;
   syncButtons();
   const next = new PlaygroundWorker();
   next.addEventListener("message", (event: MessageEvent<WorkerOut>) => {
+    if (generation !== workerGeneration) {
+      return;
+    }
     const msg = event.data;
     if (msg.type === "ready") {
       workerReady = true;
       syncButtons();
       setStatus("Ready");
+      if (editorReady && editor) {
+        sendDiagnose(editor.getValue());
+      }
       return;
     }
     if (msg.type === "init-error") {
@@ -118,9 +153,20 @@ function spawnWorker(): Worker {
       term.write(`\x1b[31m${msg.chunk.replace(/\n/g, "\r\n")}\x1b[0m`);
       return;
     }
+    if (msg.type === "markers") {
+      applyMarkerResult(msg.seq, msg.source, msg.diagnostics);
+      return;
+    }
     if (msg.type === "diagnostic") {
-      for (const diag of msg.diagnostics) {
-        writeFormattedDiagnostic(diag);
+      if (msg.report) {
+        writeReport(msg.report);
+      } else {
+        for (const diag of msg.diagnostics) {
+          writeFormattedDiagnostic(diag);
+        }
+      }
+      if (editorReady && editor && editor.getValue() === runSource) {
+        setCompileMarkers(editor, runSource, msg.diagnostics);
       }
       return;
     }
@@ -135,9 +181,15 @@ function spawnWorker(): Worker {
       writeln(`\x1b[2mexit ${msg.code}\x1b[0m`);
       setRunning(false);
       setStatus("Ready");
+      if (msg.code === 0 && editorReady && editor && editor.getValue() === runSource) {
+        clearCompileMarkers(editor);
+      }
     }
   });
   next.addEventListener("error", (event) => {
+    if (generation !== workerGeneration) {
+      return;
+    }
     writeln(`\x1b[31mworker error: ${event.message}\x1b[0m`);
     setRunning(false);
     setStatus("Worker failed");
@@ -146,19 +198,81 @@ function spawnWorker(): Worker {
 }
 
 worker = spawnWorker();
-const editor = await editorPromise;
+editor = await editorPromise;
 editorReady = true;
 syncButtons();
 
+function sendDiagnose(source: string): void {
+  if (!workerReady || !worker) {
+    queuedDiagnose = source;
+    return;
+  }
+  if (inFlightSeq !== null) {
+    queuedDiagnose = source;
+    return;
+  }
+  diagnoseSeq += 1;
+  inFlightSeq = diagnoseSeq;
+  worker.postMessage({ type: "diagnose", source, seq: diagnoseSeq });
+}
+
+function applyMarkerResult(
+  seq: number,
+  source: string,
+  diagnostics: DiagnosticJson[],
+): void {
+  if (seq !== inFlightSeq) {
+    return;
+  }
+  inFlightSeq = null;
+  const current = editor?.getValue() ?? "";
+  if (editor && source === current) {
+    setCompileMarkers(editor, current, diagnostics);
+  }
+  if (queuedDiagnose !== null) {
+    const next = queuedDiagnose;
+    queuedDiagnose = null;
+    sendDiagnose(next);
+    return;
+  }
+  if (source !== current) {
+    scheduleDiagnose();
+  }
+}
+
+function scheduleDiagnose(): void {
+  if (debounceTimer !== undefined) {
+    clearTimeout(debounceTimer);
+  }
+  debounceTimer = setTimeout(() => {
+    debounceTimer = undefined;
+    sendDiagnose(editor?.getValue() ?? "");
+  }, DIAGNOSE_DEBOUNCE_MS);
+}
+
+if (workerReady && editor) {
+  sendDiagnose(editor.getValue());
+}
+
+editor?.onDidChangeModelContent(() => {
+  scheduleDiagnose();
+});
+
 function run(): void {
   if (!workerReady || !worker) return;
+  runSource = editor?.getValue() ?? "";
   term.reset();
   setRunning(true);
   setStatus("Running…");
-  worker.postMessage({ type: "run", source: editor.getValue() });
+  worker.postMessage({ type: "run", source: runSource });
 }
 
 function cancel(): void {
+  if (debounceTimer !== undefined) {
+    clearTimeout(debounceTimer);
+    debounceTimer = undefined;
+  }
+  queuedDiagnose = null;
   worker?.terminate();
   worker = spawnWorker();
   writeln("");
@@ -177,7 +291,7 @@ eofBtn.addEventListener("click", () => {
 
 exampleSel.addEventListener("change", () => {
   const example = EXAMPLES.find((item) => item.id === exampleSel.value);
-  if (example) editor.setValue(example.source);
+  if (example) editor?.setValue(example.source);
 });
 
 term.onData((data) => {

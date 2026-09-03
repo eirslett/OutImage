@@ -6,6 +6,7 @@ declare module "outimage-browser-interp" {
       on_exit: (code: number) => void,
     );
     start(source: string): void;
+    diagnose(source: string): string;
     stdin_line(line: string): void;
     stdin_eof(): void;
     poll(): string;

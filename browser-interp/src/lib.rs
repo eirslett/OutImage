@@ -118,6 +118,12 @@ impl Session {
         }
     }
 
+    /// Lex / parse / semantic diagnostics for live editor squiggles.
+    /// JSON array of diagnostic objects; does not run the program.
+    pub fn diagnose(&self, source: &str) -> String {
+        outimage::diagnose_json(source)
+    }
+
     /// Run until stdin is needed or the process exits.
     /// Returns `"need-stdin"`, `"exited"`, or `"idle"`.
     pub fn poll(&self) -> String {
@@ -146,8 +152,9 @@ impl Session {
 }
 
 impl Session {
-    fn write_compile_error(&self, _source: &str, error: &CompileError) {
-        let payload = format!("SIMULA_DIAGNOSTIC:{}", error.to_json_bundle());
+    fn write_compile_error(&self, source: &str, error: &CompileError) {
+        let file = SourceFile::anonymous(source);
+        let payload = format!("SIMULA_DIAGNOSTIC:{}", error.to_playground_payload(&file));
         let _ = self
             .on_stderr
             .call1(&JsValue::NULL, &JsValue::from_str(&payload));

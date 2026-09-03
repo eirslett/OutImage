@@ -30,7 +30,8 @@ dap = []
 [dependencies]
 chumsky = "0.13.0"
 clap = { version = "4.6.1", features = ["derive"] }
-ariadne = { version = "0.6", features = ["auto-color"] }
+ariadne = "0.6"
+yansi = "1.0"
 cranelift = { version = "0.133.1", optional = true }
 cranelift-codegen = { version = "0.133.1", optional = true, features = ["x86", "arm64"] }
 cranelift-frontend = { version = "0.133.1", optional = true }
