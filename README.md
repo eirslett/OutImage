@@ -6,7 +6,13 @@ A collection of tools for the [Simula](https://en.wikipedia.org/wiki/Simula) pro
 
 ### Using a prebuilt `sim` binary
 
-No Rust toolchain is required. The Simula C runtime is embedded in the compiler;
+No Rust toolchain is required. Download `sim-<rustc-host-triple>` (and the
+`.vsix`, if you want the editor) from
+[GitHub Releases](https://github.com/eirslett/OutImage/releases).
+Green `main` refreshes a draft named **Unreleased** (tag `next`); cut a
+versioned `vX.Y.Z` with **Actions → Release**.
+
+The Simula C runtime is embedded in the compiler;
 native linking uses the **host** linker (override with `SIM_LINKER`).
 
 | Host | Native AOT | Notes |

@@ -34,7 +34,7 @@ No network access is required at runtime.
 - [ ] README screenshots (diagnostics, hover, outline)
 - [ ] License MIT visible on marketplace
 - [ ] `preview: true` until stable 1.0
-- [ ] Tag release in git; attach `.vsix` artifact from CI (optional)
+- [ ] Cut a GitHub release (**Actions → Release**, or a `v*` tag); attach the `.vsix` from that release
 
 ## Open VSX
 
