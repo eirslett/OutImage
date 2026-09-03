@@ -553,6 +553,11 @@
           "default": true,
           "markdownDescription": "Surface unused local variables as `W-unused` warnings (with Unnecessary tags) when the file is otherwise clean."
         },
+        "simula.enableHeadingTypeInlayHints": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Show inferred types next to untyped formals in class and procedure headings (e.g. `yob: integer`). Transmission modes such as `value` / `name` are included when written in the specification part."
+        },
         "simula.maxDocumentBytes": {
           "type": "number",
           "default": 2097152,

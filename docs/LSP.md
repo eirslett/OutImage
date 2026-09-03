@@ -34,9 +34,9 @@ The server advertises language id **`simula`**. Map `*.sim` buffers to that id i
 | Selection range | Yes |
 | Formatting / range formatting | Yes |
 | Code actions | Yes — explain codes; keyword typo fix; missing `end`/`;`; suggest `external` |
-| Inlay hints | Yes — parameter names at calls |
+| Inlay hints | Yes — parameter names at calls; types on class/procedure headings |
 | On-type formatting | Yes — after `;` / `end` |
-| Configuration | Yes — push + pull (`checkOn`, `debounceMs`, `allowSquareBracketSubscripts`, `allowDoubleDashComments`, `enableMirCheck`, `enableUnusedLints`, `maxDocumentBytes`) |
+| Configuration | Yes — push + pull (`checkOn`, `debounceMs`, `allowSquareBracketSubscripts`, `allowDoubleDashComments`, `enableMirCheck`, `enableUnusedLints`, `enableHeadingTypeInlayHints`, `maxDocumentBytes`) |
 
 Workspace folders are indexed for `.sim` files under registered roots only (path sandbox). Indexing reports `workDoneProgress` and publishes diagnostics for **closed** indexed files only (open buffers keep the live, versioned publish). Cross-file definition / references / external import suggestions use that index. Cross-file rename remains best-effort.
 

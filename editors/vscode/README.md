@@ -75,6 +75,7 @@ Simula stepping. Visual Studio PDB is not emitted yet.
 | `simula.allowDoubleDashComments` | `true` | Passed to LSP (init + live config sync). `--` is a line comment when true. |
 | `simula.checkOn` | `change` | When to diagnose: `open` / `change` / `save` |
 | `simula.debounceMs` | `200` | Debounce for change-triggered analysis |
+| `simula.enableHeadingTypeInlayHints` | `true` | Ghost types next to untyped formals in class/procedure headings |
 
 ## Semantic highlighting
 

@@ -8,6 +8,7 @@ export interface SimSettings {
   debounceMs: number;
   enableMirCheck: boolean;
   enableUnusedLints: boolean;
+  enableHeadingTypeInlayHints: boolean;
   maxDocumentBytes: number;
 }
 
@@ -21,6 +22,7 @@ export function initializationOptions(
     debounceMs: config.debounceMs,
     enableMirCheck: config.enableMirCheck,
     enableUnusedLints: config.enableUnusedLints,
+    enableHeadingTypeInlayHints: config.enableHeadingTypeInlayHints,
     maxDocumentBytes: config.maxDocumentBytes,
   };
 }

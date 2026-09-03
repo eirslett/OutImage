@@ -19,6 +19,7 @@ describe("initializationOptions", () => {
       debounceMs: 200,
       enableMirCheck: false,
       enableUnusedLints: true,
+      enableHeadingTypeInlayHints: true,
       maxDocumentBytes: 2_097_152,
     };
     assert.deepEqual(initializationOptions(config), {
@@ -28,6 +29,7 @@ describe("initializationOptions", () => {
       debounceMs: 200,
       enableMirCheck: false,
       enableUnusedLints: true,
+      enableHeadingTypeInlayHints: true,
       maxDocumentBytes: 2_097_152,
     });
   });

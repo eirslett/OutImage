@@ -35,6 +35,10 @@ export function getSimSettings(
     debounceMs: configuration.get<number>("debounceMs", 200),
     enableMirCheck: configuration.get<boolean>("enableMirCheck", false),
     enableUnusedLints: configuration.get<boolean>("enableUnusedLints", true),
+    enableHeadingTypeInlayHints: configuration.get<boolean>(
+      "enableHeadingTypeInlayHints",
+      true,
+    ),
     maxDocumentBytes: configuration.get<number>("maxDocumentBytes", 2_097_152),
   };
 }

@@ -6,6 +6,7 @@ All notable changes to `editors/vscode` are documented here.
 
 ### Added
 
+- Heading type inlay hints (`simula.enableHeadingTypeInlayHints`, default on)
 - `--` line comments (through end of line), matching the compiler extension
 - `simula.allowDoubleDashComments` (default true) forwarded to LSP and DAP
 - **Compile Current File** command; `sim` tasks resolve through the same launcher

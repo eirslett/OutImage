@@ -41,6 +41,8 @@ pub struct LspConfig {
     pub max_document_bytes: usize,
     /// Emit unused-local warnings (`W-unused`) after a clean semantic pass.
     pub enable_unused_lints: bool,
+    /// Ghost types after untyped formals in class/procedure headings.
+    pub enable_heading_type_inlay_hints: bool,
 }
 
 impl Default for LspConfig {
@@ -53,6 +55,7 @@ impl Default for LspConfig {
             enable_mir_check: false,
             max_document_bytes: DEFAULT_MAX_DOCUMENT_BYTES,
             enable_unused_lints: true,
+            enable_heading_type_inlay_hints: true,
         }
     }
 }
@@ -92,6 +95,12 @@ impl LspConfig {
         if let Some(v) = obj.get("enableUnusedLints").and_then(Value::as_bool) {
             self.enable_unused_lints = v;
         }
+        if let Some(v) = obj
+            .get("enableHeadingTypeInlayHints")
+            .and_then(Value::as_bool)
+        {
+            self.enable_heading_type_inlay_hints = v;
+        }
         if let Some(v) = obj.get("maxDocumentBytes").and_then(Value::as_u64) {
             self.max_document_bytes = (v as usize).clamp(16 * 1024, 32 * 1024 * 1024);
         }
@@ -114,6 +123,7 @@ mod tests {
                 "allowDoubleDashComments": false,
                 "enableMirCheck": true,
                 "enableUnusedLints": false,
+                "enableHeadingTypeInlayHints": false,
                 "maxDocumentBytes": 100_000
             }
         }));
@@ -123,6 +133,7 @@ mod tests {
         assert!(!cfg.allow_double_dash_comments);
         assert!(cfg.enable_mir_check);
         assert!(!cfg.enable_unused_lints);
+        assert!(!cfg.enable_heading_type_inlay_hints);
         assert_eq!(cfg.max_document_bytes, 100_000);
     }
 

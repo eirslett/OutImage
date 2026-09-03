@@ -18,6 +18,7 @@ function settings(overrides: Partial<SimSettings> = {}): SimSettings {
     debounceMs: 200,
     enableMirCheck: false,
     enableUnusedLints: true,
+    enableHeadingTypeInlayHints: true,
     maxDocumentBytes: 2_097_152,
     ...overrides,
   };

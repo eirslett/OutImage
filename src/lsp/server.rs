@@ -604,6 +604,7 @@ impl LanguageServer for Backend {
             )
         };
         self.client.log_message(MessageType::INFO, message).await;
+        let _ = self.client.inlay_hint_refresh().await;
     }
 
     async fn did_close(&self, params: DidCloseTextDocumentParams) {
@@ -1201,8 +1202,22 @@ impl LanguageServer for Backend {
     async fn inlay_hint(&self, params: InlayHintParams) -> LspResult<Option<Vec<InlayHint>>> {
         let uri = &params.text_document.uri;
         let range = params.range;
+        let heading_parameter_types = self
+            .state
+            .read()
+            .await
+            .config
+            .enable_heading_type_inlay_hints;
         self.with_snapshot(uri, |snap, idx, enc| {
-            hints::inlay_hints(snap, idx, Some(range), enc)
+            hints::inlay_hints(
+                snap,
+                idx,
+                Some(range),
+                enc,
+                hints::InlayHintOptions {
+                    heading_parameter_types,
+                },
+            )
         })
         .await
     }
