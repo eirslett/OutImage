@@ -22,6 +22,9 @@
 #include <string.h>
 
 #if defined(_WIN32)
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0601
+#endif
 #define SIMRT_CORO_FIBERS 1
 #include <windows.h>
 #elif defined(__x86_64__) || defined(__aarch64__)
@@ -88,9 +91,12 @@ static void simrt_coro_panic(const char *message) {
     abort();
 }
 
-/* Per-thread current coroutine. Simula quasi-parallelism is single-threaded by
- * definition ("at most one of the components of a system can be operating"),
- * but keeping this thread-local avoids surprises if a host embeds us. */
+/* `current` is thread-local so an embedder with several host threads does not
+ * mix stacks. The all-list and main coroutine are process-wide: Windows fibers
+ * share a thread but `__declspec(thread)` / `__thread` can still name MAIN
+ * while a Process fiber is running, and a TLS all-list is invisible to GC on
+ * the other fiber (simtst96: MAIN's `towns` / `r` were swept, find() rebuilt
+ * an empty town, then `r.cars.first.been` none-deref'd). */
 #if defined(_MSC_VER)
 #define SIMRT_CORO_THREAD_LOCAL __declspec(thread)
 #else
@@ -98,8 +104,27 @@ static void simrt_coro_panic(const char *message) {
 #endif
 
 static SIMRT_CORO_THREAD_LOCAL simrt_coro *simrt_coro_current_ptr;
-static SIMRT_CORO_THREAD_LOCAL simrt_coro *simrt_coro_main_ptr;
-static SIMRT_CORO_THREAD_LOCAL simrt_coro *simrt_coro_all_ptr;
+static simrt_coro *simrt_coro_main_ptr;
+static simrt_coro *simrt_coro_all_ptr;
+
+#if defined(SIMRT_CORO_FIBERS)
+/* MSVC's GetCurrentFiber() is 0x1E00 when the thread is not a fiber. */
+#define SIMRT_CORO_NOT_A_FIBER ((LPVOID)(uintptr_t)0x1E00)
+
+static simrt_coro *simrt_coro_from_os_fiber(void) {
+    LPVOID fiber = GetCurrentFiber();
+    simrt_coro *it;
+    if (fiber == NULL || fiber == SIMRT_CORO_NOT_A_FIBER) {
+        return NULL;
+    }
+    for (it = simrt_coro_all_ptr; it != NULL; it = it->next_all) {
+        if (it->fiber == fiber) {
+            return it;
+        }
+    }
+    return NULL;
+}
+#endif
 
 static void simrt_coro_register(simrt_coro *coro) {
     coro->next_all = simrt_coro_all_ptr;
@@ -337,11 +362,22 @@ static void simrt_coro_adopt_thread(simrt_coro *coro) {
 #elif defined(SIMRT_CORO_FIBERS)
 
 static VOID CALLBACK simrt_coro_fiber_entry(LPVOID param) {
-    simrt_coro_run((simrt_coro *)param);
+    simrt_coro *coro = (simrt_coro *)param;
+    /* Fiber-local TLS would still name MAIN (copied at CreateFiber). */
+    simrt_coro_current_ptr = coro;
+    simrt_coro_run(coro);
 }
 
 static int simrt_coro_stack_init(simrt_coro *coro) {
-    coro->fiber = CreateFiber(simrt_coro_stack_bytes(), simrt_coro_fiber_entry, coro);
+    /* FLOAT_SWITCH keeps XMM/x87 with the fiber. Without it, `hold(dist)` can
+     * resume with another component's floating state (simtst96 on Windows). */
+    coro->fiber = CreateFiberEx(
+        0,
+        simrt_coro_stack_bytes(),
+        FIBER_FLAG_FLOAT_SWITCH,
+        simrt_coro_fiber_entry,
+        coro
+    );
     return coro->fiber != NULL;
 }
 
@@ -359,7 +395,7 @@ static void simrt_coro_switch_impl(simrt_coro *from, simrt_coro *to) {
 
 static void simrt_coro_adopt_thread(simrt_coro *coro) {
     coro->adopted_thread = 1;
-    coro->fiber = ConvertThreadToFiber(NULL);
+    coro->fiber = ConvertThreadToFiberEx(NULL, FIBER_FLAG_FLOAT_SWITCH);
     if (coro->fiber == NULL) {
         /* Already a fiber (embedded host); GetCurrentFiber is then valid. */
         coro->fiber = GetCurrentFiber();
@@ -407,10 +443,32 @@ simrt_coro *simrt_coro_main(void) {
 }
 
 simrt_coro *simrt_coro_current(void) {
+#if defined(SIMRT_CORO_FIBERS)
+    {
+        simrt_coro *by_fiber = simrt_coro_from_os_fiber();
+        if (by_fiber != NULL) {
+            simrt_coro_current_ptr = by_fiber;
+            return by_fiber;
+        }
+    }
+#endif
     if (simrt_coro_current_ptr == NULL) {
         return simrt_coro_main();
     }
     return simrt_coro_current_ptr;
+}
+
+int simrt_coro_is_os_current(const simrt_coro *coro) {
+    if (coro == NULL) {
+        return 0;
+    }
+#if defined(SIMRT_CORO_FIBERS)
+    /* TLS `current_ptr` is per-thread, not per-fiber. After SwitchToFiber the
+     * OS current fiber is the source of truth for which component is running. */
+    return coro->fiber != NULL && GetCurrentFiber() == coro->fiber;
+#else
+    return simrt_coro_current() == coro;
+#endif
 }
 
 simrt_coro *simrt_coro_create(simrt_coro_entry entry, void *arg) {
@@ -455,8 +513,16 @@ void simrt_coro_switch(simrt_coro *from, simrt_coro *to) {
     __sanitizer_finish_switch_fiber(from->asan_fake_stack, NULL, NULL);
 #endif
     /* Back again: whoever switched to us restored `current` for themselves, so
-     * re-establish it for this side. */
+     * re-establish it for this side. Windows identifies the fiber from the OS
+     * in case TLS still names the previous component. */
+#if defined(SIMRT_CORO_FIBERS)
+    {
+        simrt_coro *os = simrt_coro_from_os_fiber();
+        simrt_coro_current_ptr = os != NULL ? os : from;
+    }
+#else
     simrt_coro_current_ptr = from;
+#endif
 }
 
 int simrt_coro_is_done(const simrt_coro *coro) {
@@ -477,11 +543,19 @@ void simrt_coro_destroy(simrt_coro *coro) {
 /* ------------------------------------------------------------------ */
 
 void simrt_coro_gc_visit_parked_root_heads(simrt_coro_root_head_visitor visit, void *user) {
-    simrt_coro *current = simrt_coro_current_ptr;
+    simrt_coro *current;
     simrt_coro *it;
     if (visit == NULL) {
         return;
     }
+#if defined(SIMRT_CORO_FIBERS)
+    current = simrt_coro_from_os_fiber();
+    if (current == NULL) {
+        current = simrt_coro_current_ptr;
+    }
+#else
+    current = simrt_coro_current_ptr;
+#endif
     for (it = simrt_coro_all_ptr; it != NULL; it = it->next_all) {
         if (it == current) {
             continue;

@@ -3790,6 +3790,45 @@ fn enclosing_ref_capture_shared_across_process_coroutine() {
 }
 
 #[test]
+fn enclosing_ref_capture_under_inspect_infile_after_wait() {
+    // simtst96 shape: `inspect InFile do Simulation` plus a Process that
+    // `wait`s, is resumed, then writes an enclosing `ref`. Windows fibers
+    // used to leave MAIN's `h` as none after the transfer.
+    let data = std::env::current_dir()
+        .unwrap()
+        .join("tests/fixtures/dostestbatch_data/data96");
+    assert!(data.is_file(), "missing {}", data.display());
+    let path = data.to_string_lossy().replace('\\', "/");
+    let out = run_native(&format!(
+        r#"begin
+            inspect new infile("{path}") do
+            simulation begin
+                ref(Head) h, q;
+                q :- new Head;
+                process class Worker;
+                begin
+                    wait(q);
+                    h :- new Head;
+                    passivate;
+                end;
+                if not open(blanks(80)) then begin
+                    sysout.outtext("no-open"); sysout.outimage;
+                    goto done;
+                end;
+                activate new Worker;
+                activate q.first;
+                passivate;
+                if h =/= none then sysout.outtext("ok") else sysout.outtext("bad");
+                sysout.outimage;
+                close;
+            done:
+            end;
+        end;"#
+    ));
+    assert_eq!(out, "ok\n", "got {out:?}");
+}
+
+#[test]
 fn enclosing_ref_capture_visible_to_peer_after_assignment() {
     // Two processes share the same enclosing `ref`; a write in one is visible
     // to the other after control returns to the block.
@@ -3816,6 +3855,109 @@ fn enclosing_ref_capture_visible_to_peer_after_assignment() {
                 r :- new Reader;
                 activate w;
                 activate r;
+                OutImage;
+            end;
+        end;"#,
+    );
+    assert_eq!(out, "ok\n", "got {out:?}");
+}
+
+#[test]
+fn current_nextev_sees_scheduled_process_after_hold() {
+    // simtst96: `if current.nextev=/=none then passivate` must drain cars still
+    // in the SQS. `current.nextev` used to lower to none, so the drain never ran.
+    let out = run_native(
+        r#"begin
+            simulation begin
+                process class Worker;
+                begin
+                    hold(10);
+                    passivate;
+                end;
+                activate new Worker;
+                if current.nextev =/= none then OutText("ok") else OutText("bad");
+                OutImage;
+            end;
+        end;"#,
+    );
+    assert_eq!(out, "ok\n", "got {out:?}");
+}
+
+#[test]
+fn main_town_names_survive_gc_while_process_holds() {
+    // simtst96 on Windows: GC while a Process fiber is running skipped MAIN's
+    // parked roots, so `town.find` missed existing names and built a duplicate
+    // with an empty `cars` queue.
+    let out = run_native(
+        r#"begin
+            simulation begin
+                ref (head) towns;
+                link class town(nam_); value nam_; text nam_;
+                begin
+                    ref (town) procedure find(code); text code;
+                    if code = nam_ then find :- this town
+                    else if suc == none then find :- new town(code)
+                    else find :- suc qua town.find(code);
+                    into(towns);
+                end;
+                process class Worker;
+                begin
+                    text t; integer i;
+                    hold(1);
+                    for i := 1 step 1 until 1200 do t :- copy("xxxxxxxxxxxxxxxx");
+                    passivate;
+                end;
+                ref (town) r;
+                towns :- new head;
+                r :- new town("VESTBY");
+                r :- new town("SAND");
+                activate new Worker;
+                hold(2);
+                r :- towns.first qua town.find("VESTBY");
+                if towns.cardinal = 2 and r.nam_ = "VESTBY" then OutText("ok") else OutText("bad");
+                OutImage;
+            end;
+        end;"#,
+    );
+    assert_eq!(out, "ok\n", "got {out:?}");
+}
+
+#[test]
+fn process_ref_field_survives_hold() {
+    // simtst96 Windows: after `hold`, `into(been)` saw none while the car
+    // object's been slot was still a Head — the local was in a register the
+    // fiber C call clobbered.
+    let out = run_native(
+        r#"begin
+            simulation begin
+                process class Worker;
+                begin
+                    ref (head) been;
+                    been :- new head;
+                    hold(1);
+                    if been =/= none then OutText("ok") else OutText("bad");
+                    OutImage;
+                    passivate;
+                end;
+                activate new Worker;
+                hold(2);
+            end;
+        end;"#,
+    );
+    assert_eq!(out, "ok\n", "got {out:?}");
+}
+
+#[test]
+fn main_text_survives_hold() {
+    // simtst96 Windows: MAIN's second InImage name became `TBY` (VESTBY
+    // minus the first three letters) after a passivate/hold drain.
+    let out = run_native(
+        r#"begin
+            simulation begin
+                text t;
+                t :- Copy("VESTBY");
+                hold(1);
+                if t = "VESTBY" then OutText("ok") else OutText("bad");
                 OutImage;
             end;
         end;"#,

@@ -2864,6 +2864,35 @@ fn lowers_parameterless_method_remote_attribute() {
 }
 
 #[test]
+fn inspect_infile_outtext_falls_through_to_sysout() {
+    // simtst96: under `inspect InFile`, free outtext/outimage are SYSOUT, not
+    // the connected infile (InFile has no output procedures).
+    let module = lower(
+        r#"begin
+            inspect new InFile("f") do begin
+               outtext("hi"); outimage;
+            end;
+         end;"#,
+    );
+    let ops = ops(&module);
+    assert!(
+        ops.iter().any(|op| matches!(op, Op::CallOutText { .. }))
+            || ops.iter().any(|op| matches!(op, Op::CallSysOut { .. })),
+        "expected free/sysout outtext path: {ops:?}"
+    );
+    assert!(
+        !ops.iter()
+            .any(|op| matches!(op, Op::CallBasicioOutText { .. })),
+        "outtext must not bind to InFile: {ops:?}"
+    );
+    assert!(
+        !ops.iter()
+            .any(|op| matches!(op, Op::CallBasicioOutImage { .. })),
+        "outimage must not bind to InFile: {ops:?}"
+    );
+}
+
+#[test]
 fn inspect_directfile_outchar_uses_basicio_not_sysout() {
     let module = lower(
         r#"begin

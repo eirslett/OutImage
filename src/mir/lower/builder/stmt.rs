@@ -136,6 +136,7 @@ impl<'a> FunctionBuilder<'a> {
                 // whereby an active phase of X is initiated immediately … the
                 // formerly active process object becomes suspended".
                 self.push(Op::SimTransferToHead, span.clone());
+                self.reload_process_this_after_transfer(span.clone());
             }
             Some(SimulationTiming::Delay(expr)) => {
                 let t = self.lower_hold_dt(expr)?;

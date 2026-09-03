@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -168,6 +167,14 @@ int64_t simrt_sim_is_main_current(void) {
 
 void *simrt_sim_current(void) {
     simrt_sim_ensure_active();
+    /* Windows fibers can leave `g_sim.running` naming MAIN while a Process
+     * body is physically executing. `current` / post-transfer `this` must
+     * follow the OS fiber (simtst96: `into(been)` saw none while the car's
+     * been field was still a Head). */
+    void *object = simrt_seq_current_object();
+    if (object != NULL) {
+        return object;
+    }
     return g_sim.running == NULL ? SIMRT_RT_MAIN : g_sim.running;
 }
 
@@ -206,7 +213,11 @@ double simrt_sim_evtime(void *process) {
     return 0.0;
 }
 
-/* §12.1 nextev: next process in the SQS after `process`, or none if idle/last. */
+/* §12.1 nextev: next process in the SQS after `process`, or none if idle/last.
+ *
+ * MAIN can be operative after a detach-to-main_park even when it has no event
+ * notice (Windows fibers). `current.nextev` in simtst96 then has to see the
+ * rest of the set so remaining cars can drain with `stop` set. */
 void *simrt_sim_nextev(void *process) {
     simrt_sim_ensure_active();
     if (process == NULL) {
@@ -220,7 +231,26 @@ void *simrt_sim_nextev(void *process) {
             return NULL;
         }
     }
+    if (process == SIMRT_RT_MAIN && g_sim.len > 0) {
+        if (g_sim.sqs[0].process == SIMRT_RT_MAIN) {
+            return g_sim.len > 1 ? g_sim.sqs[1].process : NULL;
+        }
+        return g_sim.sqs[0].process;
+    }
     return NULL;
+}
+
+static void *simrt_sim_self(void) {
+    /* Prefer the object whose stack is actually executing. `g_sim.running` is
+     * updated on SQS transfers; a Process body entered through chapter-7
+     * attach (or a fiber switch that did not take that path) can still be
+     * physically running while `running` still names MAIN. hold/passivate
+     * must cancel/reschedule that body, not MAIN (simtst96). */
+    void *object = simrt_seq_current_object();
+    if (object != NULL) {
+        return object;
+    }
+    return g_sim.running == NULL ? SIMRT_RT_MAIN : g_sim.running;
 }
 
 void simrt_sim_hold(double dt) {
@@ -228,7 +258,7 @@ void simrt_sim_hold(double dt) {
     /* 12.3 reschedules *the active process* -- the one executing this hold --
      * which is not always the head of the set: an `activate ... prior` can file
      * a notice ahead of it without taking the PSC away. */
-    void *self = g_sim.running == NULL ? SIMRT_RT_MAIN : g_sim.running;
+    void *self = simrt_sim_self();
     double now = simrt_sim_time();
     double delay = dt < 0.0 ? 0.0 : dt;
     simrt_sim_insert_event(now + delay, self, 0);
@@ -394,7 +424,7 @@ void simrt_sim_terminate_current(void *process) {
 
 void simrt_sim_passivate(void) {
     simrt_sim_ensure_active();
-    void *self = g_sim.running == NULL ? SIMRT_RT_MAIN : g_sim.running;
+    void *self = simrt_sim_self();
     simrt_sim_cancel_unlocked(self);
     simrt_sim_advance_current();
 }

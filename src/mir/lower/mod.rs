@@ -86,7 +86,8 @@ use crate::ast::{
     SimulationTiming, Specifier, Statement, StatementKind, UnaryOp, Variable, WhileStatement,
 };
 use crate::basicio::{
-    self, FreeBasicioTarget, free_basicio_target, is_basicio_class, is_basicio_method,
+    self, FreeBasicioTarget, basicio_class_supports_free_method, free_basicio_target,
+    is_basicio_class, is_basicio_method,
 };
 use crate::concatenate::{
     self, AccessLevel, AttributeKind, accessible_remote_storage_name,

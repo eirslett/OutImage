@@ -45,11 +45,6 @@ STDIN = {
 # simtst00 is a large Simulation program; native compile in debug is slow.
 SLOW_UNITS = {"simtst00"}
 
-# Windows fibers + `inspect InFile do Simulation` + Process enclosing capture
-# (simtst96 `h :- been`): native run aborts with "remote access through none
-# reference". Other Simulation units (00, 85, 87, 95, 97, 98) pass on Windows.
-WINDOWS_SKIP_NATIVE = {"simtst96"}
-
 
 @dataclass
 class UnitResult:
@@ -214,13 +209,6 @@ def run_unit(
     sim: Path,
     timeout: float,
 ) -> UnitResult:
-    if os.name == "nt" and backend == "native" and name in WINDOWS_SKIP_NATIVE:
-        return UnitResult(
-            name,
-            "SKIP",
-            0.0,
-            "windows inspect+process none-deref",
-        )
     sources = unit_sources(name)
     for src in sources:
         if not src.is_file():

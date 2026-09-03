@@ -521,9 +521,17 @@ impl<'a> FunctionBuilder<'a> {
                         return Ok(Place::Local(dest));
                     }
                     if name.eq_ignore_ascii_case("nextev") {
-                        // Parameterless `nextev` procedure (§12.1); MVP stub.
+                        let current = self.temp(MirType::ObjectRef);
+                        self.push(Op::SimCurrent { dest: current }, span.clone());
+                        self.note_object_qual(current, "Process".into());
                         let dest = self.temp(MirType::ObjectRef);
-                        self.push(Op::ConstNone { dest }, span.clone());
+                        self.push(
+                            Op::SimNextev {
+                                dest,
+                                process: current,
+                            },
+                            span.clone(),
+                        );
                         self.note_object_qual(dest, "Process".into());
                         return Ok(Place::Local(dest));
                     }

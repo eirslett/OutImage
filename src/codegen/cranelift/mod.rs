@@ -163,6 +163,15 @@ pub(crate) fn create_isa(
             .enable("preserve_frame_pointers")
             .map_err(|error| CompileError::codegen(format!("invalid Cranelift flag: {error}")))?;
     }
+    // Windows only commits a guard page of stack at a time. simtst96's inspect
+    // + Simulation body is one large frame of GC homes; without probes, a skip
+    // past the guard reads uncommitted memory as zeros (none refs) or faults.
+    flag_builder
+        .enable("enable_probestack")
+        .map_err(|error| CompileError::codegen(format!("invalid Cranelift flag: {error}")))?;
+    flag_builder
+        .set("probestack_strategy", "inline")
+        .map_err(|error| CompileError::codegen(format!("invalid Cranelift flag: {error}")))?;
     if pic
         || matches!(
             target,

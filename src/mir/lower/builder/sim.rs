@@ -176,4 +176,23 @@ impl FunctionBuilder<'_> {
         self.push(Op::Return { value: None }, span);
         Ok(())
     }
+
+    /// After an SQS transfer returns in a Process body, `this` may still hold a
+    /// stale pointer (Windows fiber register / TLS). Reload from SQS `current`,
+    /// which is this process once it is operative again.
+    pub(in crate::mir::lower) fn reload_process_this_after_transfer(&mut self, span: Span) {
+        if self.method_this_is_connection {
+            return;
+        }
+        let Some(this_id) = self.method_this else {
+            return;
+        };
+        let Some(qual) = self.ref_qual.get(&this_id).cloned() else {
+            return;
+        };
+        if !self.class_is_scheduled_process(&qual) {
+            return;
+        }
+        self.push(Op::SimCurrent { dest: this_id }, span);
+    }
 }
