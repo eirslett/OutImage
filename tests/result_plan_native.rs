@@ -154,6 +154,11 @@ fn assert_corpus_success(name: &str) {
 }
 
 #[test]
+fn dostestbatch_simtst96_native_success() {
+    assert_corpus_success("simtst96");
+}
+
+#[test]
 fn dostestbatch_simulation_units_native_success() {
     // Simulation / nested-class units.
     for name in ["simtst85", "simtst87", "simtst95"] {
@@ -165,8 +170,8 @@ fn dostestbatch_simulation_units_native_success() {
 fn dostestbatch_allowlist_native_success() {
     // Curated from TestBatch passes + units fixed by nested-if / bool-array /
     // pow / text-semantics / sysout.image / paren-putchar regressions.
-    // Grow this list as more corpus units go green. simtst68 / 96 /
-    // 97 / 98 are still failing.
+    // Grow this list as more corpus units go green. simtst68 is still off the
+    // native allowlist; simtst96 has its own test above.
     for name in [
         "simtst00", "simtst01", "simtst02", "simtst03", "simtst04", "simtst05", "simtst06",
         "simtst07", "simtst08", "simtst09", "simtst10", "simtst11", "simtst12", "simtst13",

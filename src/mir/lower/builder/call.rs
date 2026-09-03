@@ -25,11 +25,7 @@ impl<'a> FunctionBuilder<'a> {
         if is_basicio_method(call_name) {
             let receivers: Vec<LocalId> = self.method_this_chain().map(|(id, _)| id).collect();
             for receiver in receivers {
-                if self
-                    .ref_qual
-                    .get(&receiver)
-                    .is_some_and(|qual| is_basicio_class(qual))
-                {
+                if self.object_supports_basicio_method(receiver, call_name) {
                     let _ =
                         self.lower_basicio_method(receiver, call_name, &call.arguments, span)?;
                     return Ok(());
@@ -76,6 +72,7 @@ impl<'a> FunctionBuilder<'a> {
                     let dt = self.lower_hold_dt(&call.arguments[0])?;
                     self.push(Op::SimHold { dt }, span.clone());
                     self.push(Op::SimTransferToHead, span.clone());
+                    self.reload_process_this_after_transfer(span);
                     Ok(())
                 } else {
                     Err(scheduling_unsupported_error("hold", span))
@@ -94,6 +91,7 @@ impl<'a> FunctionBuilder<'a> {
                     }
                     self.push(Op::SimPassivate, span.clone());
                     self.push(Op::SimTransferToHead, span.clone());
+                    self.reload_process_this_after_transfer(span);
                     Ok(())
                 } else {
                     Err(scheduling_unsupported_error("passivate", span))
@@ -115,6 +113,7 @@ impl<'a> FunctionBuilder<'a> {
                             span,
                         ));
                     }
+                    self.reload_process_this_after_transfer(span.clone());
                     let head = self.lower_expr(&call.arguments[0])?;
                     if self.local_ty(head) != MirType::ObjectRef {
                         return Err(spanned_error(
@@ -131,6 +130,7 @@ impl<'a> FunctionBuilder<'a> {
                     );
                     self.push(Op::SimPassivate, span.clone());
                     self.push(Op::SimTransferToHead, span.clone());
+                    self.reload_process_this_after_transfer(span);
                     Ok(())
                 } else {
                     Err(scheduling_unsupported_error("wait", span))
@@ -557,7 +557,7 @@ impl<'a> FunctionBuilder<'a> {
                         let receivers: Vec<LocalId> =
                             self.method_this_chain().map(|(id, _)| id).collect();
                         for receiver in receivers {
-                            if self.object_is_basicio(receiver) {
+                            if self.object_supports_basicio_method(receiver, call_name) {
                                 let _ = self.lower_basicio_method(
                                     receiver,
                                     call_name,
@@ -652,7 +652,7 @@ impl<'a> FunctionBuilder<'a> {
                         let receivers: Vec<LocalId> =
                             self.method_this_chain().map(|(id, _)| id).collect();
                         for receiver in receivers {
-                            if self.object_is_basicio(receiver) {
+                            if self.object_supports_basicio_method(receiver, call_name) {
                                 let _ = self.lower_basicio_method(
                                     receiver,
                                     call_name,

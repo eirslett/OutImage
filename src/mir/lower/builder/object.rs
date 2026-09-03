@@ -1661,13 +1661,18 @@ impl<'a> FunctionBuilder<'a> {
         self.find_layout(qual)
     }
 
-    /// True when `object` is known to qualify as a BASICIO file class, so bare
-    /// BASICIO names (`setpos`, `outtext`, …) bind to that receiver rather than
-    /// the free SYSIN/SYSOUT embedding (simtst98: `setpos` inside class `a`).
-    pub(in crate::mir::lower) fn object_is_basicio(&self, object: LocalId) -> bool {
+    /// Whether a connected BASICIO receiver should absorb bare method `method`.
+    /// `inspect InFile do outtext(…)` must fall through to SYSOUT — InFile has
+    /// no output procedures (simtst96 Windows: free `outtext`/`outimage` were
+    /// writing into the infile image / stream).
+    pub(in crate::mir::lower) fn object_supports_basicio_method(
+        &self,
+        object: LocalId,
+        method: &str,
+    ) -> bool {
         self.ref_qual
             .get(&object)
-            .is_some_and(|qual| is_basicio_class(qual))
+            .is_some_and(|qual| basicio_class_supports_free_method(qual, method))
     }
 
     pub(in crate::mir::lower) fn object_is_printfile(&self, object: LocalId) -> bool {
@@ -1816,7 +1821,7 @@ impl<'a> FunctionBuilder<'a> {
         }
         let receivers: Vec<LocalId> = self.method_this_chain().map(|(id, _)| id).collect();
         for receiver in receivers {
-            if self.object_is_basicio(receiver) {
+            if self.object_supports_basicio_method(receiver, name) {
                 return Ok(Some(self.lower_basicio_method(
                     receiver,
                     name,
@@ -1932,12 +1937,7 @@ impl<'a> FunctionBuilder<'a> {
             return Ok(Some(result));
         }
         if let Some(this_id) = self.method_this {
-            if is_basicio_method(&name)
-                && self
-                    .ref_qual
-                    .get(&this_id)
-                    .is_some_and(|qual| is_basicio_class(qual))
-            {
+            if is_basicio_method(&name) && self.object_supports_basicio_method(this_id, &name) {
                 return Ok(Some(self.lower_basicio_method(
                     this_id,
                     &name,
@@ -2978,10 +2978,14 @@ impl<'a> FunctionBuilder<'a> {
                 Ok(Some(dest))
             }
             "nextev" => {
-                // Not yet used by the corpus that exercises idle/evtime; keep the
-                // attribute resolvable so remote chains type-check.
                 let dest = self.temp(MirType::ObjectRef);
-                self.push(Op::ConstNone { dest }, span.clone());
+                self.push(
+                    Op::SimNextev {
+                        dest,
+                        process: object,
+                    },
+                    span,
+                );
                 self.note_object_qual(dest, "Process".into());
                 Ok(Some(dest))
             }

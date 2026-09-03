@@ -3053,23 +3053,92 @@ fn reload_addr_taken_locals(
         if !addr_taken {
             continue;
         }
-        let ty = clif_type(local.ty, pointer_type);
-        let value = if local.ty == MirType::Bool {
-            let wide = builder.ins().stack_load(types::I64, home.slot, home.offset);
-            builder.ins().ireduce(types::I8, wide)
-        } else {
-            builder.ins().stack_load(ty, home.slot, home.offset)
-        };
-        def_local(
+        reload_stack_home(
             builder,
             function,
             vars,
             homes,
-            LocalId(index),
-            value,
+            pointer_type,
             track_debug,
+            LocalId(index),
+            home,
+            local.ty,
         );
     }
+}
+
+/// Fiber/hold C calls can clobber registers Cranelift treats as preserved
+/// (Windows vs SysV RSI/RDI). Spill GC pointers into the root frame first
+/// and reload them after the switch so `this` / `been` / enclosing `t` survive.
+fn spill_gc_ptr_locals(
+    builder: &mut FunctionBuilder<'_>,
+    function: &mir::Function,
+    vars: &[Variable],
+    homes: &[Option<StackHome>],
+    _pointer_type: Type,
+) {
+    for (index, home) in homes.iter().enumerate() {
+        let Some(home) = home else {
+            continue;
+        };
+        let local = function.local(LocalId(index));
+        if !is_gc_ptr_ty(local.ty) {
+            continue;
+        }
+        let value = builder.use_var(vars[index]);
+        builder.ins().stack_store(value, home.slot, home.offset);
+    }
+}
+
+fn reload_gc_ptr_locals(
+    builder: &mut FunctionBuilder<'_>,
+    function: &mir::Function,
+    vars: &[Variable],
+    homes: &[Option<StackHome>],
+    pointer_type: Type,
+    track_debug: bool,
+) {
+    for (index, home) in homes.iter().enumerate() {
+        let Some(home) = home else {
+            continue;
+        };
+        let local = function.local(LocalId(index));
+        if !is_gc_ptr_ty(local.ty) {
+            continue;
+        }
+        reload_stack_home(
+            builder,
+            function,
+            vars,
+            homes,
+            pointer_type,
+            track_debug,
+            LocalId(index),
+            home,
+            local.ty,
+        );
+    }
+}
+
+fn reload_stack_home(
+    builder: &mut FunctionBuilder<'_>,
+    function: &mir::Function,
+    vars: &[Variable],
+    homes: &[Option<StackHome>],
+    pointer_type: Type,
+    track_debug: bool,
+    id: LocalId,
+    home: &StackHome,
+    ty: MirType,
+) {
+    let clif_ty = clif_type(ty, pointer_type);
+    let value = if ty == MirType::Bool {
+        let wide = builder.ins().stack_load(types::I64, home.slot, home.offset);
+        builder.ins().ireduce(types::I8, wide)
+    } else {
+        builder.ins().stack_load(clif_ty, home.slot, home.offset)
+    };
+    def_local(builder, function, vars, homes, id, value, track_debug);
 }
 
 fn debug_value_type(ty: MirType) -> DebugValueType {
@@ -4212,14 +4281,22 @@ fn emit_op(
             builder.ins().call(f, &[]);
         }
         Op::SimHold { dt } => {
+            let pointer_type = module.isa().pointer_type();
+            spill_gc_ptr_locals(builder, function, vars, homes, pointer_type);
             let f = module.declare_func_in_func(runtime.sim_hold, builder.func);
             let dt = builder.use_var(vars[dt.0]);
             builder.ins().call(f, &[dt]);
+            // Reload before `SimTransferToHead` spills again: the C call may
+            // have clobbered registers Cranelift still treats as live.
+            reload_gc_ptr_locals(builder, function, vars, homes, pointer_type, track_debug);
         }
         Op::SimActivateDirect { process } => {
+            let pointer_type = module.isa().pointer_type();
+            spill_gc_ptr_locals(builder, function, vars, homes, pointer_type);
             let f = module.declare_func_in_func(runtime.sim_activate_direct, builder.func);
             let process = builder.use_var(vars[process.0]);
             builder.ins().call(f, &[process]);
+            reload_gc_ptr_locals(builder, function, vars, homes, pointer_type, track_debug);
         }
         Op::SimActivateTimed {
             process,
@@ -4228,6 +4305,8 @@ fn emit_op(
             prior,
             reac,
         } => {
+            let pointer_type = module.isa().pointer_type();
+            spill_gc_ptr_locals(builder, function, vars, homes, pointer_type);
             let f = module.declare_func_in_func(runtime.sim_activate_timed, builder.func);
             let process = builder.use_var(vars[process.0]);
             let t = builder.use_var(vars[t.0]);
@@ -4235,28 +4314,38 @@ fn emit_op(
             let prior = builder.ins().iconst(types::I64, i64::from(*prior));
             let reac = builder.ins().iconst(types::I64, i64::from(*reac));
             builder.ins().call(f, &[process, t, mode, prior, reac]);
+            reload_gc_ptr_locals(builder, function, vars, homes, pointer_type, track_debug);
         }
         Op::SimActivateRelative {
             process,
             other,
             before,
         } => {
+            let pointer_type = module.isa().pointer_type();
+            spill_gc_ptr_locals(builder, function, vars, homes, pointer_type);
             let f = module.declare_func_in_func(runtime.sim_activate_relative, builder.func);
             let process = builder.use_var(vars[process.0]);
             let other = builder.use_var(vars[other.0]);
             let before = builder.ins().iconst(types::I64, i64::from(*before));
             builder.ins().call(f, &[process, other, before]);
+            reload_gc_ptr_locals(builder, function, vars, homes, pointer_type, track_debug);
         }
         Op::SimPassivate => {
+            let pointer_type = module.isa().pointer_type();
+            spill_gc_ptr_locals(builder, function, vars, homes, pointer_type);
             let f = module.declare_func_in_func(runtime.sim_passivate, builder.func);
             builder.ins().call(f, &[]);
+            reload_gc_ptr_locals(builder, function, vars, homes, pointer_type, track_debug);
         }
         Op::SimTransferToHead => {
+            let pointer_type = module.isa().pointer_type();
+            spill_gc_ptr_locals(builder, function, vars, homes, pointer_type);
             let f = module.declare_func_in_func(runtime.sim_transfer_to_head, builder.func);
             builder.ins().call(f, &[]);
             // Another process may have run while this one was parked and written
-            // through a by-reference capture pointing into this frame.
-            let pointer_type = module.isa().pointer_type();
+            // through a by-reference capture pointing into this frame. Fiber C
+            // calls can also clobber GC pointers held only in registers.
+            reload_gc_ptr_locals(builder, function, vars, homes, pointer_type, track_debug);
             reload_addr_taken_locals(builder, function, vars, homes, pointer_type, track_debug);
         }
         Op::SimTerminateCurrent { process } => {
@@ -4440,11 +4529,13 @@ fn emit_op(
                 _ => runtime.seq_terminate,
             };
             let f = module.declare_func_in_func(func_id, builder.func);
+            let pointer_type = module.isa().pointer_type();
+            spill_gc_ptr_locals(builder, function, vars, homes, pointer_type);
             let operand = builder.use_var(vars[operand.0]);
             builder.ins().call(f, &[operand]);
             // While this component is parked, another one may write an enclosing
             // variable through a by-reference capture pointer.
-            let pointer_type = module.isa().pointer_type();
+            reload_gc_ptr_locals(builder, function, vars, homes, pointer_type, track_debug);
             reload_addr_taken_locals(builder, function, vars, homes, pointer_type, track_debug);
         }
         Op::Call { dest, name, args } => {

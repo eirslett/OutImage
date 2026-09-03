@@ -626,7 +626,9 @@ int32_t simrt_basicio_open(void *object, SimrtTextFrame *fileimage) {
         return 1;
     }
     if (file->mode == 0) {
-        file->fp = fopen(file->path, "r");
+        /* Binary so Windows does not eat `\r` before inimage strips it; the
+         * image path still treats the file as a stream of characters. */
+        file->fp = fopen(file->path, "rb");
         if (file->fp == NULL) {
             return 0;
         }
@@ -771,6 +773,11 @@ void simrt_basicio_outtext(void *object, SimrtTextFrame *text) {
     if (!file->open) {
         simrt_error("OutFile.outtext: file is not open");
     }
+    /* InFile has no output procedures; ignore rather than clobber the image
+     * (simtst96 under inspect InFile). */
+    if (file->mode == 0 || file->mode == 2) {
+        return;
+    }
     len = simrt_text_content_length(text);
     ptr = simrt_text_content_ptr(text);
     if (file->image_pos > 1
@@ -855,6 +862,14 @@ void simrt_basicio_outimage(void *object) {
         copy[file->image_len] = '\0';
         file->direct_lines[idx] = copy;
         file->loc += 1;
+        memset(file->image, ' ', file->image_len);
+        file->image_pos = 1;
+        return;
+    }
+    /* InFile / InByteFile: no writer. Match the interpreter — reset the image
+     * only. Writing through a read-only `FILE*` on Windows advances/corrupts
+     * the stream (simtst96: next command became `TBY DAL`). */
+    if (file->mode == 0 || file->mode == 2) {
         memset(file->image, ' ', file->image_len);
         file->image_pos = 1;
         return;

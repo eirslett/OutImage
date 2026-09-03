@@ -106,6 +106,24 @@ impl<'a> FunctionBuilder<'a> {
                         self.note_object_qual(dest, "Process".into());
                         return Ok(dest);
                     }
+                    if name.eq_ignore_ascii_case("nextev") {
+                        if !self.simulation_context {
+                            return Err(scheduling_unsupported_error("nextev", span));
+                        }
+                        let current = self.temp(MirType::ObjectRef);
+                        self.push(Op::SimCurrent { dest: current }, span.clone());
+                        self.note_object_qual(current, "Process".into());
+                        let dest = self.temp(MirType::ObjectRef);
+                        self.push(
+                            Op::SimNextev {
+                                dest,
+                                process: current,
+                            },
+                            span.clone(),
+                        );
+                        self.note_object_qual(dest, "Process".into());
+                        return Ok(dest);
+                    }
                     if let Some(value) = crate::runtime::environment::environment_constant_i64(name)
                     {
                         let dest = self.temp(MirType::I64);
@@ -1316,7 +1334,9 @@ impl<'a> FunctionBuilder<'a> {
                     if is_simset_method(&name) {
                         return self.lower_simset_method(this_id, &name, arguments, span);
                     }
-                    if is_basicio_method(&name) && self.object_is_basicio(this_id) {
+                    if is_basicio_method(&name)
+                        && self.object_supports_basicio_method(this_id, &name)
+                    {
                         return self.lower_basicio_method(this_id, &name, arguments, span);
                     }
                     if let Some(result) =

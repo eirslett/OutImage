@@ -12,6 +12,10 @@ simrt_coro *simrt_coro_main(void);
 /* The coroutine currently executing. */
 simrt_coro *simrt_coro_current(void);
 
+/* True if `coro` is the OS context actually running (Windows fiber identity,
+ * otherwise the same as `simrt_coro_current()`). */
+int simrt_coro_is_os_current(const simrt_coro *coro);
+
 /* A coroutine that will run `entry(arg)` on its own stack. It does not start
  * until the first switch into it, and its stack is released by
  * `simrt_coro_destroy`. */

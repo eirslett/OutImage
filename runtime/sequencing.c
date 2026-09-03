@@ -113,6 +113,24 @@ simrt_component *simrt_seq_component_of(void *object) {
     return NULL;
 }
 
+void *simrt_seq_current_object(void) {
+    simrt_component *component = simrt_seq_component_running_on(simrt_coro_current());
+    if (component != NULL) {
+        return component->object;
+    }
+    /* Windows fibers share TLS: `simrt_coro_current_ptr` can still name MAIN
+     * while a Process body is executing on its fiber. Match the OS context. */
+    for (simrt_component *it = simrt_seq_all; it != NULL; it = it->next_component) {
+        if (it->block_instance) {
+            continue;
+        }
+        if (simrt_coro_is_os_current(it->head) || simrt_coro_is_os_current(it->park)) {
+            return it->object;
+        }
+    }
+    return NULL;
+}
+
 static void simrt_seq_error(const char *message) {
     fprintf(stderr, "sim runtime: %s\n", message);
     fflush(stderr);

@@ -76,4 +76,8 @@ void simrt_seq_terminate_resuming(void *self, void *target);
 simrt_component *simrt_seq_component_of(void *object);
 simrt_state simrt_seq_state(const simrt_component *component);
 
+/* The Simula object whose component head is the current coroutine, or NULL
+ * when the running coroutine is the main/adopted thread (MAIN). */
+void *simrt_seq_current_object(void);
+
 #endif /* SIMRT_SEQUENCING_H */
