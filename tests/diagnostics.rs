@@ -12,6 +12,28 @@ fn render_err(source: &str) -> String {
     rendered
 }
 
+/// Ariadne paints each source character, so coloured reports do not contain
+/// contiguous snippets like `OutText`. Drop CSI sequences before matching.
+fn strip_ansi(s: &str) -> String {
+    let mut out = String::with_capacity(s.len());
+    let mut chars = s.chars().peekable();
+    while let Some(c) = chars.next() {
+        if c == '\u{1b}' {
+            if chars.peek() == Some(&'[') {
+                chars.next();
+                for c in chars.by_ref() {
+                    if ('\x40'..='\x7e').contains(&c) {
+                        break;
+                    }
+                }
+            }
+            continue;
+        }
+        out.push(c);
+    }
+    out
+}
+
 fn assert_report(source: &str, needles: &[&str]) -> String {
     let rendered = render_err(source);
     for needle in needles {
@@ -252,8 +274,9 @@ fn unterminated_string_playground_payload_includes_report() {
         serde_json::from_str(&error.to_playground_payload(&file)).expect("json");
     let report = payload["report"].as_str().expect("report");
     assert!(report.contains("E0002"), "{report}");
+    let plain = strip_ansi(report);
     assert!(
-        report.contains("<input>:2:") && report.contains("OutText"),
+        plain.contains("<input>:2:") && plain.contains("OutText"),
         "expected line/column snippet:\n{report}"
     );
     assert!(
