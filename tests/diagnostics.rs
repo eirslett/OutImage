@@ -269,18 +269,16 @@ fn diagnose_json_collects_type_mismatch_without_running() {
         serde_json::from_str(&outimage::diagnose_json("begin integer x; x := true; end;"))
             .expect("json");
     let items = json.as_array().expect("array");
-    assert!(
-        items.iter().any(|item| item["code"] == "E0201"),
-        "{json}"
-    );
+    assert!(items.iter().any(|item| item["code"] == "E0201"), "{json}");
     assert!(items.iter().any(|item| item["span"]["start"].is_number()));
 }
 
 #[test]
 fn diagnose_json_clean_program_is_empty() {
-    let json: serde_json::Value =
-        serde_json::from_str(&outimage::diagnose_json("begin OutText(\"ok\"); OutImage; end;"))
-            .expect("json");
+    let json: serde_json::Value = serde_json::from_str(&outimage::diagnose_json(
+        "begin OutText(\"ok\"); OutImage; end;",
+    ))
+    .expect("json");
     assert_eq!(json, serde_json::json!([]));
 }
 
