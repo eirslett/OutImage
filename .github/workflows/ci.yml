@@ -169,7 +169,7 @@ jobs:
         run: bash scripts/package_sim.sh
       - uses: actions/upload-artifact@v7
         with:
-          name: sim-${{ runner.os }}
+          name: release-sim-${{ runner.os }}
           path: dist/*
           if-no-files-found: error
 
@@ -189,10 +189,12 @@ jobs:
         run: |
           npm ci
           npm run package
+          mkdir -p "$GITHUB_WORKSPACE/dist"
+          mv vscode-simula-*.vsix "$GITHUB_WORKSPACE/dist/vscode-simula.vsix"
       - uses: actions/upload-artifact@v7
         with:
-          name: vscode-simula-vsix
-          path: editors/vscode/*.vsix
+          name: release-vscode-simula
+          path: dist/vscode-simula.vsix
           if-no-files-found: error
 
   # One draft, tag `next`. Later green main runs replace its assets until a versioned release is cut.
@@ -213,12 +215,9 @@ jobs:
           fetch-tags: true
       - uses: actions/download-artifact@v7
         with:
-          path: artifacts
-      - name: Flatten artifacts
-        run: |
-          mkdir -p dist
-          find artifacts -type f -exec cp {} dist/ \;
-          ls -l dist
+          pattern: release-*
+          merge-multiple: true
+          path: dist
       - name: Create or update next draft
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -253,7 +252,8 @@ jobs:
           else
             gh release create next --draft --title "Unreleased" --target "$GITHUB_SHA" --notes-file notes.md
           fi
-          gh release upload next dist/* --clobber
+          ls -l dist
+          bash scripts/sync_release_assets.sh next
 
   vscode-extension:
     runs-on: ubuntu-latest

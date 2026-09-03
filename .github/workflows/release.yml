@@ -120,7 +120,7 @@ jobs:
         run: bash scripts/package_sim.sh
       - uses: actions/upload-artifact@v7
         with:
-          name: sim-${{ runner.os }}
+          name: release-sim-${{ runner.os }}
           path: dist/*
           if-no-files-found: error
 
@@ -141,10 +141,12 @@ jobs:
         run: |
           npm ci
           npm run package
+          mkdir -p "$GITHUB_WORKSPACE/dist"
+          mv vscode-simula-*.vsix "$GITHUB_WORKSPACE/dist/vscode-simula.vsix"
       - uses: actions/upload-artifact@v7
         with:
-          name: vscode-simula-vsix
-          path: editors/vscode/*.vsix
+          name: release-vscode-simula
+          path: dist/vscode-simula.vsix
           if-no-files-found: error
 
   publish:
@@ -161,12 +163,9 @@ jobs:
           fetch-tags: true
       - uses: actions/download-artifact@v7
         with:
-          path: artifacts
-      - name: Flatten artifacts
-        run: |
-          mkdir -p dist
-          find artifacts -type f -exec cp {} dist/ \;
-          ls -l dist
+          pattern: release-*
+          merge-multiple: true
+          path: dist
       - name: Create release and drop next draft
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -199,7 +198,8 @@ jobs:
             else
               gh release create "$TAG" --title "$TAG" --target "$SHA" --notes-file notes.md
             fi
-            gh release upload "$TAG" dist/* --clobber
+            ls -l dist
+            bash scripts/sync_release_assets.sh "$TAG"
           fi
 
           if gh release view next --json isDraft --jq .isDraft 2>/dev/null | grep -qx true; then

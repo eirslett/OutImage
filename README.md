@@ -6,9 +6,17 @@ A collection of tools for the [Simula](https://en.wikipedia.org/wiki/Simula) pro
 
 ### Using a prebuilt `sim` binary
 
-No Rust toolchain is required. Download `sim-<rustc-host-triple>` (and the
-`.vsix`, if you want the editor) from
-[GitHub Releases](https://github.com/eirslett/OutImage/releases).
+No Rust toolchain is required. Download an archive from
+[GitHub Releases](https://github.com/eirslett/OutImage/releases) and put
+`sim` (`sim.exe` on Windows) on your `PATH`:
+
+| Platform | Asset |
+| --- | --- |
+| macOS (Apple Silicon) | `sim-macos-arm64.tar.gz` |
+| Linux x64 | `sim-linux-x64.tar.gz` |
+| Windows x64 | `sim-windows-x64.zip` |
+| VS Code | `vscode-simula.vsix` |
+
 Green `main` refreshes a draft named **Unreleased** (tag `next`); cut a
 versioned `vX.Y.Z` with **Actions → Release**.
 
