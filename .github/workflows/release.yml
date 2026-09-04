@@ -233,10 +233,6 @@ jobs:
           node-version: "24"
           cache: npm
           cache-dependency-path: editors/vscode/package-lock.json
-      - name: Marketplace identity
-        run: |
-          az rest -u https://app.vssps.visualstudio.com/_apis/profile/profiles/me \
-            --resource 499b84ac-1321-427f-aa17-267ca6975798
       - name: Publish to Visual Studio Marketplace
         working-directory: editors/vscode
         run: |

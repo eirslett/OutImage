@@ -67,16 +67,14 @@ Optional: add required reviewers so a human must approve Marketplace publishes.
 ### 4. Add the identity to the existing publisher `eirslett`
 
 Reuse [eirslett.vscode-simula](https://marketplace.visualstudio.com/items?itemName=eirslett.vscode-simula).
-Do **not** create a new publisher or Azure DevOps organization for this. The
-listing stays on `eirslett`. An ADO org is only needed if you want git/boards
-there; Marketplace membership uses the publisher, not an org.
+Do **not** create a new publisher. Marketplace membership uses the publisher,
+not an Azure DevOps organization.
 
-1. Run **Actions → VS Code Marketplace identity**.
-2. From `connectionData`, copy `authenticatedUser.id` (Team Foundation ID).
-   Client ID / object ID / `profile/me` will not work in Members search.
-3. Open [Publisher management](https://marketplace.visualstudio.com/manage/publishers/eirslett)
-   while signed in as the publisher owner.
-4. **Members → Add**, paste that `id`, role **Contributor**.
+Add the managed identity as **Contributor** under
+[Publisher management → Members](https://marketplace.visualstudio.com/manage/publishers/eirslett).
+Members search wants the Team Foundation ID (`authenticatedUser.id` from
+`https://app.vssps.visualstudio.com/_apis/connectionData` while authenticated
+as the identity), not the Azure client ID or object ID.
 
 If add-by-id fails, the publisher may still be tied to a personal Microsoft
 account. Entra identities need the publisher to live in the **same Entra tenant**
