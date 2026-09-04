@@ -1,8 +1,8 @@
 name: VS Code Marketplace identity
 
-# One-time helper: print the Entra identity's Marketplace user id so you can
-# add it as a Contributor on publisher `eirslett`. Official publishes happen
-# from the Release workflow, not here.
+# One-time helper: print the managed identity's Azure DevOps / Marketplace
+# Team Foundation ID so you can add it as a Contributor on the existing
+# publisher `eirslett`. Official publishes happen from the Release workflow.
 on:
   workflow_dispatch:
 
@@ -23,7 +23,22 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           allow-no-subscriptions: true
-      - name: Marketplace profile
+      - name: Marketplace identity
         run: |
-          az rest -u https://app.vssps.visualstudio.com/_apis/profile/profiles/me \
-            --resource 499b84ac-1321-427f-aa17-267ca6975798
+          set -uo pipefail
+          resource=499b84ac-1321-427f-aa17-267ca6975798
+          token=$(az account get-access-token --resource "$resource" --query accessToken -o tsv)
+
+          echo "==> connectionData (this is the one that works for managed identities)"
+          curl -sS -H "Authorization: Bearer $token" -H 'Accept: application/json' \
+            'https://app.vssps.visualstudio.com/_apis/connectionData' | python3 -m json.tool
+
+          echo
+          echo "==> profile/me (often 404 for a managed identity; ignore if it fails)"
+          curl -sS -H "Authorization: Bearer $token" -H 'Accept: application/json' \
+            'https://app.vssps.visualstudio.com/_apis/profile/profiles/me?api-version=7.1' \
+            | python3 -m json.tool || true
+
+          echo
+          echo "Add authenticatedUser.id from connectionData as a Contributor on publisher eirslett."
+          echo "Keep the existing marketplace listing eirslett.vscode-simula — do not create a new publisher."

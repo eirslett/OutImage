@@ -64,20 +64,23 @@ In the GitHub repo: **Settings → Environments → New environment**
 
 Optional: add required reviewers so a human must approve Marketplace publishes.
 
-### 4. Add the identity to publisher `eirslett`
+### 4. Add the identity to the existing publisher `eirslett`
 
-1. Merge this workflow, then run **Actions → VS Code Marketplace identity**
-   (`workflow_dispatch`).
-2. From the log JSON, copy the `id` field (Marketplace / Azure DevOps profile
-   GUID — not the Azure client ID).
+Reuse [eirslett.vscode-simula](https://marketplace.visualstudio.com/items?itemName=eirslett.vscode-simula).
+Do **not** create a new publisher or Azure DevOps organization for this. The
+listing stays on `eirslett`. An ADO org is only needed if you want git/boards
+there; Marketplace membership uses the publisher, not an org.
+
+1. Run **Actions → VS Code Marketplace identity**.
+2. From `connectionData`, copy `authenticatedUser.id` (Team Foundation ID).
+   Client ID / object ID / `profile/me` will not work in Members search.
 3. Open [Publisher management](https://marketplace.visualstudio.com/manage/publishers/eirslett)
    while signed in as the publisher owner.
 4. **Members → Add**, paste that `id`, role **Contributor**.
 
 If add-by-id fails, the publisher may still be tied to a personal Microsoft
-account. Entra identities need an org-backed publisher; you may have to
-[create/move the publisher](https://marketplace.visualstudio.com/manage) under
-the same Entra tenant as the managed identity.
+account. Entra identities need the publisher to live in the **same Entra tenant**
+as the managed identity.
 
 ### 5. Cut a release
 
